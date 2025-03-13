@@ -11,6 +11,7 @@ buildExpired: false
 
 ignoreErrors: ["error-remote-getjson"]
 
+googleAnalytics: G-5PVYBMYHS6
 
 defaultContentLanguage: en
 languages:
