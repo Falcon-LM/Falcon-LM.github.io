@@ -1,0 +1,85 @@
+.post-contributors {
+    margin: 2rem 0 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  
+  .contributors-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .contributors-section h4 {
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .contributors-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  
+  .contributor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .contributor-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contributor:hover .contributor-image {
+    transform: scale(1.05);
+  }
+  
+
+  .contributor-name {
+    margin: 0.4rem 0 0;
+    font-size: 0.75rem;
+    max-width: 90px;
+    word-wrap: break-word; /* Allow words to break */
+    text-align: center;
+    line-height: 1.2;
+    height: 2.4em; /* Allows for 2 lines approximately */
+    opacity: 0.85;
+  }
+  
+  /* Optional: make core contributors stand out slightly */
+  .contributors-section:first-child .contributor-image {
+    width: 86px;
+    height: 86px;
+    border: 2px solid var(--border);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 500px) {
+    .contributors-grid {
+      gap: 1rem;
+    }
+    
+    .contributor-image {
+      width: 56px;
+      height: 56px;
+    }
+    
+    .contributors-section:first-child .contributor-image {
+      width: 60px;
+      height: 60px;
+    }
+    
+    .contributor-name {
+      font-size: 0.7rem;
+      max-width: 75px;
+    }
+  }

@@ -1,0 +1,63 @@
+{{ if .Params.contributors }}
+<div class="post-contributors">
+  {{ if reflect.IsMap .Params.contributors }}
+    <!-- New format with core/additional structure -->
+    {{ if .Params.contributors.core }}
+    <div class="contributors-section">
+      {{ if .Params.contributors.additional }}
+      <h4>Core Contributors</h4>
+      {{ else }}
+      <h4>Contributors</h4>
+      {{ end }}
+      <div class="contributors-grid">
+        {{ range .Params.contributors.core }}
+        <div class="contributor">
+          {{ if .image }}
+          <img src="{{ .image | absURL }}" alt="{{ .name }}" class="contributor-image">
+          {{ else }}
+          <img src="{{ "img/contributors/default.png" | absURL }}" alt="{{ .name }}" class="contributor-image">
+          {{ end }}
+          <p class="contributor-name">{{ .name }}</p>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+    
+    {{ if .Params.contributors.additional }}
+    <div class="contributors-section">
+      <h4>Additional Contributors</h4>
+      <div class="contributors-grid">
+        {{ range .Params.contributors.additional }}
+        <div class="contributor">
+          {{ if .image }}
+          <img src="{{ .image | absURL }}" alt="{{ .name }}" class="contributor-image">
+          {{ else }}
+          <img src="{{ "img/contributors/default.png" | absURL }}" alt="{{ .name }}" class="contributor-image">
+          {{ end }}
+          <p class="contributor-name">{{ .name }}</p>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  {{ else }}
+    <!-- Old format (array of contributors) -->
+    <div class="contributors-section">
+      <h4>Contributors</h4>
+      <div class="contributors-grid">
+        {{ range .Params.contributors }}
+        <div class="contributor">
+          {{ if .image }}
+          <img src="{{ .image | absURL }}" alt="{{ .name }}" class="contributor-image">
+          {{ else }}
+          <img src="{{ "img/contributors/default.png" | absURL }}" alt="{{ .name }}" class="contributor-image">
+          {{ end }}
+          <p class="contributor-name">{{ .name }}</p>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  {{ end }}
+</div>
+{{ end }}
