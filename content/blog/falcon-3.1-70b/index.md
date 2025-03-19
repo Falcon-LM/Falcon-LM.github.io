@@ -70,6 +70,474 @@ etc
 ### Instruct models
 etc
 
+
+## all the graphs
+### General Inst
+
+{{< barplot_vertical id="general-inst" highlight="Falcon3.1-74B-Instruct" ymin="0" ymax="1" ylabel="Performance %" >}}
+[
+    { "category": "General", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "General", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "General", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+
+    { "category": "Math", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Math", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Math", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+
+    { "category": "Reasoning", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Reasoning", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Reasoning", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+
+    { "category": "Commonsense Understanding", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Commonsense Understanding", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Commonsense Understanding", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+
+    { "category": "Code", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Code", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Code", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+
+    { "category": "Instructions following", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Instructions following", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Instructions following", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+
+    { "category": "Tool use", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Tool use", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Tool use", "model": "Llama-3.3-70B-Instruct", "value": 1 }
+]
+{{< /barplot_vertical >}}
+
+
+<details>
+<summary> More details </summary>
+<table border="1" style="width: 100%; text-align: center; border-collapse: collapse;">
+    <colgroup>
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 7%;">
+        <col style="width: 7%;">
+        <col style="background-color: rgba(176, 136, 255, 0.5); width: 7%;">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Benchmark</th>
+            <th>Qwen2.5-72B-Instruct</th>
+            <th>Llama-3.3-70B-Instruct</th>
+            <th>Falcon3.1-74B-Instruct</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="4">General</td>
+            <td>MMLU (5-shot)</td>
+            <td><b>84.4</b></td>
+            <td>82.0</td>
+            <td>81.7</td>
+        </tr>
+        <tr>
+            <td>MMLU-PRO (5-shot)</td>
+            <td>56.1</td>
+            <td>53.3</td>
+            <td><b>56.6</b></td>
+        </tr>
+        <tr>
+            <td>IFEval</td>
+            <td>86.4</td>
+            <td><b>90.0</b></td>
+            <td>83.3</td>
+        </tr>
+        <tr>
+            <td>AGIeval</td>
+            <td>58.9</td>
+            <td>50.0</td>
+            <td><b>60.2</b></td>
+        </tr>
+        <tr>
+            <td rowspan="4">Math</td>
+            <td>GSM8K (5-shot, flexible-extract)</td>
+            <td>80.7</td>
+            <td><b>93.4</b></td>
+            <td>86.3</td>
+        </tr>
+        <tr>
+            <td>GSM8K (8-shot, COT, flexible-extract)</td>
+            <td>78.7</td>
+            <td><b>94.0</b></td>
+            <td>82.9</td>
+        </tr>
+        <tr>
+            <td>MATH Lvl-5 (4-shot)</td>
+            <td><b>59.8</b></td>
+            <td>48.3</td>
+            <td>52.0</td>
+        </tr>
+        <tr>
+            <td>MATH500</td>
+            <td><b>80.0</b></td>
+            <td>70.6</td>
+            <td>78.4</td>
+        </tr>
+        <tr>
+            <td rowspan="5">Reasoning</td>
+            <td>Arc Challenge (25-shot)</td>
+            <td>71.2</td>
+            <td><b>74.5</b></td>
+            <td>72.0</td>
+        </tr>
+        <tr>
+            <td>GPQA (0-shot)</td>
+            <td>36.8</td>
+            <td>32.0</td>
+            <td><b>39.7</b></td>
+        </tr>
+        <tr>
+            <td>MUSR (0-shot)</td>
+            <td>42.2</td>
+            <td>44.5</td>
+            <td><b>52.8</b></td>
+        </tr>
+        <tr>
+            <td>BBH (3-shot)</td>
+            <td><b>72.6</b></td>
+            <td>69.2</td>
+            <td>71.9</td>
+        </tr>
+        <tr>
+            <td>BBH (3-shot, COT)</td>
+            <td>35.3</td>
+            <td>61.8</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td rowspan="5">CommonSense Understanding</td>
+            <td>PIQA (0-shot)</td>
+            <td>75.6</td>
+            <td>80.1</td>
+            <td><b>83.2</b></td>
+        </tr>
+        <tr>
+            <td>SciQ (0-shot)</td>
+            <td>64.0</td>
+            <td>91.4</td>
+            <td><b>93.1</b></td>
+        </tr>
+        <tr>
+            <td>Hellaswag (0-shot)</td>
+            <td>68.8</td>
+            <td>70.2</td>
+            <td><b>81.1</b></td>
+        </tr>
+        <tr>
+            <td>LogiQA (0-shot)</td>
+            <td>39.2</td>
+            <td>39.9</td>
+            <td><b>40.6</b></td>
+        </tr>
+        <tr>
+            <td>OpenbookQA (0-shot)</td>
+            <td>44.2</td>
+            <td>46.8</td>
+            <td><b>50.6</b></td>
+        </tr>
+        <tr>
+            <td rowspan="2">Code</td>
+            <td>EvalPlus (0-shot)</td>
+            <td><b>83.9</b></td>
+            <td>81.3</td>
+            <td>81.2</td>
+        </tr>
+        <tr>
+            <td>Multipl-E (0-shot)</td>
+            <td>42.3</td>
+            <td>60.0</td>
+            <td><b>63.0</b></td>
+        </tr>      
+        <tr>
+            <td rowspan="2">Instructions following</td>
+            <td>MT-Bench</td>
+            <td><b>9.1</b></td>
+            <td>9.0</td>
+            <td>8.8</td>
+        </tr>
+        <tr>
+            <td>Alpaca (WC)</td>
+            <td><b>51.0</b></td>
+            <td>38.3</td>
+            <td>49.1</td>
+        </tr>
+        <tr>
+            <td>Tool use</td>
+            <td>BFCL AST</td>
+            <td><b>90.7<b></td>
+            <td>85.0</td>
+            <td>85.5</td>
+        </tr>
+    </tbody>
+</table>
+</details>
+
+### MMLU Pro Inst
+{{< barplot_horizental id="mmlu-pro-inst" highlight="Falcon3.1-74B-Instruct" ymin="0" ymax="1" ylabel="Performance %" height="800">}}
+[
+    { "category": "Average", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Average", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Average", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+
+    { "category": "Biology", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Biology", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Biology", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    
+    { "category": "Business", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Business", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Business", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    
+    { "category": "Chemistry", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Chemistry", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Chemistry", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    
+    { "category": "Computer Science", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Computer Science", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Computer Science", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    
+    { "category": "Ecomonics", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Ecomonics", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Ecomonics", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    
+    { "category": "Engineering", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Engineering", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Engineering", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    
+    { "category": "Health", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Health", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Health", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    
+    { "category": "Histroy", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Histroy", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Histroy", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    
+    { "category": "Law", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Law", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Law", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    
+    { "category": "Math", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Math", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Math", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    
+    { "category": "Philosophy", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Philosophy", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Philosophy", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    
+    { "category": "Physiscs", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Physiscs", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Physiscs", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    
+    { "category": "Psychology", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Psychology", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Psychology", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    
+    { "category": "Other", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Other", "model": "Qwen2.5-72B-Instruct", "value": 1 },
+    { "category": "Other", "model": "Llama-3.3-70B-Instruct", "value": 1 }
+]
+{{< /barplot_horizental >}}
+
+### GPQA Inst
+{{< barplot_vertical id="gpqa-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.2" ymax="0.45" ylabel="Performance %">}}
+[
+    { "category": "GPQA", "model": "Falcon3.1-74B-Instruct", "value": 0.396812080536913 },
+    { "category": "GPQA", "model": "Qwen2.5-72B-Instruct", "value": 0.368474697 },
+    { "category": "GPQA", "model": "Llama-3.3-70B-Instruct", "value": 0.319960711 },
+    
+    { "category": "GPQA Diamond", "model": "Falcon3.1-74B-Instruct", "value": 0.434343434 },
+    { "category": "GPQA Diamond", "model": "Qwen2.5-72B-Instruct", "value": 0.353535354 },
+    { "category": "GPQA Diamond", "model": "Llama-3.3-70B-Instruct", "value": 0.292929293 },
+    
+    { "category": "GPQA Extended", "model": "Falcon3.1-74B-Instruct", "value": 0.391941392 },
+    { "category": "GPQA Extended", "model": "Qwen2.5-72B-Instruct", "value": 0.379120879 },
+    { "category": "GPQA Extended", "model": "Llama-3.3-70B-Instruct", "value": 0.338827839 },
+
+
+    { "category": "GPQA Main", "model": "Falcon3.1-74B-Instruct", "value": 0.386160714 },
+    { "category": "GPQA Main", "model": "Qwen2.5-72B-Instruct", "value": 0.372767857 },
+    { "category": "GPQA Main", "model": "Llama-3.3-70B-Instruct", "value": 0.328125 }
+]
+{{< /barplot_vertical >}}
+
+### Code inst
+goes here
+
+### Multilingual inst
+goes here
+
+### Long context helmet inst
+{{< barplot_vertical id="helmet-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.3" ymax="0.6" ylabel="Performance %">}}
+[
+    { "category": "32K", "model": "Falcon3.1-74B-Instruct", "value": 0.611 },
+    { "category": "32K", "model": "Qwen2.5-72B-Instruct", "value": 0.623 },
+    { "category": "32K", "model": "Llama-3.3-70B-Instruct", "value": 0.623 },
+    
+    { "category": "64K", "model": "Falcon3.1-74B-Instruct", "value": 0.572 },
+    { "category": "64K", "model": "Qwen2.5-72B-Instruct", "value": 0.528 },
+    { "category": "64K", "model": "Llama-3.3-70B-Instruct", "value": 0.605 },
+    
+    { "category": "128K", "model": "Falcon3.1-74B-Instruct", "value": 0.53 },
+    { "category": "128K", "model": "Qwen2.5-72B-Instruct", "value": 0.387 },
+    { "category": "128K", "model": "Llama-3.3-70B-Instruct", "value": 0.495 }
+]
+{{< /barplot_vertical >}}
+
+### General Base
+{{< barplot_vertical id="general-base" highlight="Falcon3.1-74B-Base" ymin="0" ymax="1" ylabel="Performance %">}}
+[
+    { "category": "General", "model": "Falcon3.1-74B-Base", "value": 1 },
+    { "category": "General", "model": "Qwen2.5-72B", "value": 1 },
+    { "category": "General", "model": "Llama-3.1-70B", "value": 1 },
+
+    { "category": "Math", "model": "Falcon3.1-74B-Base", "value": 1 },
+    { "category": "Math", "model": "Qwen2.5-72B", "value": 1 },
+    { "category": "Math", "model": "Llama-3.1-70B", "value": 1 },
+
+    { "category": "Reasoning", "model": "Falcon3.1-74B-Base", "value": 1 },
+    { "category": "Reasoning", "model": "Qwen2.5-72B", "value": 1 },
+    { "category": "Reasoning", "model": "Llama-3.1-70B", "value": 1 },
+
+    { "category": "Commonsense Understanding", "model": "Falcon3.1-74B-Base", "value": 1 },
+    { "category": "Commonsense Understanding", "model": "Qwen2.5-72B", "value": 1 },
+    { "category": "Commonsense Understanding", "model": "Llama-3.1-70B", "value": 1 },
+
+    { "category": "Code", "model": "Falcon3.1-74B-Base", "value": 1 },
+    { "category": "Code", "model": "Qwen2.5-72B", "value": 1 },
+    { "category": "Code", "model": "Llama-3.1-70B", "value": 1 },
+
+    { "category": "Instructions following", "model": "Falcon3.1-74B-Base", "value": 1 },
+    { "category": "Instructions following", "model": "Qwen2.5-72B", "value": 1 },
+    { "category": "Instructions following", "model": "Llama-3.1-70B", "value": 1 },
+
+    { "category": "Tool use", "model": "Falcon3.1-74B-Base", "value": 1 },
+    { "category": "Tool use", "model": "Qwen2.5-72B", "value": 1 },
+    { "category": "Tool use", "model": "Llama-3.1-70B", "value": 1 }
+]
+{{< /barplot_vertical >}}
+
+<details>
+<summary> More details </summary>
+<table border="1" style="width: 100%; text-align: center; border-collapse: collapse;">
+    <colgroup>
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 7%;">
+        <col style="width: 7%;">
+        <col style="background-color: rgba(80, 15, 213, 0.5); width: 7%;">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Benchmark</th>
+            <th>Qwen2.5-72B</th>
+            <th>Llama-3.1-70B</th>
+            <th>Falcon3.1-74B-Base</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="3">General</td>
+            <td>MMLU (5-shot)</td>
+            <td>86.0</td>
+            <td>78.7</td>
+            <td>83.0</td>
+        </tr>
+        <tr>
+            <td>MMLU-PRO (5-shot)</td>
+            <td>59.8</td>
+            <td>46.6</td>
+            <td>56.3</td>
+        </tr>
+        <tr>
+            <td>IFEval</td>
+            <td>41.4</td>
+            <td>16.8</td>
+            <td>38.6</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Math</td>
+            <td>GSM8K (5-shot, flexible-extract)</td>
+            <td>89.6</td>
+            <td>80.1</td>
+            <td>86.3</td>
+        </tr>
+        <tr>
+            <td>MATH Lvl-5 (4-shot)</td>
+            <td>38.7</td>
+            <td>18.4</td>
+            <td>33.4</td>
+        </tr>
+        <tr>
+            <td rowspan="4">Reasoning</td>
+            <td>Arc Challenge (25-shot)</td>
+            <td>72.4</td>
+            <td>70.0</td>
+            <td>72.0</td>
+        </tr>
+        <tr>
+            <td>GPQA (0-shot)</td>
+            <td>41.0</td>
+            <td>38.8</td>
+            <td>40.0</td>
+        </tr>
+        <tr>
+            <td>MUSR (0-shot)</td>
+            <td>48.0</td>
+            <td>45.6</td>
+            <td>49.0</td>
+        </tr>
+        <tr>
+            <td>BBH (3-shot)</td>
+            <td>68.0</td>
+            <td>62.7</td>
+            <td>67.9</td>
+        </tr>
+        <tr>
+            <td rowspan="4">CommonSense Understanding</td>
+            <td>PIQA (0-shot)</td>
+            <td>83.7</td>
+            <td>84.3</td>
+            <td>84.5</td>
+        </tr>
+        <tr>
+            <td>SciQ (0-shot)</td>
+            <td>95.1</td>
+            <td>94.8</td>
+            <td>94.5</td>
+        </tr>
+        <tr>
+            <td>Winogrande (0-shot)</td>
+            <td>77.4</td>
+            <td>79.1</td>
+            <td>78.6</td>
+        </tr>
+        <tr>
+            <td>LogiQA (0-shot)</td>
+            <td>44.7</td>
+            <td>37.2</td>
+            <td>43.9</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Code</td>
+            <td>EvalPlus (0-shot)</td>
+            <td>65.7</td>
+            <td>63.7</td>
+            <td>64.8</td>
+        </tr>
+        <tr>
+            <td>Multipl-E (0-shot)</td>
+            <td>46.9</td>
+            <td>39.4</td>
+            <td>55.4</td>
+        </tr>
+    </tbody>
+</table>
+</details>
+
 ## Open Source Commitment
 In line with our mission to foster AI accessibility and collaboration, Falcon3.1-74B is released under the [**Falcon LLM license**](https://falconllm.tii.ae/falcon-terms-and-conditions.html). We hope the AI community finds these models valuable for research, application development, and further experimentation. Falcon3.1-74B is not a culmination but a continuation of our efforts to create more capable, efficient, specialized foundation models. We welcome feedback and collaboration from the community as we continue to refine and advance these technologies.
 

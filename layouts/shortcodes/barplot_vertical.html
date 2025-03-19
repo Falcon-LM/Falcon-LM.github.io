@@ -1,0 +1,240 @@
+<!-- layouts/shortcodes/barplot.html -->
+<div id="chart-{{ .Get "id" }}"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+(function() {
+  // Get the data safely
+  let data;
+  try {
+    data = JSON.parse(`{{ .Inner }}`);
+  } catch (e) {
+    console.error("Error parsing chart data:", e);
+    data = [];
+  }
+  // Automatically infer model names and categories from data
+  const modelOrder = {{ .Get "models" | default "[]" | safeJS }};
+  const models = modelOrder.length > 0 ? 
+                     modelOrder : 
+                     Array.from(new Set(data.map(d => d.model)));
+  
+  // Parse the categories passed from markdown or infer from data
+  const categoryOrder = {{ .Get "categories" | default "[]" | safeJS }};
+  const categories = categoryOrder.length > 0 ? 
+                     categoryOrder : 
+                     Array.from(new Set(data.map(d => d.category)));
+  
+  // Get highlight model (the one to make purple) or default to first model
+  const highlightModel = "{{ .Get "highlight" }}";
+  const modelToHighlight = highlightModel || models[0];
+  
+  // Set up dimensions and margins
+  const margin = {top: 40, right: 30, bottom: 30, left: 60};
+  const width = {{ .Get "width" | default 800 }} - margin.left - margin.right;
+  const height = {{ .Get "height" | default 430 }} - margin.top - margin.bottom;
+
+  // Create SVG
+  const svg = d3.select("#chart-{{ .Get "id" }}")
+    .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  // Create tooltip div if it doesn't exist
+  if (!document.getElementById("tooltip-{{ .Get "id" }}")) {
+    d3.select("body")
+      .append("div")
+      .attr("id", "tooltip-{{ .Get "id" }}")
+      .attr("class", "tooltip")
+      .style("position", "absolute")
+      .style("padding", "10px")
+      .style("background", "#f9f9f9")
+      .style("border", "1px solid #ddd")
+      .style("border-radius", "5px")
+      .style("pointer-events", "none")
+      .style("opacity", "0")
+      .style("transition", "opacity 0.3s")
+      .style("font-family", "inherit")
+      .style("font-size", "14px")
+      .style("box-shadow", "0 2px 5px rgba(0,0,0,0.1)");
+  }
+  const tooltip = d3.select("#tooltip-{{ .Get "id" }}");
+
+  // X axis - categories
+  const x0 = d3.scaleBand()
+    .domain(categories)
+    .range([0, width])
+    .padding(0.3);
+    
+  svg.append("g")
+    .attr("transform", `translate(0,${height})`)
+    .call(d3.axisBottom(x0).tickSizeOuter(0))
+    .selectAll("text")
+        .style("font-weight", "bold")
+        .style("font-family", "inherit")
+        //.style("text-anchor", "end")
+        //.attr("dx", "-.8em")
+        //.attr("dy", ".15em")
+        //.attr("transform", "rotate(-30)"); // Rotate text by 30 degrees
+
+  // Grouped X scale for models within categories
+  const x1 = d3.scaleBand()
+    .domain(models)
+    .range([0, x0.bandwidth()])
+    .padding(0.05);
+
+  // Calculate Y axis domain if not specified
+  let ymin = {{ if .Get "ymin" }}{{ .Get "ymin" }}{{ else }}null{{ end }};
+  let ymax = {{ if .Get "ymax" }}{{ .Get "ymax" }}{{ else }}null{{ end }};
+  
+  if (ymin === null || ymax === null) {
+    const values = data.map(d => d.value);
+    const buffer = (Math.max(...values) - Math.min(...values)) * 0.1;
+    ymin = ymin === null ? Math.max(0, Math.min(...values) - buffer) : ymin;
+    ymax = ymax === null ? Math.max(...values) + buffer : ymax;
+  }
+  
+  const y = d3.scaleLinear()
+    .domain([ymin, ymax])
+    .range([height, 0]);
+  
+  svg.append("g")
+    .call(d3.axisLeft(y).tickFormat(d3.format(".0%")))
+    .selectAll("text")
+      .style("font-family", "inherit");
+
+  // Create color palette with highlight model in purple
+  const colorScale = d => {
+    // Generate grey shades for non-highlighted models
+    if (d.model === modelToHighlight) {
+      return "#b987ff"; // Purple for highlighted model
+    } else {
+      // Create different shades of grey based on model index
+      const modelIndex = models.indexOf(d.model);
+      const totalModels = models.length;
+      // Start with lighter grey and get progressively darker
+      const brightness = 128 - (modelIndex * (0 - 80) / (totalModels - 1 || 1));
+      return `rgb(${brightness}, ${brightness + 8}, ${brightness + 16})`;
+    }
+  };
+  
+  // Helper function for hover colors (lighter versions)
+  const getHoverColor = (model) => {
+    if (model === modelToHighlight) {
+      return "#b088ff"; // Lighter purple for highlighted model
+    } else {
+      // Create lighter version of whatever grey we assigned
+      const modelIndex = models.indexOf(model);
+      const totalModels = models.length;
+      const brightness = 128 - (modelIndex * (0 - 80) / (totalModels - 1 || 1));
+      const lighterBrightness = Math.min(brightness + 30, 230);
+      return `rgb(${lighterBrightness}, ${lighterBrightness + 8}, ${lighterBrightness + 16})`;
+    }
+  };
+
+  // Create and populate the bars
+  categories.forEach(category => {
+    const categoryData = data.filter(d => d.category === category);
+    
+    // Create a group for each category to handle hover events
+    const categoryGroup = svg.append("g")
+      .attr("class", `category-group-${category}`);
+    
+    // Add bars to the category group
+    categoryGroup.selectAll(`.bar-${category}`)
+      .data(categoryData)
+      .enter()
+      .append("rect")
+        .attr("class", "bar")
+        .attr("x", d => x0(category) + x1(d.model))
+        .attr("y", d => y(d.value))
+        .attr("width", x1.bandwidth())
+        .attr("height", d => height - y(d.value))
+        .attr("fill", d => colorScale(d))
+        .attr("data-model", d => d.model)
+        .style("transition", "opacity 0.3s");
+    
+    // Add hover events to the category group
+    categoryGroup
+      .on("mouseover", function(event) {
+        // Change all bars in this category
+        d3.select(this).selectAll("rect")
+          .attr("stroke", "#333")
+          .attr("stroke-width", 2)
+          .attr("fill", function() {
+            const model = d3.select(this).attr("data-model");
+            return getHoverColor(model);
+          });
+        
+        // Generate tooltip content for all models in this category
+        const tooltipContent = `<strong style="font-size: 16px;">${category}</strong><br/><span style="font-size: 12px;">` +
+          categoryData.map(d => `${d.model}: ${(d.value * 100).toFixed(2)}%`).join("<br/>") + "</span>";
+        
+        // Show tooltip
+        tooltip
+          .style("opacity", 1)
+          .html(tooltipContent)
+          .style("left", (event.pageX + 15) + "px")
+          .style("top", (event.pageY - 28) + "px");
+      })
+      .on("mouseout", function() {
+        // Reset colors
+        d3.select(this).selectAll("rect")
+          .attr("stroke", "none")
+          .attr("fill", function() {
+            const model = d3.select(this).attr("data-model");
+            return colorScale({model: model});
+          });
+        
+        // Hide tooltip
+        tooltip.style("opacity", 0);
+      });
+  });
+
+  // Add Y axis label if specified
+  {{ if .Get "ylabel" }}
+  svg.append("text")
+    .attr("text-anchor", "middle")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -margin.left + 15)
+    .attr("x", -height / 2)
+    .text({{ .Get "ylabel" }})
+    .style("font-family", "inherit");
+  {{ end }}
+
+  // Add legend if enabled
+  {{ if not (eq (.Get "legend" | default "true") "false") }}
+  const legendDiv = d3.select("#chart-{{ .Get "id" }}")
+    .append("div")
+    .style("display", "flex")
+    .style("justify-content", "center")
+    .style("font-size", "14px")
+    .style("margin-top", "-10px");
+  
+  // First display highlighted model, then the rest
+  const sortedModels = [...models].sort((a, b) => {
+    if (a === modelToHighlight) return -1;
+    if (b === modelToHighlight) return 1;
+    return models.indexOf(a) - models.indexOf(b);
+  });
+  
+  sortedModels.forEach(model => {
+    const color = colorScale({model: model});
+    
+    const legendItem = legendDiv.append("div")
+      .style("display", "flex")
+      .style("align-items", "center")
+      .style("margin", "0 10px");
+    
+    legendItem.append("div")
+      .style("width", "20px")
+      .style("height", "20px")
+      .style("margin-right", "5px")
+      .style("background-color", color);
+    
+    legendItem.append("div")
+      .text(model);
+  });
+  {{ end }}
+})();
+</script>
