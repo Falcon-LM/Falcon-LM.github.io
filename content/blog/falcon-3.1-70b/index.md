@@ -368,6 +368,16 @@ goes here
 
 ### Multilingual inst
 goes here
+<details>
+<summary> Languages task scope </summary>
+The languages included, by task, are the following:
+<ul>
+<li>M-MMLU: Chinese, Dutch, French, German, Hindi, Italian, Portuguese, Romanian, Russian, Spanish, Swedish.</li>
+<li>MGSM: Chinese, French, German, Japanese, Russian, Spanish.</li>
+<li>M-HellaSwag: Dutch, French, German, Hindi, Italian, Portuguese, Romanian, Russian, Spanish, Swedish.</li>
+<li>M-ArcChallenge: Chinese, Dutch, French, German, Hindi, Italian, Portuguese, Romanian, Russian, Spanish, Swedish.</li>
+</ul>
+</details>
 
 ### Long context helmet inst
 {{< barplot_vertical id="helmet-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.3" ymax="0.6" ylabel="Performance %">}}
