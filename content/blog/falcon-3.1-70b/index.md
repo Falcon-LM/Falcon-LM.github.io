@@ -74,42 +74,42 @@ etc
 ## all the graphs
 ### General Inst
 
-{{< barplot_vertical id="general-inst" highlight="Falcon3.1-74B-Instruct" ymin="0" ymax="1" ylabel="Performance %" >}}
+{{< barplot_vertical id="general-inst" highlight="Falcon3.1-74B-Instruct" ymin="0" ymax="0.94" ylabel="Performance %" >}}
 [
-    { "category": "General", "model": "Falcon3.1-74B-Instruct", "value": 1 },
-    { "category": "General", "model": "Qwen2.5-72B-Instruct", "value": 1 },
-    { "category": "General", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    { "category": "General", "model": "Falcon3.1-74B-Instruct", "value": 0.7045 },
+    { "category": "General", "model": "Qwen2.5-72B-Instruct", "value": 0.7145 },
+    { "category": "General", "model": "Llama-3.3-70B-Instruct", "value": 0.68825 },
 
-    { "category": "Math", "model": "Falcon3.1-74B-Instruct", "value": 1 },
-    { "category": "Math", "model": "Qwen2.5-72B-Instruct", "value": 1 },
-    { "category": "Math", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    { "category": "Math", "model": "Falcon3.1-74B-Instruct", "value": 0.749 },
+    { "category": "Math", "model": "Qwen2.5-72B-Instruct", "value": 0.748 },
+    { "category": "Math", "model": "Llama-3.3-70B-Instruct", "value": 0.76575 },
 
     { "category": "Reasoning", "model": "Falcon3.1-74B-Instruct", "value": 1 },
-    { "category": "Reasoning", "model": "Qwen2.5-72B-Instruct", "value": 1 },
-    { "category": "Reasoning", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    { "category": "Reasoning", "model": "Qwen2.5-72B-Instruct", "value": 0.5162 },
+    { "category": "Reasoning", "model": "Llama-3.3-70B-Instruct", "value": 0.564 },
 
-    { "category": "Commonsense Understanding", "model": "Falcon3.1-74B-Instruct", "value": 1 },
-    { "category": "Commonsense Understanding", "model": "Qwen2.5-72B-Instruct", "value": 1 },
-    { "category": "Commonsense Understanding", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    { "category": "Commonsense Understanding", "model": "Falcon3.1-74B-Instruct", "value": 0.6972 },
+    { "category": "Commonsense Understanding", "model": "Qwen2.5-72B-Instruct", "value": 0.5836 },
+    { "category": "Commonsense Understanding", "model": "Llama-3.3-70B-Instruct", "value": 0.6568 },
 
-    { "category": "Code", "model": "Falcon3.1-74B-Instruct", "value": 1 },
-    { "category": "Code", "model": "Qwen2.5-72B-Instruct", "value": 1 },
-    { "category": "Code", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    { "category": "Code", "model": "Falcon3.1-74B-Instruct", "value": 0.721 },
+    { "category": "Code", "model": "Qwen2.5-72B-Instruct", "value": 0.631 },
+    { "category": "Code", "model": "Llama-3.3-70B-Instruct", "value": 0.7065 },
 
-    { "category": "Instructions following", "model": "Falcon3.1-74B-Instruct", "value": 1 },
-    { "category": "Instructions following", "model": "Qwen2.5-72B-Instruct", "value": 1 },
-    { "category": "Instructions following", "model": "Llama-3.3-70B-Instruct", "value": 1 },
+    { "category": "Instructions following", "model": "Falcon3.1-74B-Instruct", "value": 0.6855 },
+    { "category": "Instructions following", "model": "Qwen2.5-72B-Instruct", "value": 0.71 },
+    { "category": "Instructions following", "model": "Llama-3.3-70B-Instruct", "value": 0.6415 },
 
-    { "category": "Tool use", "model": "Falcon3.1-74B-Instruct", "value": 1 },
-    { "category": "Tool use", "model": "Qwen2.5-72B-Instruct", "value": 1 },
-    { "category": "Tool use", "model": "Llama-3.3-70B-Instruct", "value": 1 }
+    { "category": "Tool use", "model": "Falcon3.1-74B-Instruct", "value": 0.855 },
+    { "category": "Tool use", "model": "Qwen2.5-72B-Instruct", "value": 0.907 },
+    { "category": "Tool use", "model": "Llama-3.3-70B-Instruct", "value": 0.85 }
 ]
 {{< /barplot_vertical >}}
 
 
 <details>
 <summary> More details </summary>
-<table border="1" style="width: 100%; text-align: center; border-collapse: collapse;">
+<table border="1" style="width: 100%; text-align: center; border-collapse: collapse; font-size: 11px">
     <colgroup>
         <col style="width: 10%;">
         <col style="width: 10%;">
@@ -268,7 +268,7 @@ etc
         <tr>
             <td>Tool use</td>
             <td>BFCL AST</td>
-            <td><b>90.7<b></td>
+            <td><b>90.7</b></td>
             <td>85.0</td>
             <td>85.5</td>
         </tr>
@@ -363,9 +363,6 @@ etc
 ]
 {{< /barplot_vertical >}}
 
-### Code inst
-goes here
-
 ### Multilingual inst
 goes here
 <details>
@@ -397,41 +394,33 @@ The languages included, by task, are the following:
 {{< /barplot_vertical >}}
 
 ### General Base
-{{< barplot_vertical id="general-base" highlight="Falcon3.1-74B-Base" ymin="0" ymax="1" ylabel="Performance %">}}
+{{< barplot_vertical id="general-base" highlight="Falcon3.1-74B-Base" ymin="0" ymax="0.8" ylabel="Performance %">}}
 [
-    { "category": "General", "model": "Falcon3.1-74B-Base", "value": 1 },
-    { "category": "General", "model": "Qwen2.5-72B", "value": 1 },
-    { "category": "General", "model": "Llama-3.1-70B", "value": 1 },
+    { "category": "General", "model": "Falcon3.1-74B-Base", "value": 0.593 },
+    { "category": "General", "model": "Qwen2.5-72B", "value": 0.624 },
+    { "category": "General", "model": "Llama-3.1-70B", "value": 0.4736 },
 
-    { "category": "Math", "model": "Falcon3.1-74B-Base", "value": 1 },
-    { "category": "Math", "model": "Qwen2.5-72B", "value": 1 },
-    { "category": "Math", "model": "Llama-3.1-70B", "value": 1 },
+    { "category": "Math", "model": "Falcon3.1-74B-Base", "value": 0.5985 },
+    { "category": "Math", "model": "Qwen2.5-72B", "value": 0.6415 },
+    { "category": "Math", "model": "Llama-3.1-70B", "value": 0.4925 },
 
-    { "category": "Reasoning", "model": "Falcon3.1-74B-Base", "value": 1 },
-    { "category": "Reasoning", "model": "Qwen2.5-72B", "value": 1 },
-    { "category": "Reasoning", "model": "Llama-3.1-70B", "value": 1 },
+    { "category": "Reasoning", "model": "Falcon3.1-74B-Base", "value": 0.57225 },
+    { "category": "Reasoning", "model": "Qwen2.5-72B", "value": 0.5735 },
+    { "category": "Reasoning", "model": "Llama-3.1-70B", "value": 0.54275 },
 
-    { "category": "Commonsense Understanding", "model": "Falcon3.1-74B-Base", "value": 1 },
-    { "category": "Commonsense Understanding", "model": "Qwen2.5-72B", "value": 1 },
-    { "category": "Commonsense Understanding", "model": "Llama-3.1-70B", "value": 1 },
+    { "category": "Commonsense Understanding", "model": "Falcon3.1-74B-Base", "value": 0.75375 },
+    { "category": "Commonsense Understanding", "model": "Qwen2.5-72B", "value": 0.75225 },
+    { "category": "Commonsense Understanding", "model": "Llama-3.1-70B", "value": 0.7385 },
 
-    { "category": "Code", "model": "Falcon3.1-74B-Base", "value": 1 },
-    { "category": "Code", "model": "Qwen2.5-72B", "value": 1 },
-    { "category": "Code", "model": "Llama-3.1-70B", "value": 1 },
-
-    { "category": "Instructions following", "model": "Falcon3.1-74B-Base", "value": 1 },
-    { "category": "Instructions following", "model": "Qwen2.5-72B", "value": 1 },
-    { "category": "Instructions following", "model": "Llama-3.1-70B", "value": 1 },
-
-    { "category": "Tool use", "model": "Falcon3.1-74B-Base", "value": 1 },
-    { "category": "Tool use", "model": "Qwen2.5-72B", "value": 1 },
-    { "category": "Tool use", "model": "Llama-3.1-70B", "value": 1 }
+    { "category": "Code", "model": "Falcon3.1-74B-Base", "value": 0.601 },
+    { "category": "Code", "model": "Qwen2.5-72B", "value": 0.563 },
+    { "category": "Code", "model": "Llama-3.1-70B", "value": 0.5155 }
 ]
 {{< /barplot_vertical >}}
 
 <details>
 <summary> More details </summary>
-<table border="1" style="width: 100%; text-align: center; border-collapse: collapse;">
+<table border="1" style="width: 100%; text-align: center; border-collapse: collapse; font-size: 11px">
     <colgroup>
         <col style="width: 10%;">
         <col style="width: 10%;">
