@@ -28,7 +28,7 @@
   const modelToHighlight = highlightModel || models[0];
   
   // Set up dimensions and margins
-  const margin = {top: 40, right: 30, bottom: 30, left: 60};
+  const margin = {top: 40, right: 30, bottom: 40, left: 60};
   const width = {{ .Get "width" | default 800 }} - margin.left - margin.right;
   const height = {{ .Get "height" | default 430 }} - margin.top - margin.bottom;
 
@@ -66,16 +66,31 @@
     .range([0, width])
     .padding(0.3);
     
+
   svg.append("g")
     .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(x0).tickSizeOuter(0))
-    .selectAll("text")
+    .call(d3.axisBottom(x0).tickSize(0))
+    .selectAll(".tick")
+    .each(function(d) {
+      // Remove the default text
+      d3.select(this).select("text").remove();
+      
+      // Create a foreignObject to embed HTML
+      const fo = d3.select(this).append("foreignObject")
+        .attr("x", -50) // Center around the tick
+        .attr("y", 0)   // Position below the axis line
+        .attr("width", 100) // Width available for text
+        .attr("height", 50); // Height available (adjust if needed)
+      
+      // Add HTML content with text wrapping and center alignment
+      fo.append("xhtml:div")
         .style("font-weight", "bold")
         .style("font-family", "inherit")
-        //.style("text-anchor", "end")
-        //.attr("dx", "-.8em")
-        //.attr("dy", ".15em")
-        //.attr("transform", "rotate(-30)"); // Rotate text by 30 degrees
+        .style("word-wrap", "break-word")
+        .style("text-align", "center") // Center align for bottom axis
+        .style("width", "100%")
+        .text(d);
+    });
 
   // Grouped X scale for models within categories
   const x1 = d3.scaleBand()
