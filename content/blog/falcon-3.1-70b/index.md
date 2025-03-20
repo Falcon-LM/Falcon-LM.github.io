@@ -106,174 +106,48 @@ etc
 ]
 {{< /barplot_vertical >}}
 
-
 <details>
 <summary> More details </summary>
-<table border="1" style="width: 100%; text-align: center; border-collapse: collapse; font-size: 11px">
-    <colgroup>
-        <col style="width: 10%;">
-        <col style="width: 10%;">
-        <col style="width: 7%;">
-        <col style="width: 7%;">
-        <col style="background-color: rgba(176, 136, 255, 0.5); width: 7%;">
-    </colgroup>
-    <thead>
-        <tr>
-            <th>Category</th>
-            <th>Benchmark</th>
-            <th>Qwen2.5-72B-Instruct</th>
-            <th>Llama-3.3-70B-Instruct</th>
-            <th>Falcon3.1-74B-Instruct</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td rowspan="4">General</td>
-            <td>MMLU (5-shot)</td>
-            <td><b>84.4</b></td>
-            <td>82.0</td>
-            <td>81.7</td>
-        </tr>
-        <tr>
-            <td>MMLU-PRO (5-shot)</td>
-            <td>56.1</td>
-            <td>53.3</td>
-            <td><b>56.6</b></td>
-        </tr>
-        <tr>
-            <td>IFEval</td>
-            <td>86.4</td>
-            <td><b>90.0</b></td>
-            <td>83.3</td>
-        </tr>
-        <tr>
-            <td>AGIeval</td>
-            <td>58.9</td>
-            <td>50.0</td>
-            <td><b>60.2</b></td>
-        </tr>
-        <tr>
-            <td rowspan="4">Math</td>
-            <td>GSM8K (5-shot, flexible-extract)</td>
-            <td>80.7</td>
-            <td><b>93.4</b></td>
-            <td>86.3</td>
-        </tr>
-        <tr>
-            <td>GSM8K (8-shot, COT, flexible-extract)</td>
-            <td>78.7</td>
-            <td><b>94.0</b></td>
-            <td>82.9</td>
-        </tr>
-        <tr>
-            <td>MATH Lvl-5 (4-shot)</td>
-            <td><b>59.8</b></td>
-            <td>48.3</td>
-            <td>52.0</td>
-        </tr>
-        <tr>
-            <td>MATH500</td>
-            <td><b>80.0</b></td>
-            <td>70.6</td>
-            <td>78.4</td>
-        </tr>
-        <tr>
-            <td rowspan="5">Reasoning</td>
-            <td>Arc Challenge (25-shot)</td>
-            <td>71.2</td>
-            <td><b>74.5</b></td>
-            <td>72.0</td>
-        </tr>
-        <tr>
-            <td>GPQA (0-shot)</td>
-            <td>36.8</td>
-            <td>32.0</td>
-            <td><b>39.7</b></td>
-        </tr>
-        <tr>
-            <td>MUSR (0-shot)</td>
-            <td>42.2</td>
-            <td>44.5</td>
-            <td><b>52.8</b></td>
-        </tr>
-        <tr>
-            <td>BBH (3-shot)</td>
-            <td><b>72.6</b></td>
-            <td>69.2</td>
-            <td>71.9</td>
-        </tr>
-        <tr>
-            <td>BBH (3-shot, COT)</td>
-            <td>35.3</td>
-            <td>61.8</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td rowspan="5">CommonSense Understanding</td>
-            <td>PIQA (0-shot)</td>
-            <td>75.6</td>
-            <td>80.1</td>
-            <td><b>83.2</b></td>
-        </tr>
-        <tr>
-            <td>SciQ (0-shot)</td>
-            <td>64.0</td>
-            <td>91.4</td>
-            <td><b>93.1</b></td>
-        </tr>
-        <tr>
-            <td>Hellaswag (0-shot)</td>
-            <td>68.8</td>
-            <td>70.2</td>
-            <td><b>81.1</b></td>
-        </tr>
-        <tr>
-            <td>LogiQA (0-shot)</td>
-            <td>39.2</td>
-            <td>39.9</td>
-            <td><b>40.6</b></td>
-        </tr>
-        <tr>
-            <td>OpenbookQA (0-shot)</td>
-            <td>44.2</td>
-            <td>46.8</td>
-            <td><b>50.6</b></td>
-        </tr>
-        <tr>
-            <td rowspan="2">Code</td>
-            <td>EvalPlus (0-shot)</td>
-            <td><b>83.9</b></td>
-            <td>81.3</td>
-            <td>81.2</td>
-        </tr>
-        <tr>
-            <td>Multipl-E (0-shot)</td>
-            <td>42.3</td>
-            <td>60.0</td>
-            <td><b>63.0</b></td>
-        </tr>      
-        <tr>
-            <td rowspan="2">Instructions following</td>
-            <td>MT-Bench</td>
-            <td><b>9.1</b></td>
-            <td>9.0</td>
-            <td>8.8</td>
-        </tr>
-        <tr>
-            <td>Alpaca (WC)</td>
-            <td><b>51.0</b></td>
-            <td>38.3</td>
-            <td>49.1</td>
-        </tr>
-        <tr>
-            <td>Tool use</td>
-            <td>BFCL AST</td>
-            <td><b>90.7</b></td>
-            <td>85.0</td>
-            <td>85.5</td>
-        </tr>
-    </tbody>
-</table>
+{{< table 
+    headers="Category, Benchmark, Qwen2.5-72B-Instruct, Llama-3.3-70B-Instruct, Falcon3.1-74B-Instruct" 
+    bench_list="Category, Benchmark" 
+    bench_values="Qwen2.5-72B-Instruct, Llama-3.3-70B-Instruct, Falcon3.1-74B-Instruct" 
+    highlight_col="4" 
+    hide_bench_list_headers="true"
+    bold_values="true"
+    compact="true"
+>}}
+----
+rowspan=4:General | MMLU (5-shot) | 84.4 | 82.0 | 81.7
+SKIP | MMLU-PRO (5-shot) | 56.1 | 53.3 | 56.6
+SKIP | IFEval | 86.4 | 90.0 | 83.3
+SKIP | AGIeval | 58.9 | 50.0 | 60.2
+----
+rowspan=4:Math | GSM8K (5-shot, flexible-extract) | 80.7 | 93.4 | 86.3
+SKIP | GSM8K (8-shot, COT, flexible-extract) | 78.7 | 94.0 | 82.9
+SKIP | MATH Lvl-5 (4-shot) | 59.8 | 48.3 | 52.0
+SKIP | MATH500 | 80.0 | 70.6 | 78.4
+----
+rowspan=5:Reasoning | Arc Challenge (25-shot) | 71.2 | 74.5 | 72.0
+SKIP | GPQA (0-shot) | 36.8 | 32.0 | 39.7
+SKIP | MUSR (0-shot) | 42.2 | 44.5 | 52.8
+SKIP | BBH (3-shot) | 72.6 | 69.2 | 71.9
+SKIP | BBH (3-shot, COT) | 35.3 | 61.8 | 0
+----
+rowspan=5:Commonsense Understanding | PIQA (0-shot) | 75.6 | 80.1 | 83.2
+SKIP | SciQ (0-shot) | 64.0 | 91.4 | 93.1
+SKIP | Hellaswag (0-shot) | 68.8 | 70.2 | 81.1
+SKIP | LogiQA (0-shot) | 39.2 | 39.9 | 40.6
+SKIP | OpenbookQA (0-shot) | 44.2 | 46.8 | 50.6
+----
+rowspan=2:Code | EvalPlus (0-shot) | 83.9 | 81.3 | 81.2
+SKIP | Multipl-E (0-shot) | 42.3 | 60.0 | 63.0
+----
+rowspan=2:Instructions following | MT-Bench | 9.1 | 9.0 | 8.8
+SKIP | Alpaca (WC) | 51.0 | 38.3 | 49.1
+----
+Tool use | BFCL AST | 90.7 | 85.0 | 85.5
+{{< /table >}}
 </details>
 
 ### MMLU Pro Inst
@@ -366,62 +240,70 @@ etc
 ### Multilingual inst
 
 {{< barplot_horizental id="multilingual-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.5" ymax="0.8" ylabel="Performance %" height="800">}}
-[
-    { "category": "French", "model": "Falcon3.1-74B-Instruct", "value": 0.7583 },
-    { "category": "French", "model": "Qwen2.5-72B-Instruct", "value": 0.6862 },
-    { "category": "French", "model": "Llama-3.3-70B-Instruct", "value": 0.7460 },
-
-    { "category": "German", "model": "Falcon3.1-74B-Instruct", "value": 0.7375 },
-    { "category": "German", "model": "Qwen2.5-72B-Instruct", "value": 0.6866 },
-    { "category": "German", "model": "Llama-3.3-70B-Instruct", "value": 0.7404 },
-    
+[    
     { "category": "Spanish", "model": "Falcon3.1-74B-Instruct", "value": 0.7860 },
     { "category": "Spanish", "model": "Qwen2.5-72B-Instruct", "value": 0.7374 },
     { "category": "Spanish", "model": "Llama-3.3-70B-Instruct", "value": 0.7703 },
+    
+    { "category": "French", "model": "Falcon3.1-74B-Instruct", "value": 0.7583 },
+    { "category": "French", "model": "Qwen2.5-72B-Instruct", "value": 0.6862 },
+    { "category": "French", "model": "Llama-3.3-70B-Instruct", "value": 0.7460 },
+        
+    { "category": "Chinese", "model": "Falcon3.1-74B-Instruct", "value": 0.720566667 },
+    { "category": "Chinese", "model": "Qwen2.5-72B-Instruct", "value": 0.762693112 },
+    { "category": "Chinese", "model": "Llama-3.3-70B-Instruct", "value": 0.761756903 },
     
     { "category": "Russian", "model": "Falcon3.1-74B-Instruct", "value": 0.7136 },
     { "category": "Russian", "model": "Qwen2.5-72B-Instruct", "value": 0.6522 },
     { "category": "Russian", "model": "Llama-3.3-70B-Instruct", "value": 0.7322 },
 
-    { "category": "Dutch", "model": "Falcon3.1-74B-Instruct", "value": 0.711333333 },
-    { "category": "Dutch", "model": "Qwen2.5-72B-Instruct", "value": 0.683930923 },
-    { "category": "Dutch", "model": "Llama-3.3-70B-Instruct", "value": 0.710151728 },
+    { "category": "German", "model": "Falcon3.1-74B-Instruct", "value": 0.7375 },
+    { "category": "German", "model": "Qwen2.5-72B-Instruct", "value": 0.6866 },
+    { "category": "German", "model": "Llama-3.3-70B-Instruct", "value": 0.7404 },
     
+    { "category": "Portuguese", "model": "Falcon3.1-74B-Instruct", "value": 0.7405 },
+    { "category": "Portuguese", "model": "Qwen2.5-72B-Instruct", "value": 0.719609738 },
+    { "category": "Portuguese", "model": "Llama-3.3-70B-Instruct", "value": 0.725370625 },
+
     { "category": "Italian", "model": "Falcon3.1-74B-Instruct", "value": 0.7259 },
     { "category": "Italian", "model": "Qwen2.5-72B-Instruct", "value": 0.71156585 },
     { "category": "Italian", "model": "Llama-3.3-70B-Instruct", "value": 0.714113129 },
 
-    { "category": "Portuguese", "model": "Falcon3.1-74B-Instruct", "value": 0.7405 },
-    { "category": "Portuguese", "model": "Qwen2.5-72B-Instruct", "value": 0.719609738 },
-    { "category": "Portuguese", "model": "Llama-3.3-70B-Instruct", "value": 0.725370625 },
+    { "category": "Dutch", "model": "Falcon3.1-74B-Instruct", "value": 0.711333333 },
+    { "category": "Dutch", "model": "Qwen2.5-72B-Instruct", "value": 0.683930923 },
+    { "category": "Dutch", "model": "Llama-3.3-70B-Instruct", "value": 0.710151728 },
     
+    { "category": "Hindi", "model": "Falcon3.1-74B-Instruct", "value": 0.5572 },
+    { "category": "Hindi", "model": "Qwen2.5-72B-Instruct", "value": 0.548344409 },
+    { "category": "Hindi", "model": "Llama-3.3-70B-Instruct", "value": 0.551432242 },
+
     { "category": "Romanian", "model": "Falcon3.1-74B-Instruct", "value": 0.708733333 },
     { "category": "Romanian", "model": "Qwen2.5-72B-Instruct", "value": 0.657285591 },
     { "category": "Romanian", "model": "Llama-3.3-70B-Instruct", "value": 0.687024979 },
     
     { "category": "Swedish", "model": "Falcon3.1-74B-Instruct", "value": 0.712066667 },
     { "category": "Swedish", "model": "Qwen2.5-72B-Instruct", "value": 0.666347314 },
-    { "category": "Swedish", "model": "Llama-3.3-70B-Instruct", "value": 0.696495478 },
-        
-    { "category": "Chinese", "model": "Falcon3.1-74B-Instruct", "value": 0.720566667 },
-    { "category": "Chinese", "model": "Qwen2.5-72B-Instruct", "value": 0.762693112 },
-    { "category": "Chinese", "model": "Llama-3.3-70B-Instruct", "value": 0.761756903 },
-    
-    { "category": "Hindi", "model": "Falcon3.1-74B-Instruct", "value": 0.5572 },
-    { "category": "Hindi", "model": "Qwen2.5-72B-Instruct", "value": 0.548344409 },
-    { "category": "Hindi", "model": "Llama-3.3-70B-Instruct", "value": 0.551432242 }
+    { "category": "Swedish", "model": "Llama-3.3-70B-Instruct", "value": 0.696495478 }
 ]
 {{< /barplot_horizental >}}
 
 <details>
 <summary> Languages task scope </summary>
-The languages included, by task, are the following:
-<ul>
-<li>M-MMLU: Chinese, Dutch, French, German, Hindi, Italian, Portuguese, Romanian, Russian, Spanish, Swedish.</li>
-<li>MGSM: Chinese, French, German, Russian, Spanish.</li>
-<li>M-HellaSwag: Dutch, French, German, Hindi, Italian, Portuguese, Romanian, Russian, Spanish, Swedish.</li>
-<li>M-ArcChallenge: Chinese, Dutch, French, German, Hindi, Italian, Portuguese, Romanian, Russian, Spanish, Swedish.</li>
-</ul>
+
+| Language   | M-MMLU | M-ArcChallenge | M-HellaSwag | MGSM |
+|------------|:------:|:--------------:|:-----------:|:----:|
+| Spanish    |   ✅    |       ✅        |      ✅      |  ✅   |
+| French     |   ✅    |       ✅        |      ✅      |  ✅   |
+| Chinese    |   ✅    |       ✅        |      ❌      |  ✅   |
+| Russian    |   ✅    |       ✅        |      ✅      |  ✅   |
+| German     |   ✅    |       ✅        |      ✅      |  ✅   |
+| Portuguese |   ✅    |       ✅        |      ✅      |  ❌   |
+| Italian    |   ✅    |       ✅        |      ✅      |  ❌   |
+| Dutch      |   ✅    |       ✅        |      ✅      |  ❌   |
+| Hindi      |   ✅    |       ✅        |      ✅      |  ❌   |
+| Romanian   |   ✅    |       ✅        |      ✅      |  ❌   |
+| Swedish    |   ✅    |       ✅        |      ✅      |  ❌   |
+
 </details>
 
 ### Long context helmet inst
@@ -468,121 +350,36 @@ The languages included, by task, are the following:
 
 <details>
 <summary> More details </summary>
-<table border="1" style="width: 100%; text-align: center; border-collapse: collapse; font-size: 11px">
-    <colgroup>
-        <col style="width: 10%;">
-        <col style="width: 10%;">
-        <col style="width: 7%;">
-        <col style="width: 7%;">
-        <col style="background-color: rgba(80, 15, 213, 0.5); width: 7%;">
-    </colgroup>
-    <thead>
-        <tr>
-            <th>Category</th>
-            <th>Benchmark</th>
-            <th>Qwen2.5-72B</th>
-            <th>Llama-3.1-70B</th>
-            <th>Falcon3.1-74B-Base</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td rowspan="3">General</td>
-            <td>MMLU (5-shot)</td>
-            <td>86.0</td>
-            <td>78.7</td>
-            <td>83.0</td>
-        </tr>
-        <tr>
-            <td>MMLU-PRO (5-shot)</td>
-            <td>59.8</td>
-            <td>46.6</td>
-            <td>56.3</td>
-        </tr>
-        <tr>
-            <td>IFEval</td>
-            <td>41.4</td>
-            <td>16.8</td>
-            <td>38.6</td>
-        </tr>
-        <tr>
-            <td rowspan="2">Math</td>
-            <td>GSM8K (5-shot, flexible-extract)</td>
-            <td>89.6</td>
-            <td>80.1</td>
-            <td>86.3</td>
-        </tr>
-        <tr>
-            <td>MATH Lvl-5 (4-shot)</td>
-            <td>38.7</td>
-            <td>18.4</td>
-            <td>33.4</td>
-        </tr>
-        <tr>
-            <td rowspan="4">Reasoning</td>
-            <td>Arc Challenge (25-shot)</td>
-            <td>72.4</td>
-            <td>70.0</td>
-            <td>72.0</td>
-        </tr>
-        <tr>
-            <td>GPQA (0-shot)</td>
-            <td>41.0</td>
-            <td>38.8</td>
-            <td>40.0</td>
-        </tr>
-        <tr>
-            <td>MUSR (0-shot)</td>
-            <td>48.0</td>
-            <td>45.6</td>
-            <td>49.0</td>
-        </tr>
-        <tr>
-            <td>BBH (3-shot)</td>
-            <td>68.0</td>
-            <td>62.7</td>
-            <td>67.9</td>
-        </tr>
-        <tr>
-            <td rowspan="4">CommonSense Understanding</td>
-            <td>PIQA (0-shot)</td>
-            <td>83.7</td>
-            <td>84.3</td>
-            <td>84.5</td>
-        </tr>
-        <tr>
-            <td>SciQ (0-shot)</td>
-            <td>95.1</td>
-            <td>94.8</td>
-            <td>94.5</td>
-        </tr>
-        <tr>
-            <td>Winogrande (0-shot)</td>
-            <td>77.4</td>
-            <td>79.1</td>
-            <td>78.6</td>
-        </tr>
-        <tr>
-            <td>LogiQA (0-shot)</td>
-            <td>44.7</td>
-            <td>37.2</td>
-            <td>43.9</td>
-        </tr>
-        <tr>
-            <td rowspan="2">Code</td>
-            <td>EvalPlus (0-shot)</td>
-            <td>65.7</td>
-            <td>63.7</td>
-            <td>64.8</td>
-        </tr>
-        <tr>
-            <td>Multipl-E (0-shot)</td>
-            <td>46.9</td>
-            <td>39.4</td>
-            <td>55.4</td>
-        </tr>
-    </tbody>
-</table>
+{{< table 
+    headers="Category, Benchmark, Qwen2.5 72B Base, Llama-3.3 70B Base, Falcon3.1 74B Base" 
+    bench_list="Category, Benchmark" 
+    bench_values="Qwen2.5 72B Base, Llama-3.3 70B Base, Falcon3.1 74B Base" 
+    highlight_col="4" 
+    hide_bench_list_headers="true"
+    bold_values="false"
+    compact="true"
+>}}
+----
+rowspan=3:General | MMLU (5-shot) | 86.0 | 78.7 | 83.0
+SKIP | MMLU-PRO (5-shot) | 59.8 | 46.6 | 56.3
+SKIP | IFEval | 41.4 | 16.8 | 38.6
+----
+rowspan=2:Math | GSM8K (5-shot, flexible-extract) | 89.6 | 80.1 | 86.3
+SKIP | MATH Lvl-5 (4-shot) | 38.7 | 18.4 | 33.4
+----
+rowspan=4:Reasoning | Arc Challenge (25-shot) | 72.4 | 70.0 | 72.0
+SKIP | GPQA (0-shot) | 41.0 | 38.8 | 40.0
+SKIP | MUSR (0-shot) | 48.0 | 45.6 | 49.0
+SKIP | BBH (3-shot) | 68.0 | 62.7 | 67.9
+----
+rowspan=4:Commonsense Understanding | PIQA (0-shot) | 83.7 | 84.3 | 84.5
+SKIP | SciQ (0-shot) | 95.1 | 94.8 | 94.5
+SKIP | Winogrande (0-shot) | 77.4 | 79.1 | 78.6
+SKIP | LogiQA (0-shot) | 44.7 | 37.2 | 43.9
+----
+rowspan=2:Code | EvalPlus (0-shot) | 65.7 | 63.7 | 64.8
+SKIP | Multipl-E (0-shot) | 46.9 | 39.4 | 55.4
+{{< /table >}}
 </details>
 
 ## Open Source Commitment

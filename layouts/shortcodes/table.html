@@ -1,0 +1,329 @@
+<!-- layouts/shortcodes/stylish-table.html -->
+<div class="stylish-table-wrapper">
+    {{ $highlightCol := int (default "-1" (.Get "highlight_col")) }}
+    {{ $allHeaders := split (.Get "headers") "," }}
+    {{ $benchList := split (default "" (.Get "bench_list")) "," }}
+    {{ $benchValues := split (default "" (.Get "bench_values")) "," }}
+    {{ $showBenchListHeaders := ne (.Get "hide_bench_list_headers") "true" }}
+    {{ $boldValues := ne (.Get "bold_values") "false" }}
+    {{ $compactMode := ne (.Get "compact") "false" }}
+    {{ $wrapText := ne (.Get "wrap_text") "false" }}
+    
+    <table class="stylish-table {{ if $compactMode }}compact-table{{ end }} {{ if $wrapText }}wrap-text{{ end }}">
+      <!-- Only render headers section when there are BenchValues headers -->
+      {{ if $benchValues }}
+      <thead>
+        <tr>
+          {{ if $showBenchListHeaders }}
+            <!-- Show all headers -->
+            {{ range $index, $header := $allHeaders }}
+              {{ $headerTrimmed := strings.TrimSpace $header }}
+              {{ $isBenchList := false }}
+              {{ range $bl := $benchList }}
+                {{ if eq (strings.TrimSpace $bl) $headerTrimmed }}
+                  {{ $isBenchList = true }}
+                {{ end }}
+              {{ end }}
+              <th class="{{ if $isBenchList }}bench-list{{ else }}bench-values{{ end }}">{{ $headerTrimmed | markdownify }}</th>
+            {{ end }}
+          {{ else }}
+            <!-- Create empty cells for BenchList columns -->
+            {{ range $benchList }}
+              <th class="empty-cell"></th>
+            {{ end }}
+            
+            <!-- Show only the BenchValues headers -->
+            {{ range $index, $header := $allHeaders }}
+              {{ $headerTrimmed := strings.TrimSpace $header }}
+              {{ $isBenchList := false }}
+              {{ range $bl := $benchList }}
+                {{ if eq (strings.TrimSpace $bl) $headerTrimmed }}
+                  {{ $isBenchList = true }}
+                {{ end }}
+              {{ end }}
+              {{ if not $isBenchList }}
+                <th class="bench-values">{{ $headerTrimmed | markdownify }}</th>
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        </tr>
+      </thead>
+      {{ end }}
+      
+      <tbody>
+        {{ $rows := split .Inner "\n" }}
+        
+        {{ range $rowIndex, $row := $rows }}
+          {{ $trimmedRow := strings.TrimSpace $row }}
+          
+          <!-- Check if this is a divider row -->
+          {{ if eq $trimmedRow "----" }}
+            <tr class="divider-row">
+              <td colspan="100" class="divider-cell"></td>
+            </tr>
+          {{ else if ne $trimmedRow "" }}
+            {{ $cells := split $row "|" }}
+            
+            <!-- Find max value among BenchValue columns -->
+            {{ $maxValue := -999999.99 }}
+            {{ $maxIndex := -1 }}
+            
+            {{ if $boldValues }}
+              {{ range $cellIndex, $cell := $cells }}
+                {{ $cell := strings.TrimSpace $cell }}
+                
+                <!-- Check if it's a regular cell (no formatting directives) -->
+                {{ if not (or (findRE "^colspan=" $cell) (findRE "^rowspan=" $cell)) }}
+                  {{ if ne $cell "SKIP" }}
+                    <!-- Check if it's numeric -->
+                    {{ if findRE "^-?[0-9]+(\\.[0-9]+)?$" $cell }}
+                      <!-- Check if it's in a BenchValue column -->
+                      {{ if lt $cellIndex (len $allHeaders) }}
+                        {{ $headerName := index $allHeaders $cellIndex | strings.TrimSpace }}
+                        {{ $isBenchValue := false }}
+                        
+                        {{ range $benchValues }}
+                          {{ if eq (strings.TrimSpace .) $headerName }}
+                            {{ $isBenchValue = true }}
+                          {{ end }}
+                        {{ end }}
+                        
+                        <!-- If BenchValue column, compare to find max -->
+                        {{ if $isBenchValue }}
+                          {{ $numVal := float $cell }}
+                          {{ if gt $numVal $maxValue }}
+                            {{ $maxValue = $numVal }}
+                            {{ $maxIndex = $cellIndex }}
+                          {{ end }}
+                        {{ end }}
+                      {{ end }}
+                    {{ end }}
+                  {{ end }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+            
+            <!-- Now render the row -->
+            <tr>
+              {{ range $cellIndex, $cell := $cells }}
+                {{ $trimmedCell := strings.TrimSpace $cell }}
+                {{ $colspan := 1 }}
+                {{ $rowspan := 1 }}
+                
+                <!-- Determine if this cell is in a BenchList column -->
+                {{ $isBenchList := false }}
+                {{ if lt $cellIndex (len $allHeaders) }}
+                  {{ $headerName := index $allHeaders $cellIndex | strings.TrimSpace }}
+                  {{ range $bl := $benchList }}
+                    {{ if eq (strings.TrimSpace $bl) $headerName }}
+                      {{ $isBenchList = true }}
+                    {{ end }}
+                  {{ end }}
+                {{ end }}
+                
+                {{ if findRE "^colspan=(\\d+):" $trimmedCell }}
+                  {{ $colspan = int (index (findRE "\\d+" (index (findRE "^colspan=(\\d+):" $trimmedCell) 0)) 0) }}
+                  {{ $trimmedCell = replaceRE "^colspan=(\\d+):" "" $trimmedCell }}
+                {{ end }}
+                
+                {{ if findRE "^rowspan=(\\d+):" $trimmedCell }}
+                  {{ $rowspan = int (index (findRE "\\d+" (index (findRE "^rowspan=(\\d+):" $trimmedCell) 0)) 0) }}
+                  {{ $trimmedCell = replaceRE "^rowspan=(\\d+):" "" $trimmedCell }}
+                {{ end }}
+                
+                {{ if findRE "^rowspan=(\\d+):colspan=(\\d+):" $trimmedCell }}
+                  {{ $matches := findRE "\\d+" (index (findRE "^rowspan=(\\d+):colspan=(\\d+):" $trimmedCell) 0) }}
+                  {{ $rowspan = int (index $matches 0) }}
+                  {{ $colspan = int (index $matches 1) }}
+                  {{ $trimmedCell = replaceRE "^rowspan=(\\d+):colspan=(\\d+):" "" $trimmedCell }}
+                {{ end }}
+                
+                {{ if findRE "^colspan=(\\d+):rowspan=(\\d+):" $trimmedCell }}
+                  {{ $matches := findRE "\\d+" (index (findRE "^colspan=(\\d+):rowspan=(\\d+):" $trimmedCell) 0) }}
+                  {{ $colspan = int (index $matches 0) }}
+                  {{ $rowspan = int (index $matches 1) }}
+                  {{ $trimmedCell = replaceRE "^colspan=(\\d+):rowspan=(\\d+):" "" $trimmedCell }}
+                {{ end }}
+                
+                <!-- Check if this cell is in the highlighted column -->
+                {{ $isHighlighted := eq $cellIndex $highlightCol }}
+                
+                <!-- Determine if this is the max value cell -->
+                {{ $isMax := and $boldValues (eq $cellIndex $maxIndex) }}
+                
+                <!-- Skip cells marked as "SKIP" (used for positioning with merged cells) -->
+                {{ if ne $trimmedCell "SKIP" }}
+                  <!-- Check if cell is numeric -->
+                  {{ if findRE "^-?[0-9]+(\\.[0-9]+)?$" $trimmedCell }}
+                    <td colspan="{{ $colspan }}" rowspan="{{ $rowspan }}" 
+                        class="numeric-cell {{ if not $isBenchList }}bench-values-cell{{ else }}bench-list-cell{{ end }} 
+                               {{ if $isHighlighted }}highlight-col{{ end }}" 
+                        {{ if $isMax }}id="max-cell-{{ $rowIndex }}"{{ end }}>
+                      <span {{ if $isMax }}class="max-value"{{ end }}>{{ $trimmedCell }}</span>
+                    </td>
+                  {{ else }}
+                    <td colspan="{{ $colspan }}" rowspan="{{ $rowspan }}" class="{{ if $isBenchList }}bench-list-cell{{ else }}bench-values-cell{{ end }} {{ if eq $cellIndex 0 }}category-cell{{ end }} {{ if $isHighlighted }}highlight-col{{ end }}">
+                      {{ $trimmedCell | markdownify }}
+                    </td>
+                  {{ end }}
+                {{ end }}
+              {{ end }}
+            </tr>
+          {{ end }}
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+  
+  <style>
+    .stylish-table-wrapper {
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      border-radius: 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stylish-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+    
+    /* Text wrapping */
+    .wrap-text {
+      white-space: normal;
+    }
+    
+    .wrap-text td, 
+    .wrap-text th {
+      max-width: 150px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    
+    /* Compact table styling */
+    .compact-table {
+      font-size: 0.7rem;
+    }
+    
+    .stylish-table th,
+    .stylish-table td {
+      border: 1px solid #e0e0e0;
+      padding: 8px 10px;
+      vertical-align: middle;
+    }
+    
+    /* Compact cells */
+    .compact-table th,
+    .compact-table td {
+      padding: 3px 6px;
+      line-height: 1.1;
+    }
+    
+    /* Header styling */
+    .stylish-table th {
+      background-color: #f5f5f5;
+      color: #333;
+      font-weight: 600;
+      text-align: center;
+      padding: 8px 10px;
+    }
+    
+    .compact-table th {
+      padding: 3px 6px;
+    }
+    
+    /* Special styling for empty cells */
+    .stylish-table .empty-cell {
+      padding: 0;
+      border: none;
+      visibility: hidden;
+      width: 0;
+    }
+    
+    /* BenchList body cells - light grey background */
+    .stylish-table .bench-list-cell {
+      background-color: #f5f5f5;
+      font-weight: 500;
+    }
+    
+    /* Style for category cells */
+    .stylish-table .category-cell {
+      font-weight: 500;
+      vertical-align: middle;
+    }
+    
+    /* Style for numeric cells */
+    .stylish-table .numeric-cell {
+      text-align: center;
+    }
+    
+    /* EXTREMELY AGGRESSIVE STYLING FOR MAX VALUES */
+    .stylish-table span.max-value {
+      font-weight: 900 !important;
+      display: inline-block !important;
+      position: relative !important;
+      color: #000 !important;
+      text-shadow: 0 0 1px rgba(0,0,0,0.3) !important;
+      letter-spacing: 0.02em !important;
+    }
+    
+    /* More extreme method using IDs for specificity */
+    [id^="max-cell-"] span {
+      font-weight: 900 !important;
+      display: inline-block !important;
+      position: relative !important;
+      color: #000 !important;
+    }
+    
+    /* Style for highlighted column */
+    .stylish-table .highlight-col {
+      background-color: #b088ff;
+    }
+    
+    /* Style for divider rows */
+    .stylish-table .divider-row {
+      height: 1px;
+      background-color: transparent;
+    }
+    
+    .stylish-table .divider-cell {
+      padding: 0;
+      height: 0;
+      border: none;
+      border-bottom: 1px solid #000;
+    }
+    
+    .compact-table .divider-cell {
+      border-bottom-width: 1px;
+    }
+    
+    /* Dark mode styles */
+    .dark .stylish-table th {
+      background-color: #333333;
+      color: #eee;
+    }
+    
+    .dark .stylish-table .bench-list-cell {
+      background-color: #333333;
+    }
+    
+    .dark .stylish-table td {
+      border-color: #444;
+    }
+    
+    .dark .stylish-table .highlight-col {
+      background-color: rgba(171, 71, 188, 0.15);
+    }
+    
+    .dark .stylish-table .divider-cell {
+      border-bottom-color: #666;
+    }
+    
+    .dark .stylish-table span.max-value,
+    .dark [id^="max-cell-"] span {
+      color: #fff !important;
+      text-shadow: 0 0 1px rgba(255,255,255,0.3) !important;
+    }
+  </style>
