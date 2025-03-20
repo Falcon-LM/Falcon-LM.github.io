@@ -364,13 +364,61 @@ etc
 {{< /barplot_vertical >}}
 
 ### Multilingual inst
-goes here
+
+{{< barplot_horizental id="multilingual-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.5" ymax="0.8" ylabel="Performance %" height="800">}}
+[
+    { "category": "French", "model": "Falcon3.1-74B-Instruct", "value": 0.7583 },
+    { "category": "French", "model": "Qwen2.5-72B-Instruct", "value": 0.6862 },
+    { "category": "French", "model": "Llama-3.3-70B-Instruct", "value": 0.7460 },
+
+    { "category": "German", "model": "Falcon3.1-74B-Instruct", "value": 0.7375 },
+    { "category": "German", "model": "Qwen2.5-72B-Instruct", "value": 0.6866 },
+    { "category": "German", "model": "Llama-3.3-70B-Instruct", "value": 0.7404 },
+    
+    { "category": "Spanish", "model": "Falcon3.1-74B-Instruct", "value": 0.7860 },
+    { "category": "Spanish", "model": "Qwen2.5-72B-Instruct", "value": 0.7374 },
+    { "category": "Spanish", "model": "Llama-3.3-70B-Instruct", "value": 0.7703 },
+    
+    { "category": "Russian", "model": "Falcon3.1-74B-Instruct", "value": 0.7136 },
+    { "category": "Russian", "model": "Qwen2.5-72B-Instruct", "value": 0.6522 },
+    { "category": "Russian", "model": "Llama-3.3-70B-Instruct", "value": 0.7322 },
+
+    { "category": "Dutch", "model": "Falcon3.1-74B-Instruct", "value": 0.711333333 },
+    { "category": "Dutch", "model": "Qwen2.5-72B-Instruct", "value": 0.683930923 },
+    { "category": "Dutch", "model": "Llama-3.3-70B-Instruct", "value": 0.710151728 },
+    
+    { "category": "Italian", "model": "Falcon3.1-74B-Instruct", "value": 0.7259 },
+    { "category": "Italian", "model": "Qwen2.5-72B-Instruct", "value": 0.71156585 },
+    { "category": "Italian", "model": "Llama-3.3-70B-Instruct", "value": 0.714113129 },
+
+    { "category": "Portuguese", "model": "Falcon3.1-74B-Instruct", "value": 0.7405 },
+    { "category": "Portuguese", "model": "Qwen2.5-72B-Instruct", "value": 0.719609738 },
+    { "category": "Portuguese", "model": "Llama-3.3-70B-Instruct", "value": 0.725370625 },
+    
+    { "category": "Romanian", "model": "Falcon3.1-74B-Instruct", "value": 0.708733333 },
+    { "category": "Romanian", "model": "Qwen2.5-72B-Instruct", "value": 0.657285591 },
+    { "category": "Romanian", "model": "Llama-3.3-70B-Instruct", "value": 0.687024979 },
+    
+    { "category": "Swedish", "model": "Falcon3.1-74B-Instruct", "value": 0.712066667 },
+    { "category": "Swedish", "model": "Qwen2.5-72B-Instruct", "value": 0.666347314 },
+    { "category": "Swedish", "model": "Llama-3.3-70B-Instruct", "value": 0.696495478 },
+        
+    { "category": "Chinese", "model": "Falcon3.1-74B-Instruct", "value": 0.720566667 },
+    { "category": "Chinese", "model": "Qwen2.5-72B-Instruct", "value": 0.762693112 },
+    { "category": "Chinese", "model": "Llama-3.3-70B-Instruct", "value": 0.761756903 },
+    
+    { "category": "Hindi", "model": "Falcon3.1-74B-Instruct", "value": 0.5572 },
+    { "category": "Hindi", "model": "Qwen2.5-72B-Instruct", "value": 0.548344409 },
+    { "category": "Hindi", "model": "Llama-3.3-70B-Instruct", "value": 0.551432242 }
+]
+{{< /barplot_horizental >}}
+
 <details>
 <summary> Languages task scope </summary>
 The languages included, by task, are the following:
 <ul>
 <li>M-MMLU: Chinese, Dutch, French, German, Hindi, Italian, Portuguese, Romanian, Russian, Spanish, Swedish.</li>
-<li>MGSM: Chinese, French, German, Japanese, Russian, Spanish.</li>
+<li>MGSM: Chinese, French, German, Russian, Spanish.</li>
 <li>M-HellaSwag: Dutch, French, German, Hindi, Italian, Portuguese, Romanian, Russian, Spanish, Swedish.</li>
 <li>M-ArcChallenge: Chinese, Dutch, French, German, Hindi, Italian, Portuguese, Romanian, Russian, Spanish, Swedish.</li>
 </ul>
