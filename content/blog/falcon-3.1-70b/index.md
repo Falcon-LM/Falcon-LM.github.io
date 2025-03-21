@@ -84,7 +84,7 @@ etc
     { "category": "Math", "model": "Qwen2.5-72B-Instruct", "value": 0.748 },
     { "category": "Math", "model": "Llama-3.3-70B-Instruct", "value": 0.76575 },
 
-    { "category": "Reasoning", "model": "Falcon3.1-74B-Instruct", "value": 1 },
+    { "category": "Reasoning", "model": "Falcon3.1-74B-Instruct", "value": 0.62725 },
     { "category": "Reasoning", "model": "Qwen2.5-72B-Instruct", "value": 0.5162 },
     { "category": "Reasoning", "model": "Llama-3.3-70B-Instruct", "value": 0.564 },
 
@@ -132,7 +132,7 @@ rowspan=5:Reasoning | Arc Challenge (25-shot) | 71.2 | 74.5 | 72.0
 SKIP | GPQA (0-shot) | 36.8 | 32.0 | 39.7
 SKIP | MUSR (0-shot) | 42.2 | 44.5 | 52.8
 SKIP | BBH (3-shot) | 72.6 | 69.2 | 71.9
-SKIP | BBH (3-shot, COT) | 35.3 | 61.8 | 0
+SKIP | BBH (3-shot, COT) | 35.3 | 61.8 | 86.5
 ----
 rowspan=5:Commonsense Understanding | PIQA (0-shot) | 75.6 | 80.1 | 83.2
 SKIP | SciQ (0-shot) | 64.0 | 91.4 | 93.1
