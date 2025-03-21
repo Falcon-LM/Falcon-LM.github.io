@@ -382,6 +382,9 @@ SKIP | Multipl-E (0-shot) | 46.9 | 39.4 | 55.4
 {{< /table >}}
 </details>
 
+## Gallery examples
+{{< prompt_gallery "content/blog/falcon-3.1-70b/llm_examples.json" >}}
+
 ## Open Source Commitment
 In line with our mission to foster AI accessibility and collaboration, Falcon3.1-74B is released under the [**Falcon LLM license**](https://falconllm.tii.ae/falcon-terms-and-conditions.html). We hope the AI community finds these models valuable for research, application development, and further experimentation. Falcon3.1-74B is not a culmination but a continuation of our efforts to create more capable, efficient, specialized foundation models. We welcome feedback and collaboration from the community as we continue to refine and advance these technologies.
 
