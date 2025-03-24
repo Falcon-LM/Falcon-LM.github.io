@@ -323,6 +323,16 @@ Tool use | BFCL AST | 90.7 | 85.0 | 85.5
 ]
 {{< /barplot_vertical >}}
 
+<details>
+<summary> Json KV retrieval </summary>
+{{< heatmap 
+   x_label="Context Length" 
+   y_label="Depth" 
+   value_label="Match" 
+   data_path="heatmap.json" 
+>}}
+</details>
+
 ### General Base
 {{< barplot_vertical id="general-base" highlight="Falcon3.1-74B-Base" ymin="0" ymax="0.8" ylabel="Performance %">}}
 [
