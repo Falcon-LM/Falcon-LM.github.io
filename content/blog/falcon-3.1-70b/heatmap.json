@@ -1,0 +1,452 @@
+[
+    {
+        "y": "0.2",
+        "x": 8192,
+        "value": 0.9534883720930233,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 16384,
+        "value": 0.9302325581395349,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 32768,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 65536,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 131072,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 8192,
+        "value": 0.9375,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 16384,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 32768,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 65536,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 131072,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 8192,
+        "value": 0.8888888888888888,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 16384,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 32768,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 65536,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 131072,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 8192,
+        "value": 0.8888888888888888,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 16384,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 32768,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 65536,
+        "value": 0.8888888888888888,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 131072,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 8192,
+        "value": 0.9285714285714286,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 16384,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 32768,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 65536,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 131072,
+        "value": 1,
+        "model": "Falcon3.1-74B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 8192,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 16384,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 32768,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 65536,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 131072,
+        "value": 0.7906976744186046,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 8192,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 16384,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 32768,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 65536,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 131072,
+        "value": 0.875,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 8192,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 16384,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 32768,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 65536,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 131072,
+        "value": 0.9444444444444444,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 8192,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 16384,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 32768,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 65536,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 131072,
+        "value": 0.8888888888888888,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 8192,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 16384,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 32768,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 65536,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 131072,
+        "value": 1,
+        "model": "Llama-3.3-70B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 8192,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 16384,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 32768,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 65536,
+        "value": 0.3023255813953488,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.2",
+        "x": 131072,
+        "value": 0,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 8192,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 16384,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 32768,
+        "value": 0.9375,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 65536,
+        "value": 0.375,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.4",
+        "x": 131072,
+        "value": 0,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 8192,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 16384,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 32768,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 65536,
+        "value": 0.7222222222222222,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.6",
+        "x": 131072,
+        "value": 0,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 8192,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 16384,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 32768,
+        "value": 0.8888888888888888,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 65536,
+        "value": 0.8888888888888888,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "0.8",
+        "x": 131072,
+        "value": 0.1111111111111111,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 8192,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 16384,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 32768,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 65536,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    },
+    {
+        "y": "1.0",
+        "x": 131072,
+        "value": 1,
+        "model": "Qwen2.5-72B-Instruct"
+    }
+]

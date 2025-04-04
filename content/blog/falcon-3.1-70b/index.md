@@ -70,6 +70,266 @@ etc
 ### Instruct models
 etc
 
+
+## all the graphs
+### General Inst
+
+{{< barplot_vertical id="general-inst" highlight="Falcon3.1-74B-Instruct" ymin="0" ymax="0.94" ylabel="Performance %" >}}
+[
+    { "category": "General", "model": "Falcon3.1-74B-Instruct", "value": 0.7045 },
+    { "category": "General", "model": "Qwen2.5-72B-Instruct", "value": 0.7145 },
+    { "category": "General", "model": "Llama-3.3-70B-Instruct", "value": 0.68825 },
+
+    { "category": "Math", "model": "Falcon3.1-74B-Instruct", "value": 0.749 },
+    { "category": "Math", "model": "Qwen2.5-72B-Instruct", "value": 0.748 },
+    { "category": "Math", "model": "Llama-3.3-70B-Instruct", "value": 0.76575 },
+
+    { "category": "Reasoning", "model": "Falcon3.1-74B-Instruct", "value": 0.62725 },
+    { "category": "Reasoning", "model": "Qwen2.5-72B-Instruct", "value": 0.5162 },
+    { "category": "Reasoning", "model": "Llama-3.3-70B-Instruct", "value": 0.564 },
+
+    { "category": "Commonsense Understanding", "model": "Falcon3.1-74B-Instruct", "value": 0.6972 },
+    { "category": "Commonsense Understanding", "model": "Qwen2.5-72B-Instruct", "value": 0.5836 },
+    { "category": "Commonsense Understanding", "model": "Llama-3.3-70B-Instruct", "value": 0.6568 },
+
+    { "category": "Code", "model": "Falcon3.1-74B-Instruct", "value": 0.721 },
+    { "category": "Code", "model": "Qwen2.5-72B-Instruct", "value": 0.631 },
+    { "category": "Code", "model": "Llama-3.3-70B-Instruct", "value": 0.7065 },
+
+    { "category": "Instructions following", "model": "Falcon3.1-74B-Instruct", "value": 0.6855 },
+    { "category": "Instructions following", "model": "Qwen2.5-72B-Instruct", "value": 0.71 },
+    { "category": "Instructions following", "model": "Llama-3.3-70B-Instruct", "value": 0.6415 },
+
+    { "category": "Tool use", "model": "Falcon3.1-74B-Instruct", "value": 0.855 },
+    { "category": "Tool use", "model": "Qwen2.5-72B-Instruct", "value": 0.907 },
+    { "category": "Tool use", "model": "Llama-3.3-70B-Instruct", "value": 0.85 }
+]
+{{< /barplot_vertical >}}
+
+<details>
+<summary> More details </summary>
+{{< table 
+    headers="Category, Benchmark, Qwen2.5-72B-Instruct, Llama-3.3-70B-Instruct, Falcon3.1-74B-Instruct" 
+    bench_list="Category, Benchmark" 
+    bench_values="Qwen2.5-72B-Instruct, Llama-3.3-70B-Instruct, Falcon3.1-74B-Instruct" 
+    highlight_col="4" 
+    hide_bench_list_headers="true"
+    bold_values="true"
+    compact="true"
+>}}
+----
+rowspan=4:General | MMLU (5-shot) | 84.4 | 82.0 | 81.7
+SKIP | MMLU-PRO (5-shot) | 56.1 | 53.3 | 56.6
+SKIP | IFEval | 86.4 | 90.0 | 83.3
+SKIP | AGIeval | 58.9 | 50.0 | 60.2
+----
+rowspan=4:Math | GSM8K (5-shot, flexible-extract) | 80.7 | 93.4 | 86.3
+SKIP | GSM8K (8-shot, COT, flexible-extract) | 78.7 | 94.0 | 82.9
+SKIP | MATH Lvl-5 (4-shot) | 59.8 | 48.3 | 52.0
+SKIP | MATH500 | 80.0 | 70.6 | 78.4
+----
+rowspan=5:Reasoning | Arc Challenge (25-shot) | 71.2 | 74.5 | 72.0
+SKIP | GPQA (0-shot) | 36.8 | 32.0 | 39.7
+SKIP | MUSR (0-shot) | 42.2 | 44.5 | 52.8
+SKIP | BBH (3-shot) | 72.6 | 69.2 | 71.9
+SKIP | BBH (3-shot, COT) | 35.3 | 61.8 | 86.5
+----
+rowspan=5:Commonsense Understanding | PIQA (0-shot) | 75.6 | 80.1 | 83.2
+SKIP | SciQ (0-shot) | 64.0 | 91.4 | 93.1
+SKIP | Hellaswag (0-shot) | 68.8 | 70.2 | 81.1
+SKIP | LogiQA (0-shot) | 39.2 | 39.9 | 40.6
+SKIP | OpenbookQA (0-shot) | 44.2 | 46.8 | 50.6
+----
+rowspan=2:Code | EvalPlus (0-shot) | 83.9 | 81.3 | 81.2
+SKIP | Multipl-E (0-shot) | 42.3 | 60.0 | 63.0
+----
+rowspan=2:Instructions following | MT-Bench | 9.1 | 9.0 | 8.8
+SKIP | Alpaca (WC) | 51.0 | 38.3 | 49.1
+----
+Tool use | BFCL AST | 90.7 | 85.0 | 85.5
+{{< /table >}}
+</details>
+
+### GPQA Inst
+{{< barplot_vertical id="gpqa-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.2" ymax="0.45" ylabel="Performance %">}}
+[
+    { "category": "GPQA", "model": "Falcon3.1-74B-Instruct", "value": 0.396812080536913 },
+    { "category": "GPQA", "model": "Qwen2.5-72B-Instruct", "value": 0.368474697 },
+    { "category": "GPQA", "model": "Llama-3.3-70B-Instruct", "value": 0.319960711 },
+    
+    { "category": "GPQA Diamond", "model": "Falcon3.1-74B-Instruct", "value": 0.434343434 },
+    { "category": "GPQA Diamond", "model": "Qwen2.5-72B-Instruct", "value": 0.353535354 },
+    { "category": "GPQA Diamond", "model": "Llama-3.3-70B-Instruct", "value": 0.292929293 },
+    
+    { "category": "GPQA Extended", "model": "Falcon3.1-74B-Instruct", "value": 0.391941392 },
+    { "category": "GPQA Extended", "model": "Qwen2.5-72B-Instruct", "value": 0.379120879 },
+    { "category": "GPQA Extended", "model": "Llama-3.3-70B-Instruct", "value": 0.338827839 },
+
+
+    { "category": "GPQA Main", "model": "Falcon3.1-74B-Instruct", "value": 0.386160714 },
+    { "category": "GPQA Main", "model": "Qwen2.5-72B-Instruct", "value": 0.372767857 },
+    { "category": "GPQA Main", "model": "Llama-3.3-70B-Instruct", "value": 0.328125 }
+]
+{{< /barplot_vertical >}}
+
+### Multilingual inst
+
+{{< barplot_horizental id="multilingual-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.5" ymax="0.8" ylabel="Performance %" height="800">}}
+[    
+    { "category": "Spanish", "model": "Falcon3.1-74B-Instruct", "value": 0.7860 },
+    { "category": "Spanish", "model": "Qwen2.5-72B-Instruct", "value": 0.7374 },
+    { "category": "Spanish", "model": "Llama-3.3-70B-Instruct", "value": 0.7703 },
+    
+    { "category": "French", "model": "Falcon3.1-74B-Instruct", "value": 0.7583 },
+    { "category": "French", "model": "Qwen2.5-72B-Instruct", "value": 0.6862 },
+    { "category": "French", "model": "Llama-3.3-70B-Instruct", "value": 0.7460 },
+        
+    { "category": "Chinese", "model": "Falcon3.1-74B-Instruct", "value": 0.720566667 },
+    { "category": "Chinese", "model": "Qwen2.5-72B-Instruct", "value": 0.762693112 },
+    { "category": "Chinese", "model": "Llama-3.3-70B-Instruct", "value": 0.761756903 },
+    
+    { "category": "Russian", "model": "Falcon3.1-74B-Instruct", "value": 0.7136 },
+    { "category": "Russian", "model": "Qwen2.5-72B-Instruct", "value": 0.6522 },
+    { "category": "Russian", "model": "Llama-3.3-70B-Instruct", "value": 0.7322 },
+
+    { "category": "German", "model": "Falcon3.1-74B-Instruct", "value": 0.7375 },
+    { "category": "German", "model": "Qwen2.5-72B-Instruct", "value": 0.6866 },
+    { "category": "German", "model": "Llama-3.3-70B-Instruct", "value": 0.7404 },
+    
+    { "category": "Portuguese", "model": "Falcon3.1-74B-Instruct", "value": 0.7405 },
+    { "category": "Portuguese", "model": "Qwen2.5-72B-Instruct", "value": 0.719609738 },
+    { "category": "Portuguese", "model": "Llama-3.3-70B-Instruct", "value": 0.725370625 },
+
+    { "category": "Italian", "model": "Falcon3.1-74B-Instruct", "value": 0.7259 },
+    { "category": "Italian", "model": "Qwen2.5-72B-Instruct", "value": 0.71156585 },
+    { "category": "Italian", "model": "Llama-3.3-70B-Instruct", "value": 0.714113129 },
+
+    { "category": "Dutch", "model": "Falcon3.1-74B-Instruct", "value": 0.711333333 },
+    { "category": "Dutch", "model": "Qwen2.5-72B-Instruct", "value": 0.683930923 },
+    { "category": "Dutch", "model": "Llama-3.3-70B-Instruct", "value": 0.710151728 },
+    
+    { "category": "Hindi", "model": "Falcon3.1-74B-Instruct", "value": 0.5572 },
+    { "category": "Hindi", "model": "Qwen2.5-72B-Instruct", "value": 0.548344409 },
+    { "category": "Hindi", "model": "Llama-3.3-70B-Instruct", "value": 0.551432242 },
+
+    { "category": "Romanian", "model": "Falcon3.1-74B-Instruct", "value": 0.708733333 },
+    { "category": "Romanian", "model": "Qwen2.5-72B-Instruct", "value": 0.657285591 },
+    { "category": "Romanian", "model": "Llama-3.3-70B-Instruct", "value": 0.687024979 },
+    
+    { "category": "Swedish", "model": "Falcon3.1-74B-Instruct", "value": 0.712066667 },
+    { "category": "Swedish", "model": "Qwen2.5-72B-Instruct", "value": 0.666347314 },
+    { "category": "Swedish", "model": "Llama-3.3-70B-Instruct", "value": 0.696495478 }
+]
+{{< /barplot_horizental >}}
+
+<details>
+<summary> Languages task scope </summary>
+
+| Language   | M-MMLU | M-ArcChallenge | M-HellaSwag | MGSM |
+|------------|:------:|:--------------:|:-----------:|:----:|
+| Spanish    |   ✅    |       ✅        |      ✅      |  ✅   |
+| French     |   ✅    |       ✅        |      ✅      |  ✅   |
+| Chinese    |   ✅    |       ✅        |      ❌      |  ✅   |
+| Russian    |   ✅    |       ✅        |      ✅      |  ✅   |
+| German     |   ✅    |       ✅        |      ✅      |  ✅   |
+| Portuguese |   ✅    |       ✅        |      ✅      |  ❌   |
+| Italian    |   ✅    |       ✅        |      ✅      |  ❌   |
+| Dutch      |   ✅    |       ✅        |      ✅      |  ❌   |
+| Hindi      |   ✅    |       ✅        |      ✅      |  ❌   |
+| Romanian   |   ✅    |       ✅        |      ✅      |  ❌   |
+| Swedish    |   ✅    |       ✅        |      ✅      |  ❌   |
+
+</details>
+
+### Long context helmet inst
+{{< barplot_vertical id="helmet-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.3" ymax="0.6" ylabel="Performance %">}}
+[
+    { "category": "32K", "model": "Falcon3.1-74B-Instruct", "value": 0.611 },
+    { "category": "32K", "model": "Qwen2.5-72B-Instruct", "value": 0.623 },
+    { "category": "32K", "model": "Llama-3.3-70B-Instruct", "value": 0.623 },
+    
+    { "category": "64K", "model": "Falcon3.1-74B-Instruct", "value": 0.572 },
+    { "category": "64K", "model": "Qwen2.5-72B-Instruct", "value": 0.528 },
+    { "category": "64K", "model": "Llama-3.3-70B-Instruct", "value": 0.605 },
+    
+    { "category": "128K", "model": "Falcon3.1-74B-Instruct", "value": 0.53 },
+    { "category": "128K", "model": "Qwen2.5-72B-Instruct", "value": 0.387 },
+    { "category": "128K", "model": "Llama-3.3-70B-Instruct", "value": 0.495 }
+]
+{{< /barplot_vertical >}}
+
+<details>
+<summary> Json KV retrieval </summary>
+{{< heatmap 
+   x_label="Context Length" 
+   y_label="Depth" 
+   value_label="Match" 
+   data_path="heatmap.json" 
+>}}
+</details>
+
+### General Base
+{{< barplot_vertical id="general-base" highlight="Falcon3.1-74B-Base" ymin="0" ymax="0.8" ylabel="Performance %">}}
+[
+    { "category": "General", "model": "Falcon3.1-74B-Base", "value": 0.593 },
+    { "category": "General", "model": "Qwen2.5-72B", "value": 0.624 },
+    { "category": "General", "model": "Llama-3.1-70B", "value": 0.4736 },
+
+    { "category": "Math", "model": "Falcon3.1-74B-Base", "value": 0.5985 },
+    { "category": "Math", "model": "Qwen2.5-72B", "value": 0.6415 },
+    { "category": "Math", "model": "Llama-3.1-70B", "value": 0.4925 },
+
+    { "category": "Reasoning", "model": "Falcon3.1-74B-Base", "value": 0.57225 },
+    { "category": "Reasoning", "model": "Qwen2.5-72B", "value": 0.5735 },
+    { "category": "Reasoning", "model": "Llama-3.1-70B", "value": 0.54275 },
+
+    { "category": "Commonsense Understanding", "model": "Falcon3.1-74B-Base", "value": 0.75375 },
+    { "category": "Commonsense Understanding", "model": "Qwen2.5-72B", "value": 0.75225 },
+    { "category": "Commonsense Understanding", "model": "Llama-3.1-70B", "value": 0.7385 },
+
+    { "category": "Code", "model": "Falcon3.1-74B-Base", "value": 0.601 },
+    { "category": "Code", "model": "Qwen2.5-72B", "value": 0.563 },
+    { "category": "Code", "model": "Llama-3.1-70B", "value": 0.5155 }
+]
+{{< /barplot_vertical >}}
+
+<details>
+<summary> More details </summary>
+{{< table 
+    headers="Category, Benchmark, Qwen2.5 72B Base, Llama-3.3 70B Base, Falcon3.1 74B Base" 
+    bench_list="Category, Benchmark" 
+    bench_values="Qwen2.5 72B Base, Llama-3.3 70B Base, Falcon3.1 74B Base" 
+    highlight_col="4" 
+    hide_bench_list_headers="true"
+    bold_values="false"
+    compact="true"
+>}}
+----
+rowspan=3:General | MMLU (5-shot) | 86.0 | 78.7 | 83.0
+SKIP | MMLU-PRO (5-shot) | 59.8 | 46.6 | 56.3
+SKIP | IFEval | 41.4 | 16.8 | 38.6
+----
+rowspan=2:Math | GSM8K (5-shot, flexible-extract) | 89.6 | 80.1 | 86.3
+SKIP | MATH Lvl-5 (4-shot) | 38.7 | 18.4 | 33.4
+----
+rowspan=4:Reasoning | Arc Challenge (25-shot) | 72.4 | 70.0 | 72.0
+SKIP | GPQA (0-shot) | 41.0 | 38.8 | 40.0
+SKIP | MUSR (0-shot) | 48.0 | 45.6 | 49.0
+SKIP | BBH (3-shot) | 68.0 | 62.7 | 67.9
+----
+rowspan=4:Commonsense Understanding | PIQA (0-shot) | 83.7 | 84.3 | 84.5
+SKIP | SciQ (0-shot) | 95.1 | 94.8 | 94.5
+SKIP | Winogrande (0-shot) | 77.4 | 79.1 | 78.6
+SKIP | LogiQA (0-shot) | 44.7 | 37.2 | 43.9
+----
+rowspan=2:Code | EvalPlus (0-shot) | 65.7 | 63.7 | 64.8
+SKIP | Multipl-E (0-shot) | 46.9 | 39.4 | 55.4
+{{< /table >}}
+</details>
+
+## Gallery examples
+{{< prompt_gallery "content/blog/falcon-3.1-70b/llm_examples.json" >}}
+
 ## Open Source Commitment
 In line with our mission to foster AI accessibility and collaboration, Falcon3.1-74B is released under the [**Falcon LLM license**](https://falconllm.tii.ae/falcon-terms-and-conditions.html). We hope the AI community finds these models valuable for research, application development, and further experimentation. Falcon3.1-74B is not a culmination but a continuation of our efforts to create more capable, efficient, specialized foundation models. We welcome feedback and collaboration from the community as we continue to refine and advance these technologies.
 
