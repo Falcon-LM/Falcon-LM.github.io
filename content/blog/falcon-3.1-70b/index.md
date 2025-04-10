@@ -42,8 +42,6 @@ header:
 {{< button href="https://discord.gg/vfw6k2G3" label="DISCORD" external=true >}}
 
 
-<span style="color: red;"> TODO: enable bold mode for text below.
-
 # Introducing Falcon3.1-74B
 
 We introduce <span class="bold">Falcon3.1 74B</span>, a decoder-only large language model, developed by
@@ -57,52 +55,46 @@ This iteration includes:
 
 <br>
 
+<span class="bold">Falcon3.1-74B</span>, a leading model in the 70B generalist LLM category, sets a new standard for state-of-the-art performance across a wide range of tasks, including basic reasoning, language understanding, instruction following, coding, mathematics, and long-context processing.
+
+As matter of fact, Falcon3.1-74B achieved <span class="bold">competitive performance among 70B models</span> on the Hugging Face Open LLM Leaderboard and across multiple standard LLM benchmarks at the time of release, reinforcing its superior capabilities in the category.
+
+The model delivers <span class="bold">outstanding zero-shot and few-shot performance</span> on key benchmarks such as MMLU, MUSR, BBH, MATH Level 5, IFEval, and other prominent open LLM tasks—demonstrating its versatility and cutting-edge capabilities across domains.  
+
+It also delivers <span class="bold">enhanced multilingual capabilities</span>, supporting 16 widely spoken languages beyond English (en): Czech (cs), German (de), Spanish (es), French (fr), Hindi (hi), Italian (it), Japanese (ja), Korean (ko), Dutch (nl), Polish (pl), Portuguese (pt), Romanian (ro), Russian (ru), Swedish (sv), Urdu (ur), and Chinese (zh). Besides, <span class="bold">Over 100 languages</span> are supported in its tokenizer, ensuring strong support for future adaptations to additional languages.
+
+Falcon3.1-74B offers an <span class="bold">extended context length</span> of up to 256K tokens. This allows for better retention of information over long exchanges, resulting in more contextually aware and accurate responses.
+
+## Model's architecture  
+
+- <span class="bold">Architecture</span>: decoder-only transformer <span class="bold">compatible with Meta-Llama3 architectures</span> offering fast and seamless integration for the open-source AI community
+- <span class="bold">Decoder Layers</span>: 80
+- <span class="bold">Grouped Query Attention (GQA)</span>: 32 query heads and 4 key-value heads. <span class="bold">Head Dimension</span>: 256 — optimized for <span class="bold">FlashAttention-3</span>. Both enable faster inference thanks to high throughput performance
+- An <span class="bold">expanded vocabulary</span> (262,120) was incorporated to improve adaptability during fine-tuning, leading to superior performance across a wide range of languages. 
+- <span class="bold">Activation Function</span>: SwiGLU  
+- <span class="bold">Context Length</span>: Up to 256K tokens
+- <span class="bold">Rotary Position Embedding (RoPE)</span>: Configured with a high value to support long-context understanding
+
+## Training recipe
+
 In developing these models, we introduced several key innovations to enhance performance through efficient pre-training:
 
-- <span class="bold">Falcon3.1-74B</span> is a dense transformer model consisting of 80 decoder blocks. It was pre-trained on 16.5 trillion tokens sourced from the web, code, STEM content, textbooks, and high-quality synthetic and multilingual data, using 4,864 H100 GPU chips.  
+- <span class="bold">Falcon3.1-74B</span> was pre-trained on 16.5 trillion tokens sourced from the web, code, STEM content, textbooks, and high-quality synthetic and multilingual data, using 4,864 H100 GPU chips.  
 - We employed <span class="bold">multi-stage training</span> with context lengths of 4K, 8K, 16K, and 32K, combined with curriculum learning and <span class="bold">progressive long-context extension</span> at 64K, 128K, and 256K stages to improve training efficiency.  
-- Pre-training was made efficient and stable through several key techniques, including <span class="bold">z-loss</span>, <span class="bold">output scaling</span> (for both attention and MLP blocks), and <span class="bold">decoupled learning rates</span> for MLP blocks, all while maintaining high FLOPs utilization.  
-- The model uses <span class="bold">Group Query Attention (GQA)</span> and a <span class="bold">wider head dimension</span> to enable faster inference.  
-- An <span class="bold">expanded vocabulary</span> was incorporated to improve adaptability during fine-tuning, leading to superior performance across a wide range of languages.  
-- <span class="bold">Long-context training</span> up to 256K tokens was conducted using specialized synthetic data. Benchmarking was performed using the <span class="bold">Helmet framework</span> and other long-context benchmarks, achieving state-of-the-art results.
+- Pre-training was made efficient and stable through several key techniques, including <span class="bold">z-loss</span>, <span class="bold">output scaling</span> (for both attention and MLP blocks), and <span class="bold">decoupled learning rates</span> for MLP blocks, all while maintaining high FLOPs utilization.
 
-## Key Highlights  
-- <span class="bold">Falcon3.1-74B</span>, a leading model in the 70B generalist LLM category, sets a new standard for state-of-the-art performance across a wide range of tasks, including basic reasoning, language understanding, instruction following, coding, mathematics, and long-context processing.  
-- With Falcon3.1-74B, users benefit from enhanced <span class="bold">multilingual capabilities</span>, supporting 16 widely spoken languages beyond English, along with an <span class="bold">extended context length</span> of up to 256K tokens.  
-- The pretraining data includes content in <span class="bold">16 languages</span> in addition to English (en): Czech (cs), German (de), Spanish (es), French (fr), Hindi (hi), Italian (it), Japanese (ja), Korean (ko), Dutch (nl), Polish (pl), Portuguese (pt), Romanian (ro), Russian (ru), Swedish (sv), Urdu (ur), and Chinese (zh).  
-- The tokenizer was trained on data from <span class="bold">over 100 languages</span>, ensuring strong support for future adaptations to additional languages.  
-- Falcon3.1-74B achieved <span class="bold">competitive performance among 70B models</span> on the Hugging Face Open LLM Leaderboard and across multiple standard LLM benchmarks at the time of release, reinforcing its superior capabilities in the category.  
-- The model delivers <span class="bold">outstanding zero-shot and few-shot performance</span> on key benchmarks such as MMLU, MUSR, BBH, MATH Level 5, IFEval, and other prominent open LLM tasks—demonstrating its versatility and cutting-edge capabilities across domains.  
-- Falcon3.1-74B is <span class="bold">compatible with Meta-Llama3 architectures</span>, offering fast and seamless integration for the open-source AI community.  
 
-## Model Specs  
-Below is a summary of the detailed specifications for the Falcon3.1-74B model:
-- <span class="bold">Decoder Layers</span>: 80
-- <span class="bold">Architecture</span>: decoder-only transformer with Meta-Llama3 modeling
-- <span class="bold">Grouped Query Attention (GQA)</span>: 32 query heads and 4 key-value heads, enabling faster inference  
-- <span class="bold">Vocabulary Size</span>: 262,120  
-- <span class="bold">Head Dimension</span>: 256 — optimized for <span class="bold">FlashAttention-3</span>, providing high throughput performance  
-- <span class="bold">Activation Function</span>: SwiGLU  
-- <span class="bold">Context Length</span>: Up to 256K tokens  
-- <span class="bold">Rotary Position Embedding (RoPE)</span>: Configured with a high value to support long-context understanding  
-
-## Benchmark Highlights  
+## Instruct model benchmarks
 Our evaluations highlight the areas where Falcon3.1-74B models excel, emphasizing their strengths in scientific domains, basic reasoning, and general knowledge:
 
 - <span class="bold">Math Capabilities</span>: Falcon3.1-74B-Instruct scores <span class="bold">52.0</span> on MATH-Lvl5 and <span class="bold">86.3</span> on GSM8K, demonstrating strong performance in complex, math-focused reasoning tasks.  
 - <span class="bold">Coding Capabilities</span>: Falcon3.1-74B-Instruct achieves <span class="bold">63.0</span> on Multipl-E and <span class="bold">81.2</span> on EvalPlus, reflecting its ability to generalize across diverse programming-related tasks.  
-- <span class="bold">Extended Context Length</span>: Falcon3.1 supports context lengths up to <span class="bold">256K tokens</span>, achieving <span class="bold">state-of-the-art results</span>—including an average score of <span class="bold">53.0</span> on Helmet tasks at 128K context length and <span class="bold">84.8</span> on BFCL—highlighting both long-context reasoning and functional capabilities.  
+- <span class="bold">Extended Context Length</span>: Falcon3.1 supports context lengths up to <span class="bold">256K tokens</span>, achieving <span class="bold">state-of-the-art results</span>—including an average score of <span class="bold">53.0</span> on Helmet tasks at 128K context length.
+- <span class="bold">Tool use</span>: Falcon3.1-74B-Instruct scores <span class="bold">84.8</span> on BFCL—highlighting strong functional capabilities.  
 - <span class="bold">Improved Reasoning</span>: Falcon3.1-74B-Instruct scores <span class="bold">71.9</span> on BBH and <span class="bold">52.8</span> on MUSR, showcasing enhanced reasoning across diverse benchmarks.  
 - <span class="bold">Scientific Knowledge Expansion</span>: Strong performance on MMLU benchmarks highlights the model's domain expertise, with Falcon3.1-74B-Instruct scoring <span class="bold">81.7 / 56.6</span> (MMLU / MMLU-PRO) and Falcon3.1-74B-Base achieving <span class="bold">83.0 / 56.3</span> respectively.
 
 <br>
-
-The graphs below illustrate Falcon3.1-74B’s performance compared to other similarly sized general-purpose LLMs across key benchmarks, demonstrating competitive results in math, reasoning, general knowledge, and common sense understanding.
-
-For more detailed evaluation results—including MT-Bench, Alpaca, and others—please refer to the models’ cards through the links [Falcon3.1-74B-Base](https://huggingface.co/tiiuae/Falcon3.1-74B-Base) or [Falcon3.1-74B-Instruct](https://huggingface.co/tiiuae/Falcon3.1-74B-Instruct). 
-
-## Performance Results
-### Instruct Model Capabilities
 
 The graph below compares the performance of <span class="bold">Falcon3.1-74B-Instruct</span> with current state-of-the-art (SOTA) models at the 70B scale across <span class="bold">seven categories</span>: General, Math, Reasoning, Commonsense Understanding, Code, Instruction Following, and Tool Use. Each category aggregates widely used LLM benchmarks relevant to that domain (click the button below the graph for more details).
 
@@ -185,7 +177,7 @@ Tool use | BFCL AST | 90.7 | 85.0 | 85.5
 {{< /table >}}
 </details>
 
-### GPQA Benchmark
+### GPQA benchmarks
 We highlight in the graph below <span class="bold">Falcon3.1-74B-Instruct’s</span> performance on the <span class="bold">GPQA benchmark</span>, where it demonstrates <span class="bold">leading results among 70B-class models</span>—especially on <span class="bold">GPQA Diamond</span>, indicating strong improvements in complex reasoning capabilities.
 {{< barplot_vertical id="gpqa-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.2" ymax="0.45" ylabel="Performance %">}}
 [
@@ -209,8 +201,8 @@ We highlight in the graph below <span class="bold">Falcon3.1-74B-Instruct’s</s
 {{< /barplot_vertical >}}
 
 
-### Instruct Model Multilingual Results
-The following graph presents benchmarking results across popular multilingual benchmarks, showcasing the strong performance of Falcon 3.1-74B-Instruct in several languages, including Spanish, French, Portuguese, Hindi, Romanian, and Swedish. It also demonstrates competitive performance in the remaining supported languages. Click the button below the graph for detailed information about the benchmarks used for each language.
+### Multilingual benchmarks
+The following graph presents benchmarking results across popular multilingual benchmarks, showcasing the strong performance of Falcon 3.1-74B-Instruct in several languages, including Spanish, French, Portuguese, Hindi, Romanian, and Swedish. It also demonstrates competitive performance in the remaining supported languages.
 {{< barplot_horizental id="multilingual-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.5" ymax="0.8" ylabel="Performance %" height="800">}}
 [    
     { "category": "Spanish", "model": "Falcon3.1-74B-Instruct", "value": 0.7860 },
@@ -259,8 +251,8 @@ The following graph presents benchmarking results across popular multilingual be
 ]
 {{< /barplot_horizental >}}
 
-### Long Context Performance
-One of the key features of Falcon 3.1-74B is its ability to handle long contexts, with native support for context lengths of up to 256k tokens. As shown in the graph below, Falcon 3.1-74B-Instruct demonstrates superior performance at a 128k context length on the Helmet benchmark, while maintaining competitive performance at shorter context lengths. Note that results for the 256k context window are not reported, as the Helmet benchmark does not support that length.
+### Long context benchmarks
+One of the key features of Falcon 3.1-74B is its ability to handle long contexts, with native support for context lengths of up to 256k tokens. As shown in the graph below, Falcon 3.1-74B-Instruct demonstrates superior performance at a 128k context length on the Helmet benchmark, while maintaining competitive performance at shorter context lengths. Note that results for the 256k context window are not reported, as the Helmet benchmark does not support that length at the time of release.
 {{< barplot_vertical id="helmet-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.3" ymax="0.6" ylabel="Performance %">}}
 [
     { "category": "32K", "model": "Falcon3.1-74B-Instruct", "value": 0.611 },
@@ -289,8 +281,8 @@ JSON KV retrieval evaluation measures an LLM's ability to precisely navigate dat
 >}}
 </details>
 
-### Base Model Capabilities
-Finally, the graph below presents benchmark results for Falcon 3.1-74B-Base compared to other state-of-the-art (SOTA) base models in the 70B class. Falcon 3.1-74B-Base demonstrates competitive overall performance, with a slight edge on code-related benchmarks. 
+## Base model benchmarks
+The graph below presents general benchmark results for Falcon 3.1-74B-Base compared to other state-of-the-art (SOTA) base models in the 70B class. Falcon 3.1-74B-Base demonstrates competitive overall performance, with a slight edge on code-related benchmarks. 
 {{< barplot_vertical id="general-base" highlight="Falcon3.1-74B-Base" ymin="0" ymax="0.8" ylabel="Performance %">}}
 [
     { "category": "General", "model": "Falcon3.1-74B-Base", "value": 0.593 },
@@ -357,26 +349,21 @@ In line with our mission to foster AI accessibility and collaboration, Falcon3.1
 
 ## Useful links
 
-- Access to our models (including GGUF and 1.58bit models) through [the Falcon3.1 HuggingFace collection](https://huggingface.co/collections/tiiuae/falcon31-6784de2fc5549029e0c52f61).
+- Access to our models (including GGUF) through [the Falcon3.1 HuggingFace collection](https://huggingface.co/collections/tiiuae/falcon31-6784de2fc5549029e0c52f61).
 - Feel free to join [our discord server](https://discord.gg/vfw6k2G3) if you have any questions or to interact with our researchers and developers.
 - Check out the [Falcon-LLM License link](https://falconllm.tii.ae/falcon-terms-and-conditions.html) for more details about the license.
 - Refer to the official [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/) for HF evaluations of our models.
 
-## Acknowledgments
-
-We warmly thank the following people for their smooth support and integration within the ecosystem.
-
-- list ppl
 
 ## Citation
 If Falcon3.1-74B were helpful to your work, feel free to give us a cite.
 
 ```
 @misc{Falcon3.1-74B,
-    title = {title goes here},
-    url = {url goes here},
+    title = {Falcon3.1-74B LLM: Contributing to the Open LLM Ecosystem at 70B scale},
+    url = {https://falcon-lm.github.io//blog/falcon-3.1-70b/},
     author = {Falcon-LLM Team},
-    month = {March},
+    month = {April},
     year = {2025}
 }
 ```
