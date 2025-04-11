@@ -101,7 +101,7 @@ Falcon3.1-74B offers an <span class="bold">extended context length</span> of up 
 
 ## Training recipe
 
-In developing these models, we introduced several key innovations to enhance performance through efficient pre-training:
+In developing these models, we used several key innovations to enhance performance through efficient pre-training
 
 - <span class="bold">Falcon3.1-74B</span> was pre-trained on 16.5 trillion tokens sourced from the web, code, STEM content, textbooks, and high-quality synthetic and multilingual data, using 4,864 H100 GPU chips.  
 - We employed <span class="bold">multi-stage training</span> with context lengths of 4K, 8K, 16K, and 32K, combined with <span class="bold">curriculum learning</span> and <span class="bold">progressive long-context extension</span> at 64K, 128K, and 256K stages (with higher RoPE values) to improve training efficiency.  
@@ -373,7 +373,6 @@ In line with our mission to foster AI accessibility and collaboration, <span cla
 - Access to our models (including GPTQ, AWQ, GGUF and MLX) through [the Falcon3.1 HuggingFace collection](https://huggingface.co/collections/tiiuae/falcon31-6784de2fc5549029e0c52f61).
 - Feel free to join [our discord server](https://discord.gg/vfw6k2G3) if you have any questions or to interact with our researchers and developers.
 - Check out the [Falcon-LLM License link](https://falconllm.tii.ae/falcon-terms-and-conditions.html) for more details about the license.
-- Refer to the official [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/) for HF evaluations of our models.
 
 
 ## Citation

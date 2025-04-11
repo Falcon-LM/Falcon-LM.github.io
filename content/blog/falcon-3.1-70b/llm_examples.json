@@ -57,13 +57,6 @@
     },
     {
         "language": "English",
-        "source": "Post on X",
-        "category": "Math",
-        "prompt": "Between the numbers  9.11 and 9.9, which one is greater?",
-        "answer": "The number 9.9 is greater than 9.11."
-    },
-    {
-        "language": "English",
         "source": "Minerva technical report",
         "category": "Math",
         "prompt": "What are the eigenvalues of a 2-by-2 matrix \\[ \\mathbf{M} = \\begin{pmatrix}\n1 & 2 \\\\\n-1 & 5 \\\\\n\\end{pmatrix}\\]?",
