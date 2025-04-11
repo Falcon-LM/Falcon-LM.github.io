@@ -1,6 +1,9 @@
 ---
 title: "Spread Your Wings: Falcon 180B is here" 
 date: 2023-09-06T12:00:00Z
+contributors:
+    core:
+        - name: Falcon LLM team
 ---
 
 # Spread Your Wings: Falcon 180B is here

@@ -34,6 +34,9 @@ header:
     background_image: "falcon3-family-logo.svg"
     gradient: true
     blur: true
+contributors:
+    core:
+        - name: Falcon LLM team
 ---
 
 {{< button href="https://chat.falconllm.tii.ae" label="Falcon CHAT" external=true >}}

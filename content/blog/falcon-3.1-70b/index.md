@@ -49,7 +49,7 @@ contributors:
         - name: Yasser Djilali
           #image: img/contributors/yasser_djilali.webp
         - name: Ruxandra Cojocaru
-          image: img/contributors/roxandra_cojocaru.jpg
+          image: img/contributors/roxandra_cojocaru.png
         - name: William De Vazelhes
           image: img/contributors/william_de_vazelhes.jpg
         - name: Giulia Campesan
@@ -61,7 +61,47 @@ contributors:
         - name: Mikhail Lubinets
           image: img/contributors/mikhail_lubinets.jpg
         - name: Hakim Hacid
-          image: img/contributors/hakim_hacid.jpg
+          image: img/contributors/hakim_hacid.png
+    additional:
+        - name: Younes Belkada
+          image: img/contributors/younes_belkada.png
+        - name: Abdalgader Abubaker
+          image: img/contributors/abdalgader_abubaker.png
+        - name: Dhia Garbaya
+        - name: Andy Ngoc Huynh
+          image: img/contributors/andy_ngoc_huynh.png
+        - name: Phuc Le Khac
+          image: img/contributors/phuc_lekhac.png
+        - name: Basma Boussaha
+        - name: Leen Al Qadi
+        - name: Alice Pagnoux
+          image: img/contributors/alice_pagnoux.png
+        - name: Hamza Alobeidi
+        - name: Mohammed Alyafeai
+        - name: Mohamed Chami
+        - name: Hamza Yous
+          image: img/contributors/hamza_yous.png
+        - name: Brahim Farhat
+          image: img/contributors/brahim_farhat.png
+        - name: Ibrahim Khadraoui
+          image: img/contributors/ibrahim_khadraoui.png
+        - name: Reda Alami
+          image: img/contributors/reda_alami.png
+        - name: Ali Almansoori
+          image: img/contributors/ali_almansoori.png
+        - name: Ahmed Adel Alzubaidi
+          image: img/contributors/ahmed_adel_alzubaidi.png
+        - name: Soufiane Hayou
+        - name: Jingwei Zuo
+          image: img/contributors/jingwei_zuo.png
+        - name: Maksim Velikanov
+          image: img/contributors/maksim_velikanov.png
+        - name: Dhia Eddine Rhaiem
+          image: img/contributors/dhia_eddine_rhaiem.png
+        - name: Ilyas Chahed
+          image: img/contributors/ilyas_chahed.png
+        - name: Billel Mokeddem
+          image: img/contributors/billel_mokeddem.png
 ---
 
 {{< button href="https://chat.falconllm.tii.ae" label="Falcon CHAT" external=true >}}
@@ -95,17 +135,17 @@ Falcon3.1-74B offers an <span class="bold">extended context length</span> of up 
 
 - <span class="bold">Architecture</span>: decoder-only transformer compatible with <span class="bold">[Meta-Llama3 architectures](https://arxiv.org/pdf/2407.21783)</span> offering fast and seamless integration for the open-source AI community
 - <span class="bold">Decoder Layers</span>: 80
-- <span class="bold">Grouped Query Attention (GQA)</span>: 32 query heads and 4 key-value heads. <span class="bold">Head Dimension</span>: 256 — optimized for [<span class="bold">FlashAttention-3</span>](https://arxiv.org/pdf/2407.08608). Both enable faster inference thanks to high throughput performance
-- <span class="bold">Vocabulary Size</span>: 262,120 - for improved adaptability during fine-tuning, leading to superior performance across a wide range of languages. 
+- <span class="bold">Grouped Query Attention (GQA)</span>: 32 query heads and 4 key-value heads. <span class="bold">Head Dimension</span>: 256 — optimized for [<span class="bold">FlashAttention-3</span>](https://arxiv.org/pdf/2407.08608) - Both enable faster inference thanks to high throughput performance
+- <span class="bold">Vocabulary Size</span>: 262,120 - for improved adaptability during fine-tuning, leading to superior performance across a wide range of languages
 - <span class="bold">Context Length</span>: Up to 256K tokens
 
 ## Training recipe
 
 In developing these models, we used several key innovations to enhance performance through efficient pre-training
 
-- <span class="bold">Falcon3.1-74B</span> was pre-trained on 16.5 trillion tokens sourced from the web, code, STEM content, textbooks, and high-quality synthetic and multilingual data, using 4,864 H100 GPU chips.  
-- We employed <span class="bold">multi-stage training</span> with context lengths of 4K, 8K, 16K, and 32K, combined with <span class="bold">curriculum learning</span> and <span class="bold">progressive long-context extension</span> at 64K, 128K, and 256K stages (with higher RoPE values) to improve training efficiency.  
-- Pre-training was made efficient and stable through several key techniques, including <span class="bold">z-loss</span>, <span class="bold">output scaling</span> (for both attention and MLP blocks), and <span class="bold">decoupled learning rates</span> for MLP blocks, all while maintaining high FLOPs utilization.
+- <span class="bold">Falcon3.1-74B</span> was pre-trained on 16.5 trillion tokens sourced from the web, code, STEM content, textbooks, and high-quality synthetic and multilingual data, using 4,864 H100 GPU chips 
+- We employed <span class="bold">multi-stage training</span> with context lengths of 4K, 8K, 16K, and 32K, combined with <span class="bold">curriculum learning</span> and <span class="bold">progressive long-context extension</span> at 64K, 128K, and 256K stages (with higher RoPE values) to improve training efficiency
+- Pre-training was made efficient and stable through several key techniques, including <span class="bold">z-loss</span>, <span class="bold">output scaling</span> (for both attention and MLP blocks), and <span class="bold">decoupled learning rates</span> for MLP blocks, all while maintaining high FLOPs utilization
 
 
 ## Instruct Model Capabilities
