@@ -37,29 +37,29 @@ header:
 contributors:
     core:
         - name: Puneesh Khanna
-         # image: img/contributors/name.jpg TODO
+          image: img/contributors/puneesh_khanna.jpg
         - name: Iheb Chaabane
-          # image: img/contributors/name.jpg TODO
+          image: img/contributors/iheb_chaabane.jpg
         - name: Kacper Piskorski
-          # image: img/contributors/name.jpg TODO
+          image: img/contributors/kasper_piskorski.jpg
         - name: Mohamed El Amine Seddik
-          image: img/contributors/name.jpg
+          image: img/contributors/mohamed_seddik.png
         - name: Slim Frikha
           image: img/contributors/slim_frikha.jpg
         - name: Yasser Djilali
-          image: img/contributors/yasser_djilali.webp
+          #image: img/contributors/yasser_djilali.webp
         - name: Ruxandra Cojocaru
-          image: img/contributors/ruxandra_cojocaru.webp
+          image: img/contributors/roxandra_cojocaru.jpg
         - name: William De Vazelhes
-          image: img/contributors/name.jpg
+          image: img/contributors/william_de_vazelhes.jpg
         - name: Giulia Campesan
-          image: img/contributors/giulia_campesan.webp
+          #image: img/contributors/giulia_campesan.webp
         - name: Shi Hu
-          image: img/contributors/name.jpg
+          image: img/contributors/shi_hu.jpg
         - name: Mugariya Farooq
-          image: img/contributors/mughaira_farooq.webp
+          image: img/contributors/mughaira_farooq.jpg
         - name: Mikhail Lubinets
-          image: img/contributors/name.jpg
+          image: img/contributors/mikhail_lubinets.jpg
         - name: Hakim Hacid
           image: img/contributors/hakim_hacid.jpg
 ---
