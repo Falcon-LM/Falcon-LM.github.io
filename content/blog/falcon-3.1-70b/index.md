@@ -64,44 +64,44 @@ contributors:
           image: img/contributors/hakim_hacid.png
     additional:
         - name: Younes Belkada
-          image: img/contributors/younes_belkada.png
+          image: img/contributors/younes_belkada.jpg
         - name: Abdalgader Abubaker
-          image: img/contributors/abdalgader_abubaker.png
+          image: img/contributors/abdalgader_abubaker.jpg
         - name: Dhia Garbaya
         - name: Andy Ngoc Huynh
-          image: img/contributors/andy_ngoc_huynh.png
+          image: img/contributors/andy_ngoc_huynh.jpg
         - name: Phuc Le Khac
-          image: img/contributors/phuc_lekhac.png
+          image: img/contributors/phuc_lekhac.jpg
         - name: Basma Boussaha
         - name: Leen Al Qadi
         - name: Alice Pagnoux
-          image: img/contributors/alice_pagnoux.png
+          image: img/contributors/alice_pagnoux.jpg
         - name: Hamza Alobeidi
         - name: Mohammed Alyafeai
         - name: Mohamed Chami
         - name: Hamza Yous
           image: img/contributors/hamza_yous.png
         - name: Brahim Farhat
-          image: img/contributors/brahim_farhat.png
+          image: img/contributors/brahim_farhat.jpg
         - name: Ibrahim Khadraoui
-          image: img/contributors/ibrahim_khadraoui.png
+          image: img/contributors/ibrahim_khadraoui.jpg
         - name: Reda Alami
           image: img/contributors/reda_alami.png
         - name: Ali Almansoori
           image: img/contributors/ali_almansoori.png
         - name: Ahmed Adel Alzubaidi
-          image: img/contributors/ahmed_adel_alzubaidi.png
+          image: img/contributors/ahmed_adel_alzubaidi.jpg
         - name: Soufiane Hayou
         - name: Jingwei Zuo
-          image: img/contributors/jingwei_zuo.png
+          image: img/contributors/jingwei_zuo.jpg
         - name: Maksim Velikanov
-          image: img/contributors/maksim_velikanov.png
+          image: img/contributors/maksim_velikanov.jpg
         - name: Dhia Eddine Rhaiem
-          image: img/contributors/dhia_eddine_rhaiem.png
+          image: img/contributors/dhia_eddine_rhaiem.jpg
         - name: Ilyas Chahed
-          image: img/contributors/ilyas_chahed.png
+          image: img/contributors/ilyas_chahed.jpg
         - name: Billel Mokeddem
-          image: img/contributors/billel_mokeddem.png
+          image: img/contributors/billel_mokeddem.jpg
 ---
 
 {{< button href="https://chat.falconllm.tii.ae" label="Falcon CHAT" external=true >}}
@@ -243,24 +243,11 @@ Tool use | BFCL AST | 90.7 | 85.0 | 85.5
 
 ### GPQA Benchmarks
 We highlight in the below graph the performance of <span class="bold">Falcon3.1-74B-Instruct</span> on the <span class="bold">GPQA benchmark</span>, where it demonstrates <span class="bold">leading results among 70B-class models</span>—especially on <span class="bold">GPQA Diamond</span>, indicating strong improvements in complex reasoning capabilities.
-{{< barplot_vertical id="gpqa-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.2" ymax="0.45" ylabel="Performance %">}}
+{{< barplot_vertical id="gpqa-inst" highlight="model 2" ymin="0.2" ymax="0.45" ylabel="Performance %" yaxis_percentage="true">}}
 [
-    { "category": "GPQA", "model": "Falcon3.1-74B-Instruct", "value": 0.396812080536913 },
-    { "category": "GPQA", "model": "Qwen2.5-72B-Instruct", "value": 0.368474697 },
-    { "category": "GPQA", "model": "Llama-3.3-70B-Instruct", "value": 0.319960711 },
-    
-    { "category": "GPQA Diamond", "model": "Falcon3.1-74B-Instruct", "value": 0.434343434 },
-    { "category": "GPQA Diamond", "model": "Qwen2.5-72B-Instruct", "value": 0.353535354 },
-    { "category": "GPQA Diamond", "model": "Llama-3.3-70B-Instruct", "value": 0.292929293 },
-    
-    { "category": "GPQA Extended", "model": "Falcon3.1-74B-Instruct", "value": 0.391941392 },
-    { "category": "GPQA Extended", "model": "Qwen2.5-72B-Instruct", "value": 0.379120879 },
-    { "category": "GPQA Extended", "model": "Llama-3.3-70B-Instruct", "value": 0.338827839 },
-
-
-    { "category": "GPQA Main", "model": "Falcon3.1-74B-Instruct", "value": 0.386160714 },
-    { "category": "GPQA Main", "model": "Qwen2.5-72B-Instruct", "value": 0.372767857 },
-    { "category": "GPQA Main", "model": "Llama-3.3-70B-Instruct", "value": 0.328125 }
+    { "category": "GPQA", "model": "model 1", "value": 0.396812080536913 },
+    { "category": "GPQA", "model": "model 2", "value": 0.368474697 },
+    { "category": "GPQA", "model": "model 3", "value": 0.319960711 }
 ]
 {{< /barplot_vertical >}}
 
