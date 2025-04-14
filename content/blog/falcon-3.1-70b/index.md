@@ -120,7 +120,7 @@ and accessible large foundation models.
 This iteration includes:
 - [Falcon3.1-74B-Base](https://huggingface.co/tiiuae/Falcon3.1-74B-Base)
 - [Falcon3.1-74B-Instruct](https://huggingface.co/tiiuae/Falcon3.1-74B-Instruct)
-- [Their quantized version](https://huggingface.co/collections/tiiuae/falcon31-6784de2fc5549029e0c52f61)
+- [Their quantized versions](https://huggingface.co/collections/tiiuae/falcon31-6784de2fc5549029e0c52f61)
 
 <br>
 
@@ -144,10 +144,10 @@ Falcon3.1-74B offers an <span class="bold">extended context length</span> of up 
 
 In developing these models, we used several key innovations to enhance performance through efficient training:
 
-- <span class="bold">Falcon3.1-74B</span> was pre-trained on 16.5 trillion tokens sourced from the web, code, STEM content, textbooks, and high-quality synthetic and multilingual data, using 4,864 H100 GPU chips 
-- We employed <span class="bold">multi-stage training</span> with context lengths of 4K, 8K, 16K, and 32K, combined with <span class="bold">curriculum learning</span> and <span class="bold">progressive long-context extension</span> at 64K, 128K, and 256K stages (with higher RoPE values) to improve training efficiency
-- Pre-training was made efficient and stable through several key techniques, including <span class="bold">z-loss</span>, <span class="bold">output scaling</span> (for both attention and MLP blocks), and <span class="bold">decoupled learning rates</span> for MLP blocks, all while maintaining high FLOPs utilization
-- <span class="bold">Falcon3.1-74B</span> was post trained for conversational ability, math, code and tasks such as RAG and tool calling. This was achieved through supervised fine-tuning (SFT) on a carefully curated dataset of 2 million instructions, followed by direct preference optimization (DPO) on 300,000 preference pairs
+- <span class="bold">Falcon3.1-74B</span> was pre-trained on 16.5 trillion tokens sourced from the web, code, STEM content, textbooks, and high-quality synthetic and multilingual data, using 4,864 H100 GPU chips.
+- We employed <span class="bold">multi-stage training</span> with context lengths of 4K, 8K, 16K, and 32K, combined with <span class="bold">curriculum learning</span> and <span class="bold">progressive long-context extension</span> at 64K, 128K, and 256K stages (with higher RoPE values) to improve training efficiency. 
+- Pre-training was made efficient and stable through several key techniques, including <span class="bold">z-loss</span>, <span class="bold">output scaling</span> (for both attention and MLP blocks), and <span class="bold">decoupled learning rates</span> for MLP blocks, all while maintaining high FLOPs utilization.
+- <span class="bold">Falcon3.1-74B</span> was post trained for conversational ability, math, code and tasks such as RAG and tool calling. This was achieved through supervised fine-tuning (SFT) on a carefully curated dataset of 2 million instructions, followed by direct preference optimization (DPO) on 300,000 preference pairs.
 
 
 ## Instruct Model Capabilities
@@ -265,7 +265,9 @@ We highlight in the below graph the performance of <span class="bold">Falcon3.1-
 {{< /barplot_vertical >}}
 
 ### AGIEval Benchmarks
-[AGIEval](https://arxiv.org/pdf/2304.06364) is a human-centric benchmark specifically designed to evaluate the general abilities of foundation models in tasks pertinent to human cognition and problem-solving. Below graph depicts superior results of Falcon3.1-74B as compared to current 70B state-of-the-art models. Click on more details to find taskwise results of AGIEval subtasks.
+[AGIEval](https://arxiv.org/pdf/2304.06364) is a human-centric benchmark specifically designed to evaluate the general abilities of foundation models in tasks pertinent to human cognition and problem-solving.
+<br>
+Below graph depicts superior results of Falcon3.1-74B as compared to current 70B state-of-the-art models. Click on more details to find taskwise results of AGIEval subtasks.
 
 {{< barplot_vertical id="agieval-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.4" ymax="0.65" ylabel="Performance %">}}
 [
@@ -390,8 +392,7 @@ JSON KV retrieval evaluation measures an LLM's ability to precisely navigate dat
 >}}
 
 ### Safety Benchmarks
-We developed <span class="bold">Falcon 3.1-74B</span> with careful attention to ethical considerations, aiming to incorpo-
-rate fairness, safety, and transparency throughout the process. Our overall approach to responsible AI consisted of safe supervised fine tuning during the SFT stage.
+We developed <span class="bold">Falcon 3.1-74B</span> with careful attention to ethical considerations, aiming to incorporate fairness, safety, and transparency throughout the training process. Our overall approach to responsible AI consisted of safe supervised fine-tuning during the SFT and alignment stages.
 
 As shown in the plot below, <span class="bold">Falcon 3.1-74B-Instruct</span> demonstrates high safety scores.
 
@@ -519,7 +520,7 @@ In line with our mission to foster AI accessibility and collaboration, <span cla
 ```latex
 @misc{Falcon3.1-74B,
     title = {Falcon3.1-74B: Contributing to the Open LLM Ecosystem at 70B scale},
-    url = {https://falcon-lm.github.io//blog/falcon-3.1-70b},
+    url = {https://falcon-lm.github.io/blog/falcon-3.1-70b},
     author = {Falcon-LLM Team},
     month = {April},
     year = {2025}
