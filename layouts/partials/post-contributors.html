@@ -17,14 +17,10 @@
       </div>
     </div>
     {{ end }}
-    
+    <br>
     {{ if .Params.contributors.additional }}
     <div class="contributors-section">
-      <details>
-        <summary style="list-style: none; cursor: pointer; display: flex; align-items: center;">
-            <h4 style="margin: 0; padding: 0;">Additional Contributors</h4>
-            <span style="font-size: 0.4rem; margin-left: 10px; color: #666;">[+] Click to expand</span>
-        </summary>
+        <h4 >Additional Contributors</h4>
         <div class="contributors-grid">
           {{ range .Params.contributors.additional }}
           <div class="contributor">
@@ -37,7 +33,6 @@
           </div>
           {{ end }}
         </div>
-      </details>
     </div>
     {{ end }}
 </div>
