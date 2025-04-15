@@ -314,7 +314,7 @@ sat_math | 69.54 | 26.81 | 75
 
 ### Multilingual Benchmarks
 The following graph presents benchmarking results across popular multilingual benchmarks, showcasing the strong performance of <span class="bold">Falcon 3.1-74B-Instruct</span> in several languages including Spanish, French, Portuguese, Italian, Swedish, Romanian and Hindi. It also demonstrates on-par performance in the other supported languages.
-{{< barplot_horizental id="multilingual-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.5" ymax="0.8" ylabel="Performance %" yaxis_percentage="true" height="800">}}
+{{< barplot_horizental id="multilingual-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.5" ymax="0.8" ylabel="Performance %" xaxis_percentage="true" height="800">}}
 [    
     { "category": "Spanish", "model": "Falcon3.1-74B-Instruct", "value": 0.7860 },
     { "category": "Spanish", "model": "Qwen2.5-72B-Instruct", "value": 0.7374 },
@@ -397,7 +397,7 @@ We developed <span class="bold">Falcon 3.1-74B</span> with careful attention to 
 As shown in the plot below, <span class="bold">Falcon 3.1-74B-Instruct</span> demonstrates high safety scores.
 
 
-{{< barplot_horizental id="safety-inst" highlight="Falcon3.1-74B-Instruct" ymin="0" ymax="1" ylabel="Performance %" yaxis_percentage="true" height="300">}}
+{{< barplot_horizental id="safety-inst" highlight="Falcon3.1-74B-Instruct" ymin="0" ymax="1" ylabel="Performance %" xaxis_percentage="true" height="300">}}
 [    
     { "category": "ALERT", "model": "Falcon3.1-74B-Instruct", "value": 0.9861 },
     { "category": "Salad Bench", "model": "Falcon3.1-74B-Instruct", "value": 0.9595 },
