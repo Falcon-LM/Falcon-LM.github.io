@@ -114,8 +114,8 @@ contributors:
 
 We introduce <span class="bold">Falcon3.1-74B</span>, a decoder-only large language model, developed by
 [Technology Innovation Institute (TII)](https://www.tii.ae/ai-and-digital-science) in Abu Dhabi. By pushing the
-boundaries of performance at the 70B scale of LLMs, this release continues to reflect our ongoing commitment to advancing open
-and accessible large foundation models.
+boundaries of performance at the 70B scale of LLMs, this release continues to reflect our ongoing commitment to advancing open and accessible large foundation models through open-source contribution. By making <span class="bold">Falcon3.1-74B</span> freely available, we aim to empower the community with the tools and resources to innovate, collaborate, and build on cutting-edge AI technology.
+
 
 This iteration includes:
 - [Falcon3.1-74B-Base](https://huggingface.co/tiiuae/Falcon3.1-74B-Base)
