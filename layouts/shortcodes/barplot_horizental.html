@@ -26,6 +26,9 @@
   // Get highlight model (the one to make purple) or default to first model
   const highlightModel = "{{ .Get "highlight" }}";
   const modelToHighlight = highlightModel || models[0];
+
+  // whether y label is % or not
+  const yaxisPercentage = {{ if eq (.Get "yaxis_percentage" | default "true") "false" }}false{{ else }}true{{ end }};
   
   // Set up dimensions and margins - adjusted for horizontal layout
   const margin = {top: 40, right: 30, bottom: 50, left: 130}; // Increased left margin for category labels
@@ -114,7 +117,13 @@
   
   svg.append("g")
     .attr("transform", `translate(0,${height})`) // Place at bottom of chart
-    .call(d3.axisBottom(x).tickFormat(d3.format(".0%")))
+    .call(d3.axisBottom(x).tickFormat(d => {
+      if (yaxisPercentage) {
+        return d3.format(".0%")(d); // Format as percentage if true
+      } else {
+        return d3.format(".2f")(d); // Format as decimal if false
+      }
+    }))
     .selectAll("text")
       .style("font-family", "inherit");
 
@@ -183,7 +192,13 @@
         
         // Generate tooltip content for all models in this category
         const tooltipContent = `<strong style="font-size: 16px;">${category}</strong><br/><span style="font-size: 12px;">` +
-          categoryData.map(d => `${d.model}: ${(d.value * 100).toFixed(2)}%`).join("<br/>") + "</span>";
+          categoryData.map(d => {
+            if (yaxisPercentage) {
+              return `${d.model}: ${(d.value * 100).toFixed(2)}%`;
+            } else {
+              return `${d.model}: ${d.value.toFixed(3)}`;
+            }
+          }).join("<br/>") + "</span>";
         
         // Show tooltip
         tooltip

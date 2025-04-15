@@ -165,7 +165,7 @@ Our evaluations highlight the areas where Falcon3.1-74B models excel, emphasizin
 The graph below depicts on-par performance of <span class="bold">Falcon3.1-74B-Instruct</span> with current 70B state-of-the-art models across <span class="bold">seven categories</span> with notable strengths in <span class="bold">basic reasoning</span> and <span class="bold">commonsense understanding</span>. Each category aggregates widely used LLM benchmarks relevant to that domain (scroll for more details).
 
 
-{{< barplot_vertical id="general-inst" highlight="Falcon3.1-74B-Instruct" ymin="0" ymax="0.94" ylabel="Performance %" >}}
+{{< barplot_vertical id="general-inst" highlight="Falcon3.1-74B-Instruct" ymin="0" ymax="0.94" ylabel="Performance %" yaxis_percentage="true">}}
 [
     { "category": "General", "model": "Falcon3.1-74B-Instruct", "value": 0.7045 },
     { "category": "General", "model": "Qwen2.5-72B-Instruct", "value": 0.7145 },
@@ -243,11 +243,24 @@ Tool use | BFCL AST | 90.7 | 85.0 | 85.5
 
 ### GPQA Benchmarks
 We highlight in the below graph the performance of <span class="bold">Falcon3.1-74B-Instruct</span> on the <span class="bold">GPQA benchmark</span>, where it demonstrates <span class="bold">leading results among 70B-class models</span>—especially on <span class="bold">GPQA Diamond</span>, indicating strong improvements in complex reasoning capabilities.
-{{< barplot_vertical id="gpqa-inst" highlight="model 2" ymin="0.2" ymax="0.45" ylabel="Performance %" yaxis_percentage="true">}}
+{{< barplot_vertical id="gpqa-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.2" ymax="0.45" ylabel="Performance %" yaxis_percentage="true">}}
 [
-    { "category": "GPQA", "model": "model 1", "value": 0.396812080536913 },
-    { "category": "GPQA", "model": "model 2", "value": 0.368474697 },
-    { "category": "GPQA", "model": "model 3", "value": 0.319960711 }
+    { "category": "GPQA", "model": "Falcon3.1-74B-Instruct", "value": 0.396812080536913 },
+    { "category": "GPQA", "model": "Qwen2.5-72B-Instruct", "value": 0.368474697 },
+    { "category": "GPQA", "model": "Llama-3.3-70B-Instruct", "value": 0.319960711 },
+
+    { "category": "GPQA Diamond", "model": "Falcon3.1-74B-Instruct", "value": 0.434343434 },
+    { "category": "GPQA Diamond", "model": "Qwen2.5-72B-Instruct", "value": 0.353535354 },
+    { "category": "GPQA Diamond", "model": "Llama-3.3-70B-Instruct", "value": 0.292929293 },
+
+    { "category": "GPQA Extended", "model": "Falcon3.1-74B-Instruct", "value": 0.391941392 },
+    { "category": "GPQA Extended", "model": "Qwen2.5-72B-Instruct", "value": 0.379120879 },
+    { "category": "GPQA Extended", "model": "Llama-3.3-70B-Instruct", "value": 0.338827839 },
+
+
+    { "category": "GPQA Main", "model": "Falcon3.1-74B-Instruct", "value": 0.386160714 },
+    { "category": "GPQA Main", "model": "Qwen2.5-72B-Instruct", "value": 0.372767857 },
+    { "category": "GPQA Main", "model": "Llama-3.3-70B-Instruct", "value": 0.328125 }
 ]
 {{< /barplot_vertical >}}
 
@@ -256,7 +269,7 @@ We highlight in the below graph the performance of <span class="bold">Falcon3.1-
 <br>
 Below graph depicts superior results of Falcon3.1-74B as compared to current 70B state-of-the-art models. Click on more details to find taskwise results of AGIEval subtasks.
 
-{{< barplot_vertical id="agieval-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.4" ymax="0.65" ylabel="Performance %">}}
+{{< barplot_vertical id="agieval-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.4" ymax="0.65" ylabel="Performance %" yaxis_percentage="true">}}
 [
     { "category": "AGIEval", "model": "Falcon3.1-74B-Instruct", "value": 0.6023 },
     { "category": "AGIEval", "model": "Qwen2.5-72B-Instruct", "value": 0.5892 },
@@ -301,7 +314,7 @@ sat_math | 69.54 | 26.81 | 75
 
 ### Multilingual Benchmarks
 The following graph presents benchmarking results across popular multilingual benchmarks, showcasing the strong performance of <span class="bold">Falcon 3.1-74B-Instruct</span> in several languages including Spanish, French, Portuguese, Italian, Swedish, Romanian and Hindi. It also demonstrates on-par performance in the other supported languages.
-{{< barplot_horizental id="multilingual-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.5" ymax="0.8" ylabel="Performance %" height="800">}}
+{{< barplot_horizental id="multilingual-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.5" ymax="0.8" ylabel="Performance %" yaxis_percentage="true" height="800">}}
 [    
     { "category": "Spanish", "model": "Falcon3.1-74B-Instruct", "value": 0.7860 },
     { "category": "Spanish", "model": "Qwen2.5-72B-Instruct", "value": 0.7374 },
@@ -353,7 +366,7 @@ The following graph presents benchmarking results across popular multilingual be
 One of the key features of <span class="bold">Falcon 3.1-74B</span> is its ability to handle long contexts, with native support for context lengths of up to 256K tokens. As shown in the graph below, <span class="bold">Falcon 3.1-74B-Instruct</span> demonstrates superior performance at 128K context length on the Helmet benchmark, while maintaining on-par performance at shorter context lengths.
 <br>
 *N.B: Note that results for the 256K context window are not reported, as the Helmet benchmark [does not support](https://github.com/princeton-nlp/HELMET/tree/4526dfbdc512bd9ff721da336bff4e3e75ecfd27?tab=readme-ov-file#release-progress:~:text=Support%20%3E128k%20input%20length) >128K context length at the time of release.*
-{{< barplot_vertical id="helmet-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.3" ymax="0.6" ylabel="Performance %">}}
+{{< barplot_vertical id="helmet-inst" highlight="Falcon3.1-74B-Instruct" ymin="0.3" ymax="0.6" ylabel="Performance %" yaxis_percentage="true">}}
 [
     { "category": "32K", "model": "Falcon3.1-74B-Instruct", "value": 0.611 },
     { "category": "32K", "model": "Qwen2.5-72B-Instruct", "value": 0.623 },
@@ -384,7 +397,7 @@ We developed <span class="bold">Falcon 3.1-74B</span> with careful attention to 
 As shown in the plot below, <span class="bold">Falcon 3.1-74B-Instruct</span> demonstrates high safety scores.
 
 
-{{< barplot_horizental id="safety-inst" highlight="Falcon3.1-74B-Instruct" ymin="0" ymax="1" ylabel="Performance %" height="300">}}
+{{< barplot_horizental id="safety-inst" highlight="Falcon3.1-74B-Instruct" ymin="0" ymax="1" ylabel="Performance %" yaxis_percentage="true" height="300">}}
 [    
     { "category": "ALERT", "model": "Falcon3.1-74B-Instruct", "value": 0.9861 },
     { "category": "Salad Bench", "model": "Falcon3.1-74B-Instruct", "value": 0.9595 },
@@ -431,7 +444,7 @@ JailbreakBench  |  | 98.00
 
 ## Base Model Capabilities
 The graph below presents on-par performance of <span class="bold">Falcon3.1-74B-Base</span> with current 70B state-of-the-art models across <span class="bold">seven categories</span> with slight edge in <span class="bold">code</span>. Each category aggregates widely used LLM benchmarks relevant to that domain (scroll for more details).
-{{< barplot_vertical id="general-base" highlight="Falcon3.1-74B-Base" ymin="0" ymax="0.8" ylabel="Performance %">}}
+{{< barplot_vertical id="general-base" highlight="Falcon3.1-74B-Base" ymin="0" ymax="0.8" ylabel="Performance %" yaxis_percentage="true">}}
 [
     { "category": "General", "model": "Falcon3.1-74B-Base", "value": 0.593 },
     { "category": "General", "model": "Qwen2.5-72B", "value": 0.624 },
