@@ -1,0 +1,838 @@
+<!-- layouts/shortcodes/prompt_gallery.html -->
+{{ $jsonPath := .Get 0 }}
+
+<div class="llm-gallery-container">
+    <div class="filters">
+        <div class="filter-group">
+          <label>Search</label>
+          <input type="text" class="search-box" placeholder="Search examples...">
+        </div>
+        
+        <div class="filter-group">
+          <label for="language-filter">Language</label>
+          <select id="language-filter">
+            <option value="">All Languages</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="source-filter">Source</label>
+          <select id="source-filter">
+            <option value="">All Sources</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="category-filter">Category</label>
+          <select id="category-filter">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+      </div>
+  
+  <div class="cards-container" id="cards-container">
+    <!-- Cards will be inserted here -->
+    <div class="loading">Loading examples...</div>
+  </div>
+  
+  <div class="pagination" id="pagination">
+    <!-- Pagination buttons will be inserted here -->
+  </div>
+  
+  <div class="no-results" id="no-results" style="display: none;">
+    No examples match your filters. Try changing your selection.
+  </div>
+
+  <div id="debug-info" style="margin-top: 20px; padding: 10px; background-color: #f5f5f5; border-radius: 4px; display: none;">
+    <h4>Debug Information</h4>
+    <div id="debug-content"></div>
+  </div>
+</div>
+
+<div id="example-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <div class="modal-header">
+      <h3 class="modal-title"></h3>
+      <div class="modal-metadata"></div>
+    </div>
+    <div class="modal-prompt"></div>
+    <div class="modal-answer"></div>
+  </div>
+</div>
+
+<style>
+  .llm-gallery-container {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    max-width: 800px; /* Set fixed width to 800px */
+    margin: 0 auto;
+  }
+  
+  .loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+    color: #666;
+  }
+  .filters {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 10px;
+  justify-content: space-between;
+  max-width: 800px;
+}
+
+.filter-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.filter-group select, .filter-group .search-box {
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  width: 100%;
+  font-size: 14px;
+  height: 38px; /* Ensure consistent height */
+}
+  .search-box {
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    flex: 1.5; /* Give search box more space */
+    font-size: 14px;
+    height: 36px; /* Match height with selects */
+  }
+  
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #fff;
+    position: relative;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    padding: 15px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .card-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .metadata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  
+  .tag {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background-color: #f0f0f0;
+  }
+  
+  .tag.language {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+  }
+  
+  .tag.source {
+    background-color: #e8f5e9;
+    color: #1b5e20;
+  }
+  
+  .tag.category {
+    background-color: #fff3e0;
+    color: #e65100;
+  }
+  
+  .card-content {
+    padding: 15px;
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .prompt {
+    font-weight: 500;
+    margin-bottom: 10px;
+    white-space: pre-line;
+    overflow: hidden;
+    max-height: 4.5em;
+    line-height: 1.5;
+  }
+  
+  .answer {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #444;
+    white-space: pre-line;
+    overflow: hidden;
+    max-height: 7.5em;
+    flex-grow: 1;
+  }
+  
+  .expand-btn {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    align-self: flex-end;
+  }
+  
+  .expand-btn:hover {
+    background-color: #1976D2;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  .close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close-btn:hover {
+    color: black;
+  }
+  
+  .modal-header {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .modal-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .modal-metadata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .modal-prompt {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    font-weight: 500;
+    white-space: pre-line;
+  }
+  
+  .modal-answer {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    line-height: 1.6;
+    white-space: pre-line;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 8px;
+  }
+  
+  .pagination button {
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .pagination button.active {
+    background-color: #2196F3;
+    color: white;
+    border-color: #2196F3;
+  }
+  
+  .pagination button:hover:not(.active) {
+    background-color: #f5f5f5;
+  }
+  
+  .no-results {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  #debug-info {
+    font-family: monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 800px) {
+    .filters {
+      flex-wrap: wrap;
+    }
+    
+    .search-box {
+      flex: 1 0 100%;
+      order: -1; /* Move search to top on small screens */
+      margin-bottom: 10px;
+    }
+    
+    .filter-group {
+      flex: 1 0 30%;
+    }
+    
+    .llm-gallery-container {
+      padding: 0 10px;
+    }
+  }
+  
+  /* Dark mode support for PaperMod */
+  body.dark .card {
+    background-color: #2d2d2d;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  body.dark .card-header {
+    background-color: #222;
+    border-bottom: 1px solid #333;
+  }
+  
+  body.dark .card-title {
+    color: #e0e0e0;
+  }
+  
+  body.dark .tag {
+    background-color: #444;
+    color: #e0e0e0;
+  }
+  
+  body.dark .tag.language {
+    background-color: #1a3c71;
+    color: #b3d4fc;
+  }
+  
+  body.dark .tag.source {
+    background-color: #1e4620;
+    color: #b8dab8;
+  }
+  
+  body.dark .tag.category {
+    background-color: #6d3200;
+    color: #ffe0b2;
+  }
+  
+  body.dark .answer {
+    color: #bbb;
+  }
+  
+  body.dark .modal-content {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+  }
+  
+  body.dark .modal-header {
+    border-bottom: 1px solid #444;
+  }
+  
+  body.dark .modal-prompt {
+    background-color: #222;
+  }
+  
+  body.dark .modal-answer {
+    background-color: #333;
+  }
+  
+  body.dark .close-btn {
+    color: #ccc;
+  }
+  
+  body.dark .close-btn:hover {
+    color: white;
+  }
+  
+  body.dark .search-box,
+  body.dark .filter-group select {
+    background-color: #333;
+    color: #e0e0e0;
+    border-color: #555;
+  }
+  
+  body.dark .pagination button {
+    background-color: #333;
+    color: #e0e0e0;
+    border-color: #555;
+  }
+  
+  body.dark .pagination button.active {
+    background-color: #1976D2;
+    color: white;
+    border-color: #1976D2;
+  }
+  
+  body.dark .pagination button:hover:not(.active) {
+    background-color: #444;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const cardsContainer = document.getElementById('cards-container');
+    const paginationContainer = document.getElementById('pagination');
+    const noResultsMessage = document.getElementById('no-results');
+    const searchBox = document.querySelector('.search-box');
+    const languageFilter = document.getElementById('language-filter');
+    const sourceFilter = document.getElementById('source-filter');
+    const categoryFilter = document.getElementById('category-filter');
+    const modal = document.getElementById('example-modal');
+    const closeBtn = document.querySelector('.close-btn');
+    const debugInfo = document.getElementById('debug-info');
+    const debugContent = document.getElementById('debug-content');
+    
+    // Enable debug mode in development
+    const enableDebug = false;
+    
+    function log(message, data) {
+      if (enableDebug) {
+        console.log(message, data);
+        debugInfo.style.display = 'block';
+        debugContent.innerHTML += `<div>${message}: ${JSON.stringify(data)}</div>`;
+      }
+    }
+    
+    // Get the JSON path from the shortcode parameter
+    const rawJsonPath = {{ $jsonPath }};
+    log('Raw JSON Path', rawJsonPath);
+    
+    // Try different path formats to handle Hugo's path processing
+    const possiblePaths = [
+      rawJsonPath,                              // As provided
+      `/` + rawJsonPath,                        // Add leading slash
+      rawJsonPath.replace(/^\//, ''),          // Remove leading slash if present
+      rawJsonPath.replace(/^content\//, '/'),   // Convert content/ path to public path
+      rawJsonPath.replace(/^content\//, ''),    // Convert content/ path to relative
+      window.location.pathname.replace(/\/[^\/]*$/, '/') + rawJsonPath.split('/').pop() // Same directory
+    ];
+    
+    log('Trying paths', possiblePaths);
+    
+    // State
+    let allExamples = [];
+    let filteredExamples = [];
+    let currentPage = 1;
+    const examplesPerPage = 6;
+    
+    // Unique values for filters
+    let languages = new Set();
+    let sources = new Set();
+    let categories = new Set();
+    
+    // Close modal
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    };
+    
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+    
+    // Function to try loading from different possible paths
+    async function tryLoadPaths(paths, index = 0) {
+      if (index >= paths.length) {
+        cardsContainer.innerHTML = `<div class="no-results">Failed to load examples data. Tried paths: ${paths.join(', ')}</div>`;
+        return;
+      }
+      
+      try {
+        const path = paths[index];
+        log('Trying path', path);
+        const response = await fetch(path);
+        
+        if (!response.ok) {
+          log('Failed to load from path', { path, status: response.status });
+          return tryLoadPaths(paths, index + 1);
+        }
+        
+        const fileContent = await response.text();
+        log('File content preview', fileContent.substring(0, 200));
+        
+        if (!fileContent || fileContent.trim() === '') {
+          log('Empty file content from path', path);
+          return tryLoadPaths(paths, index + 1);
+        }
+        
+        try {
+          // Parse the JSON data
+          const jsonData = JSON.parse(fileContent);
+          log('Parsed JSON data', { 
+            type: Array.isArray(jsonData) ? 'array' : 'object',
+            length: Array.isArray(jsonData) ? jsonData.length : Object.keys(jsonData).length
+          });
+          
+          // Handle both array format and object with nested arrays
+          let data;
+          
+          if (Array.isArray(jsonData)) {
+            // Direct array of records
+            data = jsonData;
+          } else if (jsonData.data && Array.isArray(jsonData.data)) {
+            // Object with data property that is an array
+            data = jsonData.data;
+          } else {
+            // Try to extract data in other ways
+            const possibleArrayProps = Object.keys(jsonData).filter(k => Array.isArray(jsonData[k]));
+            if (possibleArrayProps.length > 0) {
+              data = jsonData[possibleArrayProps[0]];
+            } else {
+              // Fallback - convert object to array if needed
+              data = [jsonData];
+            }
+          }
+          
+          log('Processed JSON data', { count: data.length, sample: data.slice(0, 2) });
+          
+          // Ensure required fields exist
+          if (!data || data.length === 0) {
+            log('No records found in JSON', { path });
+            cardsContainer.innerHTML = `<div class="no-results">No examples found in data file.</div>`;
+            return;
+          }
+          
+          // Process the data
+          processJsonData(data);
+          
+        } catch (jsonError) {
+          log('Error parsing JSON', { error: jsonError.message });
+          cardsContainer.innerHTML = `<div class="no-results">Error parsing JSON data: ${jsonError.message}</div>`;
+        }
+      } catch (error) {
+        log('Error fetching from path', { path: paths[index], error: error.message });
+        return tryLoadPaths(paths, index + 1);
+      }
+    }
+    
+    // Process JSON data
+    function processJsonData(data) {
+      // Extract unique values for filters
+      languages = new Set();
+      sources = new Set();
+      categories = new Set();
+      
+      // Process data and populate filters
+      allExamples = data.map((item, index) => {
+        // Add unique values to filter sets
+        if (item.language) languages.add(item.language.trim());
+        if (item.source) sources.add(item.source.trim());
+        if (item.category) categories.add(item.category.trim());
+        
+        return {
+          id: index,
+          prompt: item.prompt || '',
+          answer: item.answer || '',
+          language: item.language || '',
+          source: item.source || '',
+          category: item.category || ''
+        };
+      });
+      
+      log('Processed examples', { 
+        count: allExamples.length, 
+        filters: { 
+          languages: [...languages], 
+          sources: [...sources], 
+          categories: [...categories] 
+        } 
+      });
+      
+      // Populate filter dropdowns
+      populateFilterDropdown(languageFilter, languages);
+      populateFilterDropdown(sourceFilter, sources);
+      populateFilterDropdown(categoryFilter, categories);
+      
+      // Initial display
+      filteredExamples = [...allExamples];
+      renderExamples();
+    }
+    
+    // Populate a filter dropdown with unique values
+    function populateFilterDropdown(selectElement, values) {
+      if (values.size === 0) {
+        log('No values for filter', { id: selectElement.id });
+        return;
+      }
+      
+      // Sort values alphabetically
+      const sortedValues = Array.from(values).sort();
+      log('Populating filter', { id: selectElement.id, values: sortedValues });
+      
+      sortedValues.forEach(value => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = value;
+        selectElement.appendChild(option);
+      });
+    }
+    
+    // Apply filters and search
+    function applyFilters() {
+      const searchTerm = searchBox.value.toLowerCase();
+      const language = languageFilter.value;
+      const source = sourceFilter.value;
+      const category = categoryFilter.value;
+      
+      log('Applying filters', { searchTerm, language, source, category });
+      
+      filteredExamples = allExamples.filter(example => {
+        const matchesSearch = searchTerm === '' || 
+                             example.prompt.toLowerCase().includes(searchTerm) || 
+                             example.answer.toLowerCase().includes(searchTerm);
+        
+        const matchesLanguage = language === '' || example.language === language;
+        const matchesSource = source === '' || example.source === source;
+        const matchesCategory = category === '' || example.category === category;
+        
+        return matchesSearch && matchesLanguage && matchesSource && matchesCategory;
+      });
+      
+      log('Filtered examples', { count: filteredExamples.length });
+      
+      // Reset to first page when filters change
+      currentPage = 1;
+      renderExamples();
+    }
+    
+    // Render examples and pagination
+    function renderExamples() {
+      if (filteredExamples.length === 0) {
+        cardsContainer.innerHTML = '';
+        paginationContainer.innerHTML = '';
+        noResultsMessage.style.display = 'block';
+        return;
+      }
+      
+      noResultsMessage.style.display = 'none';
+      
+      // Calculate pagination
+      const totalPages = Math.ceil(filteredExamples.length / examplesPerPage);
+      const startIndex = (currentPage - 1) * examplesPerPage;
+      const endIndex = Math.min(startIndex + examplesPerPage, filteredExamples.length);
+      const currentExamples = filteredExamples.slice(startIndex, endIndex);
+      
+      log('Rendering examples', { page: currentPage, totalPages, showing: currentExamples.length });
+      
+      // Render cards
+      cardsContainer.innerHTML = '';
+      currentExamples.forEach(example => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        // Create card structure
+        card.innerHTML = `
+          <div class="card-header">
+            <h3 class="card-title">Example #${example.id + 1}</h3>
+            <div class="metadata">
+              ${example.language ? `<span class="tag language">${example.language}</span>` : ''}
+              ${example.source ? `<span class="tag source">${example.source}</span>` : ''}
+              ${example.category ? `<span class="tag category">${example.category}</span>` : ''}
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="prompt"></div>
+            <div class="answer"></div>
+            <button class="expand-btn" data-id="${example.id}">View Full</button>
+          </div>
+        `;
+        
+        // Set text content to preserve newlines
+        const promptDiv = card.querySelector('.prompt');
+        const answerDiv = card.querySelector('.answer');
+        
+        promptDiv.textContent = example.prompt;
+        answerDiv.textContent = example.answer;
+        
+        cardsContainer.appendChild(card);
+      });
+      
+      // Add event listeners to expand buttons
+      document.querySelectorAll('.expand-btn').forEach(button => {
+        button.addEventListener('click', function() {
+          const exampleId = parseInt(this.getAttribute('data-id'));
+          showModal(exampleId);
+        });
+      });
+      
+      // Render pagination
+      renderPagination(totalPages);
+    }
+    
+    // Render pagination controls
+    function renderPagination(totalPages) {
+      paginationContainer.innerHTML = '';
+      
+      if (totalPages <= 1) return;
+      
+      // Previous button
+      const prevButton = document.createElement('button');
+      prevButton.textContent = '«';
+      prevButton.disabled = currentPage === 1;
+      prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderExamples();
+        }
+      });
+      paginationContainer.appendChild(prevButton);
+      
+      // Page buttons
+      const maxPageButtons = 5;
+      let startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
+      const endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+      
+      if (endPage - startPage + 1 < maxPageButtons && startPage > 1) {
+        startPage = Math.max(1, endPage - maxPageButtons + 1);
+      }
+      
+      for (let i = startPage; i <= endPage; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        pageButton.classList.toggle('active', i === currentPage);
+        pageButton.addEventListener('click', () => {
+          currentPage = i;
+          renderExamples();
+        });
+        paginationContainer.appendChild(pageButton);
+      }
+      
+      // Next button
+      const nextButton = document.createElement('button');
+      nextButton.textContent = '»';
+      nextButton.disabled = currentPage === totalPages;
+      nextButton.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderExamples();
+        }
+      });
+      paginationContainer.appendChild(nextButton);
+    }
+    
+    // Show modal with full example details
+    function showModal(exampleId) {
+      const example = allExamples.find(ex => ex.id === exampleId);
+      if (!example) return;
+      
+      const modalTitle = modal.querySelector('.modal-title');
+      const modalMetadata = modal.querySelector('.modal-metadata');
+      const modalPrompt = modal.querySelector('.modal-prompt');
+      const modalAnswer = modal.querySelector('.modal-answer');
+      
+      modalTitle.textContent = `Example #${example.id + 1}`;
+      
+      modalMetadata.innerHTML = `
+        ${example.language ? `<span class="tag language">${example.language}</span>` : ''}
+        ${example.source ? `<span class="tag source">${example.source}</span>` : ''}
+        ${example.category ? `<span class="tag category">${example.category}</span>` : ''}
+      `;
+      
+      // Clear existing content
+      modalPrompt.innerHTML = '<strong>Prompt:</strong>';
+      modalAnswer.innerHTML = '<strong>Answer:</strong>';
+      
+      // Create and append text nodes to preserve whitespace
+      const promptContent = document.createElement('div');
+      promptContent.textContent = example.prompt;
+      promptContent.style.whiteSpace = 'pre-line';
+      promptContent.style.marginTop = '8px';
+      modalPrompt.appendChild(promptContent);
+      
+      const answerContent = document.createElement('div');
+      answerContent.textContent = example.answer;
+      answerContent.style.whiteSpace = 'pre-line';
+      answerContent.style.marginTop = '8px';
+      modalAnswer.appendChild(answerContent);
+      
+      modal.style.display = 'block';
+    }
+    
+    // Event listeners for filtering
+    searchBox.addEventListener('input', applyFilters);
+    languageFilter.addEventListener('change', applyFilters);
+    sourceFilter.addEventListener('change', applyFilters);
+    categoryFilter.addEventListener('change', applyFilters);
+    
+    // Start loading process by trying different paths
+    tryLoadPaths(possiblePaths);
+  });
+</script>

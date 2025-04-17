@@ -40,6 +40,9 @@ header:
     background_image: "falcon-mamba.png"
     gradient: true
     blur: true
+contributors:
+    core:
+        - name: Falcon LLM team
 ---
 
 

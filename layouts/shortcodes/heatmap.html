@@ -1,0 +1,385 @@
+<div class="heatmap-container"
+     data-title="{{ .Get "title" }}" 
+     data-x-label="{{ .Get "x_label" }}" 
+     data-y-label="{{ .Get "y_label" }}" 
+     data-value-label="{{ .Get "value_label" }}" 
+     data-path="{{ .Get "data_path" }}">
+
+<style>
+    /* Minimal styling - only what's necessary */
+    .model-select {
+        padding: 6px;
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+        min-width: 150px;
+    }
+    
+    .model-title {
+        font-weight: 600;
+        margin-right: 10px;
+    }
+    
+    .heatmap-controls {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .color-legend {
+        margin-top: 15px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .color-gradient {
+        width: 300px;
+        height: 20px;
+        margin: 0 10px;
+    }
+    
+    .legend-label {
+        font-size: 12px;
+    }
+    
+    .heatmap-tooltip {
+        position: absolute;
+        padding: 8px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 4px;
+        pointer-events: none;
+        font-size: 12px;
+        z-index: 10;
+    }
+</style>
+
+<h2 id="heatmap-title">Loading Heatmap...</h2>
+
+<div class="heatmap-controls">
+    <span class="model-title">Model:</span>
+    <select id="model-select" class="model-select">
+        <!-- Will be dynamically populated with models -->
+    </select>
+</div>
+
+<div id="heatmap">
+    <!-- SVG will be placed here -->
+</div>
+
+<div class="color-legend">
+    <span class="legend-label">0.0</span>
+    <div id="color-gradient" class="color-gradient"></div>
+    <span class="legend-label">1.0</span>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+(function() {
+    // Get the container element
+    const container = document.querySelector('.heatmap-container');
+    
+    // Get configuration from data attributes
+    const config = {
+        title: container.dataset.title || null,
+        x_label: container.dataset.xLabel || 'X Value',
+        y_label: container.dataset.yLabel || 'Y Value (log scale)',
+        value_label: container.dataset.valueLabel || 'Value',
+        data_path: container.dataset.path || null
+    };
+    
+    // Update the title 
+    document.getElementById('heatmap-title').textContent = config.title;
+    
+    // Debug output
+    console.log("Heatmap config:", config);
+    
+    // Get the current page URL path to calculate relative paths
+    const currentPath = window.location.pathname;
+    
+    // Ensure we have a data path
+    if (!config.data_path) {
+        document.getElementById('heatmap').innerHTML = `
+            <div style="color: red; padding: 10px;">
+                Error: No data path provided. Please specify a JSON data file path using the data_path parameter.
+            </div>`;
+        console.error('Heatmap error: No data_path parameter provided', config);
+        return;
+    }
+    
+    // If the data_path doesn't start with a slash or http, treat it as relative to current page
+    let fullDataPath = config.data_path;
+    if (!config.data_path.startsWith('/') && !config.data_path.startsWith('http')) {
+        // Extract directory part of the current path
+        const pathParts = currentPath.split('/');
+        pathParts.pop(); // Remove the last part (the page itself)
+        const currentDir = pathParts.join('/');
+        fullDataPath = `${currentDir}/${config.data_path}`;
+    }
+    
+    // Set up the visualization dimensions
+    const margin = {top: 30, right: 30, bottom: 80, left: 80};
+    const width = 800 - margin.left - margin.right;
+    const height = 500 - margin.top - margin.bottom;
+    
+    // Add tooltip div
+    const tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "heatmap-tooltip")
+        .style("opacity", 0);
+    
+    // Initialize data variable
+    let allData = [];
+    let svg;
+    
+    // Function to load and process data
+    function loadData() {
+        // Display loading state
+        document.getElementById('heatmap').innerHTML = '<div>Loading data...</div>';
+        
+        fetch(fullDataPath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                allData = data;
+                if (!Array.isArray(allData) || allData.length === 0) {
+                    throw new Error('Data is empty or not in expected format');
+                }
+                // Clear the loading message
+                document.getElementById('heatmap').innerHTML = '';
+                
+                // Create SVG element
+                svg = d3.select("#heatmap")
+                    .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", `translate(${margin.left},${margin.top})`);
+                
+                processData();
+            })
+            .catch(error => {
+                console.error('Error loading data:', error);
+                document.getElementById('heatmap').innerHTML = 
+                    `<div style="color: red; padding: 10px;">
+                        Error loading data from ${fullDataPath}: ${error.message}
+                    </div>`;
+            });
+    }
+    
+    // Function to process data and setup visualization
+    function processData() {
+        // Get unique models
+        const models = Array.from(new Set(allData.map(d => d.model)));
+        console.log("Found models:", models);
+        
+        // Populate model selector
+        const modelSelect = document.getElementById('model-select');
+        modelSelect.innerHTML = '';
+        
+        models.forEach(model => {
+            const option = document.createElement('option');
+            option.value = model;
+            option.textContent = model;
+            modelSelect.appendChild(option);
+        });
+        
+        // Initialize visualization with the first model
+        if (models.length > 0) {
+            createHeatmap(models[0]);
+        }
+        
+        // Add event listener for model selection
+        modelSelect.addEventListener('change', function() {
+            createHeatmap(this.value);
+        });
+    }
+    
+    // Function to create heatmap for a specific model
+    function createHeatmap(modelName) {
+        console.log("Creating heatmap for model:", modelName);
+        
+        // Filter data for the selected model
+        const modelData = allData.filter(d => d.model === modelName);
+        console.log("Filtered data:", modelData);
+        
+        if (modelData.length === 0) {
+            console.error("No data found for model:", modelName);
+            return;
+        }
+        
+        // Clear previous heatmap
+        svg.selectAll("*").remove();
+        
+        // Get unique x and y values for this model
+        const xValues = Array.from(new Set(modelData.map(d => d.x)));
+        const yValues = Array.from(new Set(modelData.map(d => d.y)));
+        xValues.sort((a, b) => parseFloat(a) - parseFloat(b));
+        yValues.sort((a, b) => {
+            // Handle y values as numbers, even if they're strings
+            const numA = typeof a === 'string' ? parseFloat(a) : a;
+            const numB = typeof b === 'string' ? parseFloat(b) : b;
+            return numA - numB;
+        });
+        
+        console.log("X values:", xValues);
+        console.log("Y values:", yValues);
+    
+        // Set up scales
+        const x = d3.scaleBand()
+            .range([0, width])
+            .domain(xValues)
+            .padding(0.05);
+    
+        const y = d3.scaleBand()
+            .range([height, 0])
+            .domain(yValues.map(String))
+            .padding(0.05);
+    
+        // Add X axis
+        svg.append("g")
+            .attr("class", "axis x-axis")
+            .attr("transform", `translate(0,${height})`)
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+            .attr("transform", "translate(-10,10)rotate(-45)")
+            .style("text-anchor", "end");
+    
+        // Add X axis label
+        svg.append("text")
+            .attr("class", "axis-label")
+            .attr("text-anchor", "middle")
+            .attr("x", width / 2)
+            .attr("y", height + margin.bottom - 10)
+            .style("font-size", "14px")
+            .text(config.x_label);
+    
+        // Add Y axis
+        svg.append("g")
+            .attr("class", "axis y-axis")
+            .call(d3.axisLeft(y));
+    
+        // Add Y axis label
+        svg.append("text")
+            .attr("class", "axis-label")
+            .attr("text-anchor", "middle")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -margin.left + 15)
+            .attr("x", -height / 2)
+            .style("font-size", "14px")
+            .text(config.y_label);
+    
+        // Create color scale - Purple color scheme
+        const colorScale = d3.scaleSequential()
+            .domain([0, 1])
+            .interpolator(d => {
+                // Purple interpolator from light to deep purple
+                return d3.interpolateRgb('#f2f0f7', '#54278f')(d);
+            });
+    
+        // Create heatmap cells
+        svg.selectAll(".heatmap-cell")
+            .data(modelData)
+            .enter()
+            .append("rect")
+            .attr("class", "heatmap-cell")
+            .attr("x", d => x(d.x))
+            .attr("y", d => y(String(d.y)))
+            .attr("width", x.bandwidth())
+            .attr("height", y.bandwidth())
+            .style("fill", d => colorScale(d.value))
+            .on("mouseover", function(event, d) {
+                d3.select(this)
+                    .style("stroke", "#000")
+                    .style("stroke-width", 2);
+                
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                    
+                tooltip.html(`<strong>${config.x_label}:</strong> ${d.x}<br>` +
+                           `<strong>${config.y_label}:</strong> ${d.y}<br>` +
+                           `<strong>${config.value_label}:</strong> ${d.value.toFixed(2)}`)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", function() {
+                d3.select(this).style("stroke", "none");
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+    
+        // Update color legend
+        updateColorLegend();
+    }
+    
+    // Function to update color legend
+    function updateColorLegend() {
+        // Clear previous legend
+        d3.select("#color-gradient").html("");
+        
+        // Create legend SVG
+        const legendSvg = d3.select("#color-gradient")
+            .append("svg")
+            .attr("width", 300)
+            .attr("height", 20);
+    
+        // Create gradient
+        const gradient = legendSvg.append("defs")
+            .append("linearGradient")
+            .attr("id", "purple-gradient")
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "100%")
+            .attr("y2", "0%");
+    
+        // Add color stops for the gradient
+        gradient.append("stop")
+            .attr("offset", "0%")
+            .attr("stop-color", "#f2f0f7");
+            
+        gradient.append("stop")
+            .attr("offset", "20%")
+            .attr("stop-color", "#dadaeb");
+            
+        gradient.append("stop")
+            .attr("offset", "40%")
+            .attr("stop-color", "#bcbddc");
+            
+        gradient.append("stop")
+            .attr("offset", "60%")
+            .attr("stop-color", "#9e9ac8");
+            
+        gradient.append("stop")
+            .attr("offset", "80%")
+            .attr("stop-color", "#756bb1");
+            
+        gradient.append("stop")
+            .attr("offset", "100%")
+            .attr("stop-color", "#54278f");
+    
+        // Add rectangle with gradient
+        legendSvg.append("rect")
+            .attr("width", 300)
+            .attr("height", 20)
+            .style("fill", "url(#purple-gradient)")
+            .style("stroke", "#ced4da")
+            .style("stroke-width", 1);
+            
+        // Update legend labels
+        d3.selectAll(".legend-label")
+            .data([0, 1])
+            .text(d => d.toFixed(1));
+    }
+    
+    // Initialize the visualization
+    loadData();
+})();
+</script>
+</div>
