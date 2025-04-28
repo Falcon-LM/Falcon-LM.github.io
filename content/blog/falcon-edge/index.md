@@ -60,7 +60,7 @@ In this blogpost, we present the key highlights and rationales about the *Falcon
 
 Drawing from our experience with BitNet, **Falcon-Edge** introduces and validates an new pre-training paradigm that delivers a full-scope output from a single training process, simultaneously yielding both non-quantized and quantized model variants. This comprehensive approach produces a non-BitNet model in bfloat16 format, the native BitNet model, and a pre-quantized BitNet variant specifically engineered for effortless fine-tuning, enabling users and developers to precisely tailor these models to their specific applications and needs. 
 
-Available now in two sizes—1 Billion and 3 Billion parameters—each size comes in both base and instruction-tuned models. Discover the Falcon-Edge series on our dedicated Hugging Face collection.
+Available now in two sizes—1 Billion and 3 Billion parameters—each size comes in both base and instruction-tuned models. Discover the Falcon-Edge series on [our dedicated Hugging Face collection](https://huggingface.co/collections/tiiuae/falcon-edge-series-6804fd13344d6d8a8fa71130).
 
 <a id="pull-figures"></a>
 <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
