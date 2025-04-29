@@ -362,7 +362,7 @@ Additional results (leaderboard v1) on comparing our instructed models with Micr
 | Model    | Nb Params | Mem Footprint | ARC-Challenge | GSM8K | HellaSwag | MMLU | TruthfulQA | Average |
 | -------- | ------- | ------- | ------- | ------ | ----- | ----- | ----- | ----- |
 | Bitnet-b1.58-2B-4T | 2B | 1.18GB | 38.31 | 65.27 | 59.02 | 47.43 | 47.65 | 51.54 |
-| Falcon-E-1B-Instruct | 1.8B | 665MB | 34.72 | 51.32 | 49.16 | 28.01 | 42.79 | 41.20  |
+| Falcon-E-1B-Instruct | 1.8B | 665MB | 36.60 | 54.74 | 50.19 | 48.33 | 42.09 | 46.39  |
 | Falcon-E-3B-Instruct | 3B | 999MB | 43.09 | 64.52 | 56.97 | 55.70 | 45.58 |  53.17|
 
 *Falcon-Edge* demonstrates on-par and better performances than models of comparable sizes on the leaderboard v2 tasks, demonstrating that it is possible to train powerful BitNet models on some target domains. 
