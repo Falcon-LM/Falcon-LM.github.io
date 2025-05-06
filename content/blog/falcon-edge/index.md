@@ -400,7 +400,7 @@ Additional results (leaderboard v1) on comparing our instructed models with Micr
 | Falcon-E-1B-Instruct | 1.8B | 665MB | 36.60 | 54.74 | 50.19 | 48.33 | 42.09 | 46.39  |
 | Falcon-E-3B-Instruct | 3B | 999MB | 43.09 | 64.52 | 56.97 | 55.70 | 45.58 |  53.17|
 
-*Falcon-Edge* demonstrates on-par and better performances than models of comparable sizes on the leaderboard v2 tasks, demonstrating that it is possible to train powerful BitNet models on some target domains. 
+*Falcon-Edge* demonstrates on-par and better performances than models of comparable sizes on the leaderboard v2 tasks, demonstrating that it is possible to train powerful BitNet models on desired domains while being competitive enough on other tasks. 
 
 ### *Falcon-Edge*, a series of universal models
 
