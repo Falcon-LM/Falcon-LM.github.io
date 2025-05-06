@@ -578,7 +578,7 @@ If you find this work useful for your research and work, please consider citing 
 @misc{tiionebitllms,
     title = {Falcon-E, a series of powerful, universal and fine-tunable 1.58bit language models.},
     author = {Falcon-LLM Team},
-    month = {April},
+    month = {May},
     url = {https://falcon-lm.github.io/blog/falcon-edge},
     year = {2025}
 }
