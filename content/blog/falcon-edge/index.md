@@ -103,51 +103,65 @@ We evaluate our models (base and instruct versions) on the former Hugging Face l
 
 {{< barplot_vertical id="general-plt" highlight="Falcon-E-1B-Base" ymin="0" ymax="0.50" ylabel="Performance %" >}}
 [
-    { "category": "IFEVAL", "model": "Qwen-2.5-0.5B", "value": 0.1627 },
+    { "category": "IFEVAL", "model": "Qwen2.5-0.5B", "value": 0.1627 },
+    { "category": "IFEVAL", "model": "Qwen3-0.6B", "value": 0.2319 },
     { "category": "IFEVAL", "model": "SmolLM2-360M", "value": 0.2115 },
-    { "category": "IFEVAL", "model": "Qwen-2.5-1.5B", "value": 0.2674 },
+    { "category": "IFEVAL", "model": "Qwen2.5-1.5B", "value": 0.2674 },
+    { "category": "IFEVAL", "model": "Qwen3-1.7B", "value": 0.2681 },
     { "category": "IFEVAL", "model": "SmolLM2-1.7B", "value": 0.244 },
     { "category": "IFEVAL", "model": "Falcon-3-1B-Base", "value": 0.2428 },
     { "category": "IFEVAL", "model": "Falcon-E-1B-Base", "value": 0.3290 },
 
-    { "category": "Math-Hard", "model": "Qwen-2.5-0.5B", "value": 0.0393 },
+    { "category": "Math-Hard", "model": "Qwen2.5-0.5B", "value": 0.0393 },
+    { "category": "Math-Hard", "model": "Qwen3-0.6B", "value": 0.0589 },
     { "category": "Math-Hard", "model": "SmolLM2-360M", "value": 0.0121 },
-    { "category": "Math-Hard", "model": "Qwen-2.5-1.5B", "value": 0.0914 },
+    { "category": "Math-Hard", "model": "Qwen2.5-1.5B", "value": 0.0914 },
+    { "category": "Math-Hard", "model": "Qwen3-1.7B", "value": 0.1395 },
     { "category": "Math-Hard", "model": "SmolLM2-1.7B", "value": 0.0264 },
     { "category": "Math-Hard", "model": "Falcon-3-1B-Base", "value": 0.0332 },
     { "category": "Math-Hard", "model": "Falcon-E-1B-Base", "value": 0.1097 },
 
-    { "category": "GPQA", "model": "Qwen-2.5-0.5B", "value": 0.00 },
+    { "category": "GPQA", "model": "Qwen2.5-0.5B", "value": 0.00 },
+    { "category": "GPQA", "model": "Qwen3-0.6B", "value": 0.0378 },
     { "category": "GPQA", "model": "SmolLM2-360M", "value": 0.00 },
-    { "category": "GPQA", "model": "Qwen-2.5-1.5B", "value": 0.0470 },
+    { "category": "GPQA", "model": "Qwen2.5-1.5B", "value": 0.0470 },
+    { "category": "GPQA", "model": "Qwen3-1.7B", "value": 0.0671 },
     { "category": "GPQA", "model": "SmolLM2-1.7B", "value": 0.0391 },
     { "category": "GPQA", "model": "Falcon-3-1B-Base", "value": 0.0391 },
     { "category": "GPQA", "model": "Falcon-E-1B-Base", "value": 0.0280 },
 
-    { "category": "MuSR", "model": "Qwen-2.5-0.5B", "value": 0.0208 },
+    { "category": "MuSR", "model": "Qwen2.5-0.5B", "value": 0.0208 },
+    { "category": "MuSR", "model": "Qwen3-0.6B", "value": 0.0338 },
     { "category": "MuSR", "model": "SmolLM2-360M", "value": 0.0773 },
-    { "category": "MuSR", "model": "Qwen-2.5-1.5B", "value": 0.0527 },
+    { "category": "MuSR", "model": "Qwen2.5-1.5B", "value": 0.0527 },
+    { "category": "MuSR", "model": "Qwen3-1.7B", "value": 0.1364 },
     { "category": "MuSR", "model": "SmolLM2-1.7B", "value": 0.0460 },
     { "category": "MuSR", "model": "Falcon-3-1B-Base", "value": 0.0971 },
     { "category": "MuSR", "model": "Falcon-E-1B-Base", "value": 0.0365 },
 
-    { "category": "BBH", "model": "Qwen-2.5-0.5B", "value": 0.0695 },
+    { "category": "BBH", "model": "Qwen2.5-0.5B", "value": 0.0695 },
+    { "category": "BBH", "model": "Qwen3-0.6B", "value": 0.1175 },
     { "category": "BBH", "model": "SmolLM2-360M", "value": 0.0554 },
-    { "category": "BBH", "model": "Qwen-2.5-1.5B", "value": 0.1666 },
+    { "category": "BBH", "model": "Qwen2.5-1.5B", "value": 0.1666 },
+    { "category": "BBH", "model": "Qwen3-1.7B", "value": 0.2040 },
     { "category": "BBH", "model": "SmolLM2-1.7B", "value": 0.0930 },
     { "category": "BBH", "model": "Falcon-3-1B-Base", "value": 0.1134 },
     { "category": "BBH", "model": "Falcon-E-1B-Base", "value": 0.1228 },
 
-    { "category": "MMLU-Pro", "model": "Qwen-2.5-0.5B", "value": 0.1006 },
+    { "category": "MMLU-Pro", "model": "Qwen2.5-0.5B", "value": 0.1006 },
+    { "category": "MMLU-Pro", "model": "Qwen3-0.6B", "value": 0.1398 },
     { "category": "MMLU-Pro", "model": "SmolLM2-360M", "value": 0.0188 },
-    { "category": "MMLU-Pro", "model": "Qwen-2.5-1.5B", "value": 0.2061 },
+    { "category": "MMLU-Pro", "model": "Qwen2.5-1.5B", "value": 0.2061 },
+    { "category": "MMLU-Pro", "model": "Qwen3-1.7B", "value": 0.2645 },
     { "category": "MMLU-Pro", "model": "SmolLM2-1.7B", "value": 0.1264 },
     { "category": "MMLU-Pro", "model": "Falcon-3-1B-Base", "value": 0.0676 },
     { "category": "MMLU-Pro", "model": "Falcon-E-1B-Base", "value": 0.1782 },
 
-    { "category": "Avg", "model": "Qwen-2.5-0.5B", "value": 0.0655 },
+    { "category": "Avg", "model": "Qwen2.5-0.5B", "value": 0.0655 },
+    { "category": "Avg", "model": "Qwen3-0.6B", "value": 0.1032 },
     { "category": "Avg", "model": "SmolLM2-360M", "value": 0.0625 },
-    { "category": "Avg", "model": "Qwen-2.5-1.5B", "value": 0.1385 },
+    { "category": "Avg", "model": "Qwen2.5-1.5B", "value": 0.1385 },
+    { "category": "Avg", "model": "Qwen3-1.7B", "value": 0.1799 },
     { "category": "Avg", "model": "SmolLM2-1.7B", "value": 0.0958 },
     { "category": "Avg", "model": "Falcon-3-1B-Base", "value": 0.0989 },
     { "category": "Avg", "model": "Falcon-E-1B-Base", "value": 0.1340 }
@@ -156,9 +170,11 @@ We evaluate our models (base and instruct versions) on the former Hugging Face l
 
 {{< barplot_vertical id="memory-ply" highlight="Falcon-E-1B-Base" ymin="0" ymax="4" ylabel="Memory Footprint (GB)" yaxis_percentage="false" >}}
 [    
-    { "category": "Memory Footprint", "model": "Qwen-2.5-0.5B", "value": 1.0 },
+    { "category": "Memory Footprint", "model": "Qwen2.5-0.5B", "value": 1.0 },
+    { "category": "Memory Footprint", "model": "Qwen3-0.6B", "value": 1.5 },
     { "category": "Memory Footprint", "model": "SmolLM2-360M", "value": 0.720 },
-    { "category": "Memory Footprint", "model": "Qwen-2.5-1.5B", "value": 3.1 },
+    { "category": "Memory Footprint", "model": "Qwen2.5-1.5B", "value": 3.1 },
+    { "category": "Memory Footprint", "model": "Qwen3-1.7B", "value": 4.06 },
     { "category": "Memory Footprint", "model": "SmolLM2-1.7B", "value": 3.4 },
     { "category": "Memory Footprint", "model": "Falcon-3-1B-Base", "value": 3.0 },
     { "category": "Memory Footprint", "model": "Falcon-E-1B-Base", "value": 0.665 }
@@ -170,9 +186,11 @@ We evaluate our models (base and instruct versions) on the former Hugging Face l
 
 | Model    | Nb Params | Mem Footprint | IFEVAL | Math-Hard | GPQA | MuSR | BBH | MMLU-Pro | Avg. |
 | -------- | ------- | ------- | ------- | ------ | ----- | ----- | ----- | ------ | ---- |
-| Qwen-2.5-0.5B | 0.5B | 1GB | 16.27  | 3.93 | 0.0 | 2.08 | 6.95 | 10.06 | 6.55 |
+| Qwen2.5-0.5B | 0.5B | 1GB | 16.27  | 3.93 | 0.0 | 2.08 | 6.95 | 10.06 | 6.55 |
+| Qwen3-0.6B | 0.6B | 1.5GB | 23.19  | 5.89 | 3.78 | 3.38 | 11.75 | 13.98 | 10.32 |
 | SmolLM2-360M | 0.36B | 720MB | 21.15  | 1.21 | 0.0 | 7.73 | 5.54 | 1.88 | 6.25 |
-| Qwen-2.5-1.5B | 1.5B  | 3.1GB  | 26.74 | 9.14 | 16.66 | 5.27 | 20.61 | 4.7  | 13.85 |
+| Qwen2.5-1.5B | 1.5B  | 3.1GB  | 26.74 | 9.14 | 16.66 | 5.27 | 20.61 | 4.7  | 13.85 |
+| Qwen3-1.7B | 1.5B  | 4.06GB  | 26.81 | 13.95 | 6.71 | 13.65 | 20.40 | 26.45  | 17.99 |
 | SmolLM2-1.7B  | 1.7B  | 3.4GB  | 24.4  | 2.64 | 9.3   | 4.6  | 12.64 | 3.91 | 9.58  |
 | Falcon-3-1B-Base | 1.5B | 3GB   | 24.28 | 3.32 | 11.34 | 9.71 | 6.76  | 3.91 | 9.89  |
 | Falcon-E-1B-Base | 1.8B | **665MB** | 32.9  | 10.97 | 2.8 | 3.65 | 12.28 | 17.82 | 13.40 |
@@ -233,61 +251,76 @@ We evaluate our models (base and instruct versions) on the former Hugging Face l
 
 </details>
 
-Below are the results for instruction fine-tuned models:
+Below are the results for instruction fine-tuned models (for Qwen3 series, we disable the thinking mode during evaluation):
 
 {{< barplot_vertical id="instruct-plt" highlight="Falcon-E-1B-Instruct" ymin="0" ymax="0.50" ylabel="Performance %" >}}
 [
-    { "category": "IFEVAL", "model": "Qwen-2.5-0.5B", "value": 0.3071 },
+    { "category": "IFEVAL", "model": "Qwen2.5-0.5B", "value": 0.3153 },
     { "category": "IFEVAL", "model": "SmolLM2-360M", "value": 0.3842 },
-    { "category": "IFEVAL", "model": "Qwen-2.5-1.5B", "value": 0.4476 },
+    { "category": "IFEVAL", "model": "Qwen2.5-1.5B", "value": 0.4476 },
+    { "category": "IFEVAL", "model": "Qwen3-0.6B", "value": 0.6215 },
+    { "category": "IFEVAL", "model": "Qwen3-1.7B", "value": 0.7077 },
     { "category": "IFEVAL", "model": "SmolLM2-1.7B", "value": 0.5368 },
     { "category": "IFEVAL", "model": "Bitnet-b1.58-2B-4T", "value": 0.5911 },
     { "category": "IFEVAL", "model": "Falcon-3-1B-Instruct", "value": 0.5557 },
     { "category": "IFEVAL", "model": "Falcon-E-1B-Instruct", "value": 0.5435 },
 
-    { "category": "Math-Hard", "model": "Qwen-2.5-0.5B", "value": 0.0 },
+
+    { "category": "Math-Hard", "model": "Qwen2.5-0.5B", "value": 0.1035 },
+    { "category": "Math-Hard", "model": "Qwen3-0.6B", "value": 0.1615 },
     { "category": "Math-Hard", "model": "SmolLM2-360M", "value": 0.0151 },
-    { "category": "Math-Hard", "model": "Qwen-2.5-1.5B", "value": 0.2205 },
+    { "category": "Math-Hard", "model": "Qwen2.5-1.5B", "value": 0.2205 },
+    { "category": "Math-Hard", "model": "Qwen3-1.7B", "value": 0.3817 },
     { "category": "Math-Hard", "model": "SmolLM2-1.7B", "value": 0.0582 },
     { "category": "Math-Hard", "model": "Bitnet-b1.58-2B-4T", "value": 0.07233 },
     { "category": "Math-Hard", "model": "Falcon-3-1B-Instruct", "value": 0.0634 },
     { "category": "Math-Hard", "model": "Falcon-E-1B-Instruct", "value": 0.0912 },
 
-    { "category": "BBH", "model": "Qwen-2.5-0.5B", "value": 0.0843 },
+    { "category": "BBH", "model": "Qwen2.5-0.5B", "value": 0.0817 },
+    { "category": "BBH", "model": "Qwen3-0.6B", "value": 0.0613 },
     { "category": "BBH", "model": "SmolLM2-360M", "value": 0.0417 },
-    { "category": "BBH", "model": "Qwen-2.5-1.5B", "value": 0.1981 },
+    { "category": "BBH", "model": "Qwen2.5-1.5B", "value": 0.1981 },
+    { "category": "BBH", "model": "Qwen3-1.7B", "value": 0.0926 },
     { "category": "BBH", "model": "SmolLM2-1.7B", "value": 0.1092 },
     { "category": "BBH", "model": "Bitnet-b1.58-2B-4T", "value": 0.1794},
     { "category": "BBH", "model": "Falcon-3-1B-Instruct", "value": 0.0932 },
     { "category": "BBH", "model": "Falcon-E-1B-Instruct", "value": 0.1650 },
 
-    { "category": "MuSR", "model": "Qwen-2.5-0.5B", "value": 0.0094 },
+    { "category": "MuSR", "model": "Qwen2.5-0.5B", "value": 0.0137 },
+    { "category": "MuSR", "model": "Qwen3-0.6B", "value": 0.0186 },
     { "category": "MuSR", "model": "SmolLM2-360M", "value": 0.0277 },
-    { "category": "MuSR", "model": "Qwen-2.5-1.5B", "value": 0.0319 },
+    { "category": "MuSR", "model": "Qwen2.5-1.5B", "value": 0.0319 },
+    { "category": "MuSR", "model": "Qwen3-1.7B", "value": 0.0831 },
     { "category": "MuSR", "model": "SmolLM2-1.7B", "value": 0.041 },
     { "category": "MuSR", "model": "Bitnet-b1.58-2B-4T", "value": 0.0174 },
     { "category": "MuSR", "model": "Falcon-3-1B-Instruct", "value": 0.1056 },
     { "category": "MuSR", "model": "Falcon-E-1B-Instruct", "value": 0.0251 },
 
-    { "category": "MMLU-Pro", "model": "Qwen-2.5-0.5B", "value": 0.0775 },
+    { "category": "MMLU-Pro", "model": "Qwen2.5-0.5B", "value": 0.08 },
+    { "category": "MMLU-Pro", "model": "Qwen3-0.6B", "value": 0.0771 },
     { "category": "MMLU-Pro", "model": "SmolLM2-360M", "value": 0.013 },
-    { "category": "MMLU-Pro", "model": "Qwen-2.5-1.5B", "value": 0.1999 },
+    { "category": "MMLU-Pro", "model": "Qwen2.5-1.5B", "value": 0.1999 },
+    { "category": "MMLU-Pro", "model": "Qwen3-1.7B", "value": 0.1504 },
     { "category": "MMLU-Pro", "model": "SmolLM2-1.7B", "value": 0.1171 },
     { "category": "MMLU-Pro", "model": "Bitnet-b1.58-2B-4T", "value": 0.1482 },
     { "category": "MMLU-Pro", "model": "Falcon-3-1B-Instruct", "value": 0.1296 },
     { "category": "MMLU-Pro", "model": "Falcon-E-1B-Instruct", "value": 0.1942 },
 
-    { "category": "GPQA", "model": "Qwen-2.5-0.5B", "value": 0.0 },
+    { "category": "GPQA", "model": "Qwen2.5-0.5B", "value": 0.0123 },
+    { "category": "GPQA", "model": "Qwen3-0.6B", "value": 0.028 },
     { "category": "GPQA", "model": "SmolLM2-360M", "value": 0.0067 },
-    { "category": "GPQA", "model": "Qwen-2.5-1.5B", "value": 0.0078 },
+    { "category": "GPQA", "model": "Qwen2.5-1.5B", "value": 0.0078 },
+    { "category": "GPQA", "model": "Qwen3-1.7B", "value": 0.0329 },
     { "category": "GPQA", "model": "SmolLM2-1.7B", "value": 0.0 },
     { "category": "GPQA", "model": "Bitnet-b1.58-2B-4T", "value": 0.0525},
     { "category": "GPQA", "model": "Falcon-3-1B-Instruct", "value": 0.0932 },
     { "category": "GPQA", "model": "Falcon-E-1B-Instruct", "value": 0.0964 },
 
-    { "category": "Avg", "model": "Qwen-2.5-0.5B", "value": 0.0659 },
+    { "category": "Avg", "model": "Qwen2.5-0.5B", "value": 0.1011 },
+    { "category": "Avg", "model": "Qwen3-0.6B", "value": 0.1613 },
     { "category": "Avg", "model": "SmolLM2-360M", "value": 0.0814 },
-    { "category": "Avg", "model": "Qwen-2.5-1.5B", "value": 0.1843 },
+    { "category": "Avg", "model": "Qwen2.5-1.5B", "value": 0.1843 },
+    { "category": "Avg", "model": "Qwen3-1.7B", "value": 0.2414 },
     { "category": "Avg", "model": "SmolLM2-1.7B", "value": 0.1502 },
     { "category": "Avg", "model": "Bitnet-b1.58-2B-4T", "value": 0.1770},
     { "category": "Avg", "model": "Falcon-3-1B-Instruct", "value": 0.1616 },
@@ -300,9 +333,11 @@ Below are the results for instruction fine-tuned models:
 
 | Model    | Nb Params | Mem Footprint | IFEVAL | Math-Hard | GPQA | MuSR | BBH | MMLU-Pro | Avg. |
 | ----------- | ------- | ------- | ------- | ------ | ----- | ----- | ----- | ------ | ---- |
-| Qwen-2.5-0.5B-Instruct    | 500M | 1GB    | 30.71 | 0     | 0  | 0.94  | 7.75  | 8.43     | 6.59        |
+| Qwen2.5-0.5B-Instruct    | 500M | 1GB    | 31.53 | 10.35     | 1.23  | 1.37  | 8.17  | 8.00     | 10.11        |
+| Qwen3-0.6B    | 600M | 1.5GB    | 62.15 | 16.15     | 2.81  | 1.86  | 6.13  | 7.71     | 16.13        |
 | SmolLM2-360M-Instruct     | 360M | 720MB  | 38.42 | 1.51 | 0.67 | 2.77  | 4.17  | 1.3   | 8.14        |
-| Qwen-2.5-1.5B-Instruct    | 1.5B | 3.1GB  | 44.76 | 22.05 | 0.78 | 3.19  | 19.91 | 19.99 | 18.43       |
+| Qwen2.5-1.5B-Instruct    | 1.5B | 3.1GB  | 44.76 | 22.05 | 0.78 | 3.19  | 19.91 | 19.99 | 18.43       |
+| Qwen3-1.7B    | 1.7B | 4.02GB  | 70.76 | 38.17 | 3.29 | 8.32  | 9.26 | 15.04 | 24.14       |
 | SmolLM2-1.7B              | 1.7B | 3.4GB  | 53.68 | 5.82  | 0 | 4.1   | 10.92 | 11.71     | 15.02       |
 | Bitnet-b1.58-2B-4T             | 2B | 1.18GB  | 59.11 | 7.23  | 5.25 | 1.74   | 17.94 | 14.82     | 17.70       |
 | Falcon-3-1B-Instruct      | 1.5B | 3GB    | 55.57 | 6.34  | 2.24 | 10.56 | 12.96  | 9.32  | 16.16       |
