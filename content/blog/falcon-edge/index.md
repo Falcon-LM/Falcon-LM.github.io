@@ -62,10 +62,20 @@ Drawing from our experience with BitNet, **Falcon-Edge** introduces and validate
 
 Available now in two sizes—1 Billion and 3 Billion parameters—each size comes in both base and instruction-tuned models. Discover the Falcon-Edge series on [our dedicated Hugging Face collection](https://huggingface.co/collections/tiiuae/falcon-edge-series-6804fd13344d6d8a8fa71130).
 
-<a id="pull-figures"></a>
+<!-- <a id="pull-figures"></a>
 <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
   <img src="./figure-perf-instruct.png" alt="Instruct models performance" style="width: 45%; max-width: 600px; height: auto;">
   <img src="./figure-perf-base.png" alt="Base models performance" style="width: 45%; max-width: 600px; height: auto;">
+</div> -->
+
+<a id="pull-figures"></a>
+<div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+  <img src="./figure-perf-instruct.png" alt="Instruct models performance" style="width: 100%; max-width: 600px; height: auto;">
+</div>
+
+<a id="pull-figures"></a>
+<div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+  <img src="./figure-perf-base.png" alt="Base models performance" style="width: 100%; max-width: 600px; height: auto;">
 </div>
 
 
