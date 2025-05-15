@@ -10,7 +10,17 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 17 Dec 2024 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 12 Mar 2025 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Falcon-Edge: A series of powerful, universal, fine-tunable 1.58bit language models.</title>
+      <link>https://falcon-lm.github.io/blog/falcon-edge/</link>
+      <pubDate>Wed, 12 Mar 2025 12:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/blog/falcon-edge/</guid>
+      <description>&lt;p&gt;In this blogpost, we present the key highlights and rationales about the &lt;em&gt;Falcon-Edge&lt;/em&gt; series - a collection of &lt;em&gt;powerful&lt;/em&gt;, &lt;em&gt;universal&lt;/em&gt;, and &lt;em&gt;fine-tunable&lt;/em&gt; language models available in ternary format, based on the BitNet architecture.&lt;/p&gt;
+&lt;p&gt;Drawing from our experience with BitNet, &lt;strong&gt;Falcon-Edge&lt;/strong&gt; introduces and validates an new pre-training paradigm that delivers a full-scope output from a single training process, simultaneously yielding both non-quantized and quantized model variants. This comprehensive approach produces a non-BitNet model in bfloat16 format, the native BitNet model, and a pre-quantized BitNet variant specifically engineered for effortless fine-tuning, enabling users and developers to precisely tailor these models to their specific applications and needs.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Welcome to the Falcon 3 Family of Open Models!</title>
       <link>https://falcon-lm.github.io/blog/falcon-3/</link>
