@@ -1,6 +1,6 @@
 ---
 title: "Falcon-Edge: A series of powerful, universal, fine-tunable 1.58bit language models."
-date: 2025-03-12T12:00:00Z
+date: 2025-05-15T12:00:00Z
 weight: 1
 # aliases: ["/first"]
 # tags: ["Research"]
