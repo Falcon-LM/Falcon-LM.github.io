@@ -1,6 +1,6 @@
 ---
-title: "Falcon-Edge: A series of powerful, universal, fine-tunable 1.58bit language models."
-date: 2025-05-15T12:00:00Z
+title: "Falcon Arabic: A Breakthrough in Arabic Language Models"
+date: 2025-05-17T12:00:00Z
 weight: 1
 # aliases: ["/first"]
 # tags: ["Research"]
@@ -48,13 +48,12 @@ contributors:
           image: img/contributors/hakim.jpg
 ---
 
-# 🚀 Announcing Falcon Arabic: A Breakthrough in Arabic Language Models
 
-In this blog post, we’re excited to introduce **Falcon Arabic**, a new 7B parameter language model that sets a new benchmark for Arabic NLP. Built on the Falcon 3 architecture, Falcon Arabic is a multilingual model that supports Arabic, English, and several other languages. It excels in general knowledge, Arabic grammar, mathematical reasoning, complex problem solving, and understanding the rich diversity of Arabic dialects.
+We are excited to introduce **Falcon Arabic**, a 7B parameter language model that sets a new benchmark for Arabic NLP. Built on the Falcon 3 architecture, Falcon Arabic is a multilingual model that supports Arabic, English, and several other languages. It excels in general knowledge, Arabic grammar, mathematical reasoning, complex problem solving, and understanding the rich diversity of Arabic dialects.
 
 Falcon Arabic redefines the boundaries of what is possible for Arabic language models. It significantly outperforms other Arabic LLMs in its size category—and even models up to four times larger—across both Arabic-native models and those adapted from other languages. This makes Falcon Arabic not only a state-of-the-art model in terms of performance, but also a uniquely efficient and accessible solution for developers and researchers working with the Arabic language.
 
-Whether you're generating high-quality Arabic content, exploring the nuances of dialects, or solving complex tasks that require deep reasoning and arithmetic, Falcon Arabic is the model that will change the way we interact with the Arabic language in AI.
+Whether you are generating high-quality Arabic content, exploring the nuances of dialects, or solving complex tasks that require deep reasoning and arithmetic, Falcon Arabic is the model that will change the way we interact with the Arabic language in AI.
 
 
 # Introducing Falcon Arabic: Advancing LLMs for the Arabic-Speaking World
