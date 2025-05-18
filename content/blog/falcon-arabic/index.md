@@ -77,6 +77,177 @@ We selected **Falcon 3-7B** from the **Falcon 3 family**, which includes models 
 Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic datasets, covering both **Modern Standard Arabic** and **a variety of dialects**, while preserving the model’s original strength in **English and other languages**. This enables Falcon Arabic to perform well not only in Arabic-specific tasks, but also in multilingual and cross-lingual applications, pushing the boundaries of what's possible in Arabic-centric AI.
 
 
+### Falcon-Arabic-7B-Base Avg
+{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Base" ymin="0" ymax="0.90" ylabel="Score %" >}}
+[
+    {"category": "avg", "model": "jais-adapted-70b", "value": 0.5194},
+    {"category": "avg", "model": "AceGPT-v2-32B", "value": 0.6174000000000001},
+    {"category": "avg", "model": "jais-family-30b-8k", "value": 0.5363},
+    {"category": "avg", "model": "Qwen2.5-14B", "value": 0.5426},
+    {"category": "avg", "model": "AceGPT-13B", "value": 0.4721},
+    {"category": "avg", "model": "jais-adapted-13b", "value": 0.4253},
+    {"category": "avg", "model": "Llama-3.1-8B", "value": 0.5164},
+    {"category": "avg", "model": "Qwen3-8B-Base", "value": 0.6500000000000001},
+    {"category": "avg", "model": "Qwen2.5-7B", "value": 0.41969999999999996},
+    {"category": "avg", "model": "Falcon-Arabic-7B-Base", "value": 0.6257}
+]
+{{< /barplot_vertical >}}
+
+### Falcon-Arabic-7B-Base Details
+
+{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Base" ymin="0" ymax="0.90" ylabel="Score %" >}}
+[
+    {"category": "ALGhafa", "model": "jais-adapted-70b", "value": 0.5482},
+    {"category": "ALGhafa", "model": "AceGPT-v2-32B", "value": 0.5493},
+    {"category": "ALGhafa", "model": "jais-family-30b-8k", "value": 0.5434},
+    {"category": "ALGhafa", "model": "Qwen2.5-14B", "value": 0.6931999999999999},
+    {"category": "ALGhafa", "model": "AceGPT-13B", "value": 0.48229999999999995},
+    {"category": "ALGhafa", "model": "jais-adapted-13b", "value": 0.40619999999999995},
+    {"category": "ALGhafa", "model": "Llama-3.1-8B", "value": 0.6434000000000001},
+    {"category": "ALGhafa", "model": "Qwen3-8B-Base", "value": 0.0075},
+    {"category": "ALGhafa", "model": "Qwen2.5-7B", "value": 0.3172},
+    {"category": "ALGhafa", "model": "Falcon-Arabic-7B-Base", "value": 0.67},
+    {"category": "ArabicMMLU", "model": "jais-adapted-70b", "value": 0.5196999999999999},
+    {"category": "ArabicMMLU", "model": "AceGPT-v2-32B", "value": 0.6315},
+    {"category": "ArabicMMLU", "model": "jais-family-30b-8k", "value": 0.5153},
+    {"category": "ArabicMMLU", "model": "Qwen2.5-14B", "value": 0.4637},
+    {"category": "ArabicMMLU", "model": "AceGPT-13B", "value": 0.4138},
+    {"category": "ArabicMMLU", "model": "jais-adapted-13b", "value": 0.3697},
+    {"category": "ArabicMMLU", "model": "Llama-3.1-8B", "value": 0.5228},
+    {"category": "ArabicMMLU", "model": "Qwen3-8B-Base", "value": 0.006500000000000001},
+    {"category": "ArabicMMLU", "model": "Qwen2.5-7B", "value": 0.3736},
+    {"category": "ArabicMMLU", "model": "Falcon-Arabic-7B-Base", "value": 0.65},
+    {"category": "Exams", "model": "jais-adapted-70b", "value": 0.43579999999999997},
+    {"category": "Exams", "model": "AceGPT-v2-32B", "value": 0.486},
+    {"category": "Exams", "model": "jais-family-30b-8k", "value": 0.4581},
+    {"category": "Exams", "model": "Qwen2.5-14B", "value": 0.3743},
+    {"category": "Exams", "model": "AceGPT-13B", "value": 0.36869999999999997},
+    {"category": "Exams", "model": "jais-adapted-13b", "value": 0.34259999999999996},
+    {"category": "Exams", "model": "Llama-3.1-8B", "value": 0.4004},
+    {"category": "Exams", "model": "Qwen3-8B-Base", "value": 0.0053},
+    {"category": "Exams", "model": "Qwen2.5-7B", "value": 0.3799},
+    {"category": "Exams", "model": "Falcon-Arabic-7B-Base", "value": 0.53},
+    {"category": "MadinahQA", "model": "jais-adapted-70b", "value": 0.3496},
+    {"category": "MadinahQA", "model": "AceGPT-v2-32B", "value": 0.5971},
+    {"category": "MadinahQA", "model": "jais-family-30b-8k", "value": 0.2982},
+    {"category": "MadinahQA", "model": "Qwen2.5-14B", "value": 0.3038},
+    {"category": "MadinahQA", "model": "AceGPT-13B", "value": 0.35369999999999996},
+    {"category": "MadinahQA", "model": "jais-adapted-13b", "value": 0.2904},
+    {"category": "MadinahQA", "model": "Llama-3.1-8B", "value": 0.43079999999999996},
+    {"category": "MadinahQA", "model": "Qwen3-8B-Base", "value": 0.0052},
+    {"category": "MadinahQA", "model": "Qwen2.5-7B", "value": 0.2711},
+    {"category": "MadinahQA", "model": "Falcon-Arabic-7B-Base", "value": 0.49},
+    {"category": "AraTrust", "model": "jais-adapted-70b", "value": 0.7497},
+    {"category": "AraTrust", "model": "AceGPT-v2-32B", "value": 0.8395999999999999},
+    {"category": "AraTrust", "model": "jais-family-30b-8k", "value": 0.7066},
+    {"category": "AraTrust", "model": "Qwen2.5-14B", "value": 0.7045999999999999},
+    {"category": "AraTrust", "model": "AceGPT-13B", "value": 0.5650999999999999},
+    {"category": "AraTrust", "model": "jais-adapted-13b", "value": 0.6118},
+    {"category": "AraTrust", "model": "Llama-3.1-8B", "value": 0.7198},
+    {"category": "AraTrust", "model": "Qwen3-8B-Base", "value": 0.0083},
+    {"category": "AraTrust", "model": "Qwen2.5-7B", "value": 0.5366},
+    {"category": "AraTrust", "model": "Falcon-Arabic-7B-Base", "value": 0.85},
+    {"category": "ALRAGE", "model": "jais-adapted-70b", "value": 0.5528},
+    {"category": "ALRAGE", "model": "AceGPT-v2-32B", "value": 0.6896},
+    {"category": "ALRAGE", "model": "jais-family-30b-8k", "value": 0.8047},
+    {"category": "ALRAGE", "model": "Qwen2.5-14B", "value": 0.7403},
+    {"category": "ALRAGE", "model": "AceGPT-13B", "value": 0.7996},
+    {"category": "ALRAGE", "model": "jais-adapted-13b", "value": 0.6253},
+    {"category": "ALRAGE", "model": "Llama-3.1-8B", "value": 0.4708},
+    {"category": "ALRAGE", "model": "Qwen3-8B-Base", "value": 0},
+    {"category": "ALRAGE", "model": "Qwen2.5-7B", "value": 0.6268},
+    {"category": "ALRAGE", "model": "Falcon-Arabic-7B-Base", "value": 0.64},
+    {"category": "ArbMMLU-HT", "model": "jais-adapted-70b", "value": 0.48},
+    {"category": "ArbMMLU-HT", "model": "AceGPT-v2-32B", "value": 0.5287},
+    {"category": "ArbMMLU-HT", "model": "jais-family-30b-8k", "value": 0.428},
+    {"category": "ArbMMLU-HT", "model": "Qwen2.5-14B", "value": 0.5184000000000001},
+    {"category": "ArbMMLU-HT", "model": "AceGPT-13B", "value": 0.3212},
+    {"category": "ArbMMLU-HT", "model": "jais-adapted-13b", "value": 0.3312},
+    {"category": "ArbMMLU-HT", "model": "Llama-3.1-8B", "value": 0.4267},
+    {"category": "ArbMMLU-HT", "model": "Qwen3-8B-Base", "value": 0.0060999999999999995},
+    {"category": "ArbMMLU-HT", "model": "Qwen2.5-7B", "value": 0.433},
+    {"category": "ArbMMLU-HT", "model": "Falcon-Arabic-7B-Base", "value": 0.55}
+]
+{{< /barplot_vertical >}}
+
+### Falcon-Arabic-7B-Chat Avg
+
+{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Chat" ymin="0" ymax="0.75" ylabel="Score %" >}}
+[
+    {"category": "avg", "model": "aya-expanse-32b", "value": 0.6717},
+    {"category": "avg", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6707},
+    {"category": "avg", "model": "jais-family-30b-16k-chat", "value": 0.6543000000000001},
+    {"category": "avg", "model": "jais-adapted-13b-chat", "value": 0.5808},
+    {"category": "avg", "model": "ALLaM-7B-Instruct-preview", "value": 0.6525},
+    {"category": "avg", "model": "Yehia-7B-preview", "value": 0.6568},
+    {"category": "avg", "model": "Qwen2-7B-Instruct", "value": 0.6361},
+    {"category": "avg", "model": "Falcon-Arabic-7B-Chat", "value": 0.683}
+]
+{{< /barplot_vertical >}}
+
+### Falcon-Arabic-7B-Chat Details
+
+{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Chat" ymin="0" ymax="0.80" ylabel="Score %" >}}
+[
+    {"category": "ALGhafa", "model": "aya-expanse-32b", "value": 0.7761},
+    {"category": "ALGhafa", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.7484000000000001},
+    {"category": "ALGhafa", "model": "jais-family-30b-16k-chat", "value": 0.7121999999999999},
+    {"category": "ALGhafa", "model": "jais-adapted-13b-chat", "value": 0.6728000000000001},
+    {"category": "ALGhafa", "model": "ALLaM-7B-Instruct-preview", "value": 0.6949},
+    {"category": "ALGhafa", "model": "Yehia-7B-preview", "value": 0.7081000000000001},
+    {"category": "ALGhafa", "model": "Qwen2-7B-Instruct", "value": 0.7323999999999999},
+    {"category": "ALGhafa", "model": "Falcon-Arabic-7B-Chat", "value": 0.7237},
+    {"category": "ArabicMMLU", "model": "aya-expanse-32b", "value": 0.6063000000000001},
+    {"category": "ArabicMMLU", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.5934},
+    {"category": "ArabicMMLU", "model": "jais-family-30b-16k-chat", "value": 0.6122},
+    {"category": "ArabicMMLU", "model": "jais-adapted-13b-chat", "value": 0.5423},
+    {"category": "ArabicMMLU", "model": "ALLaM-7B-Instruct-preview", "value": 0.649},
+    {"category": "ArabicMMLU", "model": "Yehia-7B-preview", "value": 0.649},
+    {"category": "ArabicMMLU", "model": "Qwen2-7B-Instruct", "value": 0.6001},
+    {"category": "ArabicMMLU", "model": "Falcon-Arabic-7B-Chat", "value": 0.6827},
+    {"category": "Exams", "model": "aya-expanse-32b", "value": 0.5102},
+    {"category": "Exams", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6498999999999999},
+    {"category": "Exams", "model": "jais-family-30b-16k-chat", "value": 0.5009},
+    {"category": "Exams", "model": "jais-adapted-13b-chat", "value": 0.473},
+    {"category": "Exams", "model": "ALLaM-7B-Instruct-preview", "value": 0.5158},
+    {"category": "Exams", "model": "Yehia-7B-preview", "value": 0.5214},
+    {"category": "Exams", "model": "Qwen2-7B-Instruct", "value": 0.473},
+    {"category": "Exams", "model": "Falcon-Arabic-7B-Chat", "value": 0.5345},
+    {"category": "MadinahQA", "model": "aya-expanse-32b", "value": 0.5345},
+    {"category": "MadinahQA", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6384000000000001},
+    {"category": "MadinahQA", "model": "jais-family-30b-16k-chat", "value": 0.6626000000000001},
+    {"category": "MadinahQA", "model": "jais-adapted-13b-chat", "value": 0.442},
+    {"category": "MadinahQA", "model": "ALLaM-7B-Instruct-preview", "value": 0.5424},
+    {"category": "MadinahQA", "model": "Yehia-7B-preview", "value": 0.5437},
+    {"category": "MadinahQA", "model": "Qwen2-7B-Instruct", "value": 0.595},
+    {"category": "MadinahQA", "model": "Falcon-Arabic-7B-Chat", "value": 0.7363},
+    {"category": "AraTrust", "model": "aya-expanse-32b", "value": 0.89},
+    {"category": "AraTrust", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.8047},
+    {"category": "AraTrust", "model": "jais-family-30b-16k-chat", "value": 0.8157},
+    {"category": "AraTrust", "model": "jais-adapted-13b-chat", "value": 0.7968000000000001},
+    {"category": "AraTrust", "model": "ALLaM-7B-Instruct-preview", "value": 0.8693000000000001},
+    {"category": "AraTrust", "model": "Yehia-7B-preview", "value": 0.8748999999999999},
+    {"category": "AraTrust", "model": "Qwen2-7B-Instruct", "value": 0.8277},
+    {"category": "AraTrust", "model": "Falcon-Arabic-7B-Chat", "value": 0.8262},
+    {"category": "ALRAGE", "model": "aya-expanse-32b", "value": 0.7964},
+    {"category": "ALRAGE", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.759},
+    {"category": "ALRAGE", "model": "jais-family-30b-16k-chat", "value": 0.7495},
+    {"category": "ALRAGE", "model": "jais-adapted-13b-chat", "value": 0.6840999999999999},
+    {"category": "ALRAGE", "model": "ALLaM-7B-Instruct-preview", "value": 0.7681},
+    {"category": "ALRAGE", "model": "Yehia-7B-preview", "value": 0.7664},
+    {"category": "ALRAGE", "model": "Qwen2-7B-Instruct", "value": 0.7112999999999999},
+    {"category": "ALRAGE", "model": "Falcon-Arabic-7B-Chat", "value": 0.7226},
+    {"category": "ArbMMLU-HT", "model": "aya-expanse-32b", "value": 0.5886},
+    {"category": "ArbMMLU-HT", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.5014},
+    {"category": "ArbMMLU-HT", "model": "jais-family-30b-16k-chat", "value": 0.5273},
+    {"category": "ArbMMLU-HT", "model": "jais-adapted-13b-chat", "value": 0.4545},
+    {"category": "ArbMMLU-HT", "model": "ALLaM-7B-Instruct-preview", "value": 0.5281},
+    {"category": "ArbMMLU-HT", "model": "Yehia-7B-preview", "value": 0.534},
+    {"category": "ArbMMLU-HT", "model": "Qwen2-7B-Instruct", "value": 0.513},
+    {"category": "ArbMMLU-HT", "model": "Falcon-Arabic-7B-Chat", "value": 0.5547}
+]
+{{< /barplot_vertical >}}
+
 ## Citation
 
 If you find this work helpful for your research or projects, please consider citing it.
