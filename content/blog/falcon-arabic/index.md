@@ -91,6 +91,22 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
 ]
 {{< /barplot_vertical >}}
 
+<details>
+<summary class="bold"> Detailed results: </summary>
+
+| Model   | Score % |
+|---------|---------|
+| jais-adapted-70b | 51.94   |
+| jais-family-30b-8k | 53.63   |
+| Qwen2.5-14B | 54.26   |
+| AceGPT-13B | 47.21   |
+| jais-adapted-13b | 42.53   |
+| Llama-3.1-8B | 51.64   |
+| Qwen2.5-7B | 41.97   |
+| Falcon-Arabic-7B-Base | 62.57   |
+
+</details>
+
 ### Falcon-Arabic-7B-Base Details
 
 {{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Base" ymin="0" ymax="0.95" ylabel="Score %" >}}
@@ -154,6 +170,72 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
 ]
 {{< /barplot_vertical >}}
 
+
+<details>
+<summary class="bold"> Detailed results: </summary>
+
+| Model   | Score % |
+|---------|---------|
+| jais-adapted-70b | 54.82   |
+| jais-family-30b-8k | 54.34   |
+| Qwen2.5-14B | 69.32   |
+| AceGPT-13B | 48.23   |
+| jais-adapted-13b | 40.62   |
+| Llama-3.1-8B | 64.34   |
+| Qwen2.5-7B | 31.72   |
+| Falcon-Arabic-7B-Base | 67.00   |
+| jais-adapted-70b | 51.97   |
+| jais-family-30b-8k | 51.53   |
+| Qwen2.5-14B | 46.37   |
+| AceGPT-13B | 41.38   |
+| jais-adapted-13b | 36.97   |
+| Llama-3.1-8B | 52.28   |
+| Qwen2.5-7B | 37.36   |
+| Falcon-Arabic-7B-Base | 65.00   |
+| jais-adapted-70b | 43.58   |
+| jais-family-30b-8k | 45.81   |
+| Qwen2.5-14B | 37.43   |
+| AceGPT-13B | 36.87   |
+| jais-adapted-13b | 34.26   |
+| Llama-3.1-8B | 40.04   |
+| Qwen2.5-7B | 37.99   |
+| Falcon-Arabic-7B-Base | 53.00   |
+| jais-adapted-70b | 34.96   |
+| jais-family-30b-8k | 29.82   |
+| Qwen2.5-14B | 30.38   |
+| AceGPT-13B | 35.37   |
+| jais-adapted-13b | 29.04   |
+| Llama-3.1-8B | 43.08   |
+| Qwen2.5-7B | 27.11   |
+| Falcon-Arabic-7B-Base | 49.00   |
+| jais-adapted-70b | 74.97   |
+| jais-family-30b-8k | 70.66   |
+| Qwen2.5-14B | 70.46   |
+| AceGPT-13B | 56.51   |
+| jais-adapted-13b | 61.18   |
+| Llama-3.1-8B | 71.98   |
+| Qwen2.5-7B | 53.66   |
+| Falcon-Arabic-7B-Base | 85.00   |
+| jais-adapted-70b | 55.28   |
+| jais-family-30b-8k | 80.47   |
+| Qwen2.5-14B | 74.03   |
+| AceGPT-13B | 79.96   |
+| jais-adapted-13b | 62.53   |
+| Llama-3.1-8B | 47.08   |
+| Qwen2.5-7B | 62.68   |
+| Falcon-Arabic-7B-Base | 64.00   |
+| jais-adapted-70b | 48.00   |
+| jais-family-30b-8k | 42.80   |
+| Qwen2.5-14B | 51.84   |
+| AceGPT-13B | 32.12   |
+| jais-adapted-13b | 33.12   |
+| Llama-3.1-8B | 42.67   |
+| Qwen2.5-7B | 43.30   |
+| Falcon-Arabic-7B-Base | 55.00   |
+
+
+</details>
+
 ### Falcon-Arabic-7B-Chat Avg
 
 {{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Chat" ymin="0.56" ymax="0.7" ylabel="Score %" >}}
@@ -168,6 +250,23 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
     {"category": "avg", "model": "Falcon-Arabic-7B-Chat", "value": 0.683}
 ]
 {{< /barplot_vertical >}}
+
+
+<details>
+<summary class="bold"> Detailed results: </summary>
+
+| Model   | Score % |
+|---------|---------|
+| aya-expanse-32b | 67.17   |
+| c4ai-command-r7b-arabic-02-2025 | 67.07   |
+| jais-family-30b-16k-chat | 65.43   |
+| jais-adapted-13b-chat | 58.08   |
+| ALLaM-7B-Instruct-preview | 65.25   |
+| Yehia-7B-preview | 65.68   |
+| Qwen2-7B-Instruct | 63.61   |
+| Falcon-Arabic-7B-Chat | 68.30   |
+
+</details>
 
 ### Falcon-Arabic-7B-Chat Details
 
@@ -231,6 +330,71 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
     {"category": "ArbMMLU-HT", "model": "Falcon-Arabic-7B-Chat", "value": 0.5547}
 ]
 {{< /barplot_vertical >}}
+
+
+<details>
+<summary class="bold"> Detailed results: </summary>
+
+| Model   | Score % |
+|---------|---------|
+| aya-expanse-32b | 77.61   |
+| c4ai-command-r7b-arabic-02-2025 | 74.84   |
+| jais-family-30b-16k-chat | 71.22   |
+| jais-adapted-13b-chat | 67.28   |
+| ALLaM-7B-Instruct-preview | 69.49   |
+| Yehia-7B-preview | 70.81   |
+| Qwen2-7B-Instruct | 73.24   |
+| Falcon-Arabic-7B-Chat | 72.37   |
+| aya-expanse-32b | 60.63   |
+| c4ai-command-r7b-arabic-02-2025 | 59.34   |
+| jais-family-30b-16k-chat | 61.22   |
+| jais-adapted-13b-chat | 54.23   |
+| ALLaM-7B-Instruct-preview | 64.90   |
+| Yehia-7B-preview | 64.90   |
+| Qwen2-7B-Instruct | 60.01   |
+| Falcon-Arabic-7B-Chat | 68.27   |
+| aya-expanse-32b | 51.02   |
+| c4ai-command-r7b-arabic-02-2025 | 64.99   |
+| jais-family-30b-16k-chat | 50.09   |
+| jais-adapted-13b-chat | 47.30   |
+| ALLaM-7B-Instruct-preview | 51.58   |
+| Yehia-7B-preview | 52.14   |
+| Qwen2-7B-Instruct | 47.30   |
+| Falcon-Arabic-7B-Chat | 53.45   |
+| aya-expanse-32b | 53.45   |
+| c4ai-command-r7b-arabic-02-2025 | 63.84   |
+| jais-family-30b-16k-chat | 66.26   |
+| jais-adapted-13b-chat | 44.20   |
+| ALLaM-7B-Instruct-preview | 54.24   |
+| Yehia-7B-preview | 54.37   |
+| Qwen2-7B-Instruct | 59.50   |
+| Falcon-Arabic-7B-Chat | 73.63   |
+| aya-expanse-32b | 89.00   |
+| c4ai-command-r7b-arabic-02-2025 | 80.47   |
+| jais-family-30b-16k-chat | 81.57   |
+| jais-adapted-13b-chat | 79.68   |
+| ALLaM-7B-Instruct-preview | 86.93   |
+| Yehia-7B-preview | 87.49   |
+| Qwen2-7B-Instruct | 82.77   |
+| Falcon-Arabic-7B-Chat | 82.62   |
+| aya-expanse-32b | 79.64   |
+| c4ai-command-r7b-arabic-02-2025 | 75.90   |
+| jais-family-30b-16k-chat | 74.95   |
+| jais-adapted-13b-chat | 68.41   |
+| ALLaM-7B-Instruct-preview | 76.81   |
+| Yehia-7B-preview | 76.64   |
+| Qwen2-7B-Instruct | 71.13   |
+| Falcon-Arabic-7B-Chat | 72.26   |
+| aya-expanse-32b | 58.86   |
+| c4ai-command-r7b-arabic-02-2025 | 50.14   |
+| jais-family-30b-16k-chat | 52.73   |
+| jais-adapted-13b-chat | 45.45   |
+| ALLaM-7B-Instruct-preview | 52.81   |
+| Yehia-7B-preview | 53.40   |
+| Qwen2-7B-Instruct | 51.30   |
+| Falcon-Arabic-7B-Chat | 55.47   |
+
+</details>
 
 ## Citation
 
