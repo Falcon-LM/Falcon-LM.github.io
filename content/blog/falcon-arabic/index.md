@@ -78,7 +78,7 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
 
 
 ### Falcon-Arabic-7B-Base Avg
-{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Base" ymin="0" ymax="0.90" ylabel="Score %" >}}
+{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Base" ymin="0.3" ymax="0.7" ylabel="Score %" >}}
 [
     {"category": "avg", "model": "jais-adapted-70b", "value": 0.5194},
     {"category": "avg", "model": "AceGPT-v2-32B", "value": 0.6174000000000001},
@@ -94,7 +94,7 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
 
 ### Falcon-Arabic-7B-Base Details
 
-{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Base" ymin="0" ymax="0.90" ylabel="Score %" >}}
+{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Base" ymin="0" ymax="0.95" ylabel="Score %" >}}
 [
     {"category": "ALGhafa", "model": "jais-adapted-70b", "value": 0.5482},
     {"category": "ALGhafa", "model": "AceGPT-v2-32B", "value": 0.5493},
@@ -164,7 +164,7 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
 
 ### Falcon-Arabic-7B-Chat Avg
 
-{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Chat" ymin="0" ymax="0.75" ylabel="Score %" >}}
+{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Chat" ymin="0.5" ymax="0.7" ylabel="Score %" >}}
 [
     {"category": "avg", "model": "aya-expanse-32b", "value": 0.6717},
     {"category": "avg", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6707},
@@ -179,7 +179,7 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
 
 ### Falcon-Arabic-7B-Chat Details
 
-{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Chat" ymin="0" ymax="0.80" ylabel="Score %" >}}
+{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Chat" ymin="0" ymax="0.95" ylabel="Score %" >}}
 [
     {"category": "ALGhafa", "model": "aya-expanse-32b", "value": 0.7761},
     {"category": "ALGhafa", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.7484000000000001},
