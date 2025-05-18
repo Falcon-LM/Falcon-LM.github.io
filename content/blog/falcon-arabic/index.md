@@ -64,15 +64,26 @@ However, much of this progress has been centered around high-resource languages 
 
 With that goal in mind, we’re excited to announce **Falcon Arabic**—a specialized adaptation of the **Falcon 3** models, fine-tuned specifically for Arabic. Falcon Arabic builds on the strong foundation of the Falcon family, which was developed by the **Technology Innovation Institute (TII)** in the United Arab Emirates. The Falcon models have made a significant global impact by offering open, high-performance alternatives to closed-source LLMs, with leading benchmarks in multilingual tasks and efficient training at scale.
 
-Falcon Arabic extends this impact by bringing state-of-the-art LLM performance to the Arabic-speaking world. By tailoring the model to understand both Modern Standard Arabic and key regional dialects, Falcon Arabic addresses critical gaps in existing language technologies—paving the way for more inclusive, locally relevant AI applications across the Middle East and North Africa.
+Falcon Arabic extends this impact by bringing state-of-the-art LLM performance to the Arabic-speaking world. By tailoring the model to understand both Modern Standard Arabic and key regional dialects, Falcon Arabic addresses critical gaps in existing language technologies—paving the way for more inclusive, locally relevant AI applications across the Gulf, Middle East and North Africa.
+
+## 🧪 Training Recipe: Building Falcon Arabic
+
+When it comes to Arabic language models, there are three dominant approaches in the open-source ecosystem. The first involves **training models from scratch**, like *Jais-native*, which are built entirely using Arabic or regionally relevant data. The second approach adapts **existing multilingual models**—such as *LLaMA*—to Arabic through fine-tuning or instruction tuning. This includes models like *Allam*, *Fanar*, *AceGPT*, and *Jais-adapted*. The third category consists of models that **natively support Arabic alongside other languages**, such as *Qwen* and *LLaMA* itself.
+
+While each approach has its merits, we observed a clear trend on the Open Arabic LLM Leaderboard: the top-performing models were either multilingual or adapted from strong base models. Fine-tuned models like *Allam* and *r7b* consistently outperformed others across a wide range of Arabic NLP tasks. This observation informed our decision to **start from a pretrained base model** rather than training one from scratch. This not only leverages the existing multilingual and general reasoning capabilities of the base model, but also **significantly reduces the computational and financial cost** of training.
+
+We selected **Falcon 3-7B** from the **Falcon 3 family**, which includes models of 1B, 3B, 7B, and 10B parameters. The 7B variant struck the right balance between **proficiency and efficiency**, offering high performance without the infrastructure demands of larger models. As part of the Falcon architecture developed by the Technology Innovation Institute (TII), Falcon 3 is known for its optimized training pipeline, solid multilingual performance, and strong reasoning capabilities—all of which make it an ideal foundation for Arabic adaptation.
+
+Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic datasets, covering both **Modern Standard Arabic** and **a variety of dialects**, while preserving the model’s original strength in **English and other languages**. This enables Falcon Arabic to perform well not only in Arabic-specific tasks, but also in multilingual and cross-lingual applications, pushing the boundaries of what's possible in Arabic-centric AI.
+
 
 ## Citation
 
-If you find this work useful for your research and work, please consider citing our work, as well as citing all the foundational work behind BitNet models:
+If you find this work helpful for your research or projects, please consider citing it.
 
 ```latex
-@misc{tiionebitllms,
-    title = {Announcing Falcon Arabic: A Breakthrough in Arabic Language Models.},
+@misc{falcon-arabic,
+    title = {Falcon Arabic: A Breakthrough in Arabic Language Models},
     author = {Falcon-LLM Team},
     month = {May},
     url = {https://falcon-lm.github.io/blog/falcon-arabic},
