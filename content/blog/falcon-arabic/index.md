@@ -87,7 +87,6 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
     {"category": "avg", "model": "AceGPT-13B", "value": 0.4721},
     {"category": "avg", "model": "jais-adapted-13b", "value": 0.4253},
     {"category": "avg", "model": "Llama-3.1-8B", "value": 0.5164},
-    {"category": "avg", "model": "Qwen3-8B-Base", "value": 0.6500000000000001},
     {"category": "avg", "model": "Qwen2.5-7B", "value": 0.41969999999999996},
     {"category": "avg", "model": "Falcon-Arabic-7B-Base", "value": 0.6257}
 ]
@@ -104,7 +103,6 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
     {"category": "ALGhafa", "model": "AceGPT-13B", "value": 0.48229999999999995},
     {"category": "ALGhafa", "model": "jais-adapted-13b", "value": 0.40619999999999995},
     {"category": "ALGhafa", "model": "Llama-3.1-8B", "value": 0.6434000000000001},
-    {"category": "ALGhafa", "model": "Qwen3-8B-Base", "value": 0.0075},
     {"category": "ALGhafa", "model": "Qwen2.5-7B", "value": 0.3172},
     {"category": "ALGhafa", "model": "Falcon-Arabic-7B-Base", "value": 0.67},
     {"category": "ArabicMMLU", "model": "jais-adapted-70b", "value": 0.5196999999999999},
@@ -114,7 +112,6 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
     {"category": "ArabicMMLU", "model": "AceGPT-13B", "value": 0.4138},
     {"category": "ArabicMMLU", "model": "jais-adapted-13b", "value": 0.3697},
     {"category": "ArabicMMLU", "model": "Llama-3.1-8B", "value": 0.5228},
-    {"category": "ArabicMMLU", "model": "Qwen3-8B-Base", "value": 0.006500000000000001},
     {"category": "ArabicMMLU", "model": "Qwen2.5-7B", "value": 0.3736},
     {"category": "ArabicMMLU", "model": "Falcon-Arabic-7B-Base", "value": 0.65},
     {"category": "Exams", "model": "jais-adapted-70b", "value": 0.43579999999999997},
@@ -124,7 +121,6 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
     {"category": "Exams", "model": "AceGPT-13B", "value": 0.36869999999999997},
     {"category": "Exams", "model": "jais-adapted-13b", "value": 0.34259999999999996},
     {"category": "Exams", "model": "Llama-3.1-8B", "value": 0.4004},
-    {"category": "Exams", "model": "Qwen3-8B-Base", "value": 0.0053},
     {"category": "Exams", "model": "Qwen2.5-7B", "value": 0.3799},
     {"category": "Exams", "model": "Falcon-Arabic-7B-Base", "value": 0.53},
     {"category": "MadinahQA", "model": "jais-adapted-70b", "value": 0.3496},
@@ -134,7 +130,6 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
     {"category": "MadinahQA", "model": "AceGPT-13B", "value": 0.35369999999999996},
     {"category": "MadinahQA", "model": "jais-adapted-13b", "value": 0.2904},
     {"category": "MadinahQA", "model": "Llama-3.1-8B", "value": 0.43079999999999996},
-    {"category": "MadinahQA", "model": "Qwen3-8B-Base", "value": 0.0052},
     {"category": "MadinahQA", "model": "Qwen2.5-7B", "value": 0.2711},
     {"category": "MadinahQA", "model": "Falcon-Arabic-7B-Base", "value": 0.49},
     {"category": "AraTrust", "model": "jais-adapted-70b", "value": 0.7497},
@@ -144,7 +139,6 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
     {"category": "AraTrust", "model": "AceGPT-13B", "value": 0.5650999999999999},
     {"category": "AraTrust", "model": "jais-adapted-13b", "value": 0.6118},
     {"category": "AraTrust", "model": "Llama-3.1-8B", "value": 0.7198},
-    {"category": "AraTrust", "model": "Qwen3-8B-Base", "value": 0.0083},
     {"category": "AraTrust", "model": "Qwen2.5-7B", "value": 0.5366},
     {"category": "AraTrust", "model": "Falcon-Arabic-7B-Base", "value": 0.85},
     {"category": "ALRAGE", "model": "jais-adapted-70b", "value": 0.5528},
@@ -154,7 +148,6 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
     {"category": "ALRAGE", "model": "AceGPT-13B", "value": 0.7996},
     {"category": "ALRAGE", "model": "jais-adapted-13b", "value": 0.6253},
     {"category": "ALRAGE", "model": "Llama-3.1-8B", "value": 0.4708},
-    {"category": "ALRAGE", "model": "Qwen3-8B-Base", "value": 0},
     {"category": "ALRAGE", "model": "Qwen2.5-7B", "value": 0.6268},
     {"category": "ALRAGE", "model": "Falcon-Arabic-7B-Base", "value": 0.64},
     {"category": "ArbMMLU-HT", "model": "jais-adapted-70b", "value": 0.48},
@@ -164,7 +157,6 @@ Falcon Arabic was created by fine-tuning Falcon 3-7B on high-quality Arabic data
     {"category": "ArbMMLU-HT", "model": "AceGPT-13B", "value": 0.3212},
     {"category": "ArbMMLU-HT", "model": "jais-adapted-13b", "value": 0.3312},
     {"category": "ArbMMLU-HT", "model": "Llama-3.1-8B", "value": 0.4267},
-    {"category": "ArbMMLU-HT", "model": "Qwen3-8B-Base", "value": 0.0060999999999999995},
     {"category": "ArbMMLU-HT", "model": "Qwen2.5-7B", "value": 0.433},
     {"category": "ArbMMLU-HT", "model": "Falcon-Arabic-7B-Base", "value": 0.55}
 ]
