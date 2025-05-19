@@ -43,7 +43,7 @@ contributors:
         - name: Ahmed Alzubaidi
           image: img/contributors/ahmed.jpg
         - name: Leen AlQadi
-          image: img/contributors/leen.jpg
+          image: img/contributors/leen.png
         - name: Hakim Hacid
           image: img/contributors/hakim.jpg
 ---
