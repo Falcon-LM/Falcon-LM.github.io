@@ -95,23 +95,6 @@ With the tokenizer and embeddings in place, we began **continuous pretraining** 
 
 We evaluated Falcon Arabic on **[OALL v2](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard)**, the leading benchmark for Arabic language models. It includes six multiple-choice tasks—such as Arabic MMLU (native and translated), Arabic Exams, Alghafa, MadinahQA, Aratrust and one generative benchmark, Alrage. **Falcon Arabic outperforms all existing Arabic LLMs in its size range and even surpasses models up to 4× larger**. It leads in key benchmarks like Arabic MMLU, Exams, MadinahQA, and Aratrust, setting a new standard for Arabic-first language models.
 
-
-<details>
-<summary class="bold"> Detailed results: </summary>
-
-| Model   | Score % |
-|---------|---------|
-| jais-adapted-70b | 51.94   |
-| jais-family-30b-8k | 53.63   |
-| Qwen2.5-14B | 54.26   |
-| AceGPT-13B | 47.21   |
-| jais-adapted-13b | 42.53   |
-| Llama-3.1-8B | 51.64   |
-| Qwen2.5-7B | 41.97   |
-| Falcon-Arabic-7B-Base | 62.57   |
-
-</details>
-
 ### Falcon-Arabic-7B-Base Details
 
 {{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Base" ymin="0" ymax="0.95" ylabel="Score %" >}}
@@ -175,68 +158,19 @@ We evaluated Falcon Arabic on **[OALL v2](https://huggingface.co/spaces/OALL/Ope
 ]
 {{< /barplot_vertical >}}
 
-
 <details>
 <summary class="bold"> Detailed results: </summary>
 
-| Model   | Score % |
-|---------|---------|
-| jais-adapted-70b | 54.82   |
-| jais-family-30b-8k | 54.34   |
-| Qwen2.5-14B | 69.32   |
-| AceGPT-13B | 48.23   |
-| jais-adapted-13b | 40.62   |
-| Llama-3.1-8B | 64.34   |
-| Qwen2.5-7B | 31.72   |
-| Falcon-Arabic-7B-Base | 67.00   |
-| jais-adapted-70b | 51.97   |
-| jais-family-30b-8k | 51.53   |
-| Qwen2.5-14B | 46.37   |
-| AceGPT-13B | 41.38   |
-| jais-adapted-13b | 36.97   |
-| Llama-3.1-8B | 52.28   |
-| Qwen2.5-7B | 37.36   |
-| Falcon-Arabic-7B-Base | 65.00   |
-| jais-adapted-70b | 43.58   |
-| jais-family-30b-8k | 45.81   |
-| Qwen2.5-14B | 37.43   |
-| AceGPT-13B | 36.87   |
-| jais-adapted-13b | 34.26   |
-| Llama-3.1-8B | 40.04   |
-| Qwen2.5-7B | 37.99   |
-| Falcon-Arabic-7B-Base | 53.00   |
-| jais-adapted-70b | 34.96   |
-| jais-family-30b-8k | 29.82   |
-| Qwen2.5-14B | 30.38   |
-| AceGPT-13B | 35.37   |
-| jais-adapted-13b | 29.04   |
-| Llama-3.1-8B | 43.08   |
-| Qwen2.5-7B | 27.11   |
-| Falcon-Arabic-7B-Base | 49.00   |
-| jais-adapted-70b | 74.97   |
-| jais-family-30b-8k | 70.66   |
-| Qwen2.5-14B | 70.46   |
-| AceGPT-13B | 56.51   |
-| jais-adapted-13b | 61.18   |
-| Llama-3.1-8B | 71.98   |
-| Qwen2.5-7B | 53.66   |
-| Falcon-Arabic-7B-Base | 85.00   |
-| jais-adapted-70b | 55.28   |
-| jais-family-30b-8k | 80.47   |
-| Qwen2.5-14B | 74.03   |
-| AceGPT-13B | 79.96   |
-| jais-adapted-13b | 62.53   |
-| Llama-3.1-8B | 47.08   |
-| Qwen2.5-7B | 62.68   |
-| Falcon-Arabic-7B-Base | 64.00   |
-| jais-adapted-70b | 48.00   |
-| jais-family-30b-8k | 42.80   |
-| Qwen2.5-14B | 51.84   |
-| AceGPT-13B | 32.12   |
-| jais-adapted-13b | 33.12   |
-| Llama-3.1-8B | 42.67   |
-| Qwen2.5-7B | 43.30   |
-| Falcon-Arabic-7B-Base | 55.00   |
+| Model   | ALGhafa | ArabicMMLU | Exams | MadinahQA | AraTrust | ALRAGE | ArbMMLU-HT | Avg    |
+|---------|---------|------------|-------|-----------|----------|--------|------------|--------|
+| jais-adapted-70b | 0.5482  | 0.5197     | 0.4358| 0.3496    | 0.7497   | 0.5528 | 0.4800     | 0.5194 |
+| jais-family-30b-8k | 0.5434  | 0.5153     | 0.4581| 0.2982    | 0.7066   | 0.8047 | 0.4280     | 0.5363 |
+| Qwen2.5-14B | 0.6932  | 0.4637     | 0.3743| 0.3038    | 0.7046   | 0.7403 | 0.5184     | 0.5426 |
+| AceGPT-13B | 0.4823  | 0.4138     | 0.3687| 0.3537    | 0.5651   | 0.7996 | 0.3212     | 0.4721 |
+| jais-adapted-13b | 0.4062  | 0.3697     | 0.3426| 0.2904    | 0.6118   | 0.6253 | 0.3312     | 0.4253 |
+| Llama-3.1-8B | 0.6434  | 0.5228     | 0.4004| 0.4308    | 0.7198   | 0.4708 | 0.4267     | 0.5164 |
+| Qwen2.5-7B | 0.3172  | 0.3736     | 0.3799| 0.2711    | 0.5366   | 0.6268 | 0.4330     | 0.4197 |
+| Falcon-Arabic-7B-Base | 0.6700  | 0.6500     | 0.5300| 0.4900    | 0.8500   | 0.6400 | 0.5500     | 0.6257 |
 
 
 </details>
@@ -265,22 +199,6 @@ As shown in the results plots, **Falcon Arabic Chat leads the pack**, outperform
 ]
 {{< /barplot_vertical >}}
 
-
-<details>
-<summary class="bold"> Detailed results: </summary>
-
-| Model   | Score % |
-|---------|---------|
-| aya-expanse-32b | 67.17   |
-| c4ai-command-r7b-arabic-02-2025 | 67.07   |
-| jais-family-30b-16k-chat | 65.43   |
-| jais-adapted-13b-chat | 58.08   |
-| ALLaM-7B-Instruct-preview | 65.25   |
-| Yehia-7B-preview | 65.68   |
-| Qwen2-7B-Instruct | 63.61   |
-| Falcon-Arabic-7B-Chat | 68.30   |
-
-</details>
 
 ### Falcon-Arabic-7B-Chat Details
 
@@ -345,68 +263,19 @@ As shown in the results plots, **Falcon Arabic Chat leads the pack**, outperform
 ]
 {{< /barplot_vertical >}}
 
-
 <details>
 <summary class="bold"> Detailed results: </summary>
 
-| Model   | Score % |
-|---------|---------|
-| aya-expanse-32b | 77.61   |
-| c4ai-command-r7b-arabic-02-2025 | 74.84   |
-| jais-family-30b-16k-chat | 71.22   |
-| jais-adapted-13b-chat | 67.28   |
-| ALLaM-7B-Instruct-preview | 69.49   |
-| Yehia-7B-preview | 70.81   |
-| Qwen2-7B-Instruct | 73.24   |
-| Falcon-Arabic-7B-Chat | 72.37   |
-| aya-expanse-32b | 60.63   |
-| c4ai-command-r7b-arabic-02-2025 | 59.34   |
-| jais-family-30b-16k-chat | 61.22   |
-| jais-adapted-13b-chat | 54.23   |
-| ALLaM-7B-Instruct-preview | 64.90   |
-| Yehia-7B-preview | 64.90   |
-| Qwen2-7B-Instruct | 60.01   |
-| Falcon-Arabic-7B-Chat | 68.27   |
-| aya-expanse-32b | 51.02   |
-| c4ai-command-r7b-arabic-02-2025 | 64.99   |
-| jais-family-30b-16k-chat | 50.09   |
-| jais-adapted-13b-chat | 47.30   |
-| ALLaM-7B-Instruct-preview | 51.58   |
-| Yehia-7B-preview | 52.14   |
-| Qwen2-7B-Instruct | 47.30   |
-| Falcon-Arabic-7B-Chat | 53.45   |
-| aya-expanse-32b | 53.45   |
-| c4ai-command-r7b-arabic-02-2025 | 63.84   |
-| jais-family-30b-16k-chat | 66.26   |
-| jais-adapted-13b-chat | 44.20   |
-| ALLaM-7B-Instruct-preview | 54.24   |
-| Yehia-7B-preview | 54.37   |
-| Qwen2-7B-Instruct | 59.50   |
-| Falcon-Arabic-7B-Chat | 73.63   |
-| aya-expanse-32b | 89.00   |
-| c4ai-command-r7b-arabic-02-2025 | 80.47   |
-| jais-family-30b-16k-chat | 81.57   |
-| jais-adapted-13b-chat | 79.68   |
-| ALLaM-7B-Instruct-preview | 86.93   |
-| Yehia-7B-preview | 87.49   |
-| Qwen2-7B-Instruct | 82.77   |
-| Falcon-Arabic-7B-Chat | 82.62   |
-| aya-expanse-32b | 79.64   |
-| c4ai-command-r7b-arabic-02-2025 | 75.90   |
-| jais-family-30b-16k-chat | 74.95   |
-| jais-adapted-13b-chat | 68.41   |
-| ALLaM-7B-Instruct-preview | 76.81   |
-| Yehia-7B-preview | 76.64   |
-| Qwen2-7B-Instruct | 71.13   |
-| Falcon-Arabic-7B-Chat | 72.26   |
-| aya-expanse-32b | 58.86   |
-| c4ai-command-r7b-arabic-02-2025 | 50.14   |
-| jais-family-30b-16k-chat | 52.73   |
-| jais-adapted-13b-chat | 45.45   |
-| ALLaM-7B-Instruct-preview | 52.81   |
-| Yehia-7B-preview | 53.40   |
-| Qwen2-7B-Instruct | 51.30   |
-| Falcon-Arabic-7B-Chat | 55.47   |
+| Model                           |   ALGhafa |   ALRAGE |   AraTrust |   ArabicMMLU |   ArbMMLU-HT |   Exams |   MadinahQA |    avg |
+|:--------------------------------|----------:|---------:|-----------:|-------------:|-------------:|--------:|------------:|-------:|
+| aya-expanse-32b                 |    0.7761 |   0.7964 |     0.8900 |       0.6063 |       0.5886 |  0.5102 |      0.5345 | 0.6717 |
+| c4ai-command-r7b-arabic-02-2025 |    0.7484 |   0.7590 |     0.8047 |       0.5934 |       0.5014 |  0.6499 |      0.6384 | 0.6707 |
+| jais-family-30b-16k-chat        |    0.7122 |   0.7495 |     0.8157 |       0.6122 |       0.5273 |  0.5009 |      0.6626 | 0.6543 |
+| jais-adapted-13b-chat           |    0.6728 |   0.6841 |     0.7968 |       0.5423 |       0.4545 |  0.4730 |      0.4420 | 0.5808 |
+| ALLaM-7B-Instruct-preview       |    0.6949 |   0.7681 |     0.8693 |       0.6490 |       0.5281 |  0.5158 |      0.5424 | 0.6525 |
+| Yehia-7B-preview                |    0.7081 |   0.7664 |     0.8749 |       0.6490 |       0.5340 |  0.5214 |      0.5437 | 0.6568 |
+| Qwen2-7B-Instruct               |    0.7324 |   0.7113 |     0.8277 |       0.6001 |       0.5130 |  0.4730 |      0.5950 | 0.6361 |
+| Falcon-Arabic-7B-Chat           |    0.7237 |   0.7226 |     0.8262 |       0.6827 |       0.5547 |  0.5345 |      0.7363 | 0.6830 |
 
 </details>
 
