@@ -39,13 +39,13 @@ contributors:
         - name: Basma El Amel Boussaha
           image: img/contributors/basma.jpg
         - name: Mohammed Alyafeai
-          image: img/contributors/mohammed.jpg
+          image: img/contributors/alyafeai.jpg
         - name: Ahmed Alzubaidi
           image: img/contributors/ahmed.jpg
         - name: Leen AlQadi
           image: img/contributors/leen.png
         - name: Hakim Hacid
-          image: img/contributors/hakim.jpg
+          image: img/contributors/hakim_hacid.png
 ---
 
 
@@ -158,8 +158,8 @@ We evaluated Falcon Arabic on **[OALL v2](https://huggingface.co/spaces/OALL/Ope
 ]
 {{< /barplot_vertical >}}
 
-<details>
-<summary class="bold"> Detailed results: </summary>
+<!-- <details>
+<summary class="bold"> Detailed results: </summary> -->
 
 | Model   | ALGhafa | ArabicMMLU | Exams | MadinahQA | AraTrust | ALRAGE | ArbMMLU-HT | Avg    |
 |---------|---------|------------|-------|-----------|----------|--------|------------|--------|
@@ -173,7 +173,7 @@ We evaluated Falcon Arabic on **[OALL v2](https://huggingface.co/spaces/OALL/Ope
 | Falcon-Arabic-7B-Base | 0.6700  | 0.6500     | 0.5300| 0.4900    | 0.8500   | 0.6400 | 0.5500     | 0.6257 |
 
 
-</details>
+<!-- </details> -->
 
 ## 🗣️ From Pretraining to Chat: Aligning Falcon Arabic for Conversations
 
@@ -263,8 +263,8 @@ As shown in the results plots, **Falcon Arabic Chat leads the pack**, outperform
 ]
 {{< /barplot_vertical >}}
 
-<details>
-<summary class="bold"> Detailed results: </summary>
+<!-- <details>
+<summary class="bold"> Detailed results: </summary> -->
 
 | Model                           |   ALGhafa |   ALRAGE |   AraTrust |   ArabicMMLU |   ArbMMLU-HT |   Exams |   MadinahQA |    avg |
 |:--------------------------------|----------:|---------:|-----------:|-------------:|-------------:|--------:|------------:|-------:|
@@ -277,7 +277,7 @@ As shown in the results plots, **Falcon Arabic Chat leads the pack**, outperform
 | Qwen2-7B-Instruct               |    0.7324 |   0.7113 |     0.8277 |       0.6001 |       0.5130 |  0.4730 |      0.5950 | 0.6361 |
 | Falcon-Arabic-7B-Chat           |    0.7237 |   0.7226 |     0.8262 |       0.6827 |       0.5547 |  0.5345 |      0.7363 | 0.6830 |
 
-</details>
+<!-- </details> -->
 
 ## ⚠️ Limitations
 
