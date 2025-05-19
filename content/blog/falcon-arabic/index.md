@@ -1,5 +1,5 @@
 ---
-title: "Falcon Arabic: A Breakthrough in Arabic Language Models"
+title: "Falcon-Arabic: A Breakthrough in Arabic Language Models"
 date: 2025-05-17T12:00:00Z
 weight: 1
 # aliases: ["/first"]
@@ -49,18 +49,18 @@ contributors:
 ---
 
 
-We are excited to introduce **Falcon Arabic**, a 7B parameter language model that sets a new benchmark for Arabic NLP. Built on the Falcon 3 architecture, Falcon Arabic is a multilingual model that supports Arabic, English, and several other languages. It excels in general knowledge, Arabic grammar, mathematical reasoning, complex problem solving, and understanding the rich diversity of Arabic dialects.
+We are excited to introduce **Falcon-Arabic**, a 7B parameter language model that sets a new benchmark for Arabic NLP. Built on the Falcon 3 architecture, Falcon-Arabic is a multilingual model that supports Arabic, English, and several other languages. It excels in general knowledge, Arabic grammar, mathematical reasoning, complex problem solving, and understanding the rich diversity of Arabic dialects.
 
-Falcon Arabic redefines the boundaries of what is possible for Arabic language models. It significantly outperforms other Arabic LLMs in its size category—and even models up to four times larger—across both Arabic-native models and those adapted from other languages. This makes Falcon Arabic not only a state-of-the-art model in terms of performance, but also a uniquely efficient and accessible solution for developers and researchers working with the Arabic language.
+Falcon-Arabic redefines the boundaries of what is possible for Arabic language models. It significantly outperforms other Arabic LLMs in its size category—and even models up to four times larger—across both Arabic-native models and those adapted from other languages. This makes Falcon-Arabic not only a state-of-the-art model in terms of performance, but also a uniquely efficient and accessible solution for developers and researchers working with the Arabic language.
 
-<!-- Whether you are generating high-quality Arabic content, exploring the nuances of dialects, or solving complex tasks that require deep reasoning and arithmetic, Falcon Arabic is the model that will change the way we interact with the Arabic language in AI. -->
+<!-- Whether you are generating high-quality Arabic content, exploring the nuances of dialects, or solving complex tasks that require deep reasoning and arithmetic, Falcon-Arabic is the model that will change the way we interact with the Arabic language in AI. -->
 
 
-# Introducing Falcon Arabic: Advancing LLMs for the Arabic-Speaking World
+# Introducing Falcon-Arabic: Advancing LLMs for the Arabic-Speaking World
 
-In recent years, Large Language Models (LLMs) have transformed artificial intelligence, powering tools for translation, content creation, virtual assistance, and more. Yet much of this progress has focused on high-resource languages like English, leaving languages such as Arabic underrepresented. Arabic presents unique challenges—it's morphologically rich, diglossic (spanning both Modern Standard Arabic and diverse regional dialects), and used across a vast and culturally varied population. Developing robust Arabic LLMs is essential to ensure Arabic-speaking communities are fully included in the AI revolution.
+In recent years, Large Language Models (LLMs) have transformed artificial intelligence, powering tools for translation, content creation, virtual assistance, and more. Yet much of this progress has focused on high-resource languages like English, leaving languages such as Arabic underrepresented. Arabic presents unique challenges it's morphologically rich, diglossic (spanning both Modern Standard Arabic (MSA) and diverse regional dialects), and used across a vast and culturally varied population. Developing robust Arabic LLMs is essential to ensure Arabic-speaking communities are fully included in the AI revolution.
 
-With this goal in mind, we’re introducing **Falcon Arabic**—a specialized adaptation of the **Falcon 3** model family, developed by the **Technology Innovation Institute (TII)** in the UAE. The Falcon models have earned global recognition for their multilingual strength and open-access approach. Falcon Arabic builds on this legacy, bringing advanced language understanding and generation to Arabic. By training the model to handle both Modern Standard Arabic and key dialects, Falcon Arabic fills a critical gap in language technology—enabling more natural, intelligent, and inclusive Arabic AI across the Gulf, Middle East, and North Africa.
+With this goal in mind, we’re introducing **Falcon-Arabic** a specialized adaptation of the **Falcon 3** model family, developed by the **Technology Innovation Institute (TII)** in the UAE. The Falcon models have earned global recognition for their multilingual strength and open-access approach. Falcon-Arabic builds on this legacy, bringing advanced language understanding and generation to Arabic. By training the model to handle both Modern Standard Arabic and key dialects, Falcon-Arabic fills a critical gap in language technology—enabling more natural, intelligent, and inclusive Arabic AI across the Gulf, Middle East, and North Africa.
 
 <a id="pull-figures"></a>
 <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
@@ -68,11 +68,11 @@ With this goal in mind, we’re introducing **Falcon Arabic**—a specialized ad
 </div>
 
 
-## 🧪 Falcon Arabic Has Landed — Here’s the Training Recipe
+## 🧪 Falcon-Arabic Has Landed — Here’s the Training Recipe
 
-Building Falcon Arabic started with a strategic decision: rather than training a model from scratch, we chose to adapt a strong multilingual foundation. In the Arabic LLM landscape, three main approaches exist—training from scratch (e.g., Jais-native), adapting multilingual models (like Allam or Fanar), or using models that natively support Arabic alongside other languages (such as Qwen or LLaMA). Observing the Open Arabic LLM Leaderboard, it became clear that adapted and multilingual models consistently outperformed others in both efficiency and capability. To build on that momentum, we selected **Falcon 3-7B**, a model that strikes a practical balance between performance and resource efficiency within the Falcon 3 family developed by the **Technology Innovation Institute (TII)**.
+Building Falcon-Arabic started with a strategic decision: rather than training a model from scratch, we chose to adapt a strong multilingual foundation. In the Arabic LLM landscape, three main approaches exist—training from scratch (e.g., Jais-native), adapting multilingual models (like Allam or Fanar), or using models that natively support Arabic alongside other languages (such as Qwen or LLaMA). Observing the [Open Arabic LLM Leaderboard](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard), it became clear that adapted and multilingual models consistently outperformed others in both efficiency and capability. To build on that momentum, we selected **Falcon 3-7B**, a model that strikes a practical balance between performance and resource efficiency within the Falcon 3 family developed by the **Technology Innovation Institute (TII)**.
 
-The core challenge was adapting Falcon 3-7B, which originally lacked Arabic support at the tokenizer and embedding level. We addressed this by extending the tokenizer’s vocabulary with **32,000 Arabic-specific tokens**, and applying a **novel embedding initialization strategy** based on **textual similarity**. This technique mapped new Arabic tokens to semantically related embeddings from the existing vocabulary, allowing the model to inherit prior knowledge and accelerate learning—particularly around sentiment, abstract concepts, and reasoning patterns. This gave Falcon Arabic a head start in understanding and generating high-quality Arabic text.
+The core challenge was adapting [Falcon 3-7B](https://huggingface.co/tiiuae/Falcon3-7B-Base), which originally lacked Arabic support at the tokenizer and embedding level. We addressed this by extending the tokenizer’s vocabulary with **32,000 Arabic-specific tokens**, and applying a **novel embedding initialization strategy** based on **textual similarity**. This technique mapped new Arabic tokens to semantically related embeddings from the existing vocabulary, allowing the model to inherit prior knowledge and accelerate learning—particularly around sentiment, abstract concepts, and reasoning patterns. This gave Falcon-Arabic a head start in understanding and generating high-quality Arabic text.
 
 With the tokenizer and embeddings in place, we began **continuous pretraining** on high-quality, **100% native Arabic datasets**, avoiding the use of machine-translated content to minimize cultural bias and preserve linguistic authenticity. Training followed a **multi-stage curriculum**: early stages focused on **general knowledge and dialect-rich Arabic content** to stabilize the model and reinforce logical capabilities, while later phases emphasized **math, code, and reasoning**. The result is a model that not only speaks Arabic fluently across dialects, but also retains Falcon’s multilingual and reasoning strengths—pushing the boundaries for Arabic-first AI.
 
@@ -91,9 +91,9 @@ With the tokenizer and embeddings in place, we began **continuous pretraining** 
 ]
 {{< /barplot_vertical >}}
 
-## 📊 Falcon Arabic: Raising the Bar in Arabic LLMs
+## 📊 Falcon-Arabic: Raising the Bar in Arabic LLMs
 
-We evaluated Falcon Arabic on **[OALL v2](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard)**, the leading benchmark for Arabic language models. It includes six multiple-choice tasks—such as Arabic MMLU (native and translated), Arabic Exams, Alghafa, MadinahQA, Aratrust and one generative benchmark, Alrage. **Falcon Arabic outperforms all existing Arabic LLMs in its size range and even surpasses models up to 4× larger**. It leads in key benchmarks like Arabic MMLU, Exams, MadinahQA, and Aratrust, setting a new standard for Arabic-first language models.
+We evaluated Falcon-Arabic on **[OALL v2](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard)**, the leading benchmark for Arabic language models. It includes six multiple-choice tasks—such as Arabic MMLU (native and translated), Arabic Exams, Alghafa, MadinahQA, Aratrust and one generative benchmark, Alrage. **Falcon-Arabic outperforms all existing Arabic LLMs in its size range and even surpasses models up to 4× larger**. It leads in key benchmarks like Arabic MMLU, Exams, MadinahQA, and Aratrust, setting a new standard for Arabic-first language models. Despite having just 7 billion parameters, Falcon-Arabic outperforms not only models in its size category, but also those up to four times larger—making it one of the most efficient Arabic language models available today.
 
 ### Falcon-Arabic-7B-Base Details
 
@@ -175,13 +175,13 @@ We evaluated Falcon Arabic on **[OALL v2](https://huggingface.co/spaces/OALL/Ope
 
 <!-- </details> -->
 
-## 🗣️ From Pretraining to Chat: Aligning Falcon Arabic for Conversations
+## 🗣️ From Pretraining to Chat: Aligning Falcon-Arabic for Conversations
 
-After finalizing the base model training, we performed a **post-training alignment** phase to fine-tune Falcon Arabic’s responses according to human preferences. This phase began with **supervised fine-tuning (SFT)** using a combination of high-quality public datasets and internally collected **native Arabic instruction data**, covering a range of tasks and conversational scenarios.
+After finalizing the base model training, we performed a **post-training alignment** phase to fine-tune Falcon-Arabic’s responses according to human preferences. This phase began with **supervised fine-tuning (SFT)** using a combination of high-quality public datasets and internally collected **native Arabic instruction data**, covering a range of tasks and conversational scenarios.
 
-To further enhance alignment, we applied **Direct Preference Optimization (DPO)**—a reinforcement learning-based method that tunes the model to prefer outputs that humans rate as more helpful, safe, and relevant. This two-step process ensures that Falcon Arabic Chat not only understands Arabic well but responds in a way that aligns with real user expectations.
+To further enhance alignment, we applied **Direct Preference Optimization (DPO)**—a reinforcement learning-based method that tunes the model to prefer outputs that humans rate as more helpful, safe, and relevant. This two-step process ensures that Falcon-Arabic Chat not only understands Arabic well but responds in a way that aligns with real user expectations.
 
-As shown in the results plots, **Falcon Arabic Chat leads the pack**, outperforming all other SFT-aligned Arabic LLMs in its size class—and even models significantly larger—across multiple benchmarks. The model demonstrates strong performance in both instruction following and open-ended dialogue, setting a new standard for Arabic conversational AI.
+As shown in the results plots, **Falcon-Arabic Chat leads the pack**, outperforming all other SFT-aligned Arabic LLMs in its size class—and even models significantly larger—across multiple benchmarks. The model demonstrates strong performance in both instruction following and open-ended dialogue, setting a new standard for Arabic conversational AI.
 
 
 ### Falcon-Arabic-7B-Chat Avg
@@ -279,9 +279,13 @@ As shown in the results plots, **Falcon Arabic Chat leads the pack**, outperform
 
 <!-- </details> -->
 
+## 🔓 Unlocking the Potential of Arabic AI
+
+Falcon-Arabic sets a new benchmark for Arabic language models. With only 7B parameters, it delivers state-of-the-art performance outperforming models of similar size and even those several times larger—across key benchmarks like Arabic MMLU, MadinahQA, and Aratrust. It combines fluency in Modern Standard Arabic, strong understanding of regional dialects, and robust reasoning and multilingual capabilities, making it ideal for a wide range of applications: from Arabic-first chatbots and educational tools to content generation, code assistance, and document understanding. If you’d like to try it out, Falcon-Arabic is available for testing on link.
+
 ## ⚠️ Limitations
 
-Like all large language models, Falcon Arabic inherits some common limitations. These include occasional **hallucinations** (producing plausible but incorrect outputs), **sensitivity to how prompts are phrased**, and varying performance across very long contexts. While Falcon Arabic is designed to reduce these issues—especially for Arabic tasks—users should still apply critical thinking when interpreting results, particularly in high-stakes or fact-sensitive use cases.
+Like all large language models, Falcon-Arabic inherits some common limitations. These include occasional **hallucinations** (producing plausible but incorrect outputs), **sensitivity to how prompts are phrased**, and varying performance across very long contexts. While Falcon-Arabic is designed to reduce these issues—especially for Arabic tasks—users should still apply critical thinking when interpreting results, particularly in high-stakes or fact-sensitive use cases.
 
 ## Citation
 
@@ -289,7 +293,7 @@ If you find this work helpful for your research or projects, please consider cit
 
 ```latex
 @misc{falcon-arabic,
-    title = {Falcon Arabic: A Breakthrough in Arabic Language Models},
+    title = {Falcon-Arabic: A Breakthrough in Arabic Language Models},
     author = {Falcon-LLM Team},
     month = {May},
     url = {https://falcon-lm.github.io/blog/falcon-arabic},
