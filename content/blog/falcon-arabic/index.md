@@ -22,7 +22,7 @@ show_word_count: true
 #show_toc: true
 # toc_open: true # default expand all
 cover:
-    image: "cover.png"
+    image: "cover_1.png"
     # can also paste direct link from external site
     # ex. https://i.ibb.co/K0HVPBd/paper-mod-profilemode.png
     alt: "<alt falcon 3>"
@@ -60,7 +60,7 @@ Falcon-Arabic redefines the boundaries of what is possible for Arabic language m
 
 In recent years, Large Language Models (LLMs) have transformed artificial intelligence, powering tools for translation, content creation, virtual assistance, and more. Yet much of this progress has focused on high-resource languages like English, leaving languages such as Arabic underrepresented. Arabic presents unique challenges it's morphologically rich, diglossic (spanning both Modern Standard Arabic (MSA) and diverse regional dialects), and used across a vast and culturally varied population. Developing robust Arabic LLMs is essential to ensure Arabic-speaking communities are fully included in the AI revolution.
 
-With this goal in mind, we’re introducing **Falcon-Arabic** a specialized adaptation of the **Falcon 3** model family, developed by the **Technology Innovation Institute (TII)** in the UAE. The Falcon models have earned global recognition for their multilingual strength and open-access approach. Falcon-Arabic builds on this legacy, bringing advanced language understanding and generation to Arabic. By training the model to handle both Modern Standard Arabic and key dialects, Falcon-Arabic fills a critical gap in language technology—enabling more natural, intelligent, and inclusive Arabic AI across the Gulf, Middle East, and North Africa.
+With this goal in mind, we’re introducing **Falcon-Arabic** a specialized adaptation of the [**Falcon 3** model family](https://huggingface.co/collections/tiiuae/falcon3-67605ae03578be86e4e87026), developed by the [**Technology Innovation Institute (TII)**](https://www.tii.ae/) in the UAE. The Falcon models have earned global recognition for their multilingual strength and open-access approach. Falcon-Arabic builds on this legacy, bringing advanced language understanding and generation to Arabic. By training the model to handle both Modern Standard Arabic and key dialects, Falcon-Arabic fills a critical gap in language technology—enabling more natural, intelligent, and inclusive Arabic AI across the Gulf, Middle East, and North Africa.
 
 <a id="pull-figures"></a>
 <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
@@ -70,7 +70,7 @@ With this goal in mind, we’re introducing **Falcon-Arabic** a specialized adap
 
 ## 🧪 Falcon-Arabic Has Landed — Here’s the Training Recipe
 
-Building Falcon-Arabic started with a strategic decision: rather than training a model from scratch, we chose to adapt a strong multilingual foundation. In the Arabic LLM landscape, three main approaches exist—training from scratch (e.g., Jais-native), adapting multilingual models (like Allam or Fanar), or using models that natively support Arabic alongside other languages (such as Qwen or LLaMA). Observing the [Open Arabic LLM Leaderboard](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard), it became clear that adapted and multilingual models consistently outperformed others in both efficiency and capability. To build on that momentum, we selected **Falcon 3-7B**, a model that strikes a practical balance between performance and resource efficiency within the Falcon 3 family developed by the **Technology Innovation Institute (TII)**.
+Building Falcon-Arabic started with a strategic decision: rather than training a model from scratch, we chose to adapt a strong multilingual foundation. In the Arabic LLM landscape, three main approaches exist: training from scratch (e.g., Jais-native), adapting multilingual models (like Allam or Fanar), or using models that natively support Arabic alongside other languages (such as Qwen or LLaMA). Observing the [Open Arabic LLM Leaderboard](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard), it became clear that adapted and multilingual models consistently outperformed others in both efficiency and capability. To build on that momentum, we selected **Falcon 3-7B**, a model that strikes a practical balance between performance and resource efficiency within the Falcon 3 family developed by the **Technology Innovation Institute (TII)**.
 
 The core challenge was adapting [Falcon 3-7B](https://huggingface.co/tiiuae/Falcon3-7B-Base), which originally lacked Arabic support at the tokenizer and embedding level. We addressed this by extending the tokenizer’s vocabulary with **32,000 Arabic-specific tokens**, and applying a **novel embedding initialization strategy** based on **textual similarity**. This technique mapped new Arabic tokens to semantically related embeddings from the existing vocabulary, allowing the model to inherit prior knowledge and accelerate learning—particularly around sentiment, abstract concepts, and reasoning patterns. This gave Falcon-Arabic a head start in understanding and generating high-quality Arabic text.
 
