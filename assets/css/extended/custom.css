@@ -10,3 +10,6 @@
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
 }
+.custom-table tbody tr:nth-last-child(2) {
+  background-color: rgba(176, 136, 255, 0.5); /* light purple */
+}
