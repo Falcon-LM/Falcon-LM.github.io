@@ -44,6 +44,10 @@ contributors:
           image: img/contributors/ahmed_alzubaidi.jpg
         - name: Leen AlQadi
           image: img/contributors/leen.png
+        - name: Younes Belkada
+          image: img/contributors/younes_belkada.jpg
+        - name: Mikhail Lubinets
+          image: img/contributors/mikhail_lubinets.jpg
         - name: Hakim Hacid
           image: img/contributors/hakim.png
 ---
