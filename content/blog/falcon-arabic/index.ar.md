@@ -31,7 +31,7 @@ cover:
     responsive_images: true
 header:
 #   background: "" # background css value
-    background_image: "cover.png"
+    background_image: "/img/falcon_arabic_cover.png"
     gradient: true
     blur: true
 contributors:
@@ -54,25 +54,28 @@ contributors:
 
 <div dir="rtl">
 
-نحن متحمسون للإعلان عن Falcon-Arabic، وهي نموذج لغوي كبير متعدد اللغات يحتوي على 7 مليار معامل ويتمتع بأداء قياسي في مجال معالجة اللغة الطبيعية للغة العربية. مبني على هندسة Falcon 3 المتعددة اللغات، يدعم Falcon-Arabic اللغة العربية واللغة الإنجليزية وعدد من اللغات الأخرى. يتفوق في المعرفة العامة والقواعد النحوية العربية والاستدلال الرياضي وحل المشاكل المعقدة وفهم تنوع اللهجات العربية الغني. يدعم Falcon-Arabic طول السياق بمقدار 32 ألف رمز، مما يمكنه من التعامل مع الوثائق الطويلة وتمكين تطبيقات متقدمة مثل توليد المحتوى المدعوم بالاسترجاع (RAG)، وإنشاء محتوى عميق، والمهام المكثفة بالمعرفة.
+نحن متحمسون للإعلان عن Falcon-Arabic، وهو نموذج لغوي كبير متعدد اللغات يحتوي على 7 مليار معامل ويتمتع بأداء قياسي في مجال معالجة اللغة الطبيعية للغة العربية. مبني على هندسة Falcon 3 المتعددة اللغات، يدعم Falcon-Arabic اللغة العربية واللغة الإنجليزية وعدد من اللغات الأخرى. يتفوق في المعرفة العامة والقواعد النحوية العربية والاستدلال الرياضي وحل المشاكل المعقدة وفهم تنوع اللهجات العربية. يدعم Falcon-Arabic  سياق بطول بمقدار 32 ألف رمز، مما يمكنه من التعامل مع الوثائق الطويلة وتمكين تطبيقات متقدمة مثل توليد المحتوى المدعوم بالاسترجاع (RAG)، وإنشاء محتوى عميق، والمهام المعرفية.
+
 
 يقوم Falcon-Arabic بإعادة تعريف الحدود لما يمكن تحقيقه بالنسبة للنماذج اللغوية العربية. فهو يفوق بكثير النماذج الأخرى ذات الحجم المماثل وحتى تلك الأكبر بأربعة أضعاف عبر نماذج اللغة العربية الأصلية وتلك المحولة من لغات أخرى. وهذا يجعل Falcon-Arabic ليس فقط نموذجاً رائداً من حيث الأداء، بل أيضاً حلاً فريداً وفعالاً ومتاحاً للباحثين والمطورين الذين يعملون مع اللغة العربية.
 
 ## 🚀 نقدم Falcon-Arabic: تقدم LLM للعالم الناطق بالعربية
 
-في السنوات الأخيرة، قامت النماذج اللغوية الكبيرة بتحويل الذكاء الاصطناعي، وتمكنت من تشغيل الأدوات للترجمة وإنشاء المحتوى والمساعدة الافتراضية وغيرها الكثير. ولكن معظم هذا التقدم ركز على اللغات الممثلة بشدة مثل الإنجليزية، تاركاً اللغات مثل العربية دون تمثيل كافٍ. تشكل اللغة العربية تحديات فريدة فهي غنية بالنحو، ثنائية اللهجة (تشمل كلاً من اللغة العربية القياسية الحديثة (MSA) واللهجات الإقليمية المتنوعة)، وتستخدم من قبل سكان ثقافيين متنوعين للغاية. وتطوير نماذج اللغة العربية القوية ضروري لضمان تضمين المجتمعات الناطقة بالعربية بالكامل في ثورة الذكاء الاصطناعي.
+<!--
+في السنوات الأخيرة، قامت النماذج اللغوية الكبيرة بتحويل الذكاء الاصطناعي، وتمكنت من تشغيل الأدوات للترجمة وإنشاء المحتوى والمساعدة الافتراضية وغيرها الكثير. ولكن معظم هذا التقدم ركز على اللغات الممثلة بشدة مثل الإنجليزية، تاركاً اللغات مثل العربية دون تمثيل كافٍ. تشكل اللغة العربية تحديات فريدة فهي غنية بالنحو، ثنائية اللهجة (تشمل كلاً من اللغة العربية القياسية الحديثة (MSA) واللهجات الإقليمية المتنوعة)، وتستخدم من قبل سكان ثقافيين متنوعين للغاية. وتطوير نماذج اللغة العربية القوية ضروري لضمان تضمين المجتمعات الناطقة بالعربية بالكامل في ثورة الذكاء الاصطناعي. -->
 
-بناءً على هذه الرؤية، نعلن عن Falcon-Arabic، وهو تكيف متخصص لعائلة نماذج Falcon 3 المطورة من قبل معهد الابتكار التكنولوجي (TII) في دولة الإمارات العربية المتحدة. اكتسبت عائلة Falcon العالمية شهرة عالمية بفضل قوتها متعددة اللغات ونهج المصادر المفتوحة الخاص بها. يبني Falcon-Arabic على هذا الإرث، ويجلب فهم وإنتاج اللغة المتقدم للعربية. ومن خلال تدريب النموذج للتعامل مع اللغة العربية القياسية الحديثة وبعض اللهجات الأساسية، يملأ Falcon-Arabic فجوة حرجة في تكنولوجيا اللغة، مما يمكّن ذكاءً عربيًا أكثر طبيعية وذكيًا وشاملًا عبر الخليج والشرق الأوسط وشمال أفريقيا.
+في السنوات الأخيرة، قامت النماذج اللغوية الكبيرة بتحويل الذكاء الاصطناعي، وتمكنت من توفير الأدوات للترجمة وإنشاء المحتوى والمساعدة الافتراضية وغيرها الكثير. ولكن معظم هذا التقدم ركز على اللغات محدودة مثل الإنجليزية، تاركاً اللغات مثل العربية دون تمثيل كافٍ. تشكل اللغة العربية تحديات فريدة فهي غنية بالنحو، ثنائية اللهجة (تشمل كلاً من اللغة العربية المعاصرة واللهجات المحلية المتنوعة)، وتستخدم من قبل سكان متنوعين ثقافيا. إن تطوير نماذج اللغة العربية متقدمة المستوى ضروري لضمان حصول المجتمعات الناطقة بالعربية على مزايا التي نشهدها مع ثورة الذكاء الاصطناعي.
 
+بناءً على هذه الرؤية، نعلن عن Falcon-Arabic، وهو تكيف متخصص لعائلة نماذج Falcon 3 المطورة من قبل معهد الابتكار التكنولوجي (TII) في دولة الإمارات العربية المتحدة. اكتسبت عائلة Falcon العالمية شهرة عالمية بفضل قوتها متعددة اللغات ونهج المصادر المفتوحة الخاص بها. يبني Falcon-Arabic على هذا الإرث، بجلب فهم وإنتاج اللغة المتقدم للعربية. ومن خلال تدريب النموذج للتعامل مع اللغة العربية المعاصرة وبعض اللهجات المحلية، يملأ Falcon-Arabic فجوة حرجة في تكنولوجيا اللغة، مما يمكّن ذكاءً عربيًا أكثر طبيعية وذكيًا وشاملًا عبر الخليج والشرق الأوسط وشمال أفريقيا.
 
-<a id="pull-figures"></a>
+{{< figure src="radar.png" alt="Pretrained models performance" >}}
+
+<!-- <a id="pull-figures"></a>
 <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
-  <img src="./radar.png" alt="Pretrained models performance" style="width: 100%; max-width: 800px; height: auto;">
-</div>
+  <img src="{{ .RelPermalink }}radar.png" alt="Pretrained models performance" style="width: 100%; max-width: 800px; height: auto;">
+</div> -->
 
-
-
-## 🧪 لقد هبط Falcon-Arabic - هنا وصفة التدريب
+## 🧪 لقد وصل Falcon-Arabic - هنا وصفة التدريب
 
 بدأ بناء Falcon-Arabic بقرار استراتيجي: بدلاً من تدريب نموذج من الصفر، اخترنا تكييف أساس متعدد اللغات قوي. وفي مشهد نماذج اللغة العربية، هناك ثلاث طرق رئيسية: التدريب من الصفر (على سبيل المثال، Jais-native)، تكييف النماذج متعددة اللغات (مثل Allam أو Fanar)، أو استخدام النماذج التي تدعم اللغة العربية بشكل أصلي بجانب لغات أخرى (مثل Qwen أو LLaMA). عند النظر إلى لوحة المتصدرين الخاصة بـ Open Arabic LLM (https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard)، أصبح من الواضح أن النماذج المتكيفة والمتعددة اللغات تفوقت باستمرار على غيرها من حيث الكفاءة والقدرة. للاستفادة من هذا الزخم، قمنا باختيار Falcon 3-7B، وهو نموذج يحقق توازن عملي بين الأداء وكفاءة الموارد ضمن عائلة Falcon 3 المطورة من قبل معهد الابتكار التكنولوجي (TII).
 
@@ -82,7 +85,7 @@ contributors:
 
 {{< rawhtml >}}
 <iframe
-  src="https://falcon-arabic-falcon-arabic-translation-demo.hf.space/?__theme=light"
+  src="https://tiiuae-falcon-arabic-translation-demo.hf.space/?__theme=light"
   frameborder="0"
   width="100%"
   height="300px"
@@ -91,16 +94,15 @@ contributors:
 {{< /rawhtml >}}
 
 ### Falcon-Arabic-7B-Base Avg
-{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Base" ymin="0.40" ymax="0.7" ylabel="Score %" >}}
+{{< barplot_vertical id="pretrained-avg" highlight="Falcon-Arabic-7B-Base" ymin="0.40" ymax="0.7" ylabel="Score %" >}}
 [
-    {"category": "avg", "model": "jais-adapted-70b", "value": 0.5194},
-    {"category": "avg", "model": "jais-family-30b-8k", "value": 0.5363},
-    {"category": "avg", "model": "Qwen2.5-14B", "value": 0.5426},
-    {"category": "avg", "model": "AceGPT-13B", "value": 0.4721},
-    {"category": "avg", "model": "jais-adapted-13b", "value": 0.4253},
-    {"category": "avg", "model": "Llama-3.1-8B", "value": 0.5164},
-    {"category": "avg", "model": "Qwen2.5-7B", "value": 0.41969999999999996},
-    {"category": "avg", "model": "Falcon-Arabic-7B-Base", "value": 0.6257}
+    {"category": "Average", "model": "AceGPT-v2-32B", "value": 0.6174},
+    {"category": "Average", "model": "Qwen2.5-14B", "value": 0.5426},
+    {"category": "Average", "model": "AceGPT-13B", "value": 0.4721},
+    {"category": "Average", "model": "gemma-2-9b-it", "value": 0.4664},
+    {"category": "Average", "model": "Llama-3.1-8B", "value": 0.5164},
+    {"category": "Average", "model": "Qwen2.5-7B", "value": 0.41969999999999996},
+    {"category": "Average", "model": "Falcon-Arabic-7B-Base", "value": 0.6257}
 ]
 {{< /barplot_vertical >}}
 
@@ -111,61 +113,54 @@ contributors:
 
 ### Falcon-Arabic-7B-Base Details
 
-{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Base" ymin="0" ymax="0.95" ylabel="Score %" >}}
+{{< barplot_vertical id="pretrained-detailed" highlight="Falcon-Arabic-7B-Base" ymin="0.2" ymax="0.9" ylabel="Score %" >}}
 [
-    {"category": "ALGhafa", "model": "jais-adapted-70b", "value": 0.5482},
-    {"category": "ALGhafa", "model": "jais-family-30b-8k", "value": 0.5434},
+    {"category": "ALGhafa", "model": "AceGPT-v2-32B", "value": 0.5493},
     {"category": "ALGhafa", "model": "Qwen2.5-14B", "value": 0.6931999999999999},
     {"category": "ALGhafa", "model": "AceGPT-13B", "value": 0.48229999999999995},
-    {"category": "ALGhafa", "model": "jais-adapted-13b", "value": 0.40619999999999995},
+    {"category": "ALGhafa", "model": "gemma-2-9b-it", "value": 0.4792},
     {"category": "ALGhafa", "model": "Llama-3.1-8B", "value": 0.6434000000000001},
     {"category": "ALGhafa", "model": "Qwen2.5-7B", "value": 0.3172},
     {"category": "ALGhafa", "model": "Falcon-Arabic-7B-Base", "value": 0.67},
-    {"category": "ArabicMMLU", "model": "jais-adapted-70b", "value": 0.5196999999999999},
-    {"category": "ArabicMMLU", "model": "jais-family-30b-8k", "value": 0.5153},
+    {"category": "ArabicMMLU", "model": "AceGPT-v2-32B", "value": 0.6315},
     {"category": "ArabicMMLU", "model": "Qwen2.5-14B", "value": 0.4637},
     {"category": "ArabicMMLU", "model": "AceGPT-13B", "value": 0.4138},
-    {"category": "ArabicMMLU", "model": "jais-adapted-13b", "value": 0.3697},
+    {"category": "ArabicMMLU", "model": "gemma-2-9b-it", "value": 0.3628},
     {"category": "ArabicMMLU", "model": "Llama-3.1-8B", "value": 0.5228},
     {"category": "ArabicMMLU", "model": "Qwen2.5-7B", "value": 0.3736},
     {"category": "ArabicMMLU", "model": "Falcon-Arabic-7B-Base", "value": 0.65},
-    {"category": "Exams", "model": "jais-adapted-70b", "value": 0.43579999999999997},
-    {"category": "Exams", "model": "jais-family-30b-8k", "value": 0.4581},
+    {"category": "Exams", "model": "AceGPT-v2-32B", "value": 0.486},
     {"category": "Exams", "model": "Qwen2.5-14B", "value": 0.3743},
     {"category": "Exams", "model": "AceGPT-13B", "value": 0.36869999999999997},
-    {"category": "Exams", "model": "jais-adapted-13b", "value": 0.34259999999999996},
+    {"category": "Exams", "model": "gemma-2-9b-it", "value": 0.2793},
     {"category": "Exams", "model": "Llama-3.1-8B", "value": 0.4004},
     {"category": "Exams", "model": "Qwen2.5-7B", "value": 0.3799},
     {"category": "Exams", "model": "Falcon-Arabic-7B-Base", "value": 0.53},
-    {"category": "MadinahQA", "model": "jais-adapted-70b", "value": 0.3496},
-    {"category": "MadinahQA", "model": "jais-family-30b-8k", "value": 0.2982},
+    {"category": "MadinahQA", "model": "AceGPT-v2-32B", "value": 0.5971},
     {"category": "MadinahQA", "model": "Qwen2.5-14B", "value": 0.3038},
     {"category": "MadinahQA", "model": "AceGPT-13B", "value": 0.35369999999999996},
-    {"category": "MadinahQA", "model": "jais-adapted-13b", "value": 0.2904},
+    {"category": "MadinahQA", "model": "gemma-2-9b-it", "value": 0.317},
     {"category": "MadinahQA", "model": "Llama-3.1-8B", "value": 0.43079999999999996},
     {"category": "MadinahQA", "model": "Qwen2.5-7B", "value": 0.2711},
     {"category": "MadinahQA", "model": "Falcon-Arabic-7B-Base", "value": 0.49},
-    {"category": "AraTrust", "model": "jais-adapted-70b", "value": 0.7497},
-    {"category": "AraTrust", "model": "jais-family-30b-8k", "value": 0.7066},
+    {"category": "AraTrust", "model": "AceGPT-v2-32B", "value": 0.8396},
     {"category": "AraTrust", "model": "Qwen2.5-14B", "value": 0.7045999999999999},
     {"category": "AraTrust", "model": "AceGPT-13B", "value": 0.5650999999999999},
-    {"category": "AraTrust", "model": "jais-adapted-13b", "value": 0.6118},
+    {"category": "AraTrust", "model": "gemma-2-9b-it", "value": 0.7715},
     {"category": "AraTrust", "model": "Llama-3.1-8B", "value": 0.7198},
     {"category": "AraTrust", "model": "Qwen2.5-7B", "value": 0.5366},
     {"category": "AraTrust", "model": "Falcon-Arabic-7B-Base", "value": 0.85},
-    {"category": "ALRAGE", "model": "jais-adapted-70b", "value": 0.5528},
-    {"category": "ALRAGE", "model": "jais-family-30b-8k", "value": 0.8047},
+    {"category": "ALRAGE", "model": "AceGPT-v2-32B", "value": 0.6896},
     {"category": "ALRAGE", "model": "Qwen2.5-14B", "value": 0.7403},
     {"category": "ALRAGE", "model": "AceGPT-13B", "value": 0.7996},
-    {"category": "ALRAGE", "model": "jais-adapted-13b", "value": 0.6253},
+    {"category": "ALRAGE", "model": "gemma-2-9b-it", "value": 0.8047},
     {"category": "ALRAGE", "model": "Llama-3.1-8B", "value": 0.4708},
     {"category": "ALRAGE", "model": "Qwen2.5-7B", "value": 0.6268},
     {"category": "ALRAGE", "model": "Falcon-Arabic-7B-Base", "value": 0.64},
-    {"category": "ArbMMLU-HT", "model": "jais-adapted-70b", "value": 0.48},
-    {"category": "ArbMMLU-HT", "model": "jais-family-30b-8k", "value": 0.428},
+    {"category": "ArbMMLU-HT", "model": "AceGPT-v2-32B", "value": 0.5287},
     {"category": "ArbMMLU-HT", "model": "Qwen2.5-14B", "value": 0.5184000000000001},
     {"category": "ArbMMLU-HT", "model": "AceGPT-13B", "value": 0.3212},
-    {"category": "ArbMMLU-HT", "model": "jais-adapted-13b", "value": 0.3312},
+    {"category": "ArbMMLU-HT", "model": "gemma-2-9b-it", "value": 0.2501},
     {"category": "ArbMMLU-HT", "model": "Llama-3.1-8B", "value": 0.4267},
     {"category": "ArbMMLU-HT", "model": "Qwen2.5-7B", "value": 0.433},
     {"category": "ArbMMLU-HT", "model": "Falcon-Arabic-7B-Base", "value": 0.55}
@@ -175,16 +170,17 @@ contributors:
 <!-- <details>
 <summary class="bold"> Detailed results: </summary> -->
 
-| Model   | Avg    | ALGhafa | ArabicMMLU | Exams | MadinahQA | AraTrust | ALRAGE | ArbMMLU-HT |
+{{< rawhtml >}}<div class="custom-table"> {{< /rawhtml >}}
+| Model   | Average    | ALGhafa | ArabicMMLU | Exams | MadinahQA | AraTrust | ALRAGE | ArbMMLU-HT |
 |---------|---------|------------|-------|-----------|----------|--------|------------|--------|
-| jais-adapted-70b | 51.94 | 54.82  | 51.97     | 43.58| 34.96    | 74.97   | 55.28 | 48.00     |
-| jais-family-30b-8k | 53.63 | 54.34  | 51.53     | 45.81| 29.82    | 70.66   | 80.47 | 42.80     |
-| Qwen2.5-14B | 54.26 | 69.32  | 46.37     | 37.43| 30.38    | 70.46   | 74.03 | 51.84     |
+| AceGPT-v2-32B | 61.74 | 54.93  | 63.15     | 48.6| <u>59.71   | 83.96   | 68.96 | 52.87    |
+| Qwen2.5-14B | 54.26 | <u>69.32</u>  | 46.37     | 37.43| 30.38    | 70.46   | 74.03 | 51.84     |
 | AceGPT-13B | 47.21 | 48.23  | 41.38     | 36.87| 35.37    | 56.51   | 79.96 | 32.12     |
-| jais-adapted-13b | 42.53 | 40.62  | 36.97     | 34.26| 29.04    | 61.18   | 62.53 | 33.12     |
+| gemma-2-9b-it | 46.64 | 47.92  | 36.28     | 27.93| 31.7    | 77.15   | <u>80.47 | 25.01     |
 | Llama-3.1-8B | 51.64 | 64.34  | 52.28     | 40.04| 43.08    | 71.98   | 47.08 | 42.67     |
 | Qwen2.5-7B | 41.97 | 31.72  | 37.36     | 37.99| 27.11    | 53.66   | 62.68 | 43.30     |
-| **Falcon-Arabic-7B-Base** | 62.57 | 67.17  | 64.85     | 52.89| 48.79    | 85.36   | 63.71 | 55.25     |
+| **Falcon-Arabic-7B-Base** | <u>62.57</u> | 67.17  | <u>64.85     | <u>52.89| 48.79    | <u>85.36   | 63.71 | <u>55.25     |
+{{< rawhtml >}}</div> {{< /rawhtml >}}
 
 <!-- </details> -->
 
@@ -199,76 +195,59 @@ contributors:
 
 ### Falcon-Arabic-7B-Chat Avg
 
-{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Chat" ymin="0.56" ymax="0.7" ylabel="Score %" >}}
+{{< barplot_vertical id="chat-avg" highlight="Falcon-Arabic-7B-Chat" ymin="0.56" ymax="0.7" ylabel="Score %" >}}
 [
-    {"category": "avg", "model": "aya-expanse-32b", "value": 0.6717},
-    {"category": "avg", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6707},
-    {"category": "avg", "model": "jais-family-30b-16k-chat", "value": 0.6543000000000001},
-    {"category": "avg", "model": "jais-adapted-13b-chat", "value": 0.5808},
-    {"category": "avg", "model": "ALLaM-7B-Instruct-preview", "value": 0.6525},
-    {"category": "avg", "model": "Yehia-7B-preview", "value": 0.6568},
-    {"category": "avg", "model": "Qwen2-7B-Instruct", "value": 0.6361},
-    {"category": "avg", "model": "Falcon-Arabic-7B-Chat", "value": 0.683}
+    {"category": "Average", "model": "aya-expanse-32b", "value": 0.6717},
+    {"category": "Average", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6707},
+    {"category": "Average", "model": "ALLaM-7B-Instruct-preview", "value": 0.6525},
+    {"category": "Average", "model": "Yehia-7B-preview", "value": 0.6568},
+    {"category": "Average", "model": "Qwen2-7B-Instruct", "value": 0.6361},
+    {"category": "Average", "model": "Falcon-Arabic-7B-Chat", "value": 0.683}
 ]
 {{< /barplot_vertical >}}
 
-
 ### Falcon-Arabic-7B-Chat Details
 
-{{< barplot_vertical id="general-plt" highlight="Falcon-Arabic-7B-Chat" ymin="0" ymax="0.95" ylabel="Score %" >}}
+{{< barplot_vertical id="chat-detailed" highlight="Falcon-Arabic-7B-Chat" ymin="0.3" ymax="0.95" ylabel="Score %" >}}
 [
     {"category": "ALGhafa", "model": "aya-expanse-32b", "value": 0.7761},
     {"category": "ALGhafa", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.7484000000000001},
-    {"category": "ALGhafa", "model": "jais-family-30b-16k-chat", "value": 0.7121999999999999},
-    {"category": "ALGhafa", "model": "jais-adapted-13b-chat", "value": 0.6728000000000001},
     {"category": "ALGhafa", "model": "ALLaM-7B-Instruct-preview", "value": 0.6949},
     {"category": "ALGhafa", "model": "Yehia-7B-preview", "value": 0.7081000000000001},
     {"category": "ALGhafa", "model": "Qwen2-7B-Instruct", "value": 0.7323999999999999},
     {"category": "ALGhafa", "model": "Falcon-Arabic-7B-Chat", "value": 0.7237},
     {"category": "ArabicMMLU", "model": "aya-expanse-32b", "value": 0.6063000000000001},
     {"category": "ArabicMMLU", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.5934},
-    {"category": "ArabicMMLU", "model": "jais-family-30b-16k-chat", "value": 0.6122},
-    {"category": "ArabicMMLU", "model": "jais-adapted-13b-chat", "value": 0.5423},
     {"category": "ArabicMMLU", "model": "ALLaM-7B-Instruct-preview", "value": 0.649},
     {"category": "ArabicMMLU", "model": "Yehia-7B-preview", "value": 0.649},
     {"category": "ArabicMMLU", "model": "Qwen2-7B-Instruct", "value": 0.6001},
     {"category": "ArabicMMLU", "model": "Falcon-Arabic-7B-Chat", "value": 0.6827},
     {"category": "Exams", "model": "aya-expanse-32b", "value": 0.5102},
     {"category": "Exams", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6498999999999999},
-    {"category": "Exams", "model": "jais-family-30b-16k-chat", "value": 0.5009},
-    {"category": "Exams", "model": "jais-adapted-13b-chat", "value": 0.473},
     {"category": "Exams", "model": "ALLaM-7B-Instruct-preview", "value": 0.5158},
     {"category": "Exams", "model": "Yehia-7B-preview", "value": 0.5214},
     {"category": "Exams", "model": "Qwen2-7B-Instruct", "value": 0.473},
     {"category": "Exams", "model": "Falcon-Arabic-7B-Chat", "value": 0.5345},
     {"category": "MadinahQA", "model": "aya-expanse-32b", "value": 0.5345},
     {"category": "MadinahQA", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6384000000000001},
-    {"category": "MadinahQA", "model": "jais-family-30b-16k-chat", "value": 0.6626000000000001},
-    {"category": "MadinahQA", "model": "jais-adapted-13b-chat", "value": 0.442},
     {"category": "MadinahQA", "model": "ALLaM-7B-Instruct-preview", "value": 0.5424},
     {"category": "MadinahQA", "model": "Yehia-7B-preview", "value": 0.5437},
     {"category": "MadinahQA", "model": "Qwen2-7B-Instruct", "value": 0.595},
     {"category": "MadinahQA", "model": "Falcon-Arabic-7B-Chat", "value": 0.7363},
     {"category": "AraTrust", "model": "aya-expanse-32b", "value": 0.89},
     {"category": "AraTrust", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.8047},
-    {"category": "AraTrust", "model": "jais-family-30b-16k-chat", "value": 0.8157},
-    {"category": "AraTrust", "model": "jais-adapted-13b-chat", "value": 0.7968000000000001},
     {"category": "AraTrust", "model": "ALLaM-7B-Instruct-preview", "value": 0.8693000000000001},
     {"category": "AraTrust", "model": "Yehia-7B-preview", "value": 0.8748999999999999},
     {"category": "AraTrust", "model": "Qwen2-7B-Instruct", "value": 0.8277},
     {"category": "AraTrust", "model": "Falcon-Arabic-7B-Chat", "value": 0.8262},
     {"category": "ALRAGE", "model": "aya-expanse-32b", "value": 0.7964},
     {"category": "ALRAGE", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.759},
-    {"category": "ALRAGE", "model": "jais-family-30b-16k-chat", "value": 0.7495},
-    {"category": "ALRAGE", "model": "jais-adapted-13b-chat", "value": 0.6840999999999999},
     {"category": "ALRAGE", "model": "ALLaM-7B-Instruct-preview", "value": 0.7681},
     {"category": "ALRAGE", "model": "Yehia-7B-preview", "value": 0.7664},
     {"category": "ALRAGE", "model": "Qwen2-7B-Instruct", "value": 0.7112999999999999},
     {"category": "ALRAGE", "model": "Falcon-Arabic-7B-Chat", "value": 0.7226},
     {"category": "ArbMMLU-HT", "model": "aya-expanse-32b", "value": 0.5886},
     {"category": "ArbMMLU-HT", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.5014},
-    {"category": "ArbMMLU-HT", "model": "jais-family-30b-16k-chat", "value": 0.5273},
-    {"category": "ArbMMLU-HT", "model": "jais-adapted-13b-chat", "value": 0.4545},
     {"category": "ArbMMLU-HT", "model": "ALLaM-7B-Instruct-preview", "value": 0.5281},
     {"category": "ArbMMLU-HT", "model": "Yehia-7B-preview", "value": 0.534},
     {"category": "ArbMMLU-HT", "model": "Qwen2-7B-Instruct", "value": 0.513},
@@ -279,17 +258,16 @@ contributors:
 <!-- <details>
 <summary class="bold"> Detailed results: </summary> -->
 
-| Model                           |     avg |  ALGhafa |   ALRAGE |   AraTrust |   ArabicMMLU |   ArbMMLU-HT |   Exams |   MadinahQA |
-|:--------------------------------|----------:|---------:|-----------:|-------------:|-------------:|--------:|------------:|-------:|
-| aya-expanse-32b                 | 67.17 |    77.61 |   79.64 |     89.00 |       60.63 |       58.86 |  51.02 |      53.45 |
-| c4ai-command-r7b-arabic-02-2025 | 67.07 |    74.84 |   75.90 |     80.47 |       59.34 |       50.14 |  64.99 |      63.84 |
-| jais-family-30b-16k-chat        | 65.43 |    71.22 |   74.95 |     81.57 |       61.22 |       52.73 |  50.09 |      66.26 |
-| jais-adapted-13b-chat           | 58.08 |    67.28 |   68.41 |     79.68 |       54.23 |       45.45 |  47.30 |      44.20 |
+{{< rawhtml >}}<div class="custom-table"> {{< /rawhtml >}}
+| Model                           |     Average |  ALGhafa |   ALRAGE |   AraTrust |   ArabicMMLU |   ArbMMLU-HT |   Exams |   MadinahQA |
+|--------------------------------|----------|---------|-----------|-------------|-------------|--------|------------|-------|
+| aya-expanse-32b                 | 67.17 |    <u>77.61 |   <u>79.64 |     <u>89.00 |       60.63 |       <u>58.86 |  51.02 |      53.45 |
+| c4ai-command-r7b-arabic-02-2025 | 67.07 |    74.84 |   75.90 |     80.47 |       59.34 |       50.14 | <u>64.99 |      63.84 |
 | ALLaM-7B-Instruct-preview       | 65.25 |    69.49 |   76.81 |     86.93 |       64.90 |       52.81 |  51.58 |      54.24 |
 | Yehia-7B-preview                | 65.68 |    70.81 |   76.64 |     87.49 |       64.90 |       53.40 |  52.14 |      54.37 |
 | Qwen2-7B-Instruct               | 63.61 |    73.24 |   71.13 |     82.77 |       60.01 |       51.30 |  47.30 |      59.50 |
-| **Falcon-Arabic-7B-Chat**       | 68.30 |    72.37 |   72.26 |     82.62 |       68.27 |       55.47 |  53.45 |      73.63 |
-
+| **Falcon-Arabic-7B-Chat**       | <u>68.30 |    72.37 |   72.26 |     82.62 |       <u>68.27 |       55.47 |  53.45 |      <u>73.63 |
+{{< rawhtml >}}</div> {{< /rawhtml >}}
 <!-- </details> -->
 
 ## 🔓 فتح إمكانات الذكاء الاصطناعي باللغة العربية
