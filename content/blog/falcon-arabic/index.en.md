@@ -172,79 +172,77 @@ We evaluated Falcon-Arabic on **[OALL v2](https://huggingface.co/spaces/OALL/Ope
 
 <!-- </details> -->
 
-## 🗣️ From Pretraining to Chat: Aligning Falcon-Arabic for Conversations
+## 🗣️ From Pretraining to Instruct: Aligning Falcon-Arabic for Conversations
 
 After finalizing the base model training, we performed a **post-training alignment** phase to fine-tune Falcon-Arabic’s responses according to human preferences. This phase began with **supervised fine-tuning (SFT)** using a combination of high-quality public datasets and internally collected **native Arabic instruction data**, covering a range of tasks and conversational scenarios.
 
-To further enhance alignment, we applied **Direct Preference Optimization (DPO)** a reinforcement learning-based method that tunes the model to prefer outputs that humans rate as more helpful, safe, and relevant. This two-step process ensures that Falcon-Arabic Chat not only understands Arabic well but responds in a way that aligns with real user expectations.
+To further enhance alignment, we applied **Direct Preference Optimization (DPO)** a reinforcement learning-based method that tunes the model to prefer outputs that humans rate as more helpful, safe, and relevant. This two-step process ensures that Falcon-Arabic Instruct not only understands Arabic well but responds in a way that aligns with real user expectations.
 
-As shown in the results plots, **Falcon-Arabic Chat leads the pack**, outperforming all other SFT-aligned Arabic LLMs in its size class and even models significantly larger across multiple benchmarks. The model demonstrates strong performance in both instruction following and open-ended dialogue, setting a new standard for Arabic conversational AI.
+### Average Performance of Instruct Models
 
-
-### Average Performance of Chat Models
-
-{{< barplot_vertical id="chat-avg" highlight="Falcon-Arabic-7B-Chat" ymin="0.56" ymax="0.7" ylabel="Score %" >}}
+{{< barplot_vertical id="chat-avg" highlight="Falcon-Arabic-7B-Instruct" ymin="0.56" ymax="0.7" ylabel="Score %" >}}
 [
     {"category": "Average", "model": "aya-expanse-32b", "value": 0.6717},
     {"category": "Average", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6707},
     {"category": "Average", "model": "ALLaM-7B-Instruct-preview", "value": 0.6525},
     {"category": "Average", "model": "Yehia-7B-preview", "value": 0.6568},
     {"category": "Average", "model": "Qwen2-7B-Instruct", "value": 0.6361},
-    {"category": "Average", "model": "Falcon-Arabic-7B-Chat", "value": 0.683}
+    {"category": "Average", "model": "Falcon-Arabic-7B-Instruct", "value": 0.683}
 ]
 {{< /barplot_vertical >}}
 
+As shown in the results plots, **Falcon-Arabic Instruct leads the pack**, outperforming all other Instruct-aligned Arabic LLMs in its size class and even models significantly larger across multiple benchmarks. The model demonstrates strong performance in both instruction following and open-ended dialogue, setting a new standard for Arabic conversational AI.
 
-### Perfromance of Chat Models by Benchmark
+### Performance of Instruct Models by Benchmark
 
-{{< barplot_vertical id="chat-detailed" highlight="Falcon-Arabic-7B-Chat" ymin="0.3" ymax="0.95" ylabel="Score %" >}}
+{{< barplot_vertical id="chat-detailed" highlight="Falcon-Arabic-7B-Instruct" ymin="0.3" ymax="0.95" ylabel="Score %" >}}
 [
     {"category": "ALGhafa", "model": "aya-expanse-32b", "value": 0.7761},
     {"category": "ALGhafa", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.7484000000000001},
     {"category": "ALGhafa", "model": "ALLaM-7B-Instruct-preview", "value": 0.6949},
     {"category": "ALGhafa", "model": "Yehia-7B-preview", "value": 0.7081000000000001},
     {"category": "ALGhafa", "model": "Qwen2-7B-Instruct", "value": 0.7323999999999999},
-    {"category": "ALGhafa", "model": "Falcon-Arabic-7B-Chat", "value": 0.7237},
+    {"category": "ALGhafa", "model": "Falcon-Arabic-7B-Instruct", "value": 0.7237},
     {"category": "ArabicMMLU", "model": "aya-expanse-32b", "value": 0.6063000000000001},
     {"category": "ArabicMMLU", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.5934},
     {"category": "ArabicMMLU", "model": "ALLaM-7B-Instruct-preview", "value": 0.649},
     {"category": "ArabicMMLU", "model": "Yehia-7B-preview", "value": 0.649},
     {"category": "ArabicMMLU", "model": "Qwen2-7B-Instruct", "value": 0.6001},
-    {"category": "ArabicMMLU", "model": "Falcon-Arabic-7B-Chat", "value": 0.6827},
+    {"category": "ArabicMMLU", "model": "Falcon-Arabic-7B-Instruct", "value": 0.6827},
     {"category": "Exams", "model": "aya-expanse-32b", "value": 0.5102},
     {"category": "Exams", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6498999999999999},
     {"category": "Exams", "model": "ALLaM-7B-Instruct-preview", "value": 0.5158},
     {"category": "Exams", "model": "Yehia-7B-preview", "value": 0.5214},
     {"category": "Exams", "model": "Qwen2-7B-Instruct", "value": 0.473},
-    {"category": "Exams", "model": "Falcon-Arabic-7B-Chat", "value": 0.5345},
+    {"category": "Exams", "model": "Falcon-Arabic-7B-Instruct", "value": 0.5345},
     {"category": "MadinahQA", "model": "aya-expanse-32b", "value": 0.5345},
     {"category": "MadinahQA", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6384000000000001},
     {"category": "MadinahQA", "model": "ALLaM-7B-Instruct-preview", "value": 0.5424},
     {"category": "MadinahQA", "model": "Yehia-7B-preview", "value": 0.5437},
     {"category": "MadinahQA", "model": "Qwen2-7B-Instruct", "value": 0.595},
-    {"category": "MadinahQA", "model": "Falcon-Arabic-7B-Chat", "value": 0.7363},
+    {"category": "MadinahQA", "model": "Falcon-Arabic-7B-Instruct", "value": 0.7363},
     {"category": "AraTrust", "model": "aya-expanse-32b", "value": 0.89},
     {"category": "AraTrust", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.8047},
     {"category": "AraTrust", "model": "ALLaM-7B-Instruct-preview", "value": 0.8693000000000001},
     {"category": "AraTrust", "model": "Yehia-7B-preview", "value": 0.8748999999999999},
     {"category": "AraTrust", "model": "Qwen2-7B-Instruct", "value": 0.8277},
-    {"category": "AraTrust", "model": "Falcon-Arabic-7B-Chat", "value": 0.8262},
+    {"category": "AraTrust", "model": "Falcon-Arabic-7B-Instruct", "value": 0.8262},
     {"category": "ALRAGE", "model": "aya-expanse-32b", "value": 0.7964},
     {"category": "ALRAGE", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.759},
     {"category": "ALRAGE", "model": "ALLaM-7B-Instruct-preview", "value": 0.7681},
     {"category": "ALRAGE", "model": "Yehia-7B-preview", "value": 0.7664},
     {"category": "ALRAGE", "model": "Qwen2-7B-Instruct", "value": 0.7112999999999999},
-    {"category": "ALRAGE", "model": "Falcon-Arabic-7B-Chat", "value": 0.7226},
+    {"category": "ALRAGE", "model": "Falcon-Arabic-7B-Instruct", "value": 0.7226},
     {"category": "ArbMMLU-HT", "model": "aya-expanse-32b", "value": 0.5886},
     {"category": "ArbMMLU-HT", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.5014},
     {"category": "ArbMMLU-HT", "model": "ALLaM-7B-Instruct-preview", "value": 0.5281},
     {"category": "ArbMMLU-HT", "model": "Yehia-7B-preview", "value": 0.534},
     {"category": "ArbMMLU-HT", "model": "Qwen2-7B-Instruct", "value": 0.513},
-    {"category": "ArbMMLU-HT", "model": "Falcon-Arabic-7B-Chat", "value": 0.5547}
+    {"category": "ArbMMLU-HT", "model": "Falcon-Arabic-7B-Instruct", "value": 0.5547}
 ]
 {{< /barplot_vertical >}}
 
-### Comparison Table of Chat Models
+### Comparison Table of Instruct Models
 
 <!-- <details>
 <summary class="bold"> Detailed results: </summary> -->
@@ -256,13 +254,62 @@ As shown in the results plots, **Falcon-Arabic Chat leads the pack**, outperform
 | ALLaM-7B-Instruct-preview       | 65.25 |    69.49 |   76.81 |     86.93 |       64.90 |       52.81 |  51.58 |      54.24 |
 | Yehia-7B-preview                | 65.68 |    70.81 |   76.64 |     87.49 |       64.90 |       53.40 |  52.14 |      54.37 |
 | Qwen2-7B-Instruct               | 63.61 |    73.24 |   71.13 |     82.77 |       60.01 |       51.30 |  47.30 |      59.50 |
-| **Falcon-Arabic-7B-Chat**       | <u>68.30 |    72.37 |   72.26 |     82.62 |       <u>68.27 |       55.47 |  53.45 |      <u>73.63 |
+| **Falcon-Arabic-7B-Instruct**       | <u>68.30 |    72.37 |   72.26 |     82.62 |       <u>68.27 |       55.47 |  53.45 |      <u>73.63 |
 {{< rawhtml >}}</div> {{< /rawhtml >}}
 <!-- </details> -->
 
 ## 🔓 Unlocking the Potential of Arabic AI
 
-Falcon-Arabic sets a new benchmark for Arabic language models. With only 7B parameters, it delivers state-of-the-art performance outperforming models of similar size and even those several times larger across key benchmarks like Arabic MMLU, MadinahQA, and Aratrust. It combines fluency in Modern Standard Arabic, strong understanding of regional dialects, and robust reasoning and multilingual capabilities, making it ideal for a wide range of applications: from Arabic-first chatbots and educational tools to content generation, code assistance, and document understanding. If you’d like to try it out, Falcon-Arabic is available for testing on link.
+Falcon-Arabic sets a new benchmark for Arabic language models. With only 7B parameters, it delivers state-of-the-art performance outperforming models of similar size and even those several times larger across key benchmarks like Arabic MMLU, MadinahQA, and Aratrust. It combines fluency in Modern Standard Arabic, strong understanding of regional dialects, and robust reasoning and multilingual capabilities, making it ideal for a wide range of applications: from Arabic-first chatbots and educational tools to content generation, code assistance, and document understanding. 
+
+To give you a hands-on feel for what Falcon-Arabic can do, we built a simple demo that showcases its capabilities in **machine translation** even though the model hasn’t been fine-tuned specifically for that task. The tool runs purely on **Falcon-3B-Arabic-Instruct**, and the results are surprisingly strong across various translation directions. You can try it yourself through the demo linked just below. In fact, we used the same setup to translate this blog post into Arabic for our Arabic-speaking audience. Check it out [here](https://falcon-lm.github.io/ar/blog/falcon-arabic/) 🚀. And if you're curious to explore more, we also provide access to a live [playground](https://chat.falconllm.tii.ae) where you can interact with Falcon-Arabic Instruct and experience its performance across different tasks ✨.
+
+{{< rawhtml >}}
+
+<iframe
+  src="https://tiiuae-falcon-arabic-translation-demo.hf.space/?__theme=light"
+  frameborder="0"
+  width="100%"
+  height="300px"
+  allow="accelerometer; camera; microphone; encrypted-media"
+></iframe>
+{{< /rawhtml >}}
+<div style="
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  justify-content: center;
+">
+  <a href="https://chat.falconllm.tii.ae" target="_blank" style="
+    flex: 1 1 200px;
+    background-color: #f5f0ff;
+    border: none;
+    border-left: 4px solid #800080;
+    outline: none;
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    color: inherit;
+  ">
+    🗣️ <span style="color: #800080; text-decoration: underline;">Chat with Falcon-Arabic</span>
+  </a>
+  <a href="https://huggingface.co/collections/tiiuae/falcon-arabic-682cd54f8560f4baf57641d7" target="_blank" style="
+    flex: 1 1 200px;
+    background-color: #f5f0ff;
+    border-buttom: none;
+    border-left: 4px solid #800080;
+    outline: none;
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    color: inherit;
+  ">
+    📊 <span style="color: #800080; text-decoration: underline;">View 🤗 Collection &amp; Scores</span>
+  </a>
+</div>
 
 ## ⚠️ Limitations
 

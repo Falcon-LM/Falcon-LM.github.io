@@ -13,3 +13,17 @@
 .custom-table tbody tr:nth-last-child(2) {
   background-color: rgba(176, 136, 255, 0.5); /* light purple */
 }
+
+.translation-notice {
+  background-color: #faf0ff;
+  border-left: 4px solid #800080;  /* purple accent */
+  padding: 1rem;
+  margin: 1.5rem 0;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.translation-notice .llm-name {
+  color: #800080;  /* purple */
+}
