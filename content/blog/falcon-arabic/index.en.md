@@ -1,6 +1,6 @@
 ---
 title: "Falcon-Arabic: A Breakthrough in Arabic Language Models"
-date: 2025-05-17T12:00:00Z
+date: 2025-05-19T12:00:00Z
 weight: 1
 # aliases: ["/first"]
 # tags: ["Research"]
@@ -81,7 +81,7 @@ The core challenge was adapting [Falcon 3-7B](https://huggingface.co/tiiuae/Falc
 With the tokenizer and embeddings in place, we began **continuous pretraining** on high-quality, **100% native Arabic datasets**, avoiding the use of machine-translated content to minimize cultural bias and preserve linguistic authenticity. Training followed a **multi-stage curriculum**: early stages focused on **general knowledge and dialect-rich Arabic content** to stabilize the model and reinforce logical capabilities, while later phases emphasized **math, code, and reasoning**. The result is a model that not only speaks Arabic fluently across dialects, but also retains Falcon’s multilingual and reasoning strengths pushing the boundaries for Arabic-first AI.
 
 
-### Falcon-Arabic-7B-Base Average
+### Average Performance of Pretrained Models
 {{< barplot_vertical id="pretrained-avg" highlight="Falcon-Arabic-7B-Base" ymin="0.40" ymax="0.7" ylabel="Score %" >}}
 [
     {"category": "Average", "model": "AceGPT-v2-32B", "value": 0.6174},
@@ -161,13 +161,13 @@ We evaluated Falcon-Arabic on **[OALL v2](https://huggingface.co/spaces/OALL/Ope
 {{< rawhtml >}}<div class="custom-table"> {{< /rawhtml >}}
 | Model   | Average    | ALGhafa | ArabicMMLU | Exams | MadinahQA | AraTrust | ALRAGE | ArbMMLU-HT |
 |---------|---------|------------|-------|-----------|----------|--------|------------|--------|
-| AceGPT-v2-32B | 61.74 | 54.93  | 63.15     | 48.6| 59.71   | 83.96   | 68.96 | 52.87    |
-| Qwen2.5-14B | 54.26 | 69.32  | 46.37     | 37.43| 30.38    | 70.46   | 74.03 | 51.84     |
+| AceGPT-v2-32B | 61.74 | 54.93  | 63.15     | 48.6| <u>59.71   | 83.96   | 68.96 | 52.87    |
+| Qwen2.5-14B | 54.26 | <u>69.32</u>  | 46.37     | 37.43| 30.38    | 70.46   | 74.03 | 51.84     |
 | AceGPT-13B | 47.21 | 48.23  | 41.38     | 36.87| 35.37    | 56.51   | 79.96 | 32.12     |
-| gemma-2-9b-it | 46.64 | 47.92  | 36.28     | 27.93| 31.7    | 77.15   | 80.47 | 25.01     |
+| gemma-2-9b-it | 46.64 | 47.92  | 36.28     | 27.93| 31.7    | 77.15   | <u>80.47 | 25.01     |
 | Llama-3.1-8B | 51.64 | 64.34  | 52.28     | 40.04| 43.08    | 71.98   | 47.08 | 42.67     |
 | Qwen2.5-7B | 41.97 | 31.72  | 37.36     | 37.99| 27.11    | 53.66   | 62.68 | 43.30     |
-| **Falcon-Arabic-7B-Base** | 62.57 | 67.17  | 64.85     | 52.89| 48.79    | 85.36   | 63.71 | 55.25     |
+| **Falcon-Arabic-7B-Base** | <u>62.57</u> | 67.17  | <u>64.85     | <u>52.89| 48.79    | <u>85.36   | 63.71 | <u>55.25     |
 {{< rawhtml >}}</div> {{< /rawhtml >}}
 
 <!-- </details> -->
@@ -181,7 +181,7 @@ To further enhance alignment, we applied **Direct Preference Optimization (DPO)*
 As shown in the results plots, **Falcon-Arabic Chat leads the pack**, outperforming all other SFT-aligned Arabic LLMs in its size class and even models significantly larger across multiple benchmarks. The model demonstrates strong performance in both instruction following and open-ended dialogue, setting a new standard for Arabic conversational AI.
 
 
-### Falcon-Arabic-7B-Chat Average
+### Average Performance of Chat Models
 
 {{< barplot_vertical id="chat-avg" highlight="Falcon-Arabic-7B-Chat" ymin="0.56" ymax="0.7" ylabel="Score %" >}}
 [
@@ -195,9 +195,9 @@ As shown in the results plots, **Falcon-Arabic Chat leads the pack**, outperform
 {{< /barplot_vertical >}}
 
 
-### Falcon-Arabic-7B-Chat Details
+### Perfromance of Chat Models by Benchmark
 
-{{< barplot_vertical id="chat-detailed" highlight="Falcon-Arabic-7B-Chat" ymin="0" ymax="0.95" ylabel="Score %" >}}
+{{< barplot_vertical id="chat-detailed" highlight="Falcon-Arabic-7B-Chat" ymin="0.3" ymax="0.95" ylabel="Score %" >}}
 [
     {"category": "ALGhafa", "model": "aya-expanse-32b", "value": 0.7761},
     {"category": "ALGhafa", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.7484000000000001},
@@ -251,12 +251,12 @@ As shown in the results plots, **Falcon-Arabic Chat leads the pack**, outperform
 {{< rawhtml >}}<div class="custom-table"> {{< /rawhtml >}}
 | Model                           |     Average |  ALGhafa |   ALRAGE |   AraTrust |   ArabicMMLU |   ArbMMLU-HT |   Exams |   MadinahQA |
 |:--------------------------------|----------:|---------:|-----------:|-------------:|-------------:|--------:|------------:|-------:|
-| aya-expanse-32b                 | 67.17 |    77.61 |   79.64 |     89.00 |       60.63 |       58.86 |  51.02 |      53.45 |
-| c4ai-command-r7b-arabic-02-2025 | 67.07 |    74.84 |   75.90 |     80.47 |       59.34 |       50.14 |  64.99 |      63.84 |
+| aya-expanse-32b                 | 67.17 |    <u>77.61 |   <u>79.64 |     <u>89.00 |       60.63 |       <u>58.86 |  51.02 |      53.45 |
+| c4ai-command-r7b-arabic-02-2025 | 67.07 |    74.84 |   75.90 |     80.47 |       59.34 |       50.14 | <u>64.99 |      63.84 |
 | ALLaM-7B-Instruct-preview       | 65.25 |    69.49 |   76.81 |     86.93 |       64.90 |       52.81 |  51.58 |      54.24 |
 | Yehia-7B-preview                | 65.68 |    70.81 |   76.64 |     87.49 |       64.90 |       53.40 |  52.14 |      54.37 |
 | Qwen2-7B-Instruct               | 63.61 |    73.24 |   71.13 |     82.77 |       60.01 |       51.30 |  47.30 |      59.50 |
-| **Falcon-Arabic-7B-Chat**       | 68.30 |    72.37 |   72.26 |     82.62 |       68.27 |       55.47 |  53.45 |      73.63 |
+| **Falcon-Arabic-7B-Chat**       | <u>68.30 |    72.37 |   72.26 |     82.62 |       <u>68.27 |       55.47 |  53.45 |      <u>73.63 |
 {{< rawhtml >}}</div> {{< /rawhtml >}}
 <!-- </details> -->
 
