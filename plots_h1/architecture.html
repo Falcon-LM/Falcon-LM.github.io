@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Architecture Diagram – interactive input‑projection + MLP with RMS Normalization</title>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Roboto+Mono:wght@300;400&display=swap');
+
+/************  VARIABLES  ************/
+:root{
+  /* sizing & rhythm */
+  --block-padding:12px 28px;
+  --border-radius:25px;
+  --tier-gap:35px;           /* unified vertical rhythm */
+  --label-gap:61px;
+  --connector-gap:15px;
+  --connector-len:20px;
+  --input-line-len:50px;
+  --arrow-size:6px;
+
+  /* colours */
+  --line-color:#5a67d8;
+  --text-light:#fff;
+  --text-dark:#2d3748;
+  --shadow:rgba(0,0,0,.1);
+  --hover-shadow:rgba(0,0,0,.15);
+
+  --bg-grad-start:#e4e8f7;
+  --bg-grad-end:#f0f2f9;
+  --input-grad-start:#d8bcf7;
+  --input-grad-end:#b8d8f9;
+  --ssm-color:#a78bfa;
+  --ssm-out-color:#d8bcf7;
+  --attn-color:#74a8f1;
+  --attn-out-color:#b8d8f9;
+  --mlp-grad-start:#ffecd2;
+  --mlp-grad-end:#fcb69f;
+  --rms-grad-start:#64e0c2;
+  --rms-grad-end:#37c9ad;
+  --label-color:#4a5568;
+  --residual-color: #5a67d8;
+  --second-residual-color: #5a67d8;
+}
+
+/************  LAYOUT & BLOCKS  ************/
+body{
+  font-family:'system-ui', 'system-ui';
+  display:flex;justify-content:center;align-items:center;
+  min-height:100vh;margin:0;
+  background:linear-gradient(to bottom,#e4e8f7,#f0f2f9);
+  padding:40px;box-sizing:border-box;overflow-x:hidden;
+  border-radius: 8px;
+}
+
+.diagram-container{
+  position:relative;width:750px;max-width:100%;
+  display:flex;flex-direction:column-reverse;align-items:center;
+  /* reserve space above & below for fixed-position elements */
+  padding-top:270px;padding-bottom:calc(var(--input-line-len) - 20px);
+  border-radius: 8px;
+}
+
+.block{
+  border-radius:var(--border-radius);
+  padding:var(--block-padding);
+  text-align:center;font-size:1em;font-weight:500;
+  margin-bottom:var(--tier-gap);
+  position:relative;cursor:default;
+  transition:filter .2s,box-shadow .2s;
+  box-shadow:0 4px 8px var(--shadow);
+  border:none;width:85%;box-sizing:border-box;
+}
+.block:hover{filter:brightness(1.05);box-shadow:0 6px 12px var(--hover-shadow);}
+
+/* first RMS (bottom) */
+.rms-norm-1{
+  background:linear-gradient(to right,var(--rms-grad-start),var(--rms-grad-end));
+  color:var(--text-dark);width:50%;
+  margin-top:20px;margin-bottom:0;z-index:3;
+}
+.rms-norm-1::before{content:'';position:absolute;left:50%;transform:translateX(-50%);
+  top:100%;width:2px;height:var(--input-line-len);background:var(--line-color);}  /* connector up */
+.rms-norm-1::after{content:'';position:absolute;left:50%;transform:translateX(-50%);
+  bottom:-1px;border-left:var(--arrow-size) solid transparent;border-right:var(--arrow-size) solid transparent;
+  border-bottom:calc(var(--arrow-size)*1.2) solid var(--line-color);}            /* arrow down */
+
+/* input‑projection */
+.input-projection{
+  background:linear-gradient(to right,var(--input-grad-start),var(--input-grad-end));
+  color:var(--text-dark);width:90%;margin-bottom:0;z-index:3;
+}
+.input-projection::before{content:'';position:absolute;left:50%;transform:translateX(-50%);
+  top:100%;width:2px;height:var(--input-line-len);background:var(--line-color);} /* connector up */
+.input-projection::after{content:'';position:absolute;left:50%;transform:translateX(-50%);
+  bottom:-1px;border-left:var(--arrow-size) solid transparent;border-right:var(--arrow-size) solid transparent;
+  border-bottom:calc(var(--arrow-size)*1.2) solid var(--line-color);}           /* arrow down */
+
+/* split‑link hit‑zones */
+.input-projection .half-link{position:absolute;top:0;bottom:0;width:50%;display:block;z-index:5;}
+.input-projection .left-half {left:0;border-top-left-radius:var(--border-radius);border-bottom-left-radius:var(--border-radius);} 
+.input-projection .right-half{left:50%;border-top-right-radius:var(--border-radius);border-bottom-right-radius:var(--border-radius);} 
+.input-projection .half-link:hover{background:rgba(255,255,255,.06);cursor:pointer;}
+
+/* branch container */
+.paths-container{display:flex;justify-content:space-evenly;align-items:flex-start;
+  width:100%;gap:40px;margin-bottom:var(--tier-gap);position:relative;z-index:2;}
+
+.path{display:flex;flex-direction:column-reverse;align-items:center;position:relative;flex-basis:0;}
+
+/* label chips */
+.input-labels{position:absolute;bottom:calc(-1*(var(--label-gap) - var(--tier-gap)));
+  left:50%;transform:translateX(-50%);display:flex;gap:15px;font-size:.8em;color:var(--label-color);z-index:3;padding:0 10px;white-space:nowrap;}
+.input-labels span{padding:3px 6px;border-radius:4px;background:rgba(255,255,255,.6);white-space:nowrap;cursor:default;transition:background .15s;color:#000;}
+.input-labels span:hover{background:rgba(255,255,255,.85);} /* subtle hover */
+
+/* branch specific blocks */
+.ssm-path{flex-grow:1.5;}
+.ssm-block         {background:var(--ssm-color);color:var(--text-light);width:90%;}
+.ssm-out-projection{background:var(--ssm-out-color);color:var(--text-dark);margin-bottom:var(--label-gap);width:90%;}
+
+.attention-path{flex-grow:1;}
+.attention-block         {background:var(--attn-color);color:var(--text-light);width:85%;}
+.attention-out-projection{background:var(--attn-out-color);color:var(--text-dark);margin-bottom:var(--label-gap);width:92%;}
+
+/* vertical connectors on branch‑level blocks */
+.block::before{content:'';position:absolute;left:50%;transform:translateX(-50%);
+  bottom:calc(-1*(var(--connector-gap) + var(--connector-len)));
+  width:2px;height:var(--connector-len);background:var(--line-color);}          /* shaft */
+.block::after{content:'';position:absolute;left:50%;transform:translateX(-50%);
+  bottom:calc(-1*var(--connector-gap) + 1px);
+  border-left:var(--arrow-size) solid transparent;border-right:var(--arrow-size) solid transparent;
+  border-bottom:calc(var(--arrow-size)*1.2) solid var(--line-color);}           /* arrow head */
+
+/* PLUS (⊕) */
+.addition-symbol{
+  position:absolute;top:190px;left:50%;transform:translateX(-50%);
+  width:38px;height:38px;line-height:38px;text-align:center;
+  font-size:22px;font-weight:700;color:#fff;background:var(--line-color);
+  border-radius:50%;box-shadow:0 3px 6px var(--shadow);z-index:4;pointer-events:none;
+  box-shadow:0 0 0 1px var(--line-color); /* hides sub‑pixel gap */
+}
+
+/* Second PLUS (⊕) for the new residual connection */
+.addition-symbol-2{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  width:38px;height:38px;line-height:38px;text-align:center;
+  font-size:22px;font-weight:700;color:#fff;background:var(--line-color);
+  border-radius:50%;box-shadow:0 3px 6px var(--shadow);z-index:4;pointer-events:none;
+  box-shadow:0 0 0 1px var(--line-color); /* hides sub‑pixel gap */
+}
+
+/* RMS‑Norm‑2 & MLP (top) */
+.rms-norm-2{
+  position:absolute;top:120px;left:50%;transform:translateX(-50%);
+  width:50%;
+  background:linear-gradient(to right,var(--rms-grad-start),var(--rms-grad-end));
+  color:var(--text-dark);
+}
+.mlp-block{
+  position:absolute;top:40px;left:50%;transform:translateX(-50%);
+  width:60%;
+  background:linear-gradient(to right,var(--mlp-grad-start),var(--mlp-grad-end));
+  color:var(--text-dark);
+}
+
+/* layer indicators */
+.layer-indicator.dots-top{position:absolute;top:-120px;left:50%;transform:translateX(-50%);
+  font-size:26px;letter-spacing:4px;color:var(--label-color);pointer-events:none;}
+.layer-indicator.dots-bottom{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);
+  font-size:26px;letter-spacing:4px;color:var(--label-color);pointer-events:none;}
+.layer-indicator.side {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  left: -30px;          /* You might need to adjust this value after making it vertical */
+  font-weight: 600;
+  color: var(--label-color);
+  /* white-space: nowrap; /* No longer strictly necessary with vertical writing mode */
+  font-size: 1em;
+  pointer-events: none;
+  z-index: 4;
+  writing-mode: vertical-rl; /* Makes the text vertical (right-to-left flow) */
+  text-orientation: mixed;   /* Keeps characters upright */
+  transform: translateY(-50%) rotate(-180deg);
+  /* Add some padding to space it from the bracket if needed */
+  padding-right: 5px;
+}
+
+/************  BRACKET  ************/
+.layer-bracket{
+  position:absolute;
+  width:16px;               /* horizontal stub length */
+  border-left:2px solid var(--line-color);
+  pointer-events:none;z-index:4;
+}
+.layer-bracket::before,
+.layer-bracket::after{
+  content:'';
+  position:absolute;
+  width:12px;height:2px;
+  background:var(--line-color);
+}
+.layer-bracket::before{top:0;left:0;}
+.layer-bracket::after{bottom:0;left:0;}
+
+/* Residual labels */
+.residual-label {
+  position: absolute;
+  right: -120px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--residual-color);
+  font-weight: 600;
+  font-size: 0.9em;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.residual-label-2 {
+  position: absolute;
+  right: -120px;
+  top: 90px;
+  color: var(--second-residual-color);
+  font-weight: 600;
+  font-size: 0.9em;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/************  SVG overlay ************/
+.sum-lines{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:3;}
+.sum-lines line{stroke:var(--line-color);stroke-width:2;marker-end:url(#arrowhead);} /* unified arrow head */
+.sum-lines line.no-arrow{marker-end:none;}
+.sum-lines line.residual{stroke:var(--residual-color);stroke-width:2.5;marker-end:url(#arrowhead-residual);}
+.sum-lines line.residual-2{stroke:var(--second-residual-color);stroke-width:2.5;marker-end:url(#arrowhead-residual-2);}
+
+/* Accessibility: high contrast mode */
+@media (prefers-contrast: more){
+  .block{box-shadow:none;}
+  .block:hover{filter:none;}
+}
+
+/* Responsive tweaks */
+@media (max-width:768px){
+  body{padding:20px;}
+  .diagram-container{width:100%;padding-top:230px;}
+  .layer-indicator.side{left:-50px;font-size:.9em;}
+  .mlp-block,.rms-norm-2{width:80%;}
+  .paths-container{gap:20px;}
+  .input-labels{gap:8px;}
+  .residual-label {right: -60px; font-size: 0.8em;}
+  .residual-label-2 {right: -60px; font-size: 0.8em;}
+}
+@media (max-width:500px){
+  .layer-indicator.side{left:-35px;font-size:.8em;}
+  .paths-container{flex-direction:column;align-items:center;}
+  .path{width:80%;}
+  .residual-label {right: 10px; top: auto; bottom: -20px;}
+  .residual-label-2 {right: 10px; top: auto; bottom: -40px;}
+}
+</style>
+</head>
+
+<body>
+  <div class="diagram-container" role="figure" aria-label="Architecture diagram showing RMS Norm, Input projection, SSM and Attention paths, two addition operations, RMS Norm, and MLP with two residual connections">
+
+    <div class="layer-indicator dots-bottom" aria-hidden="true">⋯</div>
+
+    <!-- RMS Norm 1 -->
+    <div class="block rms-norm-1">RMS Norm</div>
+
+    <!-- Input projection with split links -->
+    <div class="block input-projection">
+      Input projection
+      <a href="https://github.com/tiiuae/vllm-internal/blob/0189427238e6f89c55a0f85da90f330d6e0d6ae7/vllm/model_executor/models/falcon_h1.py#L99"
+         target="_blank" rel="noopener noreferrer"
+         class="half-link left-half"
+         aria-label="Left‑half input projection source code"></a>
+      <a href="https://github.com/tiiuae/vllm-internal/blob/01894276d1c9a4beb4c09ce0fec93d7bf45e1b10/falcon_h1.py#L212"
+         target="_blank" rel="noopener noreferrer"
+         class="half-link right-half"
+         aria-label="Right‑half input projection source code"></a>
+    </div>
+
+    <!-- Two branches -->
+    <div class="paths-container">
+      <div class="path ssm-path">
+        <div class="block ssm-block">SSM</div>
+        <div class="block ssm-out-projection">SSM out projection</div>
+        <div class="input-labels ssm-inputs" aria-label="SSM input parameters">
+          <span>gate</span><span>ssm input</span><span>B</span><span>C</span><span>discretization(dt)</span>
+        </div>
+      </div>
+
+      <div class="path attention-path">
+        <div class="block attention-block">Attention</div>
+        <div class="block attention-out-projection">Attention out projection</div>
+        <div class="input-labels attention-inputs" aria-label="Attention input parameters">
+          <span>Q</span><span>K</span><span>V</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- first plus symbol -->
+    <div class="addition-symbol" aria-label="Addition operation">+</div>
+    
+    <!-- second plus symbol at the top -->
+    <div class="addition-symbol-2" aria-label="Second addition operation">+</div>
+    
+    <!-- Residual labels -->
+    <div class="residual-label" aria-label="First residual connection">Mixer's residual</div>
+    <div class="residual-label-2" aria-label="Second residual connection">MLP residual</div>
+
+    <!-- RMS Norm 2 and MLP -->
+    <div class="block rms-norm-2">RMS Norm</div>
+    <div class="block mlp-block">MLP</div>
+
+    <!-- layer indicators -->
+    <div class="layer-indicator dots-top" aria-hidden="true">⋯</div>
+    <div class="layer-indicator side">× N layers</div>
+
+    <!-- visual bracket -->
+    <div class="layer-bracket" aria-hidden="true"></div>
+
+    <!-- SVG overlay for connector lines -->
+    <svg class="sum-lines" id="sumLines" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0 0 L6 3 L0 6 Z" fill="var(--line-color)" />
+        </marker>
+        <marker id="arrowhead-residual" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0 0 L6 3 L0 6 Z" fill="var(--residual-color)" />
+        </marker>
+        <marker id="arrowhead-residual-2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0 0 L6 3 L0 6 Z" fill="var(--second-residual-color)" />
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+<script>
+function drawSumLines(){
+  const svg        = document.getElementById('sumLines');
+  const plus       = document.querySelector('.addition-symbol');
+  const plus2      = document.querySelector('.addition-symbol-2');
+  const leftBlock  = document.querySelector('.ssm-out-projection');
+  const rightBlock = document.querySelector('.attention-out-projection');
+  const rmsNorm2   = document.querySelector('.rms-norm-2');
+  const rmsNorm1   = document.querySelector('.rms-norm-1');
+  const inputProj  = document.querySelector('.input-projection');
+  const mlpBlock   = document.querySelector('.mlp-block');
+  const sideLabel  = document.querySelector('.layer-indicator.side');
+  const residualLabel = document.querySelector('.residual-label');
+  const residualLabel2 = document.querySelector('.residual-label-2');
+  const bracket    = document.querySelector('.layer-bracket');
+  const dotsTop    = document.querySelector('.dots-top');
+  const dotsBottom = document.querySelector('.dots-bottom');
+  const container  = document.querySelector('.diagram-container');
+  if(!svg||!plus||!leftBlock||!rightBlock||!rmsNorm2||!rmsNorm1||!mlpBlock||!sideLabel||!bracket) return;
+
+  /* helper to compute centres */
+  const cRect = container.getBoundingClientRect();
+  const center = el=>{
+    const r = el.getBoundingClientRect();
+    return {x:r.left-cRect.left+r.width/2,y:r.top-cRect.top+r.height/2};
+  };
+
+  const plusC = center(plus);
+  const plus2C = center(plus2);
+  const r     = plus.offsetWidth/2;
+
+  /* branch points */
+  const leftTop   = {x:center(leftBlock).x,  y:center(leftBlock).y - leftBlock.offsetHeight/2};
+  const rightTop  = {x:center(rightBlock).x, y:center(rightBlock).y - rightBlock.offsetHeight/2};
+  const rmsBot    = {x:center(rmsNorm2).x,   y:center(rmsNorm2).y + rmsNorm2.offsetHeight/2};
+  const plusBot   = {x:plusC.x, y:plusC.y + r};
+  const plusTop   = {x:plusC.x, y:plusC.y - r};
+  const rms1Top   = {x:center(rmsNorm1).x,   y:center(rmsNorm1).y - rmsNorm1.offsetHeight/2};
+  const mlpTop    = {x:center(mlpBlock).x,   y:center(mlpBlock).y - mlpBlock.offsetHeight/2};
+  const mlpBot    = {x:center(mlpBlock).x,   y:center(mlpBlock).y + mlpBlock.offsetHeight/2};
+  
+  // For the first residual connection (from before RMS Norm 1)
+  const inputProjBot = {x:center(inputProj).x, y:center(inputProj).y + inputProj.offsetHeight/2};
+  
+  // Points for the first residual path that goes around
+  const residualStartX = inputProjBot.x;
+  const residualStartY = inputProjBot.y + 73; // Start slightly below input projection
+  
+  // Calculate right side position (going around the diagram)
+  const diagramRightEdge = Math.max(
+    leftBlock.getBoundingClientRect().right,
+    rightBlock.getBoundingClientRect().right,
+    inputProj.getBoundingClientRect().right
+  ) - cRect.left + 30; // Add some margin
+  
+  const residualMidX = 745;
+  const residualMidY = (residualStartY + plusC.y) / 2;
+  
+  // Residual end point (at the plus symbol)
+  const residualEnd = {
+    x: plusC.x + r + 2, // Slightly to the right of the plus symbol
+    y: plusC.y
+  };
+  
+  // For the second residual connection (from after first addition to after MLP)
+  const secondResidualStartX = plusC.x;
+  const secondResidualStartY = plusTop.y - 17; // Start slightly above the first plus
+  
+  const secondResidualMidX = 745; // Slightly less than the first residual to create separation
+  const secondResidualEndY = plus2C.y;
+  
+  // Second residual end point (at the second plus symbol)
+  const secondResidualEnd = {
+    x: plus2C.x + r + 2, // Slightly to the right of the second plus symbol
+    y: plus2C.y
+  };
+
+  /* cut‑to‑circle helper */
+  const cutOnCircle = (pt, centerPt) => {
+    const dx = centerPt.x - pt.x, dy = centerPt.y - pt.y, d = Math.hypot(dx,dy);
+    return {x:centerPt.x - dx/d*r, y:centerPt.y - dy/d*r};
+  };
+
+  const leftEnd   = cutOnCircle(leftTop, plusC);
+  const rightEnd  = cutOnCircle(rightTop, plusC);
+  
+  // Position the residual labels next to their paths
+  residualLabel.style.top = `198px`;
+  residualLabel.style.right = `100px`; // 10px from the path
+  
+  residualLabel2.style.top = `-15px`;
+  residualLabel2.style.right = `100px`; // 10px from the path
+
+  /* size SVG to container */
+  svg.setAttribute('width',cRect.width);
+  svg.setAttribute('height',cRect.height);
+
+  const defs = svg.querySelector('defs').innerHTML;
+  svg.innerHTML = `
+    <defs>${defs}</defs>
+    <!-- slanted inputs -->
+    <line class="no-arrow" x1="${leftTop.x}"  y1="${leftTop.y}"  x2="${leftEnd.x}"  y2="${leftEnd.y}" />
+    <line class="no-arrow" x1="${rightTop.x}" y1="${rightTop.y}" x2="${rightEnd.x}" y2="${rightEnd.y}" />
+    <!-- ⊕ down to RMS Norm 2 -->
+    <line class="no-arrow" x1="${plusBot.x}" y1="${plusBot.y}" x2="${rmsBot.x}" y2="${rmsBot.y}" />
+    <!-- MLPBlock to top plus -->
+    <line class="no-arrow" x1="${mlpTop.x}" y1="${mlpTop.y}" x2="${plus2C.x}" y2="${plus2C.y + r}" />
+    <!-- First residual connection with path -->
+    <path d="M ${residualStartX} ${residualStartY} 
+             H ${residualMidX} 
+             V ${residualMidY} 
+             V ${residualEnd.y}" 
+          stroke="var(--residual-color)" 
+          stroke-width="2.5" 
+          fill="none" />
+    <line class="residual" x1="${residualMidX}" y1="${residualEnd.y}" x2="${residualEnd.x}" y2="${residualEnd.y}" />
+    
+    <!-- Second residual connection with path -->
+    <path d="M ${secondResidualStartX} ${secondResidualStartY} 
+             H ${secondResidualMidX} 
+             V ${secondResidualEndY}" 
+          stroke="var(--second-residual-color)" 
+          stroke-width="2.5" 
+          fill="none" />
+    <line class="residual-2" x1="${secondResidualMidX}" y1="${secondResidualEndY}" x2="${secondResidualEnd.x}" y2="${secondResidualEndY}" />`;
+
+  /* brace (square bracket) sizing */
+  const topY = dotsTop.getBoundingClientRect().bottom - cRect.top + 5;
+  const bottomY = dotsBottom.getBoundingClientRect().top - cRect.top - 5;
+  const bracketHeight = bottomY - topY;
+  bracket.style.top = `${topY}px`;
+  bracket.style.height = `${bracketHeight}px`;
+  const brX = sideLabel.getBoundingClientRect().left - cRect.left - 25; // 25px left of label
+  bracket.style.left = `0px`;
+}
+
+window.addEventListener('load',drawSumLines);
+window.addEventListener('resize',drawSumLines);
+</script>
+</body>
+</html>

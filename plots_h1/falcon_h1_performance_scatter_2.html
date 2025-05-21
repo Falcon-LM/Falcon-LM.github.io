@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Instruct-Model Frontier – Perf vs Size</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #eef2f9;
+      color: #333740;
+      line-height: 1.5; /* Slightly reduced line-height for body */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .chart-container {
+      width: 100%;
+      max-width: 1100px; /* Slightly reduced max-width */
+      background: #ffffff;
+      border-radius: 12px; /* Slightly smaller radius */
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06); /* Softer shadow */
+      padding: 1.5rem; /* Reduced padding inside the card */
+      margin-top: 1rem;    /* Reduced margin from top */
+      margin-bottom: 1rem; /* Reduced margin from bottom */
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #model-comparison-chart {
+      width: 100%;
+      /* Height will be influenced by Plotly content & margins */
+      /* Consider setting a slightly smaller explicit height if needed, but Plotly's auto-sizing with margins is often better */
+      height: 480px; /* Reduced height */
+      margin-bottom: 0.3rem; /* Very tight margin to textual legend */
+    }
+
+    .legend-info {
+      width: 100%;
+      max-width: 850px; /* Slightly reduced */
+      padding: 0;
+      margin-top: 0;
+      font-size: 0.85rem; /* Slightly smaller base font for this section */
+      text-align: center;
+      color: #4a5568;
+      box-sizing: border-box;
+      line-height: 1.4; /* Reduced line height for this text block */
+    }
+
+    .legend-info p {
+      margin-top: 0;
+      margin-bottom: 0.25rem; /* Reduced space between paragraphs/spans */
+    }
+    .legend-info p:last-child {
+      margin-bottom: 0;
+    }
+
+    .legend-info .section-title {
+        font-weight: 500;
+        margin-bottom: 0.4rem; /* Reduced space after title */
+        display: block;
+        font-size: 0.88rem;
+    }
+
+    .legend-info .smaller {
+      font-size: 0.9em; /* Relative to .legend-info's font-size (0.85rem * 0.9) */
+      color: #555c66;
+      display: block;
+      margin-top: 0.1rem; /* Very tight space between category lines */
+    }
+
+    /* Responsive adjustments for more compactness */
+    @media (max-width: 768px) {
+      .chart-container {
+        padding: 1rem;
+        margin-top: 0.75rem;
+        margin-bottom: 0.75rem;
+        border-radius: 10px;
+      }
+      #model-comparison-chart {
+        height: 450px; /* Further reduced */
+        margin-bottom: 0.2rem;
+      }
+      .legend-info {
+        font-size: 0.82rem;
+        line-height: 1.35;
+      }
+      .legend-info .section-title {
+        font-size: 0.85rem;
+        margin-bottom: 0.3rem;
+      }
+      .legend-info .smaller {
+        margin-top: 0.05rem;
+      }
+    }
+    @media (max-width: 480px) {
+      body {
+        line-height: 1.45;
+      }
+      .chart-container {
+        padding: 0.75rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-radius: 8px;
+      }
+      #model-comparison-chart {
+        height: 420px; /* Even more compact */
+      }
+      .legend-info {
+        font-size: 0.78rem;
+        line-height: 1.3;
+      }
+      .legend-info .section-title {
+        font-size: 0.8rem;
+        margin-bottom: 0.2rem;
+      }
+      .legend-info .smaller {
+        margin-top: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="chart-container">
+    <div id="model-comparison-chart"></div>
+    <div class="legend-info">
+      <p>
+        <span class="smaller">The score is an average of three representative tasks for each of the core categories: 
+          <strong>Science</strong> (GPQA-diamond, MMLU-PRO, MMLU); 
+          <strong>Math</strong> (AIME25, AMC23, MATH500); 
+          <strong>General</strong> (Hellaswag, BBH, ARC-C); 
+          <strong>Code</strong> (HumanEval+, MBPP+, Livecodebench);  
+          <strong>Instruction-following</strong> (IFeval, Alpaca, MTBench)</span>
+      </p>
+    </div>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ─────────────── 1.  DATA ─────────────── */
+  const data = [
+    {model:"Falcon-H1-0.5B",size:0.5 ,perf: 38.64, group:"Falcon-H1"},
+    {model:"Falcon-H1-1.5B",size:1.5 ,perf: 49.54, group:"Falcon-H1"},
+    {model:"Falcon-H1-1.5B-deep",size:1.5, perf: 53.54, group:"Falcon-H1"},
+    {model:"Falcon-H1-3B",size:3.1   ,perf:55.69 , group:"Falcon-H1"},
+    {model:"Falcon-H1-7B",size:7.6   ,perf:61.78 , group:"Falcon-H1"},
+    {model:"Falcon-H1-34B",size:33.6 ,perf:67.23 , group:"Falcon-H1"},
+    ///* Qwen 2.5 */  {model:"Qwen-2.5-72B",size:72 ,perf:47.98,group:"Qwen2.5"},
+    //{model:"Qwen-2.5-32B",size:32 ,perf:46.6 ,group:"Qwen2.5"},
+    //{model:"Qwen-2.5-14B",size:14 ,perf:41.31,group:"Qwen2.5"},
+    //{model:"Qwen2.5-3B" ,size:3  ,perf:27.16,group:"Qwen2.5"},
+    //{model:"Qwen2.5-1.5B",size:1.5,perf:18.43,group:"Qwen2.5"},
+    {model:"Qwen3-0.6B",size:0.6,perf:32.68 ,group:"Qwen3"},
+    {model:"Qwen3-1.7B",size:1.7,perf:43.65 ,group:"Qwen3"},
+    {model:"Qwen3-4B" ,size:4  ,perf:55.60   ,group:"Qwen3"},
+    {model:"Qwen3-8B" ,size:8.2  ,perf:58.51 ,group:"Qwen3"},
+    {model:"Qwen3-14B",size:14.8 ,perf:64.51 ,group:"Qwen3"},
+    {model:"Qwen3-32B",size:32.8 ,perf:65.24,group:"Qwen3"},
+    {model:"Gemma3-1B",size:1, perf:33.13 ,group:"Gemma3"},
+    {model:"Gemma3-4B" ,size:4.3  ,perf:49.80   ,group:"Gemma3"},
+    {model:"Gemma3-12B" ,size:12.2  ,perf:58.91 ,group:"Gemma3"},
+    {model:"Gemma3-27B",size:27.4 ,perf:64.09 ,group:"Gemma3"},
+    {model:"Llama-3.2-1B",size:1.2,perf: 28.05, group:"Llama3"},
+    {model:"Llama-3.2-3B",size:3.2,perf: 40.66, group:"Llama3"},
+    {model:"Llama-3.1-8B",size:8.0,perf: 46.37, group:"Llama3"},
+    {model:"Llama-3.3-70B",size:71,perf: 60.25, group:"Llama3"},
+    {model:"Falcon3-1B" ,size:1.7 ,perf:27.94,group:"Falcon3"},
+    {model:"Falcon3-3B" ,size:3.2 ,perf:41.69,group:"Falcon3"},
+    {model:"Falcon3-7B",size:7.5 ,perf:51.88 ,group:"Falcon3"},
+    {model:"Falcon3-10B",size:10.3 ,perf:53.81,group:"Falcon3"}
+  ];
+
+  /* ─────────────── 2.  COLOUR MAP ─────────────── */
+  const colours = {
+    'Falcon-H1': '#9467bd', // Purple
+    'Qwen3':     '#1f77b4', // Blue
+    'Gemma3':    '#2ca02c', // Green
+    'Llama3':    '#d62728', // Red
+    'Falcon3':   '#ff7f0e', // Orange
+  };
+
+  /* ─────────────── 3.  TRACES ─────────────── */
+  const traces = [];
+  const baseMarkerSize = 7;
+  const markerSizeFactor = 3.5;
+
+  const falconMain = data.filter(
+    d => d.group === 'Falcon-H1' && d.model !== 'Falcon-H1-1.5B-deep'
+  ).sort((a, b) => a.size - b.size);
+
+  traces.push({
+    x: falconMain.map(d => d.size),
+    y: falconMain.map(d => d.perf),
+    text: falconMain.map(d => d.model),
+    mode: 'lines+markers',
+    name: 'Falcon-H1',
+    marker: {
+      symbol: 'star',
+      size: falconMain.map(d => baseMarkerSize + Math.log10(d.size + 1) * markerSizeFactor),
+      color: colours['Falcon-H1'],
+      line: { color: '#ffffff', width: 1.5 }
+    },
+    line: { color: colours['Falcon-H1'], width: 2.5 },
+    hovertemplate: '<b>%{text}</b><br>Size (B): %{x}<br>Score: %{y:.2f}<extra></extra>'
+  });
+
+  const families = [...new Set(data.map(d => d.group))].filter(g => g !== 'Falcon-H1');
+  families.forEach(f => {
+    const pts = data.filter(d => d.group === f).sort((a, b) => a.size - b.size);
+    traces.push({
+      x: pts.map(d => d.size),
+      y: pts.map(d => d.perf),
+      text: pts.map(d => d.model),
+      mode: 'lines+markers',
+      name: f,
+      marker: {
+        symbol: 'circle',
+        size: pts.map(d => baseMarkerSize + Math.log10(d.size + 1) * markerSizeFactor),
+        color: colours[f],
+        line: { color: '#ffffff', width: 1.5 }
+      },
+      line: { color: colours[f], width: 2.5 },
+      hovertemplate: '<b>%{text}</b><br>Size (B): %{x}<br>Score: %{y:.2f}<extra></extra>'
+    });
+  });
+
+  const deep = data.find(d => d.model === 'Falcon-H1-1.5B-deep');
+  if (deep) {
+    traces.push({
+      x: [deep.size],
+      y: [deep.perf],
+      text: [deep.model],
+      mode: 'markers',
+      showlegend: false,
+      marker: {
+        symbol: 'star',
+        size: baseMarkerSize + Math.log10(deep.size + 1) * markerSizeFactor + 4,
+        color: colours['Falcon-H1'],
+        line: { color: '#ffffff', width: 1.5 }
+      },
+      hovertemplate: '<b>%{text}</b><br>Size (B): %{x}<br>Score: %{y:.2f}<extra></extra>'
+    });
+  }
+
+  /* ─────────────── 4.  LAYOUT FUNCTION ─────────────── */
+  function getLayout(isMobile) {
+    return {
+      title: {
+        text: '<b>Instruct Models:</b> Performance vs. Size',
+        font: {
+          size: isMobile ? 16 : 20, // Reduced title font size
+          color: '#2c3e50',
+          family: "Inter, sans-serif",
+        },
+        x: 0.5, xanchor: 'center',
+        pad: { t: isMobile ? 8 : 10, b: isMobile ? 10 : 15 } // Reduced title padding
+      },
+      paper_bgcolor: 'rgba(0,0,0,0)',
+      plot_bgcolor: 'rgba(0,0,0,0)',
+      font: { // Base font for Plotly text (ticks, axis titles if not overridden)
+        family: "Inter, Segoe UI, system-ui, sans-serif",
+        size: isMobile ? 9.5 : 11, // Slightly reduced base font
+        color: '#4a5568'
+      },
+      xaxis: {
+        title: {
+          text: 'Parameters (Billions)',
+          font: { size: isMobile ? 10 : 12, color: '#333740' } // Slightly reduced
+        },
+        type: 'log',
+        tickvals: [0.25, 0.5, 1, 2, 4, 8, 16, 32, 64, 128],
+        ticktext: ['0.25', '0.5', '1', '2', '4', '8', '16', '32', '64', '128'],
+        gridcolor: 'rgba(0,0,0,0.07)', // Lighter grid
+        linecolor: 'rgba(0,0,0,0.12)',
+        zeroline: false, showgrid: true, automargin: true,
+        ticksuffix: " ", // Adds a tiny bit of space after tick labels if needed
+      },
+      yaxis: {
+        title: {
+          text: 'Aggregate Score',
+          font: { size: isMobile ? 10 : 12, color: '#333740' } // Slightly reduced
+        },
+        range: [25, 70.5],
+        gridcolor: 'rgba(0,0,0,0.07)',
+        linecolor: 'rgba(0,0,0,0.12)',
+        zeroline: false, showgrid: true, automargin: true,
+        ticksuffix: "  ",
+      },
+      legend: { // Plotly's interactive legend
+        orientation: 'h',
+        bgcolor: 'rgba(255,255,255,0.0)',
+        bordercolor: 'rgba(0,0,0,0.0)',
+        y: isMobile ? -0.22 : -0.15, // Pull legend up closer to plot
+        x: 0.5, xanchor: 'center',
+        font: { size: isMobile ? 9 : 10.5 }, // Reduced legend font
+        traceorder: 'normal',
+        itemsizing: 'constant',
+        valign: 'top', // Align legend items to their top
+      },
+      hovermode: 'closest',
+      hoverlabel: {
+        bgcolor: "rgba(44, 62, 80, 0.92)",
+        bordercolor: "rgba(44, 62, 80, 0.92)",
+        font: { family: "Inter, sans-serif", size: 11.5, color: "#ffffff" } // Slightly reduced
+      },
+      margin: { // Margins around the plotting area itself
+        l: isMobile ? 45 : 55, // Reduced left margin
+        r: isMobile ? 15 : 25, // Reduced right margin
+        t: isMobile ? 45 : 55, // Reduced top margin (space for title)
+        b: isMobile ? 70 : 80  // Reduced bottom margin (space for Plotly legend)
+                               // This needs to be enough for Plotly's legend but not excessive
+      }
+    };
+  }
+
+  /* ─────────────── 5.  PLOT & RESPONSIVENESS ─────────────── */
+  const chartDiv = document.getElementById('model-comparison-chart');
+
+  function drawPlot() {
+    const isMobile = window.innerWidth < 768;
+    Plotly.newPlot(
+      chartDiv,
+      traces,
+      getLayout(isMobile),
+      { responsive: true, displaylogo: false, modeBarButtonsToRemove: ['toImage', 'sendDataToCloud', 'select2d', 'lasso2d'] }
+    );
+  }
+
+  drawPlot(); // Initial plot
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(drawPlot, 200); // Debounce resize
+  });
+});
+</script>
+
+</body>
+</html>

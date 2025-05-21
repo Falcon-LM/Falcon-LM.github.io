@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Interactive Base Model‑Benchmark Explorer</title> <!-- Updated title -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── Base page look ─────────────────────────────────────────── */
+body {
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: #f0f4f8;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    color: #333740;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.5; /* Base line-height */
+}
+
+.page-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 1.5rem 1rem; /* Reduced top/bottom page padding */
+    box-sizing: border-box;
+}
+
+.chart-card {
+    background: #ffffff;
+    border-radius: 12px; /* Smaller radius for card */
+    box-shadow: 0 8px 25px rgba(74, 63, 144, 0.07); /* Softer shadow */
+    padding: 1.5rem; /* Reduced card padding */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+h2 {
+    margin: 0 0 1.5rem; /* Reduced bottom margin */
+    text-align: center;
+    color: #4a3f90;
+    font-size: 1.5rem; /* Reduced font size */
+    font-weight: 600;
+}
+
+/* ─── Collapsible controls row (Compact) ─────────────────── */
+.controls {
+    display: flex;
+    gap: 1rem; /* Reduced gap between dropdowns */
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1.5rem; /* Reduced space below controls */
+}
+
+details.dropdown {
+    position: relative;
+    flex: 1 1 18rem; /* Can adjust flex-basis if needed for very compact */
+    max-width: 26rem; /* Slightly smaller max-width */
+    border: 1px solid #e0e4ef;
+    border-radius: 0.6rem; /* Smaller radius */
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(74, 63, 144, 0.04); /* Even softer shadow */
+    transition: box-shadow .2s, border-color .2s;
+}
+details.dropdown:hover {
+    border-color: #c8cde0;
+    box-shadow: 0 5px 12px rgba(74, 63, 144, 0.06);
+}
+details.dropdown[open] {
+    border-radius: 0.6rem; /* Consistent */
+    z-index: 10;
+    border-color: #aea8d6;
+}
+
+details.dropdown summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 0.7rem 1.2rem; /* Reduced padding */
+    font-weight: 500;
+    font-size: 0.9rem; /* Reduced font size */
+    color: #333740;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    border-radius: 0.6rem;
+}
+details.dropdown[open] summary {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #f7f8fc;
+}
+
+details.dropdown summary::after {
+    content: "▾";
+    font-size: 1.1rem; /* Slightly smaller arrow */
+    color: #6a5acd;
+    transition: transform .2s ease-out;
+}
+details[open] summary::after { transform: rotate(180deg); }
+details.dropdown summary:focus-visible { outline: 2px solid #867bcd; outline-offset: 1px; }
+
+
+/* ─── Inner dropdown body (Compact) ──────────────────────── */
+.dropdown-body {
+    position: absolute;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #aea8d6;
+    border-top: none;
+    border-radius: 0 0 0.6rem 0.6rem;
+    box-shadow: 0 6px 15px rgba(74, 63, 144, 0.08);
+    padding: 0.6rem 1rem 0.8rem; /* Reduced padding */
+    box-sizing: border-box;
+    overflow: hidden;
+    /* Max height can be adjusted based on checklist height + other elements */
+    max-height: calc(10rem + 3rem + 1.5rem + 1.5rem); /* checklist + search + links + some padding */
+}
+
+.select-links {
+    margin: 0.1rem 0 0.6rem; /* Tighter margins */
+    font-size: 0.75rem; /* Reduced font size */
+    display: flex;
+    gap: 0.8rem; /* Reduced gap */
+}
+.select-links a { color: #6a5acd; text-decoration: none; cursor: pointer; font-weight: 500; }
+.select-links a:hover { text-decoration: underline; color: #4a3f90; }
+
+.search-box { margin-bottom: 0.6rem; }
+.search-box input {
+    width: 100%;
+    padding: 0.5rem 0.7rem; /* Reduced padding */
+    border: 1px solid #d5d9e9;
+    border-radius: 0.4rem; /* Smaller radius */
+    font-size: 0.85rem; /* Reduced font size */
+    box-sizing: border-box;
+    transition: border-color .2s;
+}
+.search-box input:focus {
+    border-color: #867bcd; outline: none;
+    box-shadow: 0 0 0 2px rgba(106, 90, 205, 0.15);
+}
+
+.checklist-container {
+    height: 10rem; /* Reduced height for compactness */
+    overflow-y: auto;
+    border: 1px solid #e8eaf0;
+    border-radius: 0.4rem;
+    padding: 0.4rem; /* Reduced padding */
+    background: #f9fafc;
+    scrollbar-width: thin;
+    scrollbar-color: #c8cde0 #f0f2f9;
+}
+.checklist-container::-webkit-scrollbar { width: 6px; } /* Thinner scrollbar */
+.checklist-container::-webkit-scrollbar-track { background: #f0f2f9; border-radius: 3px; }
+.checklist-container::-webkit-scrollbar-thumb {
+    background: #c8cde0; border-radius: 3px; border: 1px solid #f0f2f9;
+}
+.checklist-container::-webkit-scrollbar-thumb:hover { background: #b0b8d8; }
+
+
+.group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+    color: #4a3f90;
+    margin: 0.3rem 0.1rem 0.2rem; /* Reduced margins */
+    padding: 0.1rem 0; /* Reduced padding */
+    font-size: 0.85rem; /* Reduced font size */
+}
+.group-header input[type="checkbox"] {
+    accent-color: #6a5acd; cursor: pointer; transform: scale(0.85); margin: 0;
+}
+.group-header label { cursor: pointer; flex-grow: 1; }
+.group-header span { flex-grow: 1; }
+
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0; /* Almost no margin for max compactness */
+    padding: 0.25rem 0.4rem; /* Reduced padding */
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color .1s;
+    font-size: 0.8rem; /* Reduced font size */
+}
+.checklist-item:hover { background: #eef1f9; }
+.checklist-item input {
+    margin-right: 0.5rem; /* Reduced margin */
+    accent-color: #6a5acd; cursor: pointer; transform: scale(0.85); flex-shrink: 0;
+}
+.checklist-item label {
+    cursor: pointer; flex-grow: 1; transition: color .1s;
+    font-weight: 400; color: #404854; word-break: break-word;
+}
+.checklist-item input:checked + label { color: #4a3f90; font-weight: 500; }
+
+/* ─── Chart area ─────────────────────────────────────────────── */
+#model-comparison-chart {
+    width: 100%;
+    height: 580px; /* Maintained height to emphasize plot */
+    border-radius: 0.75rem;
+    box-sizing: border-box;
+    margin-top: 1rem; /* Space above chart after compact controls */
+}
+
+/* Responsive adjustments for compactness */
+@media (max-width: 768px) {
+    .page-container { padding: 1rem 0.5rem; }
+    .chart-card { padding: 1rem; border-radius: 10px; }
+    h2 { font-size: 1.3rem; margin-bottom: 1rem; }
+    .controls { gap: 0.75rem; margin-bottom: 1rem; }
+    details.dropdown { flex-basis: 100%; }
+    details.dropdown summary { padding: 0.6rem 1rem; font-size: 0.85rem;}
+    .dropdown-body { padding: 0.5rem 0.8rem 0.6rem; max-height: calc(9rem + 2.5rem + 1.2rem + 1.2rem); }
+    .select-links { font-size: 0.7rem; }
+    .search-box input { padding: 0.4rem 0.6rem; font-size: 0.8rem; }
+    .checklist-container { height: 9rem; }
+    .group-header { font-size: 0.8rem; }
+    .checklist-item { font-size: 0.78rem; padding: 0.2rem 0.3rem;}
+    #model-comparison-chart { height: 450px; margin-top: 0.5rem; }
+}
+@media (max-width: 480px) {
+    body { line-height: 1.45; }
+    .page-container { padding: 0.5rem; }
+    .chart-card { padding: 0.75rem; border-radius: 8px; }
+    h2 { font-size: 1.2rem; }
+    .select-links a { font-weight: normal; }
+    .search-box input { font-size: 0.75rem; }
+    .checklist-item { font-size: 0.75rem; }
+    .group-header input[type="checkbox"], .checklist-item input { transform: scale(0.8); }
+    #model-comparison-chart { height: 400px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="page-container">
+    <div class="chart-card">
+        <h2>Base Models Benchmark Explorer</h2> <!-- Title updated for this version -->
+
+        <div class="controls">
+            <!-- Benchmarks -->
+            <details class="dropdown" id="bench-dropdown">
+                <summary>Benchmarks</summary> <!-- Compacted summary text -->
+                <div class="dropdown-body">
+                    <div class="select-links">
+                        <a onclick="toggleCheckboxes('benchmarkChecklist',true)">All</a>
+                        <a onclick="toggleCheckboxes('benchmarkChecklist',false)">None</a>
+                    </div>
+                    <div class="search-box">
+                        <input id="benchSearch" type="text" placeholder="Search benchmarks…">
+                    </div>
+                    <div id="benchmarkChecklist" class="checklist-container"></div>
+                </div>
+            </details>
+
+            <!-- Models -->
+            <details class="dropdown" id="model-dropdown">
+                <summary>Models</summary> <!-- Compacted summary text -->
+                <div class="dropdown-body">
+                    <div class="select-links">
+                        <a onclick="toggleCheckboxes('modelChecklist',true)">All</a>
+                        <a onclick="toggleCheckboxes('modelChecklist',false)">None</a>
+                    </div>
+                    <div class="search-box">
+                        <input id="modelSearch" type="text" placeholder="Search models…">
+                    </div>
+                    <div id="modelChecklist" class="checklist-container"></div>
+                </div>
+            </details>
+        </div>
+
+        <div id="model-comparison-chart"></div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+/* ───────────── 1. Data ───────────────────────────── */
+// Using the "Base Models" data as per your file content
+const rawData = [
+/* Falcon-H1 */ 
+{'model': 'Falcon-H1 34B', 'size': 33.6, 'group': 'Falcon-H1', 'scores': {'MMLU': 83.46, 'MMLU-stem': 83.82, 'MMLU-Pro': 57.18, 'GPQA': 42.7, 'BBH': 69.36, 'ARC-C': 71.25, 'Winogrande': 82.72, 'HellaSwag': 85.68, 'GSM8K': 76.5, 'MATH_lvl5': 40.71, 'HumanEval': 70.12, 'HumanEval+': 64.63, 'MBPP': 83.33, 'MBPP+': 70.37}},
+{'model': 'Falcon-H1 7B', 'size': 7.6, 'group': 'Falcon-H1', 'scores': {'MMLU': 77.38, 'MMLU-stem': 77.2, 'MMLU-Pro': 48.38, 'GPQA': 36.58, 'BBH': 60.61, 'ARC-C': 65.19, 'Winogrande': 79.01, 'HellaSwag': 81.26, 'GSM8K': 73.46, 'MATH_lvl5': 34.67, 'HumanEval': 67.68, 'HumanEval+': 63.41, 'MBPP': 78.57, 'MBPP+': 67.2}},
+{'model': 'Falcon-H1 3B', 'size': 3.1, 'group': 'Falcon-H1', 'scores': {'MMLU': 68.39, 'MMLU-stem': 69.55, 'MMLU-Pro': 40.58, 'GPQA': 32.63, 'BBH': 53.17, 'ARC-C': 61.35, 'Winogrande': 68.11, 'HellaSwag': 73.85, 'GSM8K': 68.31, 'MATH_lvl5': 25.83, 'HumanEval': 59.15, 'HumanEval+': 53.66, 'MBPP': 71.43, 'MBPP+': 57.94}},
+{'model': 'Falcon-H1 1.5B', 'size': 1.5, 'group': 'Falcon-H1', 'scores': {'MMLU': 61.81, 'MMLU-stem': 63.37, 'MMLU-Pro': 35.53, 'GPQA': 29.11, 'BBH': 46.57, 'ARC-C': 53.24, 'Winogrande': 65.59, 'HellaSwag': 66.76, 'GSM8K': 52.01, 'MATH_lvl5': 20.39, 'HumanEval': 50.0, 'HumanEval+': 42.68, 'MBPP': 65.08, 'MBPP+': 55.03}},
+{'model': 'Falcon-H1 1.5B-deep', 'size': 1.5, 'group': 'Falcon-H1', 'scores': {'MMLU': 66.29, 'MMLU-stem': 67.43, 'MMLU-Pro': 41.07, 'GPQA': 32.8, 'BBH': 52.37, 'ARC-C': 55.89, 'Winogrande': 67.09, 'HellaSwag': 69.72, 'GSM8K': 68.69, 'MATH_lvl5': 24.77, 'HumanEval': 52.44, 'HumanEval+': 46.34, 'MBPP': 70.9, 'MBPP+': 60.32}},
+{'model': 'Falcon-H1 0.5B', 'size': 0.5, 'group': 'Falcon-H1', 'scores': {'MMLU': 55.04, 'MMLU-stem': 57.12, 'MMLU-Pro': 30.04, 'GPQA': 29.7, 'BBH': 40.22, 'ARC-C': 46.93, 'Winogrande': 59.43, 'HellaSwag': 56.3, 'GSM8K': 60.2, 'MATH_lvl5': 15.18, 'HumanEval': 35.98, 'HumanEval+': 31.1, 'MBPP': 52.12, 'MBPP+': 43.39}},
+/* Falcon3 */ 
+{'model': 'Falcon3 10B', 'size': 10.3, 'group': 'Falcon3', 'scores': {'MMLU': 73.22, 'MMLU-stem': 70.85, 'MMLU-Pro': 42.45, 'GPQA': 35.4, 'BBH': 59.3, 'ARC-C': 67.49, 'Winogrande': 79.01, 'HellaSwag': 79.64, 'GSM8K': 82.11, 'MATH_lvl5': 25.38, 'HumanEval': 51.83, 'HumanEval+': 44.51, 'MBPP': 73.54, 'MBPP+': 61.38}},
+{'model': 'Falcon3 7B', 'size': 7.5, 'group': 'Falcon3', 'scores': {'MMLU': 69.98, 'MMLU-stem': 67.71, 'MMLU-Pro': 39.23, 'GPQA': 35.07, 'BBH': 50.88, 'ARC-C': 62.71, 'Winogrande': 73.64, 'HellaSwag': 76.69, 'GSM8K': 76.95, 'MATH_lvl5': 20.09, 'HumanEval': 50.0, 'HumanEval+': 43.29, 'MBPP': 67.99, 'MBPP+': 57.14}},
+{'model': 'Falcon3 3B', 'size': 3.2, 'group': 'Falcon3', 'scores': {'MMLU': 56.77, 'MMLU-stem': 55.34, 'MMLU-Pro': 29.03, 'GPQA': 29.78, 'BBH': 44.02, 'ARC-C': 55.12, 'Winogrande': 65.11, 'HellaSwag': 67.13, 'GSM8K': 64.67, 'MATH_lvl5': 11.56, 'HumanEval': 36.59, 'HumanEval+': 31.71, 'MBPP': 51.85, 'MBPP+': 42.06}},
+{'model': 'Falcon3 1.7B', 'size': 1.7, 'group': 'Falcon3', 'scores': {'MMLU': 45.14, 'MMLU-stem': 40.06, 'MMLU-Pro': 16.11, 'GPQA': 27.85, 'BBH': 35.24, 'ARC-C': 47.87, 'Winogrande': 61.17, 'HellaSwag': 62.3, 'GSM8K': 34.95, 'MATH_lvl5': 3.4, 'HumanEval': 10.37, 'HumanEval+': 9.15, 'MBPP': 12.43, 'MBPP+': 9.52}},
+/* Qwen2.5 */ 
+{'model': 'Qwen2.5 72B', 'size': 72.7, 'group': 'Qwen2.5', 'scores': {'MMLU': 85.96, 'MMLU-stem': 84.81, 'MMLU-Pro': 60.22, 'GPQA': 42.28, 'BBH': 67.77, 'ARC-C': 72.44, 'Winogrande': 83.74, 'HellaSwag': 87.57, 'GSM8K': 89.76, 'MATH_lvl5': 38.14, 'HumanEval': 59.15, 'HumanEval+': 51.22, 'MBPP': 87.04, 'MBPP+': 70.63}},
+{'model': 'Qwen2.5 32B', 'size': 32.8, 'group': 'Qwen2.5', 'scores': {'MMLU': 83.18, 'MMLU-stem': 82.81, 'MMLU-Pro': 58.05, 'GPQA': 39.68, 'BBH': 67.45, 'ARC-C': 70.48, 'Winogrande': 82.32, 'HellaSwag': 85.13, 'GSM8K': 90.14, 'MATH_lvl5': 36.4, 'HumanEval': 59.76, 'HumanEval+': 51.83, 'MBPP': 83.07, 'MBPP+': 68.78}},
+{'model': 'Qwen2.5 14B', 'size': 14.8, 'group': 'Qwen2.5', 'scores': {'MMLU': 79.48, 'MMLU-stem': 77.61, 'MMLU-Pro': 52.58, 'GPQA': 39.6, 'BBH': 61.1, 'ARC-C': 67.24, 'Winogrande': 80.51, 'HellaSwag': 84.28, 'GSM8K': 87.95, 'MATH_lvl5': 29.46, 'HumanEval': 60.98, 'HumanEval+': 52.44, 'MBPP': 73.02, 'MBPP+': 60.05}},
+{'model': 'Qwen2.5 7B', 'size': 7.6, 'group': 'Qwen2.5', 'scores': {'MMLU': 74.17, 'MMLU-stem': 71.04, 'MMLU-Pro': 43.55, 'GPQA': 32.3, 'BBH': 53.72, 'ARC-C': 63.91, 'Winogrande': 76.01, 'HellaSwag': 80.2, 'GSM8K': 83.09, 'MATH_lvl5': 22.58, 'HumanEval': 57.32, 'HumanEval+': 48.78, 'MBPP': 76.72, 'MBPP+': 63.49}},
+{'model': 'Qwen2.5 3B', 'size': 3.1, 'group': 'Qwen2.5', 'scores': {'MMLU': 65.56, 'MMLU-stem': 62.23, 'MMLU-Pro': 32.12, 'GPQA': 28.44, 'BBH': 46.4, 'ARC-C': 56.57, 'Winogrande': 71.03, 'HellaSwag': 74.6, 'GSM8K': 74.6, 'MATH_lvl5': 16.09, 'HumanEval': 42.68, 'HumanEval+': 35.37, 'MBPP': 59.52, 'MBPP+': 50.53}},
+{'model': 'Qwen2.5 1.5B', 'size': 1.5, 'group': 'Qwen2.5', 'scores': {'MMLU': 61.13, 'MMLU-stem': 54.93, 'MMLU-Pro': 28.72, 'GPQA': 28.36, 'BBH': 40.55, 'ARC-C': 54.27, 'Winogrande': 64.56, 'HellaSwag': 67.86, 'GSM8K': 63.0, 'MATH_lvl5': 8.84, 'HumanEval': 35.37, 'HumanEval+': 29.27, 'MBPP': 60.05, 'MBPP+': 49.47}},
+{'model': 'Qwen2.5 0.5B', 'size': 0.5, 'group': 'Qwen2.5', 'scores': {'MMLU': 47.61, 'MMLU-stem': 43.74, 'MMLU-Pro': 18.98, 'GPQA': 27.94, 'BBH': 32.62, 'ARC-C': 35.32, 'Winogrande': 56.83, 'HellaSwag': 51.79, 'GSM8K': 34.8, 'MATH_lvl5': 4.23, 'HumanEval': 29.27, 'HumanEval+': 25.0, 'MBPP': 40.74, 'MBPP+': 34.66}},
+/* Qwen3 */ 
+{'model': 'Qwen3-14B', 'size': 14.8, 'group': 'Qwen3', 'scores': {'MMLU': 80.64, 'MMLU-stem': 82.81, 'MMLU-Pro': 55.49, 'GPQA': 38.17, 'BBH': 64.05, 'ARC-C': 70.22, 'Winogrande': 79.48, 'HellaSwag': 82.58, 'GSM8K': 84.31, 'MATH_lvl5': 29.53, 'HumanEval': 87.8, 'HumanEval+': 81.1, 'MBPP': 83.86, 'MBPP+': 70.63}},
+{'model': 'Qwen3-8B', 'size': 8.2, 'group': 'Qwen3', 'scores': {'MMLU': 76.63, 'MMLU-stem': 78.53, 'MMLU-Pro': 48.25, 'GPQA': 35.65, 'BBH': 58.44, 'ARC-C': 67.75, 'Winogrande': 76.8, 'HellaSwag': 79.6, 'GSM8K': 83.02, 'MATH_lvl5': 28.85, 'HumanEval': 87.8, 'HumanEval+': 82.32, 'MBPP': 75.13, 'MBPP+': 64.02}},
+{'model': 'Qwen3-4B', 'size': 4.0, 'group': 'Qwen3', 'scores': {'MMLU': 72.92, 'MMLU-stem': 75.58, 'MMLU-Pro': 46.18, 'GPQA': 34.9, 'BBH': 56.88, 'ARC-C': 64.33, 'Winogrande': 72.3, 'HellaSwag': 75.74, 'GSM8K': 81.65, 'MATH_lvl5': 24.47, 'HumanEval': 74.39, 'HumanEval+': 68.9, 'MBPP': 74.6, 'MBPP+': 63.76}},
+{'model': 'Qwen3-1.7B', 'size': 1.7, 'group': 'Qwen3', 'scores': {'MMLU': 62.46, 'MMLU-stem': 61.53, 'MMLU-Pro': 33.81, 'GPQA': 29.45, 'BBH': 43.05, 'ARC-C': 55.72, 'Winogrande': 66.3, 'HellaSwag': 67.09, 'GSM8K': 70.74, 'MATH_lvl5': 16.39, 'HumanEval': 67.68, 'HumanEval+': 60.98, 'MBPP': 67.72, 'MBPP+': 58.99}},
+{'model': 'Qwen3-0.6B', 'size': 0.6, 'group': 'Qwen3', 'scores': {'MMLU': 52.64, 'MMLU-stem': 50.11, 'MMLU-Pro': 22.99, 'GPQA': 29.11, 'BBH': 36.07, 'ARC-C': 44.8, 'Winogrande': 60.54, 'HellaSwag': 53.51, 'GSM8K': 50.04, 'MATH_lvl5': 9.29, 'HumanEval': 31.71, 'HumanEval+': 27.44, 'MBPP': 51.06, 'MBPP+': 42.33}},
+/* Llama3 */ 
+{'model': 'Llama3.1 70B', 'size': 71, 'group': 'Llama3', 'scores': {'MMLU': 78.49, 'MMLU-stem': 70.35, 'MMLU-Pro': 47.07, 'GPQA': 36.49, 'BBH': 62.78, 'ARC-C': 69.2, 'Winogrande': 85.32, 'HellaSwag': 87.78, 'GSM8K': 80.52, 'MATH_lvl5': 18.81, 'HumanEval': 57.32, 'HumanEval+': 50.61, 'MBPP': 78.84, 'MBPP+': 66.67}},
+{'model': 'Llama3.1 8B', 'size': 8.0, 'group': 'Llama3', 'scores': {'MMLU': 65.17, 'MMLU-stem': 55.72, 'MMLU-Pro': 32.71, 'GPQA': 31.46, 'BBH': 46.52, 'ARC-C': 57.68, 'Winogrande': 77.11, 'HellaSwag': 81.97, 'GSM8K': 49.51, 'MATH_lvl5': 6.57, 'HumanEval': 39.02, 'HumanEval+': 31.71, 'MBPP': 61.38, 'MBPP+': 51.32}},
+{'model': 'Llama3.2 3B', 'size': 3.2, 'group': 'Llama3', 'scores': {'MMLU': 55.94, 'MMLU-stem': 47.67, 'MMLU-Pro': 25.08, 'GPQA': 28.78, 'BBH': 39.45, 'ARC-C': 51.02, 'Winogrande': 72.22, 'HellaSwag': 76.39, 'GSM8K': 27.82, 'MATH_lvl5': 1.74, 'HumanEval': 29.27, 'HumanEval+': 26.22, 'MBPP': 48.94, 'MBPP+': 39.42}},
+{'model': 'Llama3.2 1.2B', 'size': 1.2, 'group': 'Llama3', 'scores': {'MMLU': 32.39, 'MMLU-stem': 30.19, 'MMLU-Pro': 11.8, 'GPQA': 23.57, 'BBH': 30.72, 'ARC-C': 39.42, 'Winogrande': 62.75, 'HellaSwag': 65.73, 'GSM8K': 7.05, 'MATH_lvl5': 0.98, 'HumanEval': 18.9, 'HumanEval+': 16.46, 'MBPP': 35.98, 'MBPP+': 29.89}},
+/* Gemma3 */ 
+{'model': 'Gemma3-27B', 'size': 27.4, 'group': 'Gemma3', 'scores': {'MMLU': 78.32, 'MMLU-stem': 76.59, 'MMLU-Pro': 49.64, 'GPQA': 35.82, 'BBH': 61.6, 'ARC-C': 70.31, 'Winogrande': 82.4, 'HellaSwag': 86.19, 'GSM8K': 81.35, 'MATH_lvl5': 25.38, 'HumanEval': 48.78, 'HumanEval+': 40.85, 'MBPP': 76.19, 'MBPP+': 61.64}},
+{'model': 'Gemma-3-12B', 'size': 12.2, 'group': 'Gemma3', 'scores': {'MMLU': 74.23, 'MMLU-stem': 68.51, 'MMLU-Pro': 42.72, 'GPQA': 34.56, 'BBH': 54.33, 'ARC-C': 67.58, 'Winogrande': 79.79, 'HellaSwag': 84.22, 'GSM8K': 71.19, 'MATH_lvl5': 17.22, 'HumanEval': 45.12, 'HumanEval+': 36.59, 'MBPP': 73.02, 'MBPP+': 59.79}},
+{'model': 'Gemma-3-4B', 'size': 4.3, 'group': 'Gemma3', 'scores': {'MMLU': 59.41, 'MMLU-stem': 51.7, 'MMLU-Pro': 28.34, 'GPQA': 29.78, 'BBH': 40.41, 'ARC-C': 58.36, 'Winogrande': 72.77, 'HellaSwag': 77.62, 'GSM8K': 37.6, 'MATH_lvl5': 6.95, 'HumanEval': 33.54, 'HumanEval+': 28.05, 'MBPP': 60.05, 'MBPP+': 51.32}},
+{'model': 'Gemma-3-1B', 'size': 1, 'group': 'Gemma3', 'scores': {'MMLU': 26.33, 'MMLU-stem': 27.59, 'MMLU-Pro': 11.31, 'GPQA': 24.66, 'BBH': 30.26, 'ARC-C': 39.33, 'Winogrande': 62.59, 'HellaSwag': 62.94, 'GSM8K': 2.2, 'MATH_lvl5': 1.21, 'HumanEval': 6.71, 'HumanEval+': 5.49, 'MBPP': 12.7, 'MBPP+': 9.52}},
+
+];
+
+// Using "Base Models" benchmark categories
+const BENCH_CATEGORIES = {
+    "Coding" : ["HumanEval","HumanEval+","MBPP","MBPP+"],
+    "Math" : ["GSM8K", "MATH_lvl5"], // Note: In your data, GSM8K seems to be 'GSM8k' - case matters!
+    "Science" : ["GPQA", "MMLU-stem", "MMLU", "MMLU-Pro"],
+    "General Tasks": ["BBH","ARC-C", "Winogrande", "HellaSwag"]
+};
+const BENCHES = Object.values(BENCH_CATEGORIES).flat();
+
+const benchContainer  = document.getElementById("benchmarkChecklist");
+const modelContainer  = document.getElementById("modelChecklist");
+const safe = str => String(str).replace(/[^a-zA-Z0-9]/g,'-');
+
+function addCategoryHeader(cat){
+    const div = document.createElement("div");
+    div.className = "group-header";
+    div.dataset.cat = cat;
+    const cb  = document.createElement("input");
+    cb.type   = "checkbox"; cb.checked = true; cb.id = `cat-${safe(cat)}`;
+    const lab = document.createElement("label");
+    lab.htmlFor = cb.id; lab.textContent = cat;
+    div.appendChild(cb); div.appendChild(lab);
+    benchContainer.appendChild(div);
+    cb.addEventListener("change",e=>{
+        if (BENCH_CATEGORIES[cat]) {
+            BENCH_CATEGORIES[cat].forEach(b=>{
+                const box = document.getElementById(`bench-${safe(b)}`);
+                if(box){ box.checked = cb.checked; }
+            });
+        }
+        benchContainer.dispatchEvent(new Event("change",{bubbles:true}));
+    });
+}
+
+for(const [cat,list] of Object.entries(BENCH_CATEGORIES)){
+    addCategoryHeader(cat);
+    list.forEach(b=>{
+        const row  = document.createElement("div"); row.className = "checklist-item";
+        const box  = document.createElement("input");
+        box.type   = "checkbox"; box.value  = b; box.id = `bench-${safe(b)}`; box.checked = true;
+        const lab = document.createElement("label");
+        lab.htmlFor = box.id; lab.textContent = b;
+        row.appendChild(box); row.appendChild(lab);
+        benchContainer.appendChild(row);
+        box.addEventListener("change",()=>{
+            if (BENCH_CATEGORIES[cat]) {
+                const all = BENCH_CATEGORIES[cat].every(id => {
+                    const itemCheckbox = document.getElementById(`bench-${safe(id)}`);
+                    return itemCheckbox ? itemCheckbox.checked : true;
+                });
+                const catCheckbox = document.getElementById(`cat-${safe(cat)}`);
+                if (catCheckbox) catCheckbox.checked = all;
+            }
+            benchContainer.dispatchEvent(new Event("change",{bubbles:true}));
+        });
+    });
+}
+
+const modelGroups = [...new Set(rawData.map(d=>d.group))].sort();
+modelContainer.innerHTML = '';
+modelGroups.forEach(g=>{
+    const h = document.createElement("div");
+    h.className = "group-header";
+    const labelSpan = document.createElement("span");
+    labelSpan.textContent = g;
+    h.appendChild(labelSpan);
+    modelContainer.appendChild(h);
+
+    rawData.filter(d=>d.group===g).sort((a,b) => a.size - b.size).forEach(d=>{
+        const row  = document.createElement("div"); row.className = "checklist-item";
+        const box  = document.createElement("input");
+        box.type   = "checkbox"; box.value  = d.model; box.id = `model-${safe(d.model)}`;
+        box.checked = true;
+        const lab = document.createElement("label");
+        lab.htmlFor = box.id; lab.textContent = d.model;
+        row.appendChild(box); row.appendChild(lab);
+        modelContainer.appendChild(row);
+    });
+});
+
+
+function getChecked(containerId){
+    return [...document.querySelectorAll(`#${containerId} .checklist-item input[type=checkbox]:checked`)]
+           .map(cb=>cb.value);
+}
+window.toggleCheckboxes = (containerId,state)=>{
+    const container = document.getElementById(containerId);
+    container.querySelectorAll('.checklist-item input[type=checkbox]')
+            .forEach(cb=>cb.checked = state);
+    if (containerId === 'benchmarkChecklist') {
+        container.querySelectorAll('.group-header input[type=checkbox]')
+            .forEach(catCb => catCb.checked = state);
+    }
+    container.dispatchEvent(new Event("change",{bubbles:true}));
+};
+
+function avg(scores, selectedBenches){
+    if (!scores) return null;
+    const nums = selectedBenches.filter(b => {
+        // Handle potential case variations in benchmark names from data vs. BENCH_CATEGORIES
+        const scoreKeys = Object.keys(scores);
+        const actualKey = scoreKeys.find(key => key.toLowerCase() === b.toLowerCase());
+        return actualKey && scores[actualKey] != null && typeof scores[actualKey] === 'number';
+    });
+
+    if (!nums.length) return null;
+
+    return nums.reduce((s,b) => {
+        const scoreKeys = Object.keys(scores);
+        const actualKey = scoreKeys.find(key => key.toLowerCase() === b.toLowerCase());
+        return s + scores[actualKey];
+    }, 0) / nums.length;
+}
+
+
+const COLOURS = {
+    "Falcon-H1": "#9467bd", "Qwen3": "#1f77b4", "Qwen2.5": "#ff7f0e",
+    "Llama3": "#d62728", "Falcon3": "#e377c2", "Gemma3": "#2ca02c",
+    "Mistral": "#bcbd22", "Yi":"#e377c2", "SmolLM":"#8c564b", "Falcon":"#17becf"
+};
+
+function draw(){
+    const selBen = getChecked("benchmarkChecklist");
+    const selMod = getChecked("modelChecklist");
+    const actualBenchmarks = selBen.filter(bench => BENCHES.map(b => b.toLowerCase()).includes(bench.toLowerCase()));
+
+    const selectedData = rawData
+        .filter(d => selMod.includes(d.model))
+        .map(d => ({...d, perf: avg(d.scores, actualBenchmarks) }))
+        .filter(d => d.perf != null && !isNaN(d.perf));
+
+    const traces = [];
+    const groups = [...new Set(selectedData.map(d=>d.group))].sort((a, b) => {
+        if (a === "Falcon-H1") return 1; if (b === "Falcon-H1") return -1;
+        return a.localeCompare(b);
+    });
+
+    const baseMarkerSize = 6;
+    const markerSizeFactor = 3;
+
+    if (selectedData.length === 0) {
+        Plotly.react("model-comparison-chart", [], {
+            title: {text: 'No data to display for current selections', font: {color: '#4a3f90', size: 14}},
+            paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
+            xaxis: { visible: false }, yaxis: { visible: false }
+        });
+        return;
+    }
+
+    groups.forEach(g=>{
+        const groupColor = COLOURS[g] || '#7f7f7f';
+        if(g==="Falcon-H1"){
+            const main = selectedData.filter(d=>d.group==="Falcon-H1" && !/deep/i.test(d.model))
+                                 .sort((a,b)=>a.size-b.size);
+            if(main.length){
+                traces.push({
+                    x:main.map(d=>d.size), y:main.map(d=>d.perf), text:main.map(d=>d.model),
+                    mode:'lines+markers', name:'Falcon-H1',
+                    marker:{ symbol:'star', size:main.map(d=>baseMarkerSize + Math.log10(d.size+1)*markerSizeFactor + 1), color:groupColor, line:{width:1.2,color:'white'}},
+                    line:{color:groupColor,width:2.5},
+                    hovertemplate:'<b>%{text}</b><br>Size (B): %{x}<br>Avg. Score: %{y:.2f}<extra></extra>'
+                });
+            }
+            const deepModels = selectedData.filter(d=>d.group==="Falcon-H1" && /deep/i.test(d.model));
+            deepModels.forEach(deep => {
+                traces.push({
+                    x:[deep.size],y:[deep.perf],text:[deep.model], mode:'markers',showlegend:false,
+                    marker:{ symbol:'star', size:baseMarkerSize + Math.log10(deep.size+1)*markerSizeFactor + 4, color:groupColor,line:{color:'white',width:1.2}},
+                    hovertemplate:'<b>%{text}</b><br>Size (B): %{x}<br>Avg. Score: %{y:.2f}<extra></extra>'
+                });
+            });
+        }else{
+            const pts = selectedData.filter(d=>d.group===g).sort((a,b)=>a.size-b.size);
+            if(pts.length){
+                traces.push({
+                    x:pts.map(d=>d.size),y:pts.map(d=>d.perf),text:pts.map(d=>d.model), mode:'lines+markers',name:g,
+                    marker:{ symbol:'circle', size:pts.map(d=>baseMarkerSize + Math.log10(d.size+1)*markerSizeFactor), color:groupColor,line:{width:1.2,color:'white'}},
+                    line:{color:groupColor,width:2},
+                    hovertemplate:'<b>%{text}</b><br>Size (B): %{x}<br>Avg. Score: %{y:.2f}<extra></extra>'
+                });
+            }
+        }
+    });
+
+    let yTitle;
+    if(actualBenchmarks.length === 0) yTitle = 'Avg. Score (No benchmarks selected)';
+    else if(actualBenchmarks.length <= 2) yTitle = `Avg. Score (${actualBenchmarks.join(', ')})`;
+    else yTitle = `Avg. Score (${actualBenchmarks.length} benchmarks)`;
+
+    const yMin = 0;
+    const allPerfValues = selectedData.map(d => d.perf).filter(p => p != null);
+    const yMax = allPerfValues.length > 0 ? Math.ceil(Math.max(...allPerfValues, 25)/5)*5 + 5 : 100;
+    const isMobile = window.innerWidth < 768;
+
+    Plotly.react("model-comparison-chart", traces, {
+        paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
+        font: { family: "Inter, Segoe UI, system-ui, sans-serif", size: isMobile ? 9 : 10.5, color: '#4a5568'},
+        xaxis:{ title: { text: 'Parameters (B)', font: { size: isMobile ? 10 : 11, color: '#333740' } }, type :'log', tickvals:[0.25,0.5,1,2,4,8,16,32,64,128], ticktext:['.25','.5','1','2','4','8','16','32','64','128'], gridcolor:'rgba(0,0,0,0.07)', zeroline:false, showgrid: true, automargin: true,},
+        yaxis:{ title: { text: yTitle, font: { size: isMobile ? 10 : 11, color: '#333740' } }, range:[yMin, yMax], gridcolor:'rgba(0,0,0,0.07)', zeroline:false, showgrid: true, automargin: true,},
+        legend:{ orientation:'h', bgcolor:'rgba(255,255,255,0.0)', bordercolor:'rgba(0,0,0,0)', y: isMobile ? -0.25 : -0.18, x: 0.5, xanchor: 'center', font: { size: isMobile ? 8.5 : 10 }, traceorder: 'reversed', itemsizing: 'constant',},
+        hovermode:'closest',
+        hoverlabel: { bgcolor: "rgba(44, 62, 80, 0.90)", bordercolor: "rgba(44, 62, 80, 0.90)", font: { family: "Inter, sans-serif", size: 11, color: "#ffffff" }},
+        margin:{ l: isMobile ? 45:55, r: isMobile ? 15:20, t: isMobile ? 20:30, b: isMobile ? 75:85}
+    },{responsive:true, displaylogo:false, modeBarButtonsToRemove: ['toImage', 'sendDataToCloud', 'select2d', 'lasso2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']});
+}
+
+draw();
+let drawTimeout; function debouncedDraw() { clearTimeout(drawTimeout); drawTimeout = setTimeout(draw, 50); }
+benchContainer.addEventListener("change", debouncedDraw);
+modelContainer.addEventListener("change", debouncedDraw);
+window.addEventListener('resize', debouncedDraw);
+document.querySelectorAll('.dropdown-body').forEach(el=>{ el.addEventListener('click',e=>e.stopPropagation()); });
+
+/* ───────────── 7. Global Click Listener for Dropdowns ───────────────── */
+// (Assuming your other sections are 1-6)
+
+document.addEventListener('click', function(event) {
+    const benchDropdown = document.getElementById('bench-dropdown');
+    const modelDropdown = document.getElementById('model-dropdown');
+
+    // Helper to check if the click was inside a specific dropdown
+    const isClickInsideDropdown = (dropdownElement, eventTarget) => {
+        if (!dropdownElement) return false;
+        return dropdownElement.contains(eventTarget);
+    };
+
+    // Close Benchmark dropdown if click is outside
+    if (benchDropdown && benchDropdown.hasAttribute('open')) {
+        if (!isClickInsideDropdown(benchDropdown, event.target)) {
+            benchDropdown.removeAttribute('open');
+        }
+    }
+
+    // Close Model dropdown if click is outside
+    if (modelDropdown && modelDropdown.hasAttribute('open')) {
+        if (!isClickInsideDropdown(modelDropdown, event.target)) {
+            modelDropdown.removeAttribute('open');
+        }
+    }
+});
+
+// Optional: Prevent clicks inside the dropdown body from closing its own dropdown
+// This was already in your code, but it's good to re-confirm its placement and purpose.
+document.querySelectorAll('.dropdown-body').forEach(el => {
+    el.addEventListener('click', e => e.stopPropagation());
+});
+
+function filterChecklist(inputId, checklistId, isBenchmarkList) {
+    document.getElementById(inputId).addEventListener("input", e => {
+        const query = e.target.value.toLowerCase();
+        const items = document.querySelectorAll(`#${checklistId} .checklist-item`);
+        const headers = document.querySelectorAll(`#${checklistId} .group-header`);
+        let groupVisibility = {};
+        items.forEach(item => {
+            const labelText = item.querySelector('label').textContent.toLowerCase();
+            const isVisible = labelText.includes(query);
+            item.style.display = isVisible ? 'flex' : 'none';
+            if (isVisible && isBenchmarkList) {
+                let current = item.previousElementSibling;
+                while(current && !current.classList.contains('group-header')) current = current.previousElementSibling;
+                if (current && current.dataset.cat) groupVisibility[current.dataset.cat] = true;
+            }
+        });
+        headers.forEach(header => {
+            let headerTextElement = isBenchmarkList ? header.querySelector('label') : header.querySelector('span');
+            const headerText = headerTextElement ? headerTextElement.textContent.toLowerCase() : "";
+            const headerMatchesQuery = headerText.includes(query);
+            if (isBenchmarkList) {
+                const catName = header.dataset.cat;
+                header.style.display = (headerMatchesQuery || groupVisibility[catName] || query === "") ? 'flex' : 'none';
+            } else {
+                let hasVisibleItem = false;
+                let nextElem = header.nextElementSibling;
+                while (nextElem && !nextElem.classList.contains('group-header')) {
+                    if (nextElem.style.display !== 'none') { hasVisibleItem = true; break; }
+                    nextElem = nextElem.nextElementSibling;
+                }
+                header.style.display = (headerMatchesQuery || hasVisibleItem || query === "") ? 'flex' : 'none';
+            }
+        });
+    });
+}
+filterChecklist("benchSearch", "benchmarkChecklist", true);
+filterChecklist("modelSearch", "modelChecklist", false);
+
+});
+</script>
+</body>
+</html>
