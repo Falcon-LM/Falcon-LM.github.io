@@ -1,0 +1,29 @@
+.bold {
+    font-weight: 1000 !important;
+    text-shadow: 0 0 0px rgba(0,0,0,0.9) !important;
+  }
+
+  .post-content {
+    text-align: justify;
+    
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+}
+.custom-table tbody tr:nth-last-child(2) {
+  background-color: rgba(176, 136, 255, 0.5); /* light purple */
+}
+
+.translation-notice {
+  background-color: #faf0ff;
+  border-left: 4px solid #800080;  /* purple accent */
+  padding: 1rem;
+  margin: 1.5rem 0;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.translation-notice .llm-name {
+  color: #800080;  /* purple */
+}

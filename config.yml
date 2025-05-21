@@ -18,7 +18,9 @@ languages:
   en:
     languageName: English
     weight: 1
-
+  ar:
+    languageName: Arabic
+    weight: 2
 
 minify:
   disableXML: true
