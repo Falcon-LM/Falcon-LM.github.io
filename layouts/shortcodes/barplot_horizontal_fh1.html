@@ -1,0 +1,211 @@
+<!-- layouts/shortcodes/hbarplot.html -->
+<div id="chart-{{ .Get "id" }}" style="margin-top: -40px; margin-bottom: 40px;"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+(function() {
+  /* ----------------------------- data helpers ----------------------------- */
+  let data;
+  try {
+    data = JSON.parse(`{{ .Inner }}`);
+  } catch (e) {
+    console.error("Error parsing chart data:", e);
+    data = [];
+  }
+
+  /* --------------------------- model & category --------------------------- */
+  const modelOrder     = {{ .Get "models"     | default "[]" | safeJS }};
+  const categoryOrder  = {{ .Get "categories" | default "[]" | safeJS }};
+  const models     = modelOrder.length    ? modelOrder    : Array.from(new Set(data.map(d => d.model)));
+  const categories = categoryOrder.length ? categoryOrder : Array.from(new Set(data.map(d => d.category)));
+
+  /* ----------------------------- highlights ------------------------------ */
+  const highlightPrimary   = "{{ .Get "highlight"  }}";   // legacy name
+  const highlightSecondary = "{{ .Get "highlight2" }}";   // NEW!
+  const COLOR_PRIMARY      = "#b987ff";
+
+  /* tiny colour helper to generate lighter tint --------------------------- */
+  function lighten(hex, factor=0.4) {        // factor ∈ [0,1]  (0 = none, 1 = white)
+    const num = parseInt(hex.slice(1), 16);
+    let r = (num >> 16) & 255,
+        g = (num >>  8) & 255,
+        b =  num        & 255;
+    r = Math.round(r + (255 - r) * factor);
+    g = Math.round(g + (255 - g) * factor);
+    b = Math.round(b + (255 - b) * factor);
+    return "#" + ((1<<24) + (r<<16) + (g<<8) + b).toString(16).slice(1);
+  }
+  const COLOR_SECONDARY = lighten(COLOR_PRIMARY, 0.45);
+
+  /* show values as % by default ------------------------------------------- */
+  const xaxisPercentage = {{ if eq (.Get "xaxis_percentage" | default "true") "false" }}false{{ else }}true{{ end }};
+
+  /* ------------------------- layout & SVG setup --------------------------- */
+  const margin  = {top: 40, right: 30, bottom: 50, left: 130};
+  const width   = {{ .Get "width"  | default 800 }} - margin.left - margin.right;
+  const height  = {{ .Get "height" | default 600 }} - margin.top  - margin.bottom;
+
+  const svg = d3.select("#chart-{{ .Get "id" }}")
+      .append("svg")
+      .attr("width",  width  + margin.left + margin.right)
+      .attr("height", height + margin.top  + margin.bottom)
+    .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  /* ------------------------------- tooltip ------------------------------- */
+  if (!document.getElementById("tooltip-{{ .Get "id" }}")) {
+    d3.select("body")
+      .append("div")
+      .attr("id",  "tooltip-{{ .Get "id" }}")
+      .attr("class", "tooltip")
+      .style("position","absolute")
+      .style("padding","10px")
+      .style("background","#f9f9f9")
+      .style("border","1px solid #ddd")
+      .style("border-radius","5px")
+      .style("pointer-events","none")
+      .style("opacity","0")
+      .style("transition","opacity 0.3s")
+      .style("font-family","inherit")
+      .style("font-size","14px")
+      .style("box-shadow","0 2px 5px rgba(0,0,0,0.1)");
+  }
+  const tooltip = d3.select("#tooltip-{{ .Get "id" }}");
+
+  /* ----------------------- categorical y-axis (y0) ----------------------- */
+  const y0 = d3.scaleBand()
+      .domain(categories)
+      .range([0, height])
+      .padding(0.2);
+
+  svg.append("g")
+    .call(d3.axisLeft(y0).tickSize(0))
+    .selectAll(".tick")
+    .each(function(d){
+      d3.select(this).select("text").remove();
+      d3.select(this).append("foreignObject")
+        .attr("x", -160).attr("y",-10).attr("width",150).attr("height",50)
+        .append("xhtml:div")
+          .style("font-weight","bold")
+          .style("font-family","inherit")
+          .style("word-wrap","break-word")
+          .style("text-align","right")
+          .style("width","100%")
+          .text(d);
+    });
+
+  /* ------------- inner-band for models within each category -------------- */
+  const y1 = d3.scaleBand()
+      .domain(models)
+      .range([0, y0.bandwidth()])
+      .padding(0.05);
+
+  /* ---------------------------- x-axis domain ---------------------------- */
+  let xmin = {{ if .Get "ymin" }}{{ .Get "ymin" }}{{ else }}null{{ end }};
+  let xmax = {{ if .Get "ymax" }}{{ .Get "ymax" }}{{ else }}null{{ end }};
+  if (xmin === null || xmax === null) {
+    const vals = data.map(d => d.value);
+    const pad  = (Math.max(...vals) - Math.min(...vals))*0.1;
+    xmin = xmin === null ? Math.max(0, Math.min(...vals) - pad) : xmin;
+    xmax = xmax === null ? Math.max(...vals) + pad             : xmax;
+  }
+
+  const x = d3.scaleLinear().domain([xmin,xmax]).range([0,width]);
+  svg.append("g")
+      .attr("transform",`translate(0,${height})`)
+      .call(d3.axisBottom(x).tickFormat(d => xaxisPercentage ? d3.format(".0%")(d) : d3.format(".2f")(d)))
+    .selectAll("text").style("font-family","inherit");
+
+  /* -------------------------- colour functions --------------------------- */
+  function colorScale(d) {
+    if (d.model === highlightPrimary)   return COLOR_PRIMARY;
+    if (d.model === highlightSecondary) return COLOR_SECONDARY;
+    /* greys for others */
+    const idx = models.indexOf(d.model);
+    const tot = Math.max(models.length - 1, 1);
+    const base = 128 - (idx * (0 - 80) / tot);  // lighter→darker grey
+    return `rgb(${base},${base+8},${base+16})`;
+  }
+  function hoverColor(model){
+    if (model === highlightPrimary)   return lighten(COLOR_PRIMARY,   0.15);
+    if (model === highlightSecondary) return lighten(COLOR_SECONDARY, 0.15);
+    const idx = models.indexOf(model), tot = Math.max(models.length-1,1);
+    const base = 128 - (idx * (0 - 80) / tot);
+    const light = Math.min(base + 30, 230);
+    return `rgb(${light},${light+8},${light+16})`;
+  }
+
+  /* ------------------------------ bars ----------------------------------- */
+  categories.forEach(cat => {
+    const catData = data.filter(d => d.category === cat);
+    const g = svg.append("g").attr("class",`cat-${cat}`);
+    g.selectAll(`rect-${cat}`)
+      .data(catData)
+      .enter().append("rect")
+        .attr("class","bar")
+        .attr("x",0)
+        .attr("y",d => y0(cat)+y1(d.model))
+        .attr("width",d => x(d.value))
+        .attr("height",y1.bandwidth())
+        .attr("fill",d => colorScale(d))
+        .attr("data-model",d=>d.model)
+        .style("transition","opacity 0.3s");
+
+    /* hover behaviour */
+    g.on("mouseover", function(event){
+        d3.select(this).selectAll("rect")
+          .attr("stroke","#333").attr("stroke-width",2)
+          .attr("fill", function(){ return hoverColor(d3.select(this).attr("data-model")); });
+        tooltip
+          .style("opacity",1)
+          .html(`<strong style="font-size:16px;">${cat}</strong><br/><span style="font-size:12px;">`+
+            catData.map(d=> xaxisPercentage ? `${d.model}: ${(d.value*100).toFixed(2)}%`
+                                             : `${d.model}: ${d.value.toFixed(3)}`).join("<br/>")
+            + "</span>")
+          .style("left",(event.pageX+15)+"px")
+          .style("top" ,(event.pageY-28)+"px");
+      })
+      .on("mouseout", function(){
+        d3.select(this).selectAll("rect")
+          .attr("stroke", "none")
+          .attr("fill", d => colorScale(d));    // use the original datum directly
+        tooltip.style("opacity", 0);
+      });
+  });
+
+  /* --------------------------- axis label (x) ---------------------------- */
+  {{ if .Get "ylabel" }}
+  svg.append("text")
+     .attr("text-anchor","middle")
+     .attr("x",width/2)
+     .attr("y",height+margin.bottom-10)
+     .text({{ .Get "ylabel" }})
+     .style("font-family","inherit");
+  {{ end }}
+
+  /* ------------------------------- legend -------------------------------- */
+  {{ if not (eq (.Get "legend" | default "true") "false") }}
+  const legendDiv = d3.select("#chart-{{ .Get "id" }}")
+      .append("div")
+      .style("display","flex")
+      .style("justify-content","center")
+      .style("font-size","14px")
+      .style("margin-top","10px");
+
+  const sortedModels = [...models].sort((a,b)=>{
+      if (a===highlightPrimary)   return  1;
+      if (b===highlightPrimary)   return  1;
+      if (a===highlightSecondary) return  1;
+      if (b===highlightSecondary) return  1;
+      return models.indexOf(a)-models.indexOf(b);
+  });
+
+  sortedModels.forEach(m=>{
+      legendDiv.append("div")
+        .style("display","flex")
+        .style("align-items","center")
+        .style("margin","0 10px")
+        .html(`<div style="width:20px;height:20px;margin-right:5px;background:${colorScale({model:m})};"></div>${m}`);
+  });
+  {{ end }}
+})();
+</script>
