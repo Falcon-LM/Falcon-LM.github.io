@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Instruct-Model Frontier – Perf vs Size</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Roboto+Mono:wght@300;400&display=swap');
+  
+  body {
+    font-family: 'Roboto Mono', monospace;
+    margin: 0;
+    padding: 1rem;
+    background: #f0f2f9;
+    color: #f0f2f9;
+    min-height: 80vh;
+  }
+  
+  #model-comparison-chart {
+    width: 98%;
+    height: 450px;
+    box-shadow: 0 0 15px rgba(157, 78, 221, 0.3);
+    border-radius: 8px;
+    padding: 10px;
+    background: linear-gradient(135deg, #f0f2f9 0%, rgba(157, 78, 221, 0.3));
+  }
+  
+  .title {
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #9d4edd;
+    text-shadow: 0 0 10px rgba(157, 78, 221, 0.6);
+    font-weight: 600;
+  }
+</style>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <h1 class="title">Current SoTA LLMs</h1>
+  <div id="model-comparison-chart"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+
+  /* ─────────────── 1.  DATA ─────────────── */
+  const data = [
+    /* Falcon-H1 */
+    {model:"Falcon-H1-500M",size:0.5 ,perf:25.35,group:"Falcon-H1"},
+    {model:"Falcon-H1-1.5B",size:1.5 ,perf:32.5 ,group:"Falcon-H1"},
+    {model:"Falcon-H1-1.5B-deep",size:1.5 ,perf:37.8 ,group:"Falcon-H1"},
+    {model:"Falcon-H1-3B",size:3   ,perf:37.8 ,group:"Falcon-H1"},
+    {model:"Falcon-H1-7B",size:7   ,perf:43.9 ,group:"Falcon-H1"},
+    {model:"Falcon-H1-34B",size:34 ,perf:51.1 ,group:"Falcon-H1"},
+
+    /* Qwen 3 */    
+    {model:"Qwen3-0.6B",size:0.6,perf:16.2 ,group:"Qwen3"},
+    {model:"Qwen3-1.7B",size:1.7,perf:24.1 ,group:"Qwen3"},
+    {model:"Qwen3-4B" ,size:4  ,perf:34   ,group:"Qwen3"},
+    {model:"Qwen3-8B" ,size:8  ,perf:33.7 ,group:"Qwen3"},
+    {model:"Qwen3-14B",size:14 ,perf:38.5 ,group:"Qwen3"},
+    {model:"Qwen3-32B",size:32 ,perf:42.54,group:"Qwen3"},
+
+    /* Gemma 3 */ 
+    {model:"Gemma3-1B",size:1,perf:16.54 ,group:"Gemma3"},
+    {model:"Gemma3-4B" ,size:4  ,perf:30   ,group:"Gemma3"},
+    {model:"Gemma3-12B" ,size:12  ,perf:40.3 ,group:"Gemma3"},
+    {model:"Gemma3-27B",size:27 ,perf:44.7 ,group:"Gemma3"},
+
+    /* Qwen 2.5 */  
+    {model:"Qwen-2.5-72B",size:72 ,perf:47.98,group:"Qwen"},
+    {model:"Qwen-2.5-32B",size:32 ,perf:46.6 ,group:"Qwen"},
+    {model:"Qwen-2.5-14B",size:14 ,perf:41.31,group:"Qwen"},
+    {model:"Qwen2.5-3B" ,size:3  ,perf:27.16,group:"Qwen"},
+    {model:"Qwen2.5-1.5B",size:1.5,perf:18.43,group:"Qwen"},
+
+    /* Falcon 3 */  
+    {model:"Falcon3-7B",size:7 ,perf:36.4 ,group:"Falcon"},
+    {model:"Falcon3-10B",size:10,perf:35.48,group:"Falcon"},
+    {model:"Falcon3-1B" ,size:1 ,perf:16.16,group:"Falcon"}
+  ];
+
+  /* ─────────────── 2.  COLOUR MAP ─────────────── */
+  const colours = {
+    Qwen3      : '#34d399',  // fresh emerald-teal
+    Gemma3     : '#3b82f6',  // vibrant azure
+    Falcon     : '#7e22ce',  // deep indigo
+    Qwen       : '#f59e0b',  // warm amber
+    'Falcon-H1': '#c77dff'   // bright lavender
+  };
+
+  /* ─────────────── 3.  TRACES ─────────────── */
+  const traces = [];
+
+  /* all families except Falcon-H1 first */
+  const families = [...new Set(data.map(d=>d.group))].filter(g=>g!=='Falcon-H1');
+  families.forEach(f=>{
+    const pts = data.filter(d=>d.group===f).sort((a,b)=>a.size-b.size);
+    traces.push({
+      x:pts.map(d=>d.size),
+      y:pts.map(d=>d.perf),
+      text:pts.map(d=>d.model),
+      mode:'lines+markers',
+      name:f,
+      marker:{
+        symbol: 'circle',
+        size: pts.map(d=>8+Math.log10(d.size+1)*4),
+        color: colours[f.replace('.','_')],
+        line: {color:'#0a0e17',width:1},
+        opacity: 0.8
+      },
+      line:{
+        color: colours[f.replace('.','_')],
+        width: 2,
+        dash: 'solid',
+        shape: 'spline',
+      },
+      hovertemplate:'<b>%{text}</b><br>Size (B): %{x}<br>Score: %{y}<extra></extra>'
+    });
+  });
+
+  /* Falcon-H1 – main polyline (skip "deep") */
+  const falconMain = data.filter(
+      d=>d.group==='Falcon-H1' && d.model!=='Falcon-H1-1.5B-deep'
+  ).sort((a,b)=>a.size-b.size);
+
+  traces.push({
+    x:falconMain.map(d=>d.size),
+    y:falconMain.map(d=>d.perf),
+    text:falconMain.map(d=>d.model),
+    mode:'lines+markers',
+    name:'Falcon-H1',
+    marker:{
+      symbol:'star',
+      size:falconMain.map(d=>8+Math.log10(d.size+1)*4),
+      color:colours['Falcon-H1'],
+      line:{color:'#0a0e17',width:1},
+      opacity: 0.8
+    },
+    line:{
+      color:colours['Falcon-H1'],
+      width:2,
+      shape: 'spline',
+    },
+    hovertemplate:'<b>%{text}</b><br>Size (B): %{x}<br>Score: %{y}<extra></extra>'
+  });
+
+  /* Falcon-H1-1.5B-deep – star-only trace, bigger */
+  const deep = data.find(d=>d.model==='Falcon-H1-1.5B-deep');
+  traces.push({
+    x:[deep.size],
+    y:[deep.perf],
+    text:[deep.model],
+    mode:'markers',
+    showlegend:false,          // no extra legend entry
+    marker:{
+      symbol:'star',
+      size:14,                 // ← a bit larger
+      color:colours['Falcon-H1'],
+      line:{color:'#0a0e17',width:1.2},
+      opacity: 0.8
+    },
+    hovertemplate:'<b>%{text}</b><br>Size (B): %{x}<br>Score: %{y}<extra></extra>'
+  });
+
+  /* ─────────────── 4.  PLOT ─────────────── */
+  Plotly.newPlot(
+    'model-comparison-chart',
+    traces,
+    {
+      title:{
+        text:'',
+        font:{
+          family: 'Orbitron, sans-serif',
+          size:22,
+          color:'#ffffff'
+        }
+      },
+      paper_bgcolor:'rgba(0,0,0,0)',
+      plot_bgcolor :'rgba(0,0,0,0)',
+      xaxis:{
+        title:{
+          text:'PARAMETERS (BILLIONS)',
+          font:{
+            family: 'Orbitron, sans-serif',
+            size:12,
+            color:'#9d4edd'
+          }
+        },
+        type :'log',
+        tickvals:[0.25,0.5,1,2,4,8,16,32,64,128],
+        ticktext:['0.25','0.5','1','2','4','8','16','32','64','128'],
+        gridcolor:'rgba(157, 78, 221, 0.15)',
+        zerolinecolor: 'rgba(157, 78, 221, 0.3)',
+        tickfont: {
+          family: 'Roboto Mono',
+          color: '#000000'
+        },
+        showgrid: true,
+        gridwidth: 1,
+        zeroline:false
+      },
+      yaxis:{
+        title:{
+          text:'OPEN-LLM LEADERBOARD AVERAGE',
+          font:{
+            family: 'Orbitron, sans-serif',
+            size:12,
+            color:'#9d4edd'
+          }
+        },
+        range:[0,55],
+        gridcolor:'rgba(157, 78, 221, 0.15)',
+        zerolinecolor: 'rgba(157, 78, 221, 0.3)',
+        tickfont: {
+          family: 'Roboto Mono',
+          color: '#000000'
+        },
+        showgrid: true,
+        gridwidth: 1,
+        zeroline:false
+      },
+      legend:{
+        orientation:'h',
+        font: {
+          family: 'Orbitron, sans-serif',
+          color: '#000000'
+        },
+        y:-0.22
+      },
+      hovermode:'closest',
+      hoverlabel: {
+        bgcolor: '#0a0e17',
+        bordercolor: '#9d4edd',
+        font: {
+          family: 'Roboto Mono',
+          color: '#e4f0ff'
+        }
+      },
+      margin:{l:60,r:30,t:70,b:80}
+    },
+    {responsive:true,displaylogo:false}
+  );
+  
+  // Add subtle glow animation to the chart container
+  const chartContainer = document.getElementById('model-comparison-chart');
+  setInterval(() => {
+    const glowIntensity = 0.2 + Math.random() * 0.1;
+    chartContainer.style.boxShadow = `0 0 15px rgba(157, 78, 221, ${glowIntensity})`;
+  }, 2000);
+});
+</script>
+</body>
+</html>

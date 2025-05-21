@@ -10,7 +10,36 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 15 May 2025 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 May 2025 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Falcon-H1: A Family of Hybrid-Head Language Models Redefining Efficiency and Performance</title>
+      <link>https://falcon-lm.github.io/blog/falcon-h1/</link>
+      <pubDate>Tue, 20 May 2025 12:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/blog/falcon-h1/</guid>
+      <description>&lt;style&gt;
+  html, body {
+    background: #f0f2f9; 
+  }
+&lt;/style&gt;
+&lt;p&gt;&lt;a href=&#34;https://chat.falconllm.tii.ae&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Falcon CHAT&lt;/a&gt;
+&lt;a href=&#34;https://huggingface.co/collections/tiiuae/falcon-h1-6819f2795bc406da60fab8df&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Hugging Face&lt;/a&gt;
+&lt;a href=&#34;https://github.com/tiiuae/falcon-h1&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Github&lt;/a&gt;
+&lt;a href=&#34;https://huggingface.co/spaces/tiiuae/Falcon-H1-Playground&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;DEMO&lt;/a&gt;
+&lt;a href=&#34;https://discord.gg/vfw6k2G3&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;DISCORD&lt;/a&gt;&lt;/p&gt;
+&lt;div style=&#34;display: flex; justify-content: center;&#34;&gt;
+  &lt;div style=&#34;position: relative; width: 100%; max-width: 700px; aspect-ratio: 700 /600;&#34;&gt;
+    &lt;iframe 
+      src=&#34;https://falcon-lm.github.io/plots_h1/falcon_h1_performance_scatter_2.html&#34; 
+      style=&#34;border: none; position: absolute; width: 100%; height: 100%; left: 0; top: 0;&#34;
+      allowfullscreen
+    &gt;&lt;/iframe&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Today, we are proud to introduce the Falcon-H1 series, a collection of six open-source models ranging from 0.5B to 34B parameters, each available in both base and instruction-tuned variants. At the core of these models lies a hybrid architecture that combines the strengths of the classical Transformer-based attention mechanism with the State Space Model (SSM), known for its superior long-context memory and computational efficiency. This architectural innovation is further enhanced by fundamental advancements in training dynamics and data utilization, enabling Falcon-H1 models to deliver uncompromised performance that rivals the top Transformer-based models across all covered size tiers.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Falcon-Edge: A series of powerful, universal, fine-tunable 1.58bit language models.</title>
       <link>https://falcon-lm.github.io/blog/falcon-edge/</link>

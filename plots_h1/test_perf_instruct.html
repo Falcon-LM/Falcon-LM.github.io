@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Interactive Instruct Model‑Benchmark Explorer</title> <!-- Updated title -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── Base page look ─────────────────────────────────────────── */
+body {
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: #f0f4f8;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    color: #333740;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.5; /* Base line-height */
+}
+
+.page-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 1.5rem 1rem; /* Reduced top/bottom page padding */
+    box-sizing: border-box;
+}
+
+.chart-card {
+    background: #ffffff;
+    border-radius: 12px; /* Smaller radius for card */
+    box-shadow: 0 8px 25px rgba(74, 63, 144, 0.07); /* Softer shadow */
+    padding: 1.5rem; /* Reduced card padding */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+h2 {
+    margin: 0 0 1.5rem; /* Reduced bottom margin */
+    text-align: center;
+    color: #4a3f90;
+    font-size: 1.5rem; /* Reduced font size */
+    font-weight: 600;
+}
+
+/* ─── Collapsible controls row (Compact) ─────────────────── */
+.controls {
+    display: flex;
+    gap: 1rem; /* Reduced gap between dropdowns */
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1.5rem; /* Reduced space below controls */
+}
+
+details.dropdown {
+    position: relative;
+    flex: 1 1 18rem; /* Can adjust flex-basis if needed for very compact */
+    max-width: 26rem; /* Slightly smaller max-width */
+    border: 1px solid #e0e4ef;
+    border-radius: 0.6rem; /* Smaller radius */
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(74, 63, 144, 0.04); /* Even softer shadow */
+    transition: box-shadow .2s, border-color .2s;
+}
+details.dropdown:hover {
+    border-color: #c8cde0;
+    box-shadow: 0 5px 12px rgba(74, 63, 144, 0.06);
+}
+details.dropdown[open] {
+    border-radius: 0.6rem; /* Consistent */
+    z-index: 10;
+    border-color: #aea8d6;
+}
+
+details.dropdown summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 0.7rem 1.2rem; /* Reduced padding */
+    font-weight: 500;
+    font-size: 0.9rem; /* Reduced font size */
+    color: #333740;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    border-radius: 0.6rem;
+}
+details.dropdown[open] summary {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #f7f8fc;
+}
+
+details.dropdown summary::after {
+    content: "▾";
+    font-size: 1.1rem; /* Slightly smaller arrow */
+    color: #6a5acd;
+    transition: transform .2s ease-out;
+}
+details[open] summary::after { transform: rotate(180deg); }
+details.dropdown summary:focus-visible { outline: 2px solid #867bcd; outline-offset: 1px; }
+
+
+/* ─── Inner dropdown body (Compact) ──────────────────────── */
+.dropdown-body {
+    position: absolute;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #aea8d6;
+    border-top: none;
+    border-radius: 0 0 0.6rem 0.6rem;
+    box-shadow: 0 6px 15px rgba(74, 63, 144, 0.08);
+    padding: 0.6rem 1rem 0.8rem; /* Reduced padding */
+    box-sizing: border-box;
+    overflow: hidden;
+    /* Max height can be adjusted based on checklist height + other elements */
+    max-height: calc(10rem + 3rem + 1.5rem + 1.5rem); /* checklist + search + links + some padding */
+}
+
+.select-links {
+    margin: 0.1rem 0 0.6rem; /* Tighter margins */
+    font-size: 0.75rem; /* Reduced font size */
+    display: flex;
+    gap: 0.8rem; /* Reduced gap */
+}
+.select-links a { color: #6a5acd; text-decoration: none; cursor: pointer; font-weight: 500; }
+.select-links a:hover { text-decoration: underline; color: #4a3f90; }
+
+.search-box { margin-bottom: 0.6rem; }
+.search-box input {
+    width: 100%;
+    padding: 0.5rem 0.7rem; /* Reduced padding */
+    border: 1px solid #d5d9e9;
+    border-radius: 0.4rem; /* Smaller radius */
+    font-size: 0.85rem; /* Reduced font size */
+    box-sizing: border-box;
+    transition: border-color .2s;
+}
+.search-box input:focus {
+    border-color: #867bcd; outline: none;
+    box-shadow: 0 0 0 2px rgba(106, 90, 205, 0.15);
+}
+
+.checklist-container {
+    height: 10rem; /* Reduced height for compactness */
+    overflow-y: auto;
+    border: 1px solid #e8eaf0;
+    border-radius: 0.4rem;
+    padding: 0.4rem; /* Reduced padding */
+    background: #f9fafc;
+    scrollbar-width: thin;
+    scrollbar-color: #c8cde0 #f0f2f9;
+}
+.checklist-container::-webkit-scrollbar { width: 6px; } /* Thinner scrollbar */
+.checklist-container::-webkit-scrollbar-track { background: #f0f2f9; border-radius: 3px; }
+.checklist-container::-webkit-scrollbar-thumb {
+    background: #c8cde0; border-radius: 3px; border: 1px solid #f0f2f9;
+}
+.checklist-container::-webkit-scrollbar-thumb:hover { background: #b0b8d8; }
+
+
+.group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+    color: #4a3f90;
+    margin: 0.3rem 0.1rem 0.2rem; /* Reduced margins */
+    padding: 0.1rem 0; /* Reduced padding */
+    font-size: 0.85rem; /* Reduced font size */
+}
+.group-header input[type="checkbox"] {
+    accent-color: #6a5acd; cursor: pointer; transform: scale(0.85); margin: 0;
+}
+.group-header label { cursor: pointer; flex-grow: 1; }
+.group-header span { flex-grow: 1; }
+
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0; /* Almost no margin for max compactness */
+    padding: 0.25rem 0.4rem; /* Reduced padding */
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color .1s;
+    font-size: 0.8rem; /* Reduced font size */
+}
+.checklist-item:hover { background: #eef1f9; }
+.checklist-item input {
+    margin-right: 0.5rem; /* Reduced margin */
+    accent-color: #6a5acd; cursor: pointer; transform: scale(0.85); flex-shrink: 0;
+}
+.checklist-item label {
+    cursor: pointer; flex-grow: 1; transition: color .1s;
+    font-weight: 400; color: #404854; word-break: break-word;
+}
+.checklist-item input:checked + label { color: #4a3f90; font-weight: 500; }
+
+/* ─── Chart area ─────────────────────────────────────────────── */
+#model-comparison-chart {
+    width: 100%;
+    height: 580px; /* Maintained height to emphasize plot */
+    border-radius: 0.75rem;
+    box-sizing: border-box;
+    margin-top: 1rem; /* Space above chart after compact controls */
+}
+
+/* Responsive adjustments for compactness */
+@media (max-width: 768px) {
+    .page-container { padding: 1rem 0.5rem; }
+    .chart-card { padding: 1rem; border-radius: 10px; }
+    h2 { font-size: 1.3rem; margin-bottom: 1rem; }
+    .controls { gap: 0.75rem; margin-bottom: 1rem; }
+    details.dropdown { flex-basis: 100%; }
+    details.dropdown summary { padding: 0.6rem 1rem; font-size: 0.85rem;}
+    .dropdown-body { padding: 0.5rem 0.8rem 0.6rem; max-height: calc(9rem + 2.5rem + 1.2rem + 1.2rem); }
+    .select-links { font-size: 0.7rem; }
+    .search-box input { padding: 0.4rem 0.6rem; font-size: 0.8rem; }
+    .checklist-container { height: 9rem; }
+    .group-header { font-size: 0.8rem; }
+    .checklist-item { font-size: 0.78rem; padding: 0.2rem 0.3rem;}
+    #model-comparison-chart { height: 450px; margin-top: 0.5rem; }
+}
+@media (max-width: 480px) {
+    body { line-height: 1.45; }
+    .page-container { padding: 0.5rem; }
+    .chart-card { padding: 0.75rem; border-radius: 8px; }
+    h2 { font-size: 1.2rem; }
+    .select-links a { font-weight: normal; }
+    .search-box input { font-size: 0.75rem; }
+    .checklist-item { font-size: 0.75rem; }
+    .group-header input[type="checkbox"], .checklist-item input { transform: scale(0.8); }
+    #model-comparison-chart { height: 400px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="page-container">
+    <div class="chart-card">
+        <h2>Instruct Models Benchmark Explorer</h2> <!-- Title updated for this version -->
+
+        <div class="controls">
+            <!-- Benchmarks -->
+            <details class="dropdown" id="bench-dropdown">
+                <summary>Benchmarks</summary> <!-- Compacted summary text -->
+                <div class="dropdown-body">
+                    <div class="select-links">
+                        <a onclick="toggleCheckboxes('benchmarkChecklist',true)">All</a>
+                        <a onclick="toggleCheckboxes('benchmarkChecklist',false)">None</a>
+                    </div>
+                    <div class="search-box">
+                        <input id="benchSearch" type="text" placeholder="Search benchmarks…">
+                    </div>
+                    <div id="benchmarkChecklist" class="checklist-container"></div>
+                </div>
+            </details>
+
+            <!-- Models -->
+            <details class="dropdown" id="model-dropdown">
+                <summary>Models</summary> <!-- Compacted summary text -->
+                <div class="dropdown-body">
+                    <div class="select-links">
+                        <a onclick="toggleCheckboxes('modelChecklist',true)">All</a>
+                        <a onclick="toggleCheckboxes('modelChecklist',false)">None</a>
+                    </div>
+                    <div class="search-box">
+                        <input id="modelSearch" type="text" placeholder="Search models…">
+                    </div>
+                    <div id="modelChecklist" class="checklist-container"></div>
+                </div>
+            </details>
+        </div>
+
+        <div id="model-comparison-chart"></div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+/* ───────────── 1. Data ───────────────────────────── */
+// Using the "Base Models" data as per your file content
+const rawData = [
+/* Falcon‑H1 */
+{'model': 'Falcon-H1-34B', 'size': 33.6, 'group': 'Falcon-H1', 'scores': {'MMLU': 84.05, 'MMLU-Pro': 58.73, 'BBH': 70.68, 'ARC-C': 61.01, 'TruthfulQA': 65.27, 'HellaSwag': 81.94, 'GPQA': 41.53, 'MMLU-stem': 83.57, 'GSM8k': 83.62, 'AIME 2024': 23.75, 'AIME2025': 16.67, 'MATH-500': 83.8, 'AMC23': 69.38, 'HumanEval': 87.2, 'HumanEval+': 81.71, 'MBPP': 83.86, 'MBPP+': 71.43, 'LiveCodeBench': 49.71, 'CRUXEval': 73.07, 'MTBench': 92.0, 'LiveBench': 46.26, 'Alpaca-Eval': 48.32, 'GPQA_Diamond': 49.66, 'IFEval_inst': 91.49, 'IFEval_prompt': 87.25, 'IFEval': 89.37, 'M_Hellaswag': 74.55, 'M_MMLU': 77.76}},
+{'model': 'Falcon-H1-7B', 'size': 7.6, 'group': 'Falcon-H1', 'scores': {'MMLU': 76.83, 'MMLU-Pro': 51.75, 'BBH': 62.28, 'ARC-C': 59.98, 'TruthfulQA': 59.91, 'HellaSwag': 75.92, 'GPQA': 36.33, 'MMLU-stem': 77.61, 'GSM8k': 81.65, 'AIME 2024': 16.04, 'AIME2025': 13.96, 'MATH-500': 73.4, 'AMC23': 56.72, 'HumanEval': 86.59, 'HumanEval+': 81.1, 'MBPP': 80.69, 'MBPP+': 68.78, 'LiveCodeBench': 35.03, 'CRUXEval': 66.51, 'MTBench': 88.5, 'LiveBench': 45.74, 'Alpaca-Eval': 40.23, 'GPQA_Diamond': 56.9, 'IFEval_inst': 87.89, 'IFEval_prompt': 82.81, 'IFEval': 85.35, 'M_Hellaswag': 67.75, 'M_MMLU': 67.83}},
+{'model': 'Falcon-H1-3B', 'size': 3.1, 'group': 'Falcon-H1', 'scores': {'MMLU': 68.3, 'MMLU-Pro': 43.69, 'BBH': 53.69, 'ARC-C': 49.57, 'TruthfulQA': 53.19, 'HellaSwag': 69.85, 'GPQA': 33.89, 'MMLU-stem': 69.93, 'GSM8k': 84.76, 'AIME 2024': 11.88, 'AIME2025': 13.33, 'MATH-500': 74.2, 'AMC23': 55.63, 'HumanEval': 76.83, 'HumanEval+': 70.73, 'MBPP': 79.63, 'MBPP+': 67.46, 'LiveCodeBench': 26.81, 'CRUXEval': 56.25, 'MTBench': 87.2, 'LiveBench': 36.86, 'Alpaca-Eval': 31.09, 'GPQA_Diamond': 38.72, 'IFEval_inst': 87.65, 'IFEval_prompt': 82.44, 'IFEval': 85.05, 'M_Hellaswag': 58.34, 'M_MMLU': 54.86}},
+{'model': 'Falcon-H1 1.5B', 'size': 1.5, 'group': 'Falcon-H1', 'scores': {'MMLU': 62.03, 'MMLU-Pro': 37.8, 'BBH': 46.47, 'ARC-C': 42.06, 'TruthfulQA': 45.98, 'HellaSwag': 63.33, 'GPQA': 26.34, 'MMLU-stem': 64.13, 'GSM8k': 74.98, 'AIME 2024': 11.25, 'AIME2025': 9.58, 'MATH-500': 74.0, 'AMC23': 43.59, 'HumanEval': 68.29, 'HumanEval+': 61.59, 'MBPP': 64.81, 'MBPP+': 56.35, 'LiveCodeBench': 17.61, 'CRUXEval': 39.57, 'MTBench': 84.6, 'LiveBench': 34.13, 'Alpaca-Eval': 28.18, 'GPQA_Diamond': 35.19, 'IFEval_inst': 84.05, 'IFEval_prompt': 77.26, 'IFEval': 80.66, 'M_Hellaswag': 49.38, 'M_MMLU': 48.06}},
+{'model': 'Falcon-H1 1.5B-deep', 'size': 1.5, 'group': 'Falcon-H1', 'scores': {'MMLU': 66.11, 'MMLU-Pro': 41.89, 'BBH': 54.43, 'ARC-C': 43.86, 'TruthfulQA': 50.48, 'HellaSwag': 65.54, 'GPQA': 33.22, 'MMLU-stem': 67.3, 'GSM8k': 82.34, 'AIME 2024': 14.37, 'AIME2025': 11.04, 'MATH-500': 77.8, 'AMC23': 56.56, 'HumanEval': 73.78, 'HumanEval+': 68.9, 'MBPP': 68.25, 'MBPP+': 56.61, 'LiveCodeBench': 23.87, 'CRUXEval': 52.32, 'MTBench': 85.3, 'LiveBench': 36.83, 'Alpaca-Eval': 27.12, 'GPQA_Diamond': 40.57, 'IFEval_inst': 86.21, 'IFEval_prompt': 80.78, 'IFEval': 83.5, 'M_Hellaswag': 53.14, 'M_MMLU': 53.0}},
+{'model': 'Falcon-H1-0.5B', 'size': 0.5, 'group': 'Falcon-H1', 'scores': {'MMLU': 53.4, 'MMLU-Pro': 31.03, 'BBH': 42.91, 'ARC-C': 37.8, 'TruthfulQA': 44.12, 'HellaSwag': 51.93, 'GPQA': 29.95, 'MMLU-stem': 54.55, 'GSM8k': 68.39, 'AIME 2024': 3.75, 'AIME2025': 4.38, 'MATH-500': 58.4, 'AMC23': 33.13, 'HumanEval': 51.83, 'HumanEval+': 45.12, 'MBPP': 42.59, 'MBPP+': 33.07, 'LiveCodeBench': 7.05, 'CRUXEval': 25.75, 'MTBench': 70.6, 'LiveBench': 20.8, 'Alpaca-Eval': 10.79, 'GPQA_Diamond': 27.95, 'IFEval_inst': 76.86, 'IFEval_prompt': 67.28, 'IFEval': 72.07, 'M_Hellaswag': 30.95, 'M_MMLU': 33.19}},
+/* Falcon 3 */
+{'model': 'Falcon3 10B', 'size': 10.3, 'group': 'Falcon3', 'scores': {'MMLU': 74.01, 'MMLU-Pro': 44.05, 'BBH': 58.09, 'ARC-C': 54.44, 'TruthfulQA': 55.05, 'HellaSwag': 75.57, 'GPQA': 33.39, 'MMLU-stem': 70.57, 'GSM8k': 85.06, 'AIME 2024': 9.79, 'AIME2025': 5.42, 'MATH-500': 68.6, 'AMC23': 45.78, 'HumanEval': 82.32, 'HumanEval+': 75.0, 'MBPP': 73.28, 'MBPP+': 64.02, 'LiveCodeBench': 19.77, 'CRUXEval': 59.57, 'MTBench': 84.6, 'LiveBench': 34.3, 'Alpaca-Eval': 24.31, 'GPQA_Diamond': 34.68, 'IFEval_inst': 82.25, 'IFEval_prompt': 75.42, 'IFEval': 78.84, 'M_Hellaswag': 52.77, 'M_MMLU': 53.67}},
+{'model': 'Falcon3 7B', 'size': 7.5, 'group': 'Falcon3', 'scores': {'MMLU': 70.81, 'MMLU-Pro': 40.73, 'BBH': 52.12, 'ARC-C': 54.35, 'TruthfulQA': 55.58, 'HellaSwag': 71.81, 'GPQA': 31.21, 'MMLU-stem': 67.43, 'GSM8k': 81.05, 'AIME 2024': 8.75, 'AIME2025': 6.25, 'MATH-500': 69.0, 'AMC23': 40.0, 'HumanEval': 71.95, 'HumanEval+': 65.85, 'MBPP': 77.25, 'MBPP+': 65.87, 'LiveCodeBench': 12.72, 'CRUXEval': 55.0, 'MTBench': 87.3, 'LiveBench': 32.35, 'Alpaca-Eval': 27.56, 'GPQA_Diamond': 37.21, 'IFEval_inst': 80.34, 'IFEval_prompt': 72.83, 'IFEval': 76.59, 'M_Hellaswag': 47.81, 'M_MMLU': 50.62}},
+{'model': 'Falcon3 3B', 'size': 3.2, 'group': 'Falcon3', 'scores': {'MMLU': 56.76, 'MMLU-Pro': 29.71, 'BBH': 45.02, 'ARC-C': 48.21, 'TruthfulQA': 50.06, 'HellaSwag': 64.24, 'GPQA': 28.69, 'MMLU-stem': 56.11, 'GSM8k': 74.68, 'AIME 2024': 3.96, 'AIME2025': 2.29, 'MATH-500': 54.2, 'AMC23': 29.69, 'HumanEval': 52.44, 'HumanEval+': 45.73, 'MBPP': 61.9, 'MBPP+': 55.29, 'LiveCodeBench': 3.13, 'CRUXEval': 44.38, 'MTBench': 77.9, 'LiveBench': 26.01, 'Alpaca-Eval': 14.82, 'GPQA_Diamond': 29.29, 'IFEval_inst': 73.14, 'IFEval_prompt': 65.06, 'IFEval': 69.1, 'M_Hellaswag': 37.51, 'M_MMLU': 38.93}},
+{'model': 'Falcon3 1.7B', 'size': 1.7, 'group': 'Falcon3', 'scores': {'MMLU': 46.1, 'MMLU-Pro': 18.49, 'BBH': 34.47, 'ARC-C': 43.09, 'TruthfulQA': 42.31, 'HellaSwag': 58.53, 'GPQA': 26.76, 'MMLU-stem': 39.64, 'GSM8k': 44.05, 'AIME 2024': 0.41, 'AIME2025': 0.21, 'MATH-500': 19.8, 'AMC23': 6.87, 'HumanEval': 22.56, 'HumanEval+': 20.73, 'MBPP': 20.63, 'MBPP+': 17.2, 'LiveCodeBench': 0.78, 'CRUXEval': 15.58, 'MTBench': 60.3, 'LiveBench': 14.1, 'Alpaca-Eval': 6.98, 'GPQA_Diamond': 31.31, 'IFEval_inst': 59.71, 'IFEval_prompt': 48.8, 'IFEval': 54.26, 'M_Hellaswag': 32.04, 'M_MMLU': 32.25}},
+/* Qwen 2.5 */
+{'model': 'Qwen2.5 72B', 'size': 72.7, 'group': 'Qwen2.5', 'scores': {'MMLU': 84.42, 'MMLU-Pro': 56.35, 'BBH': 72.52, 'ARC-C': 46.59, 'TruthfulQA': 69.8, 'HellaSwag': 68.79, 'GPQA': 37.67, 'MMLU-stem': 82.59, 'GSM8k': 82.26, 'AIME 2024': 17.29, 'AIME2025': 15.21, 'MATH-500': 83.6, 'AMC23': 67.34, 'HumanEval': 87.2, 'HumanEval+': 80.49, 'MBPP': 89.68, 'MBPP+': 75.4, 'LiveCodeBench': 54.6, 'CRUXEval': 75.63, 'MTBench': 91.6, 'LiveBench': 54.03, 'Alpaca-Eval': 49.29, 'GPQA_Diamond': 44.95, 'IFEval_inst': 88.97, 'IFEval_prompt': 83.73, 'IFEval': 86.35, 'M_Hellaswag': 69.48, 'M_MMLU': 78.26}},
+{'model': 'Qwen2.5 32B', 'size': 32.8, 'group': 'Qwen2.5', 'scores': {'MMLU': 82.8, 'MMLU-Pro': 56.63, 'BBH': 68.72, 'ARC-C': 44.54, 'TruthfulQA': 70.28, 'HellaSwag': 73.95, 'GPQA': 34.31, 'MMLU-stem': 82.37, 'GSM8k': 78.47, 'AIME 2024': 17.92, 'AIME2025': 11.46, 'MATH-500': 82.2, 'AMC23': 68.75, 'HumanEval': 90.24, 'HumanEval+': 82.32, 'MBPP': 87.83, 'MBPP+': 74.07, 'LiveCodeBench': 49.12, 'CRUXEval': 73.5, 'MTBench': 90.9, 'LiveBench': 52.92, 'Alpaca-Eval': 39.26, 'GPQA_Diamond': 40.74, 'IFEval_inst': 85.01, 'IFEval_prompt': 78.56, 'IFEval': 81.79, 'M_Hellaswag': 65.9, 'M_MMLU': 73.56}},
+{'model': 'Qwen2.5 14B', 'size': 14.8, 'group': 'Qwen2.5', 'scores': {'MMLU': 78.76, 'MMLU-Pro': 49.34, 'BBH': 63.67, 'ARC-C': 50.17, 'TruthfulQA': 70.95, 'HellaSwag': 75.54, 'GPQA': 34.06, 'MMLU-stem': 75.67, 'GSM8k': 77.71, 'AIME 2024': 13.33, 'AIME2025': 12.5, 'MATH-500': 80.8, 'AMC23': 57.66, 'HumanEval': 82.32, 'HumanEval+': 73.78, 'MBPP': 83.07, 'MBPP+': 70.37, 'LiveCodeBench': 38.36, 'CRUXEval': 64.38, 'MTBench': 89.0, 'LiveBench': 45.04, 'Alpaca-Eval': 37.77, 'GPQA_Diamond': 36.7, 'IFEval_inst': 84.29, 'IFEval_prompt': 79.3, 'IFEval': 81.8, 'M_Hellaswag': 66.18, 'M_MMLU': 68.0}},
+{'model': 'Qwen2.5 7B', 'size': 7.6, 'group': 'Qwen2.5', 'scores': {'MMLU': 73.64, 'MMLU-Pro': 43.23, 'BBH': 53.76, 'ARC-C': 41.38, 'TruthfulQA': 62.41, 'HellaSwag': 63.4, 'GPQA': 31.79, 'MMLU-stem': 69.36, 'GSM8k': 71.95, 'AIME 2024': 12.29, 'AIME2025': 9.58, 'MATH-500': 75.8, 'AMC23': 53.91, 'HumanEval': 82.32, 'HumanEval+': 73.78, 'MBPP': 79.63, 'MBPP+': 68.25, 'LiveCodeBench': 32.68, 'CRUXEval': 56.9, 'MTBench': 84.5, 'LiveBench': 37.13, 'Alpaca-Eval': 29.48, 'GPQA_Diamond': 33.0, 'IFEval_inst': 79.14, 'IFEval_prompt': 71.35, 'IFEval': 75.25, 'M_Hellaswag': 58.74, 'M_MMLU': 61.2}},
+{'model': 'Qwen2.5 3B', 'size': 3.1, 'group': 'Qwen2.5', 'scores': {'MMLU': 65.09, 'MMLU-Pro': 32.76, 'BBH': 46.55, 'ARC-C': 43.77, 'TruthfulQA': 58.11, 'HellaSwag': 64.21, 'GPQA': 28.69, 'MMLU-stem': 59.78, 'GSM8k': 57.54, 'AIME 2024': 6.25, 'AIME2025': 3.96, 'MATH-500': 64.2, 'AMC23': 39.84, 'HumanEval': 73.78, 'HumanEval+': 68.29, 'MBPP': 72.75, 'MBPP+': 60.85, 'LiveCodeBench': 11.74, 'CRUXEval': 43.26, 'MTBench': 77.9, 'LiveBench': 27.32, 'Alpaca-Eval': 17.37, 'GPQA_Diamond': 35.69, 'IFEval_inst': 69.18, 'IFEval_prompt': 59.33, 'IFEval': 64.26, 'M_Hellaswag': 50.81, 'M_MMLU': 52.88}},
+{'model': 'Qwen2.5 1.5B', 'size': 1.5, 'group': 'Qwen2.5', 'scores': {'MMLU': 59.76, 'MMLU-Pro': 28.35, 'BBH': 42.41, 'ARC-C': 40.53, 'TruthfulQA': 47.05, 'HellaSwag': 62.23, 'GPQA': 26.26, 'MMLU-stem': 54.04, 'GSM8k': 57.47, 'AIME 2024': 2.29, 'AIME2025': 1.25, 'MATH-500': 48.4, 'AMC23': 24.06, 'HumanEval': 56.1, 'HumanEval+': 50.61, 'MBPP': 64.81, 'MBPP+': 56.08, 'LiveCodeBench': 12.52, 'CRUXEval': 34.76, 'MTBench': 71.0, 'LiveBench': 21.65, 'Alpaca-Eval': 9.54, 'GPQA_Diamond': 25.59, 'IFEval_inst': 50.36, 'IFEval_prompt': 40.3, 'IFEval': 45.33, 'M_Hellaswag': 42.93, 'M_MMLU': 45.9}},
+{'model': 'Qwen2.5 0.5B', 'size': 0.5, 'group': 'Qwen2.5', 'scores': {'MMLU': 46.07, 'MMLU-Pro': 18.73, 'BBH': 33.26, 'ARC-C': 33.28, 'TruthfulQA': 46.19, 'HellaSwag': 52.38, 'GPQA': 26.85, 'MMLU-stem': 39.83, 'GSM8k': 38.51, 'AIME 2024': 0.62, 'AIME2025': 0.21, 'MATH-500': 27.8, 'AMC23': 12.5, 'HumanEval': 36.59, 'HumanEval+': 32.32, 'MBPP': 46.83, 'MBPP+': 39.68, 'LiveCodeBench': 2.94, 'CRUXEval': 14.88, 'MTBench': 47.1, 'LiveBench': 14.27, 'Alpaca-Eval': 3.26, 'GPQA_Diamond': 24.24, 'IFEval_inst': 37.05, 'IFEval_prompt': 27.17, 'IFEval': 32.11, 'M_Hellaswag': 33.44, 'M_MMLU': 35.12}},
+/* Qwen 3 */
+{'model': 'Qwen3-32B', 'size': 32.8, 'group': 'Qwen3', 'scores': {'MMLU': 80.89, 'MMLU-Pro': 54.68, 'BBH': 62.47, 'ARC-C': 48.98, 'TruthfulQA': 58.58, 'HellaSwag': 68.89, 'GPQA': 30.2, 'MMLU-stem': 81.64, 'GSM8k': 88.78, 'AIME 2024': 27.71, 'AIME2025': 19.79, 'MATH-500': 82.0, 'AMC23': 67.34, 'HumanEval': 90.85, 'HumanEval+': 85.37, 'MBPP': 86.24, 'MBPP+': 71.96, 'LiveCodeBench': 45.01, 'CRUXEval': 78.45, 'MTBench': 90.5, 'LiveBench': 63.05, 'Alpaca-Eval': 64.21, 'GPQA_Diamond': 49.49, 'IFEval_inst': 89.09, 'IFEval_prompt': 84.84, 'IFEval': 86.97, 'M_Hellaswag': 58.39, 'M_MMLU': 66.2}},
+{'model': 'Qwen3-14B', 'size': 14.8, 'group': 'Qwen3', 'scores': {'MMLU': 76.81, 'MMLU-Pro': 44.8, 'BBH': 59.5, 'ARC-C': 42.41, 'TruthfulQA': 55.43, 'HellaSwag': 63.82, 'GPQA': 27.01, 'MMLU-stem': 75.33, 'GSM8k': 83.02, 'AIME 2024': 29.58, 'AIME2025': 22.29, 'MATH-500': 87.0, 'AMC23': 72.97, 'HumanEval': 88.41, 'HumanEval+': 85.97, 'MBPP': 87.3, 'MBPP+': 75.4, 'LiveCodeBench': 53.62, 'CRUXEval': 76.57, 'MTBench': 89.7, 'LiveBench': 62.91, 'Alpaca-Eval': 56.18, 'GPQA_Diamond': 50.17, 'IFEval_inst': 89.57, 'IFEval_prompt': 84.47, 'IFEval': 87.02, 'M_Hellaswag': 48.23, 'M_MMLU': 66.99}},
+{'model': 'Qwen3-8B', 'size': 8.2, 'group': 'Qwen3', 'scores': {'MMLU': 71.56, 'MMLU-Pro': 34.64, 'BBH': 47.47, 'ARC-C': 42.06, 'TruthfulQA': 53.19, 'HellaSwag': 60.56, 'GPQA': 25.84, 'MMLU-stem': 66.89, 'GSM8k': 78.92, 'AIME 2024': 28.33, 'AIME2025': 19.17, 'MATH-500': 83.8, 'AMC23': 70.78, 'HumanEval': 84.75, 'HumanEval+': 79.27, 'MBPP': 71.96, 'MBPP+': 62.7, 'LiveCodeBench': 45.6, 'CRUXEval': 72.7, 'MTBench': 87.4, 'LiveBench': 56.19, 'Alpaca-Eval': 46.13, 'GPQA_Diamond': 43.1, 'IFEval_inst': 86.45, 'IFEval_prompt': 80.41, 'IFEval': 83.43, 'M_Hellaswag': 47.3, 'M_MMLU': 50.44}},
+{'model': 'Qwen3-4B', 'size': 4.0, 'group': 'Qwen3', 'scores': {'MMLU': 67.01, 'MMLU-Pro': 29.75, 'BBH': 51.07, 'ARC-C': 37.71, 'TruthfulQA': 51.75, 'HellaSwag': 55.31, 'GPQA': 28.02, 'MMLU-stem': 67.46, 'GSM8k': 80.44, 'AIME 2024': 22.29, 'AIME2025': 18.96, 'MATH-500': 85.0, 'AMC23': 66.88, 'HumanEval': 84.15, 'HumanEval+': 76.83, 'MBPP': 68.78, 'MBPP+': 59.79, 'LiveCodeBench': 39.92, 'CRUXEval': 69.63, 'MTBench': 84.5, 'LiveBench': 51.34, 'Alpaca-Eval': 36.51, 'GPQA_Diamond': 40.74, 'IFEval_inst': 86.69, 'IFEval_prompt': 81.33, 'IFEval': 84.01, 'M_Hellaswag': 43.12, 'M_MMLU': 50.7}},
+{'model': 'Qwen3-1.7B', 'size': 1.7, 'group': 'Qwen3', 'scores': {'MMLU': 57.04, 'MMLU-Pro': 23.54, 'BBH': 35.18, 'ARC-C': 34.81, 'TruthfulQA': 49.39, 'HellaSwag': 49.27, 'GPQA': 27.68, 'MMLU-stem': 54.3, 'GSM8k': 69.83, 'AIME 2024': 12.5, 'AIME2025': 8.12, 'MATH-500': 73.0, 'AMC23': 46.09, 'HumanEval': 67.68, 'HumanEval+': 60.96, 'MBPP': 58.73, 'MBPP+': 49.74, 'LiveCodeBench': 14.87, 'CRUXEval': 18.88, 'MTBench': 76.1, 'LiveBench': 40.73, 'Alpaca-Eval': 21.89, 'GPQA_Diamond': 33.33, 'IFEval_inst': 75.18, 'IFEval_prompt': 66.36, 'IFEval': 70.77, 'M_Hellaswag': 37.89, 'M_MMLU': 39.6}},
+{'model': 'Qwen3-0.6B', 'size': 0.6, 'group': 'Qwen3', 'scores': {'MMLU': 42.98, 'MMLU-Pro': 16.95, 'BBH': 32.95, 'ARC-C': 31.06, 'TruthfulQA': 51.65, 'HellaSwag': 42.17, 'GPQA': 26.09, 'MMLU-stem': 39.3, 'GSM8k': 42.61, 'AIME 2024': 2.71, 'AIME2025': 1.67, 'MATH-500': 46.0, 'AMC23': 27.97, 'HumanEval': 41.46, 'HumanEval+': 37.19, 'MBPP': 56.08, 'MBPP+': 47.08, 'LiveCodeBench': 9.78, 'CRUXEval': 23.63, 'MTBench': 57.5, 'LiveBench': 27.78, 'Alpaca-Eval': 9.59, 'GPQA_Diamond': 25.08, 'IFEval_inst': 67.39, 'IFEval_prompt': 56.93, 'IFEval': 62.16, 'M_Hellaswag': 32.87, 'M_MMLU': 33.6}},
+/* Gemma 3 */
+{'model': 'Gemma3-27B', 'size': 27.4, 'group': 'Gemma3', 'scores': {'MMLU': 78.01, 'MMLU-Pro': 47.81, 'BBH': 67.28, 'ARC-C': 54.52, 'TruthfulQA': 64.26, 'HellaSwag': 57.25, 'GPQA': 36.49, 'MMLU-stem': 73.55, 'GSM8k': 90.37, 'AIME 2024': 27.5, 'AIME2025': 22.71, 'MATH-500': 90.0, 'AMC23': 77.81, 'HumanEval': 86.59, 'HumanEval+': 78.05, 'MBPP': 88.36, 'MBPP+': 74.07, 'LiveCodeBench': 39.53, 'CRUXEval': 74.82, 'MTBench': 87.5, 'LiveBench': 55.41, 'Alpaca-Eval': 56.16, 'GPQA_Diamond': 47.47, 'IFEval_inst': 86.33, 'IFEval_prompt': 80.04, 'IFEval': 83.19, 'M_Hellaswag': 69.64, 'M_MMLU': 71.6}},
+{'model': 'Gemma3-12B', 'size': 12.2, 'group': 'Gemma3', 'scores': {'MMLU': 72.5, 'MMLU-Pro': 39.88, 'BBH': 63.36, 'ARC-C': 51.96, 'TruthfulQA': 61.02, 'HellaSwag': 55.63, 'GPQA': 33.98, 'MMLU-stem': 66.54, 'GSM8k': 87.49, 'AIME 2024': 22.5, 'AIME2025': 18.75, 'MATH-500': 86.2, 'AMC23': 66.88, 'HumanEval': 84.76, 'HumanEval+': 75.61, 'MBPP': 85.71, 'MBPP+': 72.22, 'LiveCodeBench': 30.92, 'CRUXEval': 67.67, 'MTBench': 86.9, 'LiveBench': 49.23, 'Alpaca-Eval': 43.55, 'GPQA_Diamond': 37.71, 'IFEval_inst': 84.65, 'IFEval_prompt': 78.37, 'IFEval': 81.51, 'M_Hellaswag': 66.53, 'M_MMLU': 65.22}},
+{'model': 'Gemma3-4B', 'size': 4.3, 'group': 'Gemma3', 'scores': {'MMLU': 59.53, 'MMLU-Pro': 29.71, 'BBH': 50.01, 'ARC-C': 44.88, 'TruthfulQA': 51.68, 'HellaSwag': 47.68, 'GPQA': 29.19, 'MMLU-stem': 52.17, 'GSM8k': 77.41, 'AIME 2024': 6.67, 'AIME2025': 13.33, 'MATH-500': 76.4, 'AMC23': 48.12, 'HumanEval': 67.07, 'HumanEval+': 61.59, 'MBPP': 77.78, 'MBPP+': 66.93, 'LiveCodeBench': 21.14, 'CRUXEval': 52.13, 'MTBench': 82.4, 'LiveBench': 36.7, 'Alpaca-Eval': 39.64, 'GPQA_Diamond': 28.62, 'IFEval_inst': 81.18, 'IFEval_prompt': 72.83, 'IFEval': 77.01, 'M_Hellaswag': 54.48, 'M_MMLU': 51.11}},
+{'model': 'Gemma3-1B', 'size': 1, 'group': 'Gemma3', 'scores': {'MMLU': 40.87, 'MMLU-Pro': 14.46, 'BBH': 35.86, 'ARC-C': 34.13, 'TruthfulQA': 42.17, 'HellaSwag': 42.24, 'GPQA': 28.19, 'MMLU-stem': 35.39, 'GSM8k': 42.38, 'AIME 2024': 0.42, 'AIME2025': 1.25, 'MATH-500': 45.4, 'AMC23': 19.22, 'HumanEval': 40.85, 'HumanEval+': 37.2, 'MBPP': 57.67, 'MBPP+': 50.0, 'LiveCodeBench': 5.09, 'CRUXEval': 12.7, 'MTBench': 70.3, 'LiveBench': 18.79, 'Alpaca-Eval': 17.87, 'GPQA_Diamond': 21.55, 'IFEval_inst': 67.51, 'IFEval_prompt': 55.45, 'IFEval': 61.48, 'M_Hellaswag': 41.77, 'M_MMLU': 34.91}},
+/* Llama 3 */
+{'model': 'Llama3.1 70B', 'size': 71, 'group': 'Llama3', 'scores': {'MMLU': 83.19, 'MMLU-Pro': 53.47, 'BBH': 69.17, 'ARC-C': 63.65, 'TruthfulQA': 66.82, 'HellaSwag': 78.77, 'GPQA': 34.48, 'MMLU-stem': 77.01, 'GSM8k': 93.71, 'AIME 2024': 12.92, 'AIME2025': 1.25, 'MATH-500': 64.8, 'AMC23': 39.38, 'HumanEval': 79.88, 'HumanEval+': 72.56, 'MBPP': 83.07, 'MBPP+': 64.55, 'LiveCodeBench': 36.59, 'CRUXEval': 66.51, 'MTBench': 91.1, 'LiveBench': 49.36, 'Alpaca-Eval': 35.5, 'GPQA_Diamond': 42.09, 'IFEval_inst': 89.21, 'IFEval_prompt': 84.66, 'IFEval': 86.94, 'M_Hellaswag': 64.64, 'M_MMLU': 76.67}},
+{'model': 'Llama3.1 8B', 'size': 8.0, 'group': 'Llama3', 'scores': {'MMLU': 68.67, 'MMLU-Pro': 36.42, 'BBH': 48.58, 'ARC-C': 52.39, 'TruthfulQA': 52.99, 'HellaSwag': 71.28, 'GPQA': 32.72, 'MMLU-stem': 59.31, 'GSM8k': 82.49, 'AIME 2024': 5.42, 'AIME2025': 0.42, 'MATH-500': 45.8, 'AMC23': 22.81, 'HumanEval': 68.29, 'HumanEval+': 61.59, 'MBPP': 68.25, 'MBPP+': 55.03, 'LiveCodeBench': 15.85, 'CRUXEval': 21.57, 'MTBench': 82.9, 'LiveBench': 31.73, 'Alpaca-Eval': 25.48, 'GPQA_Diamond': 31.31, 'IFEval_inst': 81.06, 'IFEval_prompt': 73.01, 'IFEval': 77.04, 'M_Hellaswag': 60.74, 'M_MMLU': 55.53}},
+{'model': 'Llama3.2 3B', 'size': 3.2, 'group': 'Llama3', 'scores': {'MMLU': 61.74, 'MMLU-Pro': 27.44, 'BBH': 41.47, 'ARC-C': 44.88, 'TruthfulQA': 50.27, 'HellaSwag': 63.74, 'GPQA': 28.94, 'MMLU-stem': 51.92, 'GSM8k': 77.26, 'AIME 2024': 11.67, 'AIME2025': 0.21, 'MATH-500': 41.2, 'AMC23': 22.66, 'HumanEval': 54.27, 'HumanEval+': 50.0, 'MBPP': 62.17, 'MBPP+': 50.53, 'LiveCodeBench': 2.74, 'CRUXEval': 17.75, 'MTBench': 79.6, 'LiveBench': 26.37, 'Alpaca-Eval': 19.69, 'GPQA_Diamond': 29.97, 'IFEval_inst': 78.3, 'IFEval_prompt': 69.69, 'IFEval': 74.0, 'M_Hellaswag': 50.93, 'M_MMLU': 48.43}},
+{'model': 'Llama3.2 1.2B', 'size': 1.2, 'group': 'Llama3', 'scores': {'MMLU': 45.93, 'MMLU-Pro': 16.2, 'BBH': 33.21, 'ARC-C': 34.64, 'TruthfulQA': 42.08, 'HellaSwag': 55.3, 'GPQA': 26.59, 'MMLU-stem': 39.16, 'GSM8k': 44.28, 'AIME 2024': 1.46, 'AIME2025': 0.0, 'MATH-500': 13.2, 'AMC23': 7.19, 'HumanEval': 34.15, 'HumanEval+': 29.88, 'MBPP': 33.6, 'MBPP+': 29.37, 'LiveCodeBench': 2.35, 'CRUXEval': 0.06, 'MTBench': 63.7, 'LiveBench': 14.97, 'Alpaca-Eval': 9.38, 'GPQA_Diamond': 25.08, 'IFEval_inst': 61.87, 'IFEval_prompt': 48.8, 'IFEval': 55.34, 'M_Hellaswag': 39.78, 'M_MMLU': 35.24}},
+];
+
+/* Benchmark categories */
+const BENCH_CATEGORIES = {
+    "Instruction following" : ["MTBench", "Alpaca-Eval", "IFEval"],
+    "Coding" : ["HumanEval+", "MBPP+", "LiveCodeBench", "CRUXEval"],
+    "Math" : ["GSM8k", "MATH-500", "AMC23", "AIME2025"],
+    "Science" : ["GPQA", "GPQA_Diamond", "MMLU", "MMLU-stem", "MMLU-Pro"],
+    "General Tasks": ["LiveBench", "BBH", "ARC-C", "HellaSwag", "TruthfulQA"],
+    "Multilingual(ar,de,es,fr,hi,it,nl,pt,ro,ru,sv)": ["M_MMLU", "M_Hellaswag"]
+};
+
+const BENCHES = Object.values(BENCH_CATEGORIES).flat();
+
+const benchContainer  = document.getElementById("benchmarkChecklist");
+const modelContainer  = document.getElementById("modelChecklist");
+const safe = str => String(str).replace(/[^a-zA-Z0-9]/g,'-');
+
+function addCategoryHeader(cat){
+    const div = document.createElement("div");
+    div.className = "group-header";
+    div.dataset.cat = cat;
+    const cb  = document.createElement("input");
+    cb.type   = "checkbox"; cb.checked = true; cb.id = `cat-${safe(cat)}`;
+    const lab = document.createElement("label");
+    lab.htmlFor = cb.id; lab.textContent = cat;
+    div.appendChild(cb); div.appendChild(lab);
+    benchContainer.appendChild(div);
+    cb.addEventListener("change",e=>{
+        if (BENCH_CATEGORIES[cat]) {
+            BENCH_CATEGORIES[cat].forEach(b=>{
+                const box = document.getElementById(`bench-${safe(b)}`);
+                if(box){ box.checked = cb.checked; }
+            });
+        }
+        benchContainer.dispatchEvent(new Event("change",{bubbles:true}));
+    });
+}
+
+for(const [cat,list] of Object.entries(BENCH_CATEGORIES)){
+    addCategoryHeader(cat);
+    list.forEach(b=>{
+        const row  = document.createElement("div"); row.className = "checklist-item";
+        const box  = document.createElement("input");
+        box.type   = "checkbox"; box.value  = b; box.id = `bench-${safe(b)}`; box.checked = true;
+        const lab = document.createElement("label");
+        lab.htmlFor = box.id; lab.textContent = b;
+        row.appendChild(box); row.appendChild(lab);
+        benchContainer.appendChild(row);
+        box.addEventListener("change",()=>{
+            if (BENCH_CATEGORIES[cat]) {
+                const all = BENCH_CATEGORIES[cat].every(id => {
+                    const itemCheckbox = document.getElementById(`bench-${safe(id)}`);
+                    return itemCheckbox ? itemCheckbox.checked : true;
+                });
+                const catCheckbox = document.getElementById(`cat-${safe(cat)}`);
+                if (catCheckbox) catCheckbox.checked = all;
+            }
+            benchContainer.dispatchEvent(new Event("change",{bubbles:true}));
+        });
+    });
+}
+
+const modelGroups = [...new Set(rawData.map(d=>d.group))].sort();
+modelContainer.innerHTML = '';
+modelGroups.forEach(g=>{
+    const h = document.createElement("div");
+    h.className = "group-header";
+    const labelSpan = document.createElement("span");
+    labelSpan.textContent = g;
+    h.appendChild(labelSpan);
+    modelContainer.appendChild(h);
+
+    rawData.filter(d=>d.group===g).sort((a,b) => a.size - b.size).forEach(d=>{
+        const row  = document.createElement("div"); row.className = "checklist-item";
+        const box  = document.createElement("input");
+        box.type   = "checkbox"; box.value  = d.model; box.id = `model-${safe(d.model)}`;
+        box.checked = true;
+        const lab = document.createElement("label");
+        lab.htmlFor = box.id; lab.textContent = d.model;
+        row.appendChild(box); row.appendChild(lab);
+        modelContainer.appendChild(row);
+    });
+});
+
+
+function getChecked(containerId){
+    return [...document.querySelectorAll(`#${containerId} .checklist-item input[type=checkbox]:checked`)]
+           .map(cb=>cb.value);
+}
+window.toggleCheckboxes = (containerId,state)=>{
+    const container = document.getElementById(containerId);
+    container.querySelectorAll('.checklist-item input[type=checkbox]')
+            .forEach(cb=>cb.checked = state);
+    if (containerId === 'benchmarkChecklist') {
+        container.querySelectorAll('.group-header input[type=checkbox]')
+            .forEach(catCb => catCb.checked = state);
+    }
+    container.dispatchEvent(new Event("change",{bubbles:true}));
+};
+
+function avg(scores, selectedBenches){
+    if (!scores) return null;
+    const nums = selectedBenches.filter(b => {
+        // Handle potential case variations in benchmark names from data vs. BENCH_CATEGORIES
+        const scoreKeys = Object.keys(scores);
+        const actualKey = scoreKeys.find(key => key.toLowerCase() === b.toLowerCase());
+        return actualKey && scores[actualKey] != null && typeof scores[actualKey] === 'number';
+    });
+
+    if (!nums.length) return null;
+
+    return nums.reduce((s,b) => {
+        const scoreKeys = Object.keys(scores);
+        const actualKey = scoreKeys.find(key => key.toLowerCase() === b.toLowerCase());
+        return s + scores[actualKey];
+    }, 0) / nums.length;
+}
+
+
+const COLOURS = {
+    "Falcon-H1": "#9467bd", "Qwen3": "#1f77b4", "Qwen2.5": "#ff7f0e",
+    "Llama3": "#d62728", "Falcon3": "#e377c2", "Gemma3": "#2ca02c",
+    "Mistral": "#bcbd22", "Yi":"#e377c2", "SmolLM":"#8c564b", "Falcon":"#17becf"
+};
+
+function draw(){
+    const selBen = getChecked("benchmarkChecklist");
+    const selMod = getChecked("modelChecklist");
+    const actualBenchmarks = selBen.filter(bench => BENCHES.map(b => b.toLowerCase()).includes(bench.toLowerCase()));
+
+    const selectedData = rawData
+        .filter(d => selMod.includes(d.model))
+        .map(d => ({...d, perf: avg(d.scores, actualBenchmarks) }))
+        .filter(d => d.perf != null && !isNaN(d.perf));
+
+    const traces = [];
+    const groups = [...new Set(selectedData.map(d=>d.group))].sort((a, b) => {
+        if (a === "Falcon-H1") return 1; if (b === "Falcon-H1") return -1;
+        return a.localeCompare(b);
+    });
+
+    const baseMarkerSize = 6;
+    const markerSizeFactor = 3;
+
+    if (selectedData.length === 0) {
+        Plotly.react("model-comparison-chart", [], {
+            title: {text: 'No data to display for current selections', font: {color: '#4a3f90', size: 14}},
+            paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
+            xaxis: { visible: false }, yaxis: { visible: false }
+        });
+        return;
+    }
+
+    groups.forEach(g=>{
+        const groupColor = COLOURS[g] || '#7f7f7f';
+        if(g==="Falcon-H1"){
+            const main = selectedData.filter(d=>d.group==="Falcon-H1" && !/deep/i.test(d.model))
+                                 .sort((a,b)=>a.size-b.size);
+            if(main.length){
+                traces.push({
+                    x:main.map(d=>d.size), y:main.map(d=>d.perf), text:main.map(d=>d.model),
+                    mode:'lines+markers', name:'Falcon-H1',
+                    marker:{ symbol:'star', size:main.map(d=>baseMarkerSize + Math.log10(d.size+1)*markerSizeFactor + 1), color:groupColor, line:{width:1.2,color:'white'}},
+                    line:{color:groupColor,width:2.5},
+                    hovertemplate:'<b>%{text}</b><br>Size (B): %{x}<br>Avg. Score: %{y:.2f}<extra></extra>'
+                });
+            }
+            const deepModels = selectedData.filter(d=>d.group==="Falcon-H1" && /deep/i.test(d.model));
+            deepModels.forEach(deep => {
+                traces.push({
+                    x:[deep.size],y:[deep.perf],text:[deep.model], mode:'markers',showlegend:false,
+                    marker:{ symbol:'star', size:baseMarkerSize + Math.log10(deep.size+1)*markerSizeFactor + 4, color:groupColor,line:{color:'white',width:1.2}},
+                    hovertemplate:'<b>%{text}</b><br>Size (B): %{x}<br>Avg. Score: %{y:.2f}<extra></extra>'
+                });
+            });
+        }else{
+            const pts = selectedData.filter(d=>d.group===g).sort((a,b)=>a.size-b.size);
+            if(pts.length){
+                traces.push({
+                    x:pts.map(d=>d.size),y:pts.map(d=>d.perf),text:pts.map(d=>d.model), mode:'lines+markers',name:g,
+                    marker:{ symbol:'circle', size:pts.map(d=>baseMarkerSize + Math.log10(d.size+1)*markerSizeFactor), color:groupColor,line:{width:1.2,color:'white'}},
+                    line:{color:groupColor,width:2},
+                    hovertemplate:'<b>%{text}</b><br>Size (B): %{x}<br>Avg. Score: %{y:.2f}<extra></extra>'
+                });
+            }
+        }
+    });
+
+    let yTitle;
+    if(actualBenchmarks.length === 0) yTitle = 'Avg. Score (No benchmarks selected)';
+    else if(actualBenchmarks.length <= 2) yTitle = `Avg. Score (${actualBenchmarks.join(', ')})`;
+    else yTitle = `Avg. Score (${actualBenchmarks.length} benchmarks)`;
+
+    const yMin = 0;
+    const allPerfValues = selectedData.map(d => d.perf).filter(p => p != null);
+    const yMax = allPerfValues.length > 0 ? Math.ceil(Math.max(...allPerfValues, 25)/5)*5 + 5 : 100;
+    const isMobile = window.innerWidth < 768;
+
+    Plotly.react("model-comparison-chart", traces, {
+        paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
+        font: { family: "Inter, Segoe UI, system-ui, sans-serif", size: isMobile ? 9 : 10.5, color: '#4a5568'},
+        xaxis:{ title: { text: 'Parameters (B)', font: { size: isMobile ? 10 : 11, color: '#333740' } }, type :'log', tickvals:[0.25,0.5,1,2,4,8,16,32,64,128], ticktext:['.25','.5','1','2','4','8','16','32','64','128'], gridcolor:'rgba(0,0,0,0.07)', zeroline:false, showgrid: true, automargin: true,},
+        yaxis:{ title: { text: yTitle, font: { size: isMobile ? 10 : 11, color: '#333740' } }, range:[yMin, yMax], gridcolor:'rgba(0,0,0,0.07)', zeroline:false, showgrid: true, automargin: true,},
+        legend:{ orientation:'h', bgcolor:'rgba(255,255,255,0.0)', bordercolor:'rgba(0,0,0,0)', y: isMobile ? -0.25 : -0.18, x: 0.5, xanchor: 'center', font: { size: isMobile ? 8.5 : 10 }, traceorder: 'reversed', itemsizing: 'constant',},
+        hovermode:'closest',
+        hoverlabel: { bgcolor: "rgba(44, 62, 80, 0.90)", bordercolor: "rgba(44, 62, 80, 0.90)", font: { family: "Inter, sans-serif", size: 11, color: "#ffffff" }},
+        margin:{ l: isMobile ? 45:55, r: isMobile ? 15:20, t: isMobile ? 20:30, b: isMobile ? 75:85}
+    },{responsive:true, displaylogo:false, modeBarButtonsToRemove: ['toImage', 'sendDataToCloud', 'select2d', 'lasso2d', 'autoScale2d', 'resetScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian']});
+}
+
+draw();
+let drawTimeout; function debouncedDraw() { clearTimeout(drawTimeout); drawTimeout = setTimeout(draw, 50); }
+benchContainer.addEventListener("change", debouncedDraw);
+modelContainer.addEventListener("change", debouncedDraw);
+window.addEventListener('resize', debouncedDraw);
+document.querySelectorAll('.dropdown-body').forEach(el=>{ el.addEventListener('click',e=>e.stopPropagation()); });
+
+/* ───────────── 7. Global Click Listener for Dropdowns ───────────────── */
+// (Assuming your other sections are 1-6)
+
+document.addEventListener('click', function(event) {
+    const benchDropdown = document.getElementById('bench-dropdown');
+    const modelDropdown = document.getElementById('model-dropdown');
+
+    // Helper to check if the click was inside a specific dropdown
+    const isClickInsideDropdown = (dropdownElement, eventTarget) => {
+        if (!dropdownElement) return false;
+        return dropdownElement.contains(eventTarget);
+    };
+
+    // Close Benchmark dropdown if click is outside
+    if (benchDropdown && benchDropdown.hasAttribute('open')) {
+        if (!isClickInsideDropdown(benchDropdown, event.target)) {
+            benchDropdown.removeAttribute('open');
+        }
+    }
+
+    // Close Model dropdown if click is outside
+    if (modelDropdown && modelDropdown.hasAttribute('open')) {
+        if (!isClickInsideDropdown(modelDropdown, event.target)) {
+            modelDropdown.removeAttribute('open');
+        }
+    }
+});
+
+// Optional: Prevent clicks inside the dropdown body from closing its own dropdown
+// This was already in your code, but it's good to re-confirm its placement and purpose.
+document.querySelectorAll('.dropdown-body').forEach(el => {
+    el.addEventListener('click', e => e.stopPropagation());
+});
+
+function filterChecklist(inputId, checklistId, isBenchmarkList) {
+    document.getElementById(inputId).addEventListener("input", e => {
+        const query = e.target.value.toLowerCase();
+        const items = document.querySelectorAll(`#${checklistId} .checklist-item`);
+        const headers = document.querySelectorAll(`#${checklistId} .group-header`);
+        let groupVisibility = {};
+        items.forEach(item => {
+            const labelText = item.querySelector('label').textContent.toLowerCase();
+            const isVisible = labelText.includes(query);
+            item.style.display = isVisible ? 'flex' : 'none';
+            if (isVisible && isBenchmarkList) {
+                let current = item.previousElementSibling;
+                while(current && !current.classList.contains('group-header')) current = current.previousElementSibling;
+                if (current && current.dataset.cat) groupVisibility[current.dataset.cat] = true;
+            }
+        });
+        headers.forEach(header => {
+            let headerTextElement = isBenchmarkList ? header.querySelector('label') : header.querySelector('span');
+            const headerText = headerTextElement ? headerTextElement.textContent.toLowerCase() : "";
+            const headerMatchesQuery = headerText.includes(query);
+            if (isBenchmarkList) {
+                const catName = header.dataset.cat;
+                header.style.display = (headerMatchesQuery || groupVisibility[catName] || query === "") ? 'flex' : 'none';
+            } else {
+                let hasVisibleItem = false;
+                let nextElem = header.nextElementSibling;
+                while (nextElem && !nextElem.classList.contains('group-header')) {
+                    if (nextElem.style.display !== 'none') { hasVisibleItem = true; break; }
+                    nextElem = nextElem.nextElementSibling;
+                }
+                header.style.display = (headerMatchesQuery || hasVisibleItem || query === "") ? 'flex' : 'none';
+            }
+        });
+    });
+}
+filterChecklist("benchSearch", "benchmarkChecklist", true);
+filterChecklist("modelSearch", "modelChecklist", false);
+
+});
+</script>
+</body>
+</html>

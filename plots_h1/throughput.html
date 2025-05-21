@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Falcon-H1-34B vs Qwen2.5-32B Throughput Comparison</title>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to bottom, #e4e8f7 0%, #f0f2f9 100%);
+  color: #4a5568;
+  min-height: 80vh; /* Changed from 100vh to allow for some scrolling if needed, and ensure content isn't always stretched full height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px; /* Added horizontal padding for smaller screens */
+  box-sizing: border-box; /* Ensure padding doesn't add to width */
+}
+h1, h2 {
+  margin: 0 0 15px;
+  font-weight: 600;
+  color: #2d3748;
+  text-align: center;
+}
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 25px;
+}
+h2 {
+  font-size: 1.2rem;
+  margin: 0 0 10px;
+}
+.plot-container {
+  width: 100%; /* Allow container to take full width available from body padding */
+  max-width: 1600px;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+.plot-wrapper {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.plot {
+  width: 100%;
+  height: 420px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  box-sizing: border-box;
+}
+.legend-info {
+  width: 100%; /* Allow container to take full width available from body padding */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+}
+.highlight {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 800px) {
+  body {
+    padding: 20px 10px; /* Reduce padding on very small screens */
+  }
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: 1.1rem;
+  }
+  .plot-container {
+    flex-direction: column; /* Stack plots vertically */
+    align-items: center;
+    gap: 20px; /* Adjust gap for vertical stacking */
+  }
+  .plot-wrapper {
+    width: 100%; /* Make each plot take full width */
+    max-width: 600px; /* Optional: constrain max width of stacked plots */
+  }
+  .plot {
+    height: 380px; /* Optionally reduce plot height slightly on smaller screens */
+  }
+  .legend-info {
+    font-size: 0.85rem;
+  }
+}
+</style>
+</head>
+<body>
+<h1>Falcon-H1-34B vs Qwen-2.5-32B Performance Comparison</h1>
+
+<div class="plot-container">
+  <div class="plot-wrapper">
+    <h2>Input Throughput</h2>
+    <div id="inputPlotDiv" class="plot"></div>
+  </div>
+  <div class="plot-wrapper">
+    <h2>Output Throughput</h2>
+    <div id="outputPlotDiv" class="plot"></div>
+  </div>
+</div>
+
+<div class="legend-info">
+  <p>
+    <span class="highlight">Input throughput</span> measures how fast the models process tokens when reading/encoding text. 
+    <span class="highlight">Output throughput</span> measures how fast they generate new tokens. The ratio line shows 
+    <span style="color: #b49bff;">Falcon</span>/<span style="color: #7fb0ff;">Qwen</span> performance comparison at each sequence length.
+  </p>
+</div>
+
+<script>
+/* ─── Shared Constants ─── */
+const seq = [2048, 8192, 16384, 32768, 65536, 131072*2];
+const brand = {
+  'Qwen2.5-32B': '#7fb0ff',
+  'FalconH1-34B': '#b49bff',
+  'ratio': '#64e0c2'
+};
+const markers = ['circle', 'square', 'diamond', 'triangle-up', 'cross', 'x'];
+const dashes = ['solid', 'dash', 'dot', 'dashdot'];
+
+/* ─── Data ─── */
+const inputData = {
+  'Qwen2.5-32B': [2733, 4203, 1982, 1291, 1003, 348],
+  'FalconH1-34B': [1757, 1944, 1883, 2301, 2543, 1354]
+};
+
+const outputData = {
+  'Qwen2.5-32B': [3177, 1117, 442, 220, 75, 5.6],
+  'FalconH1-34B': [2365, 966, 508, 334, 176, 47.4]
+};
+
+// Clean data to avoid zeros for log scale
+for (const k in inputData) { inputData[k] = inputData[k].map(v => v > 0 ? v : 1e-6); }
+for (const k in outputData) { outputData[k] = outputData[k].map(v => v > 0 ? v : 1e-6); }
+
+/* ─── Create Traces Function ─── */
+function createTraces(data, yaxisName = 'y1') {
+  let mi = 0, di = 0; // Initialized each time function is called, ensuring consistent styling
+  const nextM = () => markers[mi++ % markers.length];
+  const nextD = () => dashes[di++ % dashes.length];
+  
+  const traces = [];
+  // Ensure consistent order for ratio calculation by sorting keys if necessary,
+  // or rely on insertion order (which is generally fine for string keys in modern JS for non-integer-like strings)
+  // For this specific data structure, Object.keys(data) will typically yield Qwen then Falcon.
+  const modelKeys = Object.keys(data); 
+
+  for (const m of modelKeys) {
+    traces.push({
+      x: seq,
+      y: data[m],
+      mode: 'lines+markers',
+      name: m,
+      yaxis: yaxisName,
+      line: {
+        color: brand[m], 
+        width: 3, 
+        dash: nextD(), 
+        shape: 'spline'
+      },
+      marker: {
+        symbol: nextM(), 
+        size: 9, 
+        color: brand[m],
+        line: {width: 1, color: '#fff'}
+      }
+    });
+  }
+  
+  return traces;
+}
+
+/* ─── Create Ratio Trace Function ─── */
+function createRatioTrace(data, yaxisName = 'y2') {
+  const keys = Object.keys(data); 
+  // Assuming keys[0] is Qwen (denominator) and keys[1] is Falcon (numerator)
+  // This relies on Object.keys(data) returning ['Qwen2.5-32B', 'FalconH1-34B']
+  // which is true for the current data object initialization.
+  // For more robustness, could explicitly name them:
+  // const ratio = data['FalconH1-34B'].map((v, i) => v / (data['Qwen2.5-32B'][i] + 1e-9));
+
+  const ratio = data[keys[1]].map((v, i) => 
+    v / (data[keys[0]][i] + 1e-9) // Add small epsilon to avoid division by zero if data[keys[0]][i] became zero
+  );
+  
+  return {
+    x: seq,
+    y: ratio,
+    mode: 'lines+markers',
+    yaxis: yaxisName,
+    name: 'Falcon/Qwen Ratio',
+    line: {
+      color: brand.ratio, 
+      width: 3, 
+      dash: 'dot', 
+      shape: 'spline'
+    },
+    marker: {
+      symbol: 'diamond', 
+      size: 10, 
+      color: brand.ratio,
+      line: {width: 1, color: '#fff'}
+    }
+  };
+}
+
+/* ─── Layout Configuration ─── */
+function createLayout(yAxisTitle, y2AxisRange) { // Removed unused 'title' parameter
+  const gridColor = 'rgba(74,85,104,0.12)';
+  
+  return {
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: {family: 'Segoe UI, sans-serif', color: '#4a5568'},
+    margin: {l: 65, r: 65, t: 20, b: 80}, // Adjusted margins slightly
+    hovermode: 'x unified',
+    xaxis: {
+      title: 'Sequence length',
+      type: 'log',
+      tickmode: 'array',
+      tickvals: [2048, 8192, 16384, 32768, 65536, 131072*2],
+      ticktext: ['2048', '8192', '16384', '32k', '65k', '262k'],
+      gridcolor: gridColor,
+      linecolor: '#4a5568',
+      showline: true,
+      zeroline: false
+    },
+    yaxis: {
+      title: yAxisTitle, // Use passed parameter
+      type: 'log',
+      dtick: 1, // Ensures major tick lines are shown for every power of 10 on log scale
+      gridcolor: gridColor,
+      minor: {showgrid: false}, // Explicitly hide minor grid lines for y-axis if desired
+      linecolor: '#4a5568',
+      showline: true,
+      zeroline: false
+    },
+    yaxis2: {
+      title: 'Falcon / Qwen',
+      overlaying: 'y',
+      side: 'right',
+      range: y2AxisRange, // Use passed parameter
+      tickfont: {color: brand.ratio},
+      titlefont: {color: brand.ratio},
+      gridcolor: 'rgba(0,0,0,0)', // Hide gridlines for yaxis2 to avoid clutter
+      linecolor: brand.ratio, // Color yaxis2 line to match ratio trace
+      showline: true,
+      zeroline: false
+    },
+    legend: {
+      orientation: 'h',
+      x: 0.5, y: -0.28, // Adjusted y slightly for potentially more space with x-axis title
+      xanchor: 'center',
+      yanchor: 'top',
+      bgcolor: 'rgba(0,0,0,0)',
+      borderwidth: 0,
+      font: {size: 12}
+    },
+    shapes: [{ // Horizontal line at ratio = 1
+      type: 'line', xref: 'paper', x0: 0, x1: 1, // Spans full width of plot
+      yref: 'y2', y0: 1, y1: 1, // At y=1 on the yaxis2
+      line: {color: brand.ratio, width: 1, dash: 'dash'}
+    }]
+  };
+}
+
+/* ─── Create Input Plot Traces ─── */
+const inputTraces = createTraces(inputData);
+inputTraces.push(createRatioTrace(inputData));
+
+/* ─── Create Output Plot Traces ─── */
+const outputTraces = createTraces(outputData);
+outputTraces.push(createRatioTrace(outputData));
+
+/* ─── Render Plots ─── */
+window.onload = function() {
+  const inputLayout = createLayout('Input Throughput (tokens/s)', [0, 4]);
+  Plotly.newPlot('inputPlotDiv', inputTraces, inputLayout, {responsive: true, displayModeBar: false});
+  
+  const outputLayout = createLayout('Output Throughput (tokens/s)', [0, 9]);
+  Plotly.newPlot('outputPlotDiv', outputTraces, outputLayout, {responsive: true, displayModeBar: false});
+};
+</script>
+</body>
+</html>
