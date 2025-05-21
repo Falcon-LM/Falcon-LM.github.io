@@ -281,7 +281,7 @@ To give you a hands-on feel for what Falcon-Arabic can do, we built a simple dem
   margin: 1rem 0;
   justify-content: center;
 ">
-  <a href="https://chat.falconllm.tii.ae" target="_blank" style="
+  <a href="https://chat.falconllm.tii.ae/?model=Falcon-Arabic" target="_blank" style="
     flex: 1 1 200px;
     background-color: #f5f0ff;
     border: none;
