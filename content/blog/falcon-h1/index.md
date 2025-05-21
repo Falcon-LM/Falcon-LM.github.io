@@ -30,7 +30,6 @@ contributors:
         - name: Younes Belkada
         - name: Dhia Eddine Rhayem
         - name: Guillaume Kunsch
-        - name: Hakim Hacid
     additional:
         - name: Falcon LLM team 
 ---
