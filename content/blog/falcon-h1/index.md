@@ -1,6 +1,6 @@
 ---
 title: "Falcon-H1: A Family of Hybrid-Head Language Models Redefining Efficiency and Performance"
-date: 2025-05-21T12:00:00Z # todo update
+date: 2025-05-20T12:00:00Z # todo update
 weight: 1
 math: true
 # search_hidden: false # to hide from search page
@@ -24,7 +24,15 @@ header:
     blur: true
 contributors:
     core:
-        - name: Falcon LLM team
+        - name: Jingwei Zuo
+        - name: Maksim Velikanov
+        - name: Ilyas Chahed
+        - name: Younes Belkada
+        - name: Dhia Eddine Rhayem
+        - name: Guillaume Kunsch
+        - name: Hakim Hacid
+    additional:
+        - name: Falcon LLM team 
 ---
 
 <style>
