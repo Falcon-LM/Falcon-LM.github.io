@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Instruct-Model Frontier – Perf vs Size</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<style>
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 1rem;
+    background: radial-gradient(ellipse at top, #0e1129, #050509 90%);
+    color: #eee;
+  }
+  #model-comparison-chart {
+    width: 100%;
+    height: 550px;
+    box-shadow: 0 0 20px rgba(80, 200, 255, 0.2);
+    border-radius: 12px;
+  }
+</style>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+<div id="model-comparison-chart"></div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const data = [
+    {model:"Falcon-H1-500M",size:0.5 ,perf:25.35,group:"Falcon-H1"},
+    {model:"Falcon-H1-1.5B",size:1.5 ,perf:32.5 ,group:"Falcon-H1"},
+    {model:"Falcon-H1-1.5B-deep",size:1.5 ,perf:37.8 ,group:"Falcon-H1"},
+    {model:"Falcon-H1-3B",size:3 ,perf:37.8 ,group:"Falcon-H1"},
+    {model:"Falcon-H1-7B",size:7 ,perf:43.9 ,group:"Falcon-H1"},
+    {model:"Falcon-H1-34B",size:34 ,perf:51.1 ,group:"Falcon-H1"},
+    {model:"Qwen3-0.6B",size:0.6,perf:16.2 ,group:"Qwen3"},
+    {model:"Qwen3-1.7B",size:1.7,perf:24.1 ,group:"Qwen3"},
+    {model:"Qwen3-4B" ,size:4 ,perf:34 ,group:"Qwen3"},
+    {model:"Qwen3-8B" ,size:8 ,perf:33.7 ,group:"Qwen3"},
+    {model:"Qwen3-14B",size:14 ,perf:38.5 ,group:"Qwen3"},
+    {model:"Qwen3-32B",size:32 ,perf:42.54,group:"Qwen3"},
+    {model:"Gemma3-1B",size:1,perf:16.54 ,group:"Gemma3"},
+    {model:"Gemma3-4B" ,size:4 ,perf:30 ,group:"Gemma3"},
+    {model:"Gemma3-12B" ,size:12 ,perf:40.3 ,group:"Gemma3"},
+    {model:"Gemma3-27B",size:27 ,perf:44.7 ,group:"Gemma3"},
+    {model:"Falcon3-7B",size:7 ,perf:36.4 ,group:"Falcon"},
+    {model:"Falcon3-10B",size:10,perf:35.48,group:"Falcon"},
+    {model:"Falcon3-1B" ,size:1 ,perf:16.16,group:"Falcon"}
+  ];
+
+  const colours = {
+    Qwen3:'#00bfff',
+    Gemma3:'#ff00cc',
+    Falcon:'#33ffcc',
+    'Falcon-H1':'#9a66ff'
+  };
+
+  const traces = [];
+
+  const families = [...new Set(data.map(d => d.group))].filter(g => g !== 'Falcon-H1');
+  families.forEach(f => {
+    const pts = data.filter(d => d.group === f).sort((a, b) => a.size - b.size);
+    traces.push({
+      x: pts.map(d => d.size),
+      y: pts.map(d => d.perf),
+      text: pts.map(d => d.model),
+      mode: 'lines+markers',
+      name: f,
+      marker: {
+        symbol: 'circle',
+        size: pts.map(d => 8 + Math.log10(d.size + 1) * 4),
+        color: colours[f],
+        line: { color: '#111', width: 1.2 }
+      },
+      line: { color: colours[f], width: 2 },
+      hovertemplate: '<b>%{text}</b><br>Size (B): %{x}<br>Score: %{y}<extra></extra>'
+    });
+  });
+
+  const falconMain = data.filter(
+    d => d.group === 'Falcon-H1' && d.model !== 'Falcon-H1-1.5B-deep'
+  ).sort((a, b) => a.size - b.size);
+
+  traces.push({
+    x: falconMain.map(d => d.size),
+    y: falconMain.map(d => d.perf),
+    text: falconMain.map(d => d.model),
+    mode: 'lines+markers',
+    name: 'Falcon-H1',
+    marker: {
+      symbol: 'star',
+      size: falconMain.map(d => 10 + Math.log10(d.size + 1) * 4),
+      color: colours['Falcon-H1'],
+      line: { color: '#fff', width: 1.4 }
+    },
+    line: { color: colours['Falcon-H1'], width: 2.4 },
+    hovertemplate: '<b>%{text}</b><br>Size (B): %{x}<br>Score: %{y}<extra></extra>'
+  });
+
+  const deep = data.find(d => d.model === 'Falcon-H1-1.5B-deep');
+  traces.push({
+    x: [deep.size],
+    y: [deep.perf],
+    text: [deep.model],
+    mode: 'markers',
+    showlegend: false,
+    marker: {
+      symbol: 'star',
+      size: 18,
+      color: '#ffffff',
+      line: { color: colours['Falcon-H1'], width: 3 }
+    },
+    hovertemplate: '<b>%{text}</b><br>Size (B): %{x}<br>Score: %{y}<extra></extra>'
+  });
+
+  Plotly.newPlot('model-comparison-chart', traces, {
+    title: {
+      text: '⚡ Instruct Models – Performance vs Size',
+      font: { size: 24, color: '#00f0ff' }
+    },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    xaxis: {
+      title: { text: 'Parameters (billions)', font: { color: '#aaa' } },
+      type: 'log',
+      tickvals: [0.25,0.5,1,2,4,8,16,32,64,128],
+      ticktext: ['0.25','0.5','1','2','4','8','16','32','64','128'],
+      gridcolor: 'rgba(255,255,255,0.08)',
+      zeroline: false,
+      color: '#ccc'
+    },
+    yaxis: {
+      title: { text: 'Open-LLM Leaderboard Avg', font: { color: '#aaa' } },
+      range: [0, 55],
+      gridcolor: 'rgba(255,255,255,0.08)',
+      zeroline: false,
+      color: '#ccc'
+    },
+    legend: {
+      orientation: 'h',
+      bgcolor: 'rgba(0,0,0,0)',
+      font: { color: '#aaa' },
+      y: -0.2
+    },
+    hovermode: 'closest',
+    margin: { l: 60, r: 30, t: 80, b: 80 }
+  }, { responsive: true, displaylogo: false });
+});
+</script>
+</body>
+</html>
