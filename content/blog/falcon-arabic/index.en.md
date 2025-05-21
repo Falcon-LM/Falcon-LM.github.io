@@ -41,7 +41,7 @@ contributors:
         - name: Mohammed Alyafeai
           image: img/contributors/alyafeai.jpg
         - name: Ahmed Alzubaidi
-          image: img/contributors/ahmed_alzubaidi.jpg
+          image: img/contributors/ahmed_adel_alzubaidi.jpg
         - name: Leen AlQadi
           image: img/contributors/leen.png
         - name: Younes Belkada
@@ -49,7 +49,7 @@ contributors:
         - name: Mikhail Lubinets
           image: img/contributors/mikhail_lubinets.jpg
         - name: Hakim Hacid
-          image: img/contributors/hakim.png
+          image: img/contributors/hakim_hacid.png
 ---
 
 
@@ -72,7 +72,7 @@ With this goal in mind, we’re introducing **Falcon-Arabic** a specialized adap
 </div>
 
 
-## 🧪 Falcon-Arabic Has Landed - Here’s the Training Recipe
+## 🦅 Falcon-Arabic Has Landed - Here’s the Training Recipe 🧪
 
 Building Falcon-Arabic started with a strategic decision: rather than training a model from scratch, we chose to adapt a strong multilingual foundation. In the Arabic LLM landscape, three main approaches exist: training from scratch (e.g., Jais-native), adapting multilingual models (like Allam or Fanar), or using models that natively support Arabic alongside other languages (such as Qwen or LLaMA). Observing the [Open Arabic LLM Leaderboard](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard), it became clear that adapted and multilingual models consistently outperformed others in both efficiency and capability. To build on that momentum, we selected **Falcon 3-7B**, a model that strikes a practical balance between performance and resource efficiency within the Falcon 3 family developed by the **Technology Innovation Institute (TII)**.
 
@@ -187,7 +187,7 @@ To further enhance alignment, we applied **Direct Preference Optimization (DPO)*
     {"category": "Average", "model": "ALLaM-7B-Instruct-preview", "value": 0.6525},
     {"category": "Average", "model": "Yehia-7B-preview", "value": 0.6568},
     {"category": "Average", "model": "Qwen2-7B-Instruct", "value": 0.6361},
-    {"category": "Average", "model": "Falcon-Arabic-7B-Instruct", "value": 0.683}
+    {"category": "Average", "model": "Falcon-Arabic-7B-Instruct", "value": 0.6808}
 ]
 {{< /barplot_vertical >}}
 
@@ -202,43 +202,43 @@ As shown in the results plots, **Falcon-Arabic Instruct leads the pack**, outper
     {"category": "ALGhafa", "model": "ALLaM-7B-Instruct-preview", "value": 0.6949},
     {"category": "ALGhafa", "model": "Yehia-7B-preview", "value": 0.7081000000000001},
     {"category": "ALGhafa", "model": "Qwen2-7B-Instruct", "value": 0.7323999999999999},
-    {"category": "ALGhafa", "model": "Falcon-Arabic-7B-Instruct", "value": 0.7237},
+    {"category": "ALGhafa", "model": "Falcon-Arabic-7B-Instruct", "value": 0.724033370817286},
     {"category": "ArabicMMLU", "model": "aya-expanse-32b", "value": 0.6063000000000001},
     {"category": "ArabicMMLU", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.5934},
     {"category": "ArabicMMLU", "model": "ALLaM-7B-Instruct-preview", "value": 0.649},
     {"category": "ArabicMMLU", "model": "Yehia-7B-preview", "value": 0.649},
     {"category": "ArabicMMLU", "model": "Qwen2-7B-Instruct", "value": 0.6001},
-    {"category": "ArabicMMLU", "model": "Falcon-Arabic-7B-Instruct", "value": 0.6827},
+    {"category": "ArabicMMLU", "model": "Falcon-Arabic-7B-Instruct", "value": 0.682331855997309},
     {"category": "Exams", "model": "aya-expanse-32b", "value": 0.5102},
     {"category": "Exams", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6498999999999999},
     {"category": "Exams", "model": "ALLaM-7B-Instruct-preview", "value": 0.5158},
     {"category": "Exams", "model": "Yehia-7B-preview", "value": 0.5214},
     {"category": "Exams", "model": "Qwen2-7B-Instruct", "value": 0.473},
-    {"category": "Exams", "model": "Falcon-Arabic-7B-Instruct", "value": 0.5345},
+    {"category": "Exams", "model": "Falcon-Arabic-7B-Instruct", "value": 0.532588454376163},
     {"category": "MadinahQA", "model": "aya-expanse-32b", "value": 0.5345},
     {"category": "MadinahQA", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6384000000000001},
     {"category": "MadinahQA", "model": "ALLaM-7B-Instruct-preview", "value": 0.5424},
     {"category": "MadinahQA", "model": "Yehia-7B-preview", "value": 0.5437},
     {"category": "MadinahQA", "model": "Qwen2-7B-Instruct", "value": 0.595},
-    {"category": "MadinahQA", "model": "Falcon-Arabic-7B-Instruct", "value": 0.7363},
+    {"category": "MadinahQA", "model": "Falcon-Arabic-7B-Instruct", "value": 0.729505774912704},
     {"category": "AraTrust", "model": "aya-expanse-32b", "value": 0.89},
     {"category": "AraTrust", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.8047},
     {"category": "AraTrust", "model": "ALLaM-7B-Instruct-preview", "value": 0.8693000000000001},
     {"category": "AraTrust", "model": "Yehia-7B-preview", "value": 0.8748999999999999},
     {"category": "AraTrust", "model": "Qwen2-7B-Instruct", "value": 0.8277},
-    {"category": "AraTrust", "model": "Falcon-Arabic-7B-Instruct", "value": 0.8262},
+    {"category": "AraTrust", "model": "Falcon-Arabic-7B-Instruct", "value": 0.825389146267096},
     {"category": "ALRAGE", "model": "aya-expanse-32b", "value": 0.7964},
     {"category": "ALRAGE", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.759},
     {"category": "ALRAGE", "model": "ALLaM-7B-Instruct-preview", "value": 0.7681},
     {"category": "ALRAGE", "model": "Yehia-7B-preview", "value": 0.7664},
     {"category": "ALRAGE", "model": "Qwen2-7B-Instruct", "value": 0.7112999999999999},
-    {"category": "ALRAGE", "model": "Falcon-Arabic-7B-Instruct", "value": 0.7226},
+    {"category": "ALRAGE", "model": "Falcon-Arabic-7B-Instruct", "value": 0.717711301044635},
     {"category": "ArbMMLU-HT", "model": "aya-expanse-32b", "value": 0.5886},
     {"category": "ArbMMLU-HT", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.5014},
     {"category": "ArbMMLU-HT", "model": "ALLaM-7B-Instruct-preview", "value": 0.5281},
     {"category": "ArbMMLU-HT", "model": "Yehia-7B-preview", "value": 0.534},
     {"category": "ArbMMLU-HT", "model": "Qwen2-7B-Instruct", "value": 0.513},
-    {"category": "ArbMMLU-HT", "model": "Falcon-Arabic-7B-Instruct", "value": 0.5547}
+    {"category": "ArbMMLU-HT", "model": "Falcon-Arabic-7B-Instruct", "value": 0.553732273891484}
 ]
 {{< /barplot_vertical >}}
 
@@ -254,7 +254,7 @@ As shown in the results plots, **Falcon-Arabic Instruct leads the pack**, outper
 | ALLaM-7B-Instruct-preview       | 65.25 |    69.49 |   76.81 |     86.93 |       64.90 |       52.81 |  51.58 |      54.24 |
 | Yehia-7B-preview                | 65.68 |    70.81 |   76.64 |     87.49 |       64.90 |       53.40 |  52.14 |      54.37 |
 | Qwen2-7B-Instruct               | 63.61 |    73.24 |   71.13 |     82.77 |       60.01 |       51.30 |  47.30 |      59.50 |
-| **Falcon-Arabic-7B-Instruct**       | <u>68.30 |    72.37 |   72.26 |     82.62 |       <u>68.27 |       55.47 |  53.45 |      <u>73.63 |
+| **Falcon-Arabic-7B-Instruct**       | <u>68.03 |    72.40 | 71.77  |     82.54 |       <u>68.23 |       55.37 |  53.25 |      <u>72.95 |
 {{< rawhtml >}}</div> {{< /rawhtml >}}
 <!-- </details> -->
 
@@ -262,7 +262,7 @@ As shown in the results plots, **Falcon-Arabic Instruct leads the pack**, outper
 
 Falcon-Arabic sets a new benchmark for Arabic language models. With only 7B parameters, it delivers state-of-the-art performance outperforming models of similar size and even those several times larger across key benchmarks like Arabic MMLU, MadinahQA, and Aratrust. It combines fluency in Modern Standard Arabic, strong understanding of regional dialects, and robust reasoning and multilingual capabilities, making it ideal for a wide range of applications: from Arabic-first chatbots and educational tools to content generation, code assistance, and document understanding. 
 
-To give you a hands-on feel for what Falcon-Arabic can do, we built a simple demo that showcases its capabilities in **machine translation** even though the model hasn’t been fine-tuned specifically for that task. The tool runs purely on **Falcon-3B-Arabic-Instruct**, and the results are surprisingly strong across various translation directions. You can try it yourself through the demo linked just below. In fact, we used the same setup to translate this blog post into Arabic for our Arabic-speaking audience. Check it out [here](https://falcon-lm.github.io/ar/blog/falcon-arabic/) 🚀. And if you're curious to explore more, we also provide access to a live [playground](https://chat.falconllm.tii.ae) where you can interact with Falcon-Arabic Instruct and experience its performance across different tasks ✨.
+To give you a hands-on feel for what Falcon-Arabic can do, we built a simple demo that showcases its capabilities in **machine translation** even though the model hasn’t been fine-tuned specifically for that task. The tool runs purely on **Falcon-7B-Arabic-Instruct**, and the results are surprisingly strong across various translation directions. You can try it yourself through the demo linked just below. In fact, we used the same setup to translate this blog post into Arabic for our Arabic-speaking audience. Check it out [here](https://falcon-lm.github.io/ar/blog/falcon-arabic/) 🚀. And if you're curious to explore more, we also provide access to a live [playground](https://chat.falconllm.tii.ae) where you can interact with Falcon-Arabic Instruct and experience its performance across different tasks ✨.
 
 {{< rawhtml >}}
 

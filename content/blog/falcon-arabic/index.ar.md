@@ -42,7 +42,7 @@ contributors:
         - name: Mohammed Alyafeai
           image: img/contributors/alyafeai.jpg
         - name: Ahmed Alzubaidi
-          image: img/contributors/ahmed_alzubaidi.jpg
+          image: img/contributors/ahmed_adel_alzubaidi.jpg
         - name: Leen AlQadi
           image: img/contributors/leen.png
         - name: Younes Belkada
@@ -50,7 +50,7 @@ contributors:
         - name: Mikhail Lubinets
           image: img/contributors/mikhail_lubinets.jpg
         - name: Hakim Hacid
-          image: img/contributors/hakim.png
+          image: img/contributors/hakim_hacid.png
 ---
 <div dir="rtl" class="translation-notice">
   <p>
@@ -84,7 +84,7 @@ contributors:
   <img src="{{ .RelPermalink }}radar.png" alt="Pretrained models performance" style="width: 100%; max-width: 800px; height: auto;">
 </div> -->
 
-## 🧪 Falcon-Arabic قد حطّ رحاله  - إليكم وصفة التدريب
+## 🦅 Falcon-Arabic قد حطّ رحاله  - إليكم وصفة التدريب 🧪
 
 بدأ بناء Falcon-Arabic بقرار استراتيجي: بدلاً من تدريب نموذج من الصفر، اخترنا تكييف أساس متعدد اللغات قوي. وفي مشهد نماذج اللغة العربية، هناك ثلاث طرق رئيسية: التدريب من الصفر (على سبيل المثال، Jais-native)، تكييف النماذج متعددة اللغات (مثل Allam أو Fanar)، أو استخدام نماذج تدعم اللغة العربية ضمن مجموعة من اللغات الأخرى (مثل Qwen أو LLaMA). عند النظر إلى [لوحة صدارة النماذج العربية المفتوحة](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard)، أصبح من الواضح أن النماذج المتكيفة والمتعددة اللغات تفوقت باستمرار على غيرها من حيث الكفاءة والقدرة. للاستفادة من هذا الزخم، قمنا باختيار Falcon 3-7B، وهو نموذج يحقق توازن عملي بين الأداء وكفاءة الموارد ضمن عائلة Falcon 3 المطورة من قبل معهد الابتكار التكنولوجي (TII).
 
@@ -203,7 +203,7 @@ contributors:
     {"category": "Average", "model": "ALLaM-7B-Instruct-preview", "value": 0.6525},
     {"category": "Average", "model": "Yehia-7B-preview", "value": 0.6568},
     {"category": "Average", "model": "Qwen2-7B-Instruct", "value": 0.6361},
-    {"category": "Average", "model": "Falcon-Arabic-7B-Instruct", "value": 0.683}
+    {"category": "Average", "model": "Falcon-Arabic-7B-Instruct", "value": 0.6808}
 ]
 {{< /barplot_vertical >}}
 
@@ -218,46 +218,45 @@ contributors:
     {"category": "ALGhafa", "model": "ALLaM-7B-Instruct-preview", "value": 0.6949},
     {"category": "ALGhafa", "model": "Yehia-7B-preview", "value": 0.7081000000000001},
     {"category": "ALGhafa", "model": "Qwen2-7B-Instruct", "value": 0.7323999999999999},
-    {"category": "ALGhafa", "model": "Falcon-Arabic-7B-Instruct", "value": 0.7237},
+    {"category": "ALGhafa", "model": "Falcon-Arabic-7B-Instruct", "value": 0.724033370817286},
     {"category": "ArabicMMLU", "model": "aya-expanse-32b", "value": 0.6063000000000001},
     {"category": "ArabicMMLU", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.5934},
     {"category": "ArabicMMLU", "model": "ALLaM-7B-Instruct-preview", "value": 0.649},
     {"category": "ArabicMMLU", "model": "Yehia-7B-preview", "value": 0.649},
     {"category": "ArabicMMLU", "model": "Qwen2-7B-Instruct", "value": 0.6001},
-    {"category": "ArabicMMLU", "model": "Falcon-Arabic-7B-Instruct", "value": 0.6827},
+    {"category": "ArabicMMLU", "model": "Falcon-Arabic-7B-Instruct", "value": 0.682331855997309},
     {"category": "Exams", "model": "aya-expanse-32b", "value": 0.5102},
     {"category": "Exams", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6498999999999999},
     {"category": "Exams", "model": "ALLaM-7B-Instruct-preview", "value": 0.5158},
     {"category": "Exams", "model": "Yehia-7B-preview", "value": 0.5214},
     {"category": "Exams", "model": "Qwen2-7B-Instruct", "value": 0.473},
-    {"category": "Exams", "model": "Falcon-Arabic-7B-Instruct", "value": 0.5345},
+    {"category": "Exams", "model": "Falcon-Arabic-7B-Instruct", "value": 0.532588454376163},
     {"category": "MadinahQA", "model": "aya-expanse-32b", "value": 0.5345},
     {"category": "MadinahQA", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.6384000000000001},
     {"category": "MadinahQA", "model": "ALLaM-7B-Instruct-preview", "value": 0.5424},
     {"category": "MadinahQA", "model": "Yehia-7B-preview", "value": 0.5437},
     {"category": "MadinahQA", "model": "Qwen2-7B-Instruct", "value": 0.595},
-    {"category": "MadinahQA", "model": "Falcon-Arabic-7B-Instruct", "value": 0.7363},
+    {"category": "MadinahQA", "model": "Falcon-Arabic-7B-Instruct", "value": 0.729505774912704},
     {"category": "AraTrust", "model": "aya-expanse-32b", "value": 0.89},
     {"category": "AraTrust", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.8047},
     {"category": "AraTrust", "model": "ALLaM-7B-Instruct-preview", "value": 0.8693000000000001},
     {"category": "AraTrust", "model": "Yehia-7B-preview", "value": 0.8748999999999999},
     {"category": "AraTrust", "model": "Qwen2-7B-Instruct", "value": 0.8277},
-    {"category": "AraTrust", "model": "Falcon-Arabic-7B-Instruct", "value": 0.8262},
+    {"category": "AraTrust", "model": "Falcon-Arabic-7B-Instruct", "value": 0.825389146267096},
     {"category": "ALRAGE", "model": "aya-expanse-32b", "value": 0.7964},
     {"category": "ALRAGE", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.759},
     {"category": "ALRAGE", "model": "ALLaM-7B-Instruct-preview", "value": 0.7681},
     {"category": "ALRAGE", "model": "Yehia-7B-preview", "value": 0.7664},
     {"category": "ALRAGE", "model": "Qwen2-7B-Instruct", "value": 0.7112999999999999},
-    {"category": "ALRAGE", "model": "Falcon-Arabic-7B-Instruct", "value": 0.7226},
+    {"category": "ALRAGE", "model": "Falcon-Arabic-7B-Instruct", "value": 0.717711301044635},
     {"category": "ArbMMLU-HT", "model": "aya-expanse-32b", "value": 0.5886},
     {"category": "ArbMMLU-HT", "model": "c4ai-command-r7b-arabic-02-2025", "value": 0.5014},
     {"category": "ArbMMLU-HT", "model": "ALLaM-7B-Instruct-preview", "value": 0.5281},
     {"category": "ArbMMLU-HT", "model": "Yehia-7B-preview", "value": 0.534},
     {"category": "ArbMMLU-HT", "model": "Qwen2-7B-Instruct", "value": 0.513},
-    {"category": "ArbMMLU-HT", "model": "Falcon-Arabic-7B-Instruct", "value": 0.5547}
+    {"category": "ArbMMLU-HT", "model": "Falcon-Arabic-7B-Instruct", "value": 0.553732273891484}
 ]
 {{< /barplot_vertical >}}
-
 
 ### جدول مقارنة نماذج المحادثة
 
@@ -272,7 +271,7 @@ contributors:
 | ALLaM-7B-Instruct-preview       | 65.25 |    69.49 |   76.81 |     86.93 |       64.90 |       52.81 |  51.58 |      54.24 |
 | Yehia-7B-preview                | 65.68 |    70.81 |   76.64 |     87.49 |       64.90 |       53.40 |  52.14 |      54.37 |
 | Qwen2-7B-Instruct               | 63.61 |    73.24 |   71.13 |     82.77 |       60.01 |       51.30 |  47.30 |      59.50 |
-| **Falcon-Arabic-7B-Instruct**       | <u>68.30 |    72.37 |   72.26 |     82.62 |       <u>68.27 |       55.47 |  53.45 |      <u>73.63 |
+| **Falcon-Arabic-7B-Instruct**       | <u>68.03 |    72.40 | 71.77  |     82.54 |       <u>68.23 |       55.37 |  53.25 |      <u>72.95 |
 {{< rawhtml >}}</div> {{< /rawhtml >}}
 <!-- </details> -->
 
@@ -281,7 +280,7 @@ contributors:
 
 يتحدى **Falcon-Arabic** المعايير فيما يتعلق بنماذج اللغة العربية. رغم أنه 7 مليار معامل، فإنه يقدم أداءً قياسياً يتفوق على النماذج المماثلة في الحجم وحتى تلك الأكبر بعدة مرات عبر مؤشرات أساسية مثل Arabic MMLU،  MadinahQA، وAratrust. يجمع بين الطلاقة في اللغة العربية القياسية الحديثة والفهم القوي للهجات الإقليمية والقدرات الاستنباطية والمتعددة اللغات، مما يجعله مثاليًا لمجموعة واسعة من التطبيقات: بدءًا من روبوتات المحادثة التي تركز على اللغة العربية والأدوات التعليمية، والأدوات التعليمية، إلى توليد المحتوى، والمساعدة في البرمجة، وفهم المستندات.
 
-لإعطائك فكرة عملية عما يمكن أن يفعله Falcon-Arabic ، قمنا ببناء عرض بسيط يُظهر قدراته في "الترجمة" رغم أن النموذج لم يتم ضبطه خصيصًا لهذا الغرض. تعمل الأداة بالكامل باستخدام "Falcon-3B-Arabic-Instruct"، والنتائج ممتازة عبر مختلف اتجاهات الترجمة. يمكنك تجربتها بنفسك من خلال العرض التجريبي المُشار إليه أدناه. لقد استخدمنا نفس الإعداد لترجمة هذا المنشور بالمدونة إلى اللغة العربية للجمهور الناطق بها 🚀. وإذا كنت ترغب في استكشاف المزيد ، فإننا نوفر أيضًا منصة تمكنك من التفاعل مع Falcon-Arabic Instruct وتجربة أدائه عبر مهام مختلفة ✨.
+لإعطائك فكرة عملية عما يمكن أن يفعله Falcon-Arabic ، قمنا ببناء عرض بسيط يُظهر قدراته في "الترجمة" رغم أن النموذج لم يتم ضبطه خصيصًا لهذا الغرض. تعمل الأداة بالكامل باستخدام "Falcon-7B-Arabic-Instruct"، والنتائج ممتازة عبر مختلف اتجاهات الترجمة. يمكنك تجربتها بنفسك من خلال العرض التجريبي المُشار إليه أدناه. لقد استخدمنا نفس الإعداد لترجمة هذا المنشور بالمدونة إلى اللغة العربية للجمهور الناطق بها 🚀. وإذا كنت ترغب في استكشاف المزيد ، فإننا نوفر أيضًا منصة تمكنك من التفاعل مع Falcon-Arabic Instruct وتجربة أدائه عبر مهام مختلفة ✨.
 
 {{< rawhtml >}}
 
