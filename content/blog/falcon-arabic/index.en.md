@@ -31,7 +31,7 @@ cover:
     responsive_images: true
 header:
 #   background: "" # background css value
-    background_image: "cover.png"
+    background_image: "/img/falcon_arabic_cover.png"
     gradient: true
     blur: true
 contributors:
