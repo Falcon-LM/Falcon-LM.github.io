@@ -41,6 +41,15 @@
     </item>
     
     <item>
+      <title>Falcon-Arabic: A Breakthrough in Arabic Language Models</title>
+      <link>https://falcon-lm.github.io/blog/falcon-arabic/</link>
+      <pubDate>Mon, 19 May 2025 12:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/blog/falcon-arabic/</guid>
+      <description>&lt;p&gt;We are excited to introduce &lt;strong&gt;Falcon-Arabic&lt;/strong&gt;, a 7B parameter language model that sets a new benchmark for Arabic NLP. Built on the Falcon 3 architecture, Falcon-Arabic is a multilingual model that supports Arabic, English, and several other languages. It excels in general knowledge, Arabic grammar, mathematical reasoning, complex problem solving, and understanding the rich diversity of Arabic dialects. Falcon-Arabic supports a context length of 32,000 tokens, allowing it to handle long documents and enabling advanced applications like retrieval-augmented generation (RAG), in-depth content creation, and knowledge-intensive tasks.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Falcon-Edge: A series of powerful, universal, fine-tunable 1.58bit language models.</title>
       <link>https://falcon-lm.github.io/blog/falcon-edge/</link>
       <pubDate>Thu, 15 May 2025 12:00:00 +0000</pubDate>

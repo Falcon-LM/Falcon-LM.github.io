@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Blogs on Falcon</title>
+    <link>https://falcon-lm.github.io/ar/blog/</link>
+    <description>Recent content in Blogs on Falcon</description>
+    <image>
+      <url>https://falcon-lm.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://falcon-lm.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ar</language>
+    <lastBuildDate>Sat, 17 May 2025 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/ar/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Falcon-Arabic: نقلة نوعية في نماذج اللغة العربية</title>
+      <link>https://falcon-lm.github.io/ar/blog/falcon-arabic/</link>
+      <pubDate>Sat, 17 May 2025 12:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/ar/blog/falcon-arabic/</guid>
+      <description>&lt;div dir=&#34;rtl&#34; class=&#34;translation-notice&#34;&gt;
+  &lt;p&gt;
+    تنبيه: تم ترجمة هذا المقال بواسطة &lt;span class=&#34;llm-name&#34;&gt;Falcon-Arabic&lt;/span&gt; 🦅
+  &lt;/p&gt;
+&lt;/div&gt;
+&lt;div dir=&#34;rtl&#34;&gt;
+&lt;p&gt;نحن متحمسون للإعلان عن Falcon-Arabic، نموذج لغوي كبير يحتوي على 7 مليار معامل ويعد معيارًا جديدًا لمعالجة اللغة العربية طبيعيًا. مبني على بنية Falcon 3 المتعددة اللغات، يدعم Falcon-Arabic اللغة العربية واللغة الإنجليزية وعدد من اللغات الأخرى. يتفوق في المعرفة العامة والقواعد النحوية العربية والاستدلال الرياضي وحل المشاكل المعقدة وفهم تنوع اللهجات العربية.&lt;/p&gt;
+&lt;p&gt;يدعم Falcon-Arabic  طول سياق بمقدار 32 ألف رمز  (token)، مما يمكنه من التعامل مع الوثائق الطويلة، وتمكين تطبيقات متقدمة مثل توليد المحتوى المدعوم بالاسترجاع (RAG)، وإنشاء محتوى عميق، والمهام المعرفية.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
