@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Blogs on Falcon</title>
+    <title>Blog on Falcon</title>
     <link>https://falcon-lm.github.io/ar/blog/</link>
-    <description>Recent content in Blogs on Falcon</description>
+    <description>Recent content in Blog on Falcon</description>
     <image>
       <url>https://falcon-lm.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://falcon-lm.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>ar</language>
-    <lastBuildDate>Sat, 17 May 2025 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/ar/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 May 2025 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/ar/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Falcon-Arabic: نقلة نوعية في نماذج اللغة العربية</title>
       <link>https://falcon-lm.github.io/ar/blog/falcon-arabic/</link>
-      <pubDate>Sat, 17 May 2025 12:00:00 +0000</pubDate>
+      <pubDate>Wed, 21 May 2025 12:00:00 +0000</pubDate>
       
       <guid>https://falcon-lm.github.io/ar/blog/falcon-arabic/</guid>
       <description>&lt;div dir=&#34;rtl&#34; class=&#34;translation-notice&#34;&gt;

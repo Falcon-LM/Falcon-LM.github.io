@@ -10,7 +10,18 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 20 May 2025 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 May 2025 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Falcon-Arabic: A Breakthrough in Arabic Language Models</title>
+      <link>https://falcon-lm.github.io/blog/falcon-arabic/</link>
+      <pubDate>Wed, 21 May 2025 12:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/blog/falcon-arabic/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Check out the &lt;a href=&#34;https://falcon-lm.github.io/ar/blog/falcon-arabic/&#34;&gt;Arabic version&lt;/a&gt; translated by &lt;strong&gt;Falcon-Arabic&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;We are excited to introduce &lt;strong&gt;Falcon-Arabic&lt;/strong&gt;, a 7B parameter Language Model that sets a new benchmark for Arabic NLP. Built on the Falcon 3 architecture, Falcon-Arabic is a multilingual model that supports Arabic, English, and several other languages. It excels in general knowledge, Arabic grammar, mathematical reasoning, complex problem solving, and understanding the rich diversity of Arabic dialects. Falcon-Arabic supports a context length of 32,000 tokens, allowing it to handle long documents and enabling advanced applications like retrieval-augmented generation (RAG), in-depth content creation, and knowledge-intensive tasks.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Falcon-H1: A Family of Hybrid-Head Language Models Redefining Efficiency and Performance</title>
       <link>https://falcon-lm.github.io/blog/falcon-h1/</link>
@@ -38,15 +49,6 @@
 &lt;/div&gt;
 &lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;Today, we are proud to introduce the Falcon-H1 series, a collection of six open-source models ranging from 0.5B to 34B parameters, each available in both base and instruction-tuned variants. At the core of these models lies a hybrid architecture that combines the strengths of the classical Transformer-based attention mechanism with the State Space Model (SSM), known for its superior long-context memory and computational efficiency. This architectural innovation is further enhanced by fundamental advancements in training dynamics and data utilization, enabling Falcon-H1 models to deliver uncompromised performance that rivals the top Transformer-based models across all covered size tiers.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Falcon-Arabic: A Breakthrough in Arabic Language Models</title>
-      <link>https://falcon-lm.github.io/blog/falcon-arabic/</link>
-      <pubDate>Mon, 19 May 2025 12:00:00 +0000</pubDate>
-      
-      <guid>https://falcon-lm.github.io/blog/falcon-arabic/</guid>
-      <description>&lt;p&gt;We are excited to introduce &lt;strong&gt;Falcon-Arabic&lt;/strong&gt;, a 7B parameter language model that sets a new benchmark for Arabic NLP. Built on the Falcon 3 architecture, Falcon-Arabic is a multilingual model that supports Arabic, English, and several other languages. It excels in general knowledge, Arabic grammar, mathematical reasoning, complex problem solving, and understanding the rich diversity of Arabic dialects. Falcon-Arabic supports a context length of 32,000 tokens, allowing it to handle long documents and enabling advanced applications like retrieval-augmented generation (RAG), in-depth content creation, and knowledge-intensive tasks.&lt;/p&gt;</description>
     </item>
     
     <item>
