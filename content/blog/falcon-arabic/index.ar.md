@@ -1,7 +1,7 @@
 ---
 # title: "Falcon-Arabic: قفزة نوعية في نماذج اللغة العربية"
 title: "Falcon-Arabic: نقلة نوعية في نماذج اللغة العربية"
-date: 2025-05-17T12:00:00Z
+date: 2025-05-21T12:00:00Z
 weight: 1
 # aliases: ["/first"]
 # tags: ["Research"]
@@ -185,6 +185,7 @@ contributors:
 | **Falcon-Arabic-7B-Base** | <u>62.57</u> | 67.17  | <u>64.85     | <u>52.89| 48.79    | <u>85.36   | 63.71 | <u>55.25     |
 {{< rawhtml >}}</div> {{< /rawhtml >}}
 
+> تفاصيل التقييم (log probabilities، التنبؤات ومعايير LLM كحكم) لـ **Falcon-Arabic-7B-Base**  متاحة على https://huggingface.co/datasets/tiiuae/Falcon-Arabic-7B-Base-details   
 <!-- </details> -->
 
 ## 🗣️ من التدريب الأولي إلى الدردشة: تدريب Falcon-Arabic على المحادثات
@@ -275,6 +276,8 @@ contributors:
 | **Falcon-Arabic-7B-Instruct**       | <u>68.03 |    72.40 | 71.77  |     82.54 |       <u>68.23 |       55.37 |  53.25 |      <u>72.95 |
 {{< rawhtml >}}</div> {{< /rawhtml >}}
 <!-- </details> -->
+
+> تفاصيل التقييم (log probabilities، التنبؤات ومعايير LLM كحكم) لـ **Falcon-Arabic-7B-Instruct**  متاحة على https://huggingface.co/datasets/tiiuae/Falcon-Arabic-7B-Instruct-details   
 
 <!-- ## 🔓 فتح إمكانات الذكاء الاصطناعي باللغة العربية -->
 ## 🔓 إطلاق العنان لإمكانات الذكاء الاصطناعي العربي
