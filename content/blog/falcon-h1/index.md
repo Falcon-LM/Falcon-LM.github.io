@@ -42,6 +42,7 @@ contributors:
 
 {{< button href="https://chat.falconllm.tii.ae" label="Falcon CHAT" external=true >}}
 {{< button href="https://huggingface.co/collections/tiiuae/falcon-h1-6819f2795bc406da60fab8df" label="Hugging Face" external=true >}}
+{{< button href="https://arxiv.org/abs/2507.22448" label="Paper" external=true >}}
 {{< button href="https://github.com/tiiuae/falcon-h1" label="Github" external=true >}}
 {{< button href="https://huggingface.co/spaces/tiiuae/Falcon-H1-Playground" label="DEMO" external=true >}}
 {{< button href="https://discord.gg/vfw6k2G3" label="DISCORD" external=true >}}
@@ -505,11 +506,10 @@ In line with our mission to foster AI accessibility and collaboration, <span cla
 ## Citation
 
 ```
-@misc{tiifalconh1,
-    title = {Falcon-H1: A Family of Hybrid-Head Language Models Redefining Efficiency and Performance},
-    url = {https://falcon-lm.github.io/blog/falcon-h1},
-    author = {Falcon-LLM Team},
-    month = {May},
-    year = {2025}
+@article{falconh1,
+    title={Falcon-H1: A Family of Hybrid-Head Language Models Redefining Efficiency and Performance},
+    author={Jingwei Zuo and Maksim Velikanov and Ilyas Chahed and Younes Belkada and Dhia Eddine Rhayem and Guillaume Kunsch and Hakim Hacid and Hamza Yous and Brahim Farhat and Ibrahim Khadraoui and Mugariya Farooq and Giulia Campesan and Ruxandra Cojocaru and Yasser Djilali and Shi Hu and Iheb Chaabane and Puneesh Khanna and Mohamed El Amine Seddik and Ngoc Dung Huynh and Phuc Le Khac and Leen AlQadi and Billel Mokeddem and Mohamed Chami and Abdalgader Abubaker and Mikhail Lubinets and Kacper Piskorski and Slim Frikha},
+    journal = {arXiv preprint arXiv:2507.22448},
+    year={2025}
 }
 ```
