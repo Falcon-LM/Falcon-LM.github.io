@@ -35,6 +35,7 @@
 &lt;/style&gt;
 &lt;p&gt;&lt;a href=&#34;https://chat.falconllm.tii.ae&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Falcon CHAT&lt;/a&gt;
 &lt;a href=&#34;https://huggingface.co/collections/tiiuae/falcon-h1-6819f2795bc406da60fab8df&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Hugging Face&lt;/a&gt;
+&lt;a href=&#34;https://arxiv.org/abs/2507.22448&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Paper&lt;/a&gt;
 &lt;a href=&#34;https://github.com/tiiuae/falcon-h1&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Github&lt;/a&gt;
 &lt;a href=&#34;https://huggingface.co/spaces/tiiuae/Falcon-H1-Playground&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;DEMO&lt;/a&gt;
 &lt;a href=&#34;https://discord.gg/vfw6k2G3&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;DISCORD&lt;/a&gt;&lt;/p&gt;

@@ -27,6 +27,25 @@
     <loc>https://falcon-lm.github.io/blog/falcon-mamba/</loc>
     <lastmod>2024-08-12T12:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://falcon-lm.github.io/</loc>
+    <lastmod>2025-07-30T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ar"
+                href="https://falcon-lm.github.io/ar/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://falcon-lm.github.io/"
+                />
+  </url><url>
+    <loc>https://falcon-lm.github.io/publication/falcon-h1/</loc>
+    <lastmod>2025-07-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://falcon-lm.github.io/publication/</loc>
+    <lastmod>2025-07-30T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://falcon-lm.github.io/blog/</loc>
     <lastmod>2025-05-21T12:00:00+00:00</lastmod>
     <xhtml:link
@@ -40,23 +59,7 @@
                 href="https://falcon-lm.github.io/blog/"
                 />
   </url><url>
-    <loc>https://falcon-lm.github.io/</loc>
-    <lastmod>2025-05-21T12:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="ar"
-                href="https://falcon-lm.github.io/ar/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://falcon-lm.github.io/"
-                />
-  </url><url>
     <loc>https://falcon-lm.github.io/publication/falcon-mamba/</loc>
-    <lastmod>2024-10-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://falcon-lm.github.io/publication/</loc>
     <lastmod>2024-10-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://falcon-lm.github.io/publication/falcon2/</loc>

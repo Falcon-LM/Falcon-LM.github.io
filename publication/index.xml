@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 07 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/publication/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 30 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/publication/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Falcon-H1: A Family of Hybrid-Head Language Models Redefining Efficiency and Performance</title>
+      <link>https://falcon-lm.github.io/publication/falcon-h1/</link>
+      <pubDate>Wed, 30 Jul 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/publication/falcon-h1/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Falcon Mamba: The First Competitive Attention-free 7B Language Model</title>
       <link>https://falcon-lm.github.io/publication/falcon-mamba/</link>
