@@ -1,5 +1,5 @@
 ---
-title: "Welcome to the Falcon 3 Family of Open Models!" 
+title: "Welcome to the Falcon 3 Family of Open Models!"
 date: 2024-12-17T12:00:00Z
 weight: 1
 # aliases: ["/first"]
@@ -42,7 +42,7 @@ contributors:
 {{< button href="https://chat.falconllm.tii.ae" label="Falcon CHAT" external=true >}}
 {{< button href="https://huggingface.co/collections/tiiuae/falcon3-67605ae03578be86e4e87026" label="Hugging Face" external=true >}}
 {{< button href="https://huggingface.co/spaces/tiiuae/Falcon3-demo" label="DEMO" external=true >}}
-{{< button href="https://discord.gg/vfw6k2G3" label="DISCORD" external=true >}}
+{{< button href="https://discord.gg/Cbek57PrZE" label="DISCORD" external=true >}}
 
 
 # Welcome to the Falcon 3 Family of Open Models!
@@ -81,18 +81,18 @@ Falcon3 featured the limits within the small and medium scales of large language
 
 ## Enhanced Capabilities
 
-We evaluated models with our internal evaluation pipeline (based on [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness)) and we report raw scores. 
+We evaluated models with our internal evaluation pipeline (based on [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness)) and we report raw scores.
 Our evaluations highlight key areas where the Falcon3 family of models excel, reflecting the emphasis on enhancing performance in scientific domains, reasoning, and general knowledge capabilities:
 - **Math Capabilities:** Falcon3-10B-Base achieves 22.9 on MATH-Lvl5 and 83.0 on GSM8K, showcasing enhanced reasoning in complex math-focused tasks.
 - **Coding Capabilities:** Falcon3-10B-Base achieves 73.8 on MBPP, while Falcon3-10B-Instruct scores 45.8 on Multipl-E, reflecting their abilities to generalize across programming-related tasks.
 - **Extended Context Length**: Models in the Falcon3 family support up to 32k tokens (except the 1B supporting up to 8k context), with functional improvements such as scoring 86.3 on BFCL (Falcon3-10B-Instruct).
 - **Improved Reasoning:** Falcon3-7B-Base and Falcon3-10B-Base achieve 51.0 and 59.7 on BBH, reflecting enhanced reasoning capabilities, with the 10B model showing improved reasoning performance over the 7B.
-- **Scientific Knowledge Expansion:** Performance on MMLU benchmarks demonstrates advances in specialized knowledge, with scores of 67.4/39.2 (MMLU/MMLU-PRO) for Falcon3-7B-Base and 73.1/42.5 (MMLU/MMLU-PRO) for Falcon3-10B-Base respectively. 
+- **Scientific Knowledge Expansion:** Performance on MMLU benchmarks demonstrates advances in specialized knowledge, with scores of 67.4/39.2 (MMLU/MMLU-PRO) for Falcon3-7B-Base and 73.1/42.5 (MMLU/MMLU-PRO) for Falcon3-10B-Base respectively.
 
 ## Models' Specs and Benchmark Results
 
 Detailed specifications of the Falcon3 family of models are summarized in the following table. The architecture of [Falcon3-7B-Base](https://huggingface.co/tiiuae/Falcon3-7B-Base)
-is characterized by a head dimension of 256 which yields high throughput when using [FlashAttention-3](https://arxiv.org/abs/2407.08608) as it is optimized for this dimension. These decoder-only models span 18 to 40 layers for the transformer-based ones, and 64 layers for the mamba one, all  models share the SwiGLU activation function, with vocabulary size of 131K tokens (65Kfor Mamba-7B). The Falcon3-7B-Base is trained on the largest amount of data ensuring comprehensive coverage of concepts and knowledge, the other variants require way less data. 
+is characterized by a head dimension of 256 which yields high throughput when using [FlashAttention-3](https://arxiv.org/abs/2407.08608) as it is optimized for this dimension. These decoder-only models span 18 to 40 layers for the transformer-based ones, and 64 layers for the mamba one, all  models share the SwiGLU activation function, with vocabulary size of 131K tokens (65Kfor Mamba-7B). The Falcon3-7B-Base is trained on the largest amount of data ensuring comprehensive coverage of concepts and knowledge, the other variants require way less data.
 
 <br/><br/>
 <!-- ![Falcon 3 Specs](Falcon3-specs.png) -->
@@ -102,7 +102,7 @@ is characterized by a head dimension of 256 which yields high throughput when us
 <br/><br/>
 
 The table below highlights the performances of Falcon3-7B-Base and Falcon3-10B-Base on key benchmarks showing competitive performances in general, math, reasoning, and common sense understanding domains.
-Feel free to take a look at models' cards where we provide additional evaluation results (e.g. MT-Bench, Alpaca, etc). 
+Feel free to take a look at models' cards where we provide additional evaluation results (e.g. MT-Bench, Alpaca, etc).
  <br/><br/>
 <!-- ![medium base models' performances](medium-base-models.png)  -->
 <div style="text-align: center;" align="center">
@@ -141,7 +141,7 @@ In line with our mission to foster AI accessibility and collaboration, all model
 ## Useful links
 
 - Access to our models (including GGUF and 1.58bit models) of this series through [the Falcon3 HuggingFace collection](https://huggingface.co/collections/tiiuae/falcon3-67605ae03578be86e4e87026).
-- Feel free to join [our discord server](https://discord.gg/vfw6k2G3) if you have any questions or to interact with our researchers and developers.
+- Feel free to join [our discord server](https://discord.gg/Cbek57PrZE) if you have any questions or to interact with our researchers and developers.
 - Check out the [Falcon-LLM License link](https://falconllm.tii.ae/falcon-terms-and-conditions.html) for more details about the license.
 - Refer to the official [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/) for HF evaluations of our models.
 

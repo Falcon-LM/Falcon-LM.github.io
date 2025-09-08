@@ -31,12 +31,12 @@ contributors:
         - name: Dhia Eddine Rhayem
         - name: Guillaume Kunsch
     additional:
-        - name: Falcon LLM team 
+        - name: Falcon LLM team
 ---
 
 <style>
   html, body {
-    background: #f0f2f9; 
+    background: #f0f2f9;
   }
 </style>
 
@@ -45,12 +45,12 @@ contributors:
 {{< button href="https://arxiv.org/abs/2507.22448" label="Paper" external=true >}}
 {{< button href="https://github.com/tiiuae/falcon-h1" label="Github" external=true >}}
 {{< button href="https://huggingface.co/spaces/tiiuae/Falcon-H1-Playground" label="DEMO" external=true >}}
-{{< button href="https://discord.gg/vfw6k2G3" label="DISCORD" external=true >}}
+{{< button href="https://discord.gg/Cbek57PrZE" label="DISCORD" external=true >}}
 
 <div style="display: flex; justify-content: center;">
   <div style="position: relative; width: 100%; max-width: 700px; aspect-ratio: 700 /600;">
-    <iframe 
-      src="/plots_h1/falcon_h1_performance_scatter_2.html" 
+    <iframe
+      src="/plots_h1/falcon_h1_performance_scatter_2.html"
       style="border: none; position: absolute; width: 100%; height: 100%; left: 0; top: 0;"
       allowfullscreen
     ></iframe>
@@ -61,7 +61,7 @@ contributors:
 
 Today, we are proud to introduce the Falcon-H1 series, a collection of six open-source models ranging from 0.5B to 34B parameters, each available in both base and instruction-tuned variants. At the core of these models lies a hybrid architecture that combines the strengths of the classical Transformer-based attention mechanism with the State Space Model (SSM), known for its superior long-context memory and computational efficiency. This architectural innovation is further enhanced by fundamental advancements in training dynamics and data utilization, enabling Falcon-H1 models to deliver uncompromised performance that rivals the top Transformer-based models across all covered size tiers.
 
-In this release, we feature six open-weight models: 0.5B, 1.5B, 1.5B-Deep, 3B, 7B, and 34B, along with their instruct versions. All our open-source models are with a permissive license based on Apache 2.0. 
+In this release, we feature six open-weight models: 0.5B, 1.5B, 1.5B-Deep, 3B, 7B, and 34B, along with their instruct versions. All our open-source models are with a permissive license based on Apache 2.0.
 
 <div style="font-size: 90%;justify-content: center;">
 <table style="width:100%; border-collapse: collapse;">
@@ -148,28 +148,28 @@ Given this uncertainty, we conducted an extensive experimentation phase, systema
 
 The hybrid attention-SSM models have a larger configuration space of all the parameters that define the model architecture. Our goal was to probe each of these configuration parameters to check its impact on model performance and efficiency. As a result, we reveal regions of model configuration space with an increased performance at a mild efficiency cost. We can roughly divide the hybrid model configuration space in the following 4 blocks:
 
-- **SSM specific parameters**. Our SSM layer is based on mamba-2 architecture that organized into groups of heads, similar to attention in modern transformer models. We have found that deviation of the number of groups or heads from the values typically used in the literature doesn't improve performance but could degrade efficiency. In contrast, using a larger memory size, an SSM-specific variable that does not have an attention analog, gives a boost in performance with only a mild efficiency cost.   
-- **Attention specific parameters**. We employ a standard full attention layer. However, we have found that using an extremely large-scale parameter in rotary positional embeddings (RoPE) significantly improves the model performance. Our hypothesis is that, compared to pure transformers, in hybrid models such large values become possible since some positional information is natively processed by the SSM part of the model. 
-- **Combining mamba and attention**. There are many ways to combine attention and SSM in one model, with a sequential or parallel approach being the main design choice. We have converged on the parallel approach demonstrated in the diagram above. The key feature of our parallel hybrid design is the possibility of adjusting the ratio of attention and SSM heads, where we have found that a relatively small fraction of attention is sufficient for good performance.     
-- **General parameters**. In our experiments we observed the increased model depth to have the largest impact on the performance, though at efficiency cost. This makes choosing the model's depth a tough tradeoff that depends on specific use cases. Our Falcon-H1-1.5B-deep is motivated by this tradeoff and targets usage scenarios requiring maximal performance at a small parameter count.     
+- **SSM specific parameters**. Our SSM layer is based on mamba-2 architecture that organized into groups of heads, similar to attention in modern transformer models. We have found that deviation of the number of groups or heads from the values typically used in the literature doesn't improve performance but could degrade efficiency. In contrast, using a larger memory size, an SSM-specific variable that does not have an attention analog, gives a boost in performance with only a mild efficiency cost.
+- **Attention specific parameters**. We employ a standard full attention layer. However, we have found that using an extremely large-scale parameter in rotary positional embeddings (RoPE) significantly improves the model performance. Our hypothesis is that, compared to pure transformers, in hybrid models such large values become possible since some positional information is natively processed by the SSM part of the model.
+- **Combining mamba and attention**. There are many ways to combine attention and SSM in one model, with a sequential or parallel approach being the main design choice. We have converged on the parallel approach demonstrated in the diagram above. The key feature of our parallel hybrid design is the possibility of adjusting the ratio of attention and SSM heads, where we have found that a relatively small fraction of attention is sufficient for good performance.
+- **General parameters**. In our experiments we observed the increased model depth to have the largest impact on the performance, though at efficiency cost. This makes choosing the model's depth a tough tradeoff that depends on specific use cases. Our Falcon-H1-1.5B-deep is motivated by this tradeoff and targets usage scenarios requiring maximal performance at a small parameter count.
 
 ## Data strategy
 
-Capabilities of language models are known to come mainly from the training data, and that stays true for Falcon-H1 series. Besides the raw data prepared for the model, it is crucial how and when this data is shown during training. One such data strategy is commonly called *curriculum learning*, where simpler data is shown at the beginning of the training while the samples requiring more advanced reasoning are left for the end. Surprisingly, a completely opposite strategy worked best for us. Giving even the most complicated data, an advanced math problem or a long context sample, from the beginning of the training seems to give the model more time to learn features essential for handling the respective complex tasks.     
+Capabilities of language models are known to come mainly from the training data, and that stays true for Falcon-H1 series. Besides the raw data prepared for the model, it is crucial how and when this data is shown during training. One such data strategy is commonly called *curriculum learning*, where simpler data is shown at the beginning of the training while the samples requiring more advanced reasoning are left for the end. Surprisingly, a completely opposite strategy worked best for us. Giving even the most complicated data, an advanced math problem or a long context sample, from the beginning of the training seems to give the model more time to learn features essential for handling the respective complex tasks.
 
-Another key aspect is the scarcity of high-quality data. A common concern when training large models is brute force memorization of the data as opposed to its real understanding. To minimize the risk of such memorization, a common practice is not reusing data samples during training, or doing it at most a few times for the highest quality samples. A by-product of this strategy is data mixture being dominated by web samples that have disproportionally large volume compared to high-quality sources. We have found that the memorization effect might be a bit overestimated, and carefully estimating model's *memorization window* allows to reuse high-quality samples more often without any harm to model's generalization ability.     
+Another key aspect is the scarcity of high-quality data. A common concern when training large models is brute force memorization of the data as opposed to its real understanding. To minimize the risk of such memorization, a common practice is not reusing data samples during training, or doing it at most a few times for the highest quality samples. A by-product of this strategy is data mixture being dominated by web samples that have disproportionally large volume compared to high-quality sources. We have found that the memorization effect might be a bit overestimated, and carefully estimating model's *memorization window* allows to reuse high-quality samples more often without any harm to model's generalization ability.
 
-## Customized maximal update parametrization (μP) 
+## Customized maximal update parametrization (μP)
 
-Classical μP is a technique heavily rooted in theory of neural networks but with a clear practical application: if one finds optimal training hyperparameters at a single base model size, it can be effortlessly transferred to other, typically bigger, model sizes using Mup scaling rules. We employed Mup hyperparameter transfer for the whole Falcon-H1 series, greatly reducing experimentation time and making it possible to train 6 models in parallel. 
+Classical μP is a technique heavily rooted in theory of neural networks but with a clear practical application: if one finds optimal training hyperparameters at a single base model size, it can be effortlessly transferred to other, typically bigger, model sizes using Mup scaling rules. We employed Mup hyperparameter transfer for the whole Falcon-H1 series, greatly reducing experimentation time and making it possible to train 6 models in parallel.
 
-On top of that, we made the next step into inner workings behind μP to further boost the model performance. In a nutshell, each component of the model “wants” to train at its own intensity, and that intensity depends on the size of the component. μP scaling rules take into account this dependence through so-called ``μP multipliers'' to enable optimal hyperparameter transfer. However, classical μP uses trivial multipliers of 1 at the base model size, which corresponds to a nasusmption that intensity of all components are already optimal at the base size. We discard this assumption and tune the multipliers at the base model size. Specifically, we have divided model parameters into 35 fine-grained groups and performed a joint optimization of the respective 35 multipliers. 
+On top of that, we made the next step into inner workings behind μP to further boost the model performance. In a nutshell, each component of the model “wants” to train at its own intensity, and that intensity depends on the size of the component. μP scaling rules take into account this dependence through so-called ``μP multipliers'' to enable optimal hyperparameter transfer. However, classical μP uses trivial multipliers of 1 at the base model size, which corresponds to a nasusmption that intensity of all components are already optimal at the base size. We discard this assumption and tune the multipliers at the base model size. Specifically, we have divided model parameters into 35 fine-grained groups and performed a joint optimization of the respective 35 multipliers.
 
 ## Training dynamics
 
 One of our first steps in working on Falcon-H1 series was treating and removing spikes that are known to be a serious issue for SSM-based models. The solution that has worked the best for us is placing dampening μP multipliers at a certain location of the SSM block. In addition to the smooth final model training, the removal of spikes is essential to get clean signals in the subsequent experiments.
 
-We have observed that many aspects of the training dynamics are linked together under a common theme of noise interpretation and control. This includes learning rate and batch size schedules, scaling of the learning rate with batch size, and the behavior of parameter norms. In particular, we have found the parameter norms to be mostly determined by the training hyperparameters rather than the model fitting the data. To take this into account, we have included weight decay, a hyperparameter that primarily controls parameter norms, into both the training schedule and μP multipliers.  
+We have observed that many aspects of the training dynamics are linked together under a common theme of noise interpretation and control. This includes learning rate and batch size schedules, scaling of the learning rate with batch size, and the behavior of parameter norms. In particular, we have found the parameter norms to be mostly determined by the training hyperparameters rather than the model fitting the data. To take this into account, we have included weight decay, a hyperparameter that primarily controls parameter norms, into both the training schedule and μP multipliers.
 
 # Performance
 
@@ -180,8 +180,8 @@ The current Falcon-H1 models were trained without reasoning-specific fine-tuning
   <img src="/plots_h1/h1_34B_comparison.png" alt="Falcon-H1-34B model comparison"/>
 </p>
 
-One of the standout features of the Falcon-H1 series is the strong performance of its compact models. Below, we compare 1.5B-scale instruct models. Falcon-H1-1.5B-Deep-Instruct clearly outperforms leading models in its class, such as Qwen3-1.7B-Instruct. Even more notably, it performs on par with—or better than many 7B models, including Falcon3-7B-Instruct and Qwen2.5-7B-Instruct. 
-> 🔎 **Note:** Falcon-H1-1.5B-Deep and Falcon-H1-1.5B were trained using identical settings; the only difference lies in their architectural depth and width. 
+One of the standout features of the Falcon-H1 series is the strong performance of its compact models. Below, we compare 1.5B-scale instruct models. Falcon-H1-1.5B-Deep-Instruct clearly outperforms leading models in its class, such as Qwen3-1.7B-Instruct. Even more notably, it performs on par with—or better than many 7B models, including Falcon3-7B-Instruct and Qwen2.5-7B-Instruct.
+> 🔎 **Note:** Falcon-H1-1.5B-Deep and Falcon-H1-1.5B were trained using identical settings; the only difference lies in their architectural depth and width.
 
 <p align="center">
   <img src="/plots_h1/h1_1B_comparison.png" alt="Falcon-H1-1B model comparison"/>
@@ -191,7 +191,7 @@ One of the standout features of the Falcon-H1 series is the strong performance o
 To give a picture of Falcon-H1 performance across languages, we provide average between Hellaswag and MMLU scores for 30B scale models and for a set of selected languages, including Arabic, German, Spanish, French, Hindi, Italian, Dutch, Portuguese, Romanian, Russian, and Swedish. It also demonstrates on-par performance in the other supported languages.
 
 {{< barplot_horizontal_fh1 id="multilingual-eval" highlight="Falcon-H1-34B" ymin="0.45" ymax="0.85" ylabel="Performance %" xaxis_percentage="true" height="800">}}
-[ 
+[
 
   {"category": "Arabic", "model": "Falcon-H1-34B", "value": 0.6821},
   {"category": "Arabic", "model": "Qwen3-32B", "value": 0.5905},
@@ -277,24 +277,24 @@ In addition, we conducted a comprehensive evaluation of the Falcon-H1 series alo
 
 ## Base Models
 
-We provide a detailed comparison of Falcon-H1-34B-Base with other leading base models at the same or larger scale, including Qwen2.5-72B, Qwen2.5-32B, Llama-4-Scout-17B-16E (109B) and Gemma3-27B. 
+We provide a detailed comparison of Falcon-H1-34B-Base with other leading base models at the same or larger scale, including Qwen2.5-72B, Qwen2.5-32B, Llama-4-Scout-17B-16E (109B) and Gemma3-27B.
 > 🔎 **Note:** Qwen3-32B does not currently offer a base model checkpoint.
 
 {{< barplot_horizental id="base-eval-34b" highlight="Falcon-H1-34B-Base" ymin="0.25" ymax="0.95" ylabel="Performance %" xaxis_percentage="true" height="700">}}
-[    
+[
     { "category": "MMLU", "model": "Falcon-H1-34B-Base", "value": 0.8346 },
     { "category": "MMLU", "model": "Qwen2.5-72B", "value": 0.8596 },
     { "category": "MMLU", "model": "Qwen2.5-32B", "value": 0.8318 },
     { "category": "MMLU", "model": "Llama-4-Scout-17B-16E", "value": 0.7798 },
     { "category": "MMLU", "model": "gemma-3-27b-pt", "value": 0.7832 },
-    
+
     { "category": "MMLU-stem",     "model": "Falcon-H1-34B-Base",    "value": 0.8382 },
     { "category": "MMLU-stem",     "model": "Qwen2.5-72B",           "value": 0.8481 },
     { "category": "MMLU-stem",     "model": "Qwen2.5-32B",           "value": 0.8281 },
     { "category": "MMLU-stem",     "model": "Llama-4-Scout-17B-16E", "value": 0.7257 },
     { "category": "MMLU-stem",     "model": "gemma-3-27b-pt",        "value": 0.7659 },
 
-    
+
     { "category": "MMLU-Pro",      "model": "Falcon-H1-34B-Base",    "value": 0.5718 },
     { "category": "MMLU-Pro",      "model": "Qwen2.5-72B",           "value": 0.6022 },
     { "category": "MMLU-Pro",      "model": "Qwen2.5-32B",           "value": 0.5805 },
@@ -380,13 +380,13 @@ Below, we compare 1.5B-scale base models. Falcon-H1-1.5B-Deep-Base clearly outpe
 
 
 {{< barplot_horizontal_fh1 id="base-eval-1b" highlight="Falcon-H1-1.5B-Deep-Base" highlight2="Falcon-H1-1.5B-Base" ymin="0" ymax="0.8" ylabel="Performance %" xaxis_percentage="true" height="700">}}
-[    
+[
     { "category": "MMLU", "model": "Falcon3-7B-Base", "value": 0.6998 },
     { "category": "MMLU", "model": "Falcon-H1-1.5B-Deep-Base", "value": 0.6629 },
     { "category": "MMLU", "model": "Falcon-H1-1.5B-Base", "value": 0.6181 },
     { "category": "MMLU", "model": "Qwen3-1.7B-Base", "value": 0.6246 },
     { "category": "MMLU", "model": "gemma-3-1b-pt", "value": 0.2633 },
-    
+
     { "category": "MMLU-stem",     "model": "Falcon3-7B-Base",           "value": 0.6771 },
     { "category": "MMLU-stem",     "model": "Falcon-H1-1.5B-Deep-Base",    "value": 0.6743 },
     { "category": "MMLU-stem",     "model": "Falcon-H1-1.5B-Base",           "value": 0.6337 },
@@ -499,7 +499,7 @@ In line with our mission to foster AI accessibility and collaboration, <span cla
 
 - Access to our models (including GPTQ and GGUF) through [the Falcon-H1 HuggingFace collection](https://huggingface.co/collections/tiiuae/falcon-h1-6819f2795bc406da60fab8df).
 - Check out our [Github page](https://github.com/tiiuae/falcon-h1) for the latest technical updates on Falcon-H1 models.
-- Feel free to join [our discord server](https://discord.gg/bHx5QEaQ) if you have any questions or to interact with our researchers and developers.
+- Feel free to join [our discord server](https://discord.gg/Cbek57PrZE) if you have any questions or to interact with our researchers and developers.
 - Check out the [Falcon-LLM License link](https://falconllm.tii.ae/falcon-terms-and-conditions.html) for more details about the license.
 
 
