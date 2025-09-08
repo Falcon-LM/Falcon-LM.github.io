@@ -22,4 +22,4 @@ We are part of Abu Dhabi Government’s Advanced Technology Research Council, wh
 
 {{< button href="https://x.com/TIIuae" label="X" external=true >}}
 {{< button href="https://ae.linkedin.com/company/tiiuae" label="LINKEDIN" external=true >}}
-{{< button href="https://discord.gg/vfw6k2G3" label="DISCORD" external=true >}}
+{{< button href="https://discord.gg/Cbek57PrZE" label="DISCORD" external=true >}}
