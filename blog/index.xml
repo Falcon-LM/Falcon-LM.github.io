@@ -30,7 +30,7 @@
       <guid>https://falcon-lm.github.io/blog/falcon-h1/</guid>
       <description>&lt;style&gt;
   html, body {
-    background: #f0f2f9; 
+    background: #f0f2f9;
   }
 &lt;/style&gt;
 &lt;p&gt;&lt;a href=&#34;https://chat.falconllm.tii.ae&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Falcon CHAT&lt;/a&gt;
@@ -38,11 +38,11 @@
 &lt;a href=&#34;https://arxiv.org/abs/2507.22448&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Paper&lt;/a&gt;
 &lt;a href=&#34;https://github.com/tiiuae/falcon-h1&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Github&lt;/a&gt;
 &lt;a href=&#34;https://huggingface.co/spaces/tiiuae/Falcon-H1-Playground&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;DEMO&lt;/a&gt;
-&lt;a href=&#34;https://discord.gg/vfw6k2G3&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;DISCORD&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://discord.gg/Cbek57PrZE&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;DISCORD&lt;/a&gt;&lt;/p&gt;
 &lt;div style=&#34;display: flex; justify-content: center;&#34;&gt;
   &lt;div style=&#34;position: relative; width: 100%; max-width: 700px; aspect-ratio: 700 /600;&#34;&gt;
-    &lt;iframe 
-      src=&#34;https://falcon-lm.github.io/plots_h1/falcon_h1_performance_scatter_2.html&#34; 
+    &lt;iframe
+      src=&#34;https://falcon-lm.github.io/plots_h1/falcon_h1_performance_scatter_2.html&#34;
       style=&#34;border: none; position: absolute; width: 100%; height: 100%; left: 0; top: 0;&#34;
       allowfullscreen
     &gt;&lt;/iframe&gt;
@@ -71,7 +71,7 @@
       <description>&lt;p&gt;&lt;a href=&#34;https://chat.falconllm.tii.ae&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Falcon CHAT&lt;/a&gt;
 &lt;a href=&#34;https://huggingface.co/collections/tiiuae/falcon3-67605ae03578be86e4e87026&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Hugging Face&lt;/a&gt;
 &lt;a href=&#34;https://huggingface.co/spaces/tiiuae/Falcon3-demo&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;DEMO&lt;/a&gt;
-&lt;a href=&#34;https://discord.gg/vfw6k2G3&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;DISCORD&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://discord.gg/Cbek57PrZE&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;DISCORD&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id=&#34;welcome-to-the-falcon-3-family-of-open-models&#34;&gt;Welcome to the Falcon 3 Family of Open Models!&lt;/h1&gt;
 &lt;p&gt;We introduce Falcon3, a family of decoder-only large language models under 10 billion parameters, developed by
 &lt;a href=&#34;https://www.tii.ae/ai-and-digital-science&#34;&gt;Technology Innovation Institute (TII)&lt;/a&gt; in Abu Dhabi. By pushing the
