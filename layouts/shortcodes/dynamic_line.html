@@ -1,0 +1,860 @@
+<!-- layouts/shortcodes/dynamic_line.html -->
+<div id="chart-{{ .Get "id" }}" class="dline-container"></div>
+<style>
+  .dline-container {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .dline-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .dline-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .dline-control-group > label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .dline-dropdown {
+    position: relative;
+    min-width: 220px;
+  }
+  .dline-dropdown-button {
+    width: 100%;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .dline-dropdown-button:hover {
+    border-color: #9ca3af;
+  }
+  .dline-dropdown-button:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  }
+  .dline-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+  }
+  .dline-dropdown-menu.open {
+    display: block;
+  }
+  .dline-dropdown-item {
+    padding: 10px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    transition: background 0.15s;
+  }
+  .dline-dropdown-item:hover {
+    background: #f3f4f6;
+  }
+  .dline-dropdown-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #6366f1;
+    cursor: pointer;
+  }
+  .dline-dropdown-item label {
+    cursor: pointer;
+    flex: 1;
+    font-size: 14px;
+    font-weight: normal;
+    color: inherit;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+  .dline-select-actions {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f9fafb;
+    border-radius: 8px 8px 0 0;
+  }
+  .dline-select-actions button {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .dline-select-actions button:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+  }
+  .dline-chips-section {
+    margin-bottom: 16px;
+  }
+  .dline-chips-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .dline-chip-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .dline-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: #e0e7ff;
+    color: #4338ca;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background 0.15s;
+  }
+  .dline-chip:hover {
+    background: #c7d2fe;
+  }
+  .dline-chip.name-chip {
+    background: #fae8ff;
+    color: #a21caf;
+  }
+  .dline-chip.name-chip:hover {
+    background: #f5d0fe;
+  }
+  .dline-chip.name-chip.highlighted {
+    background: #d8b4fe;
+    color: #6b21a8;
+  }
+  .dline-chip-remove {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.15s;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .dline-chip-remove:hover {
+    opacity: 1;
+  }
+  .dline-empty-message {
+    text-align: center;
+    padding: 40px;
+    color: #6b7280;
+    font-size: 14px;
+  }
+  .dline-chart-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .dline-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .dline-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+  }
+  .dline-legend-line {
+    width: 20px;
+    height: 3px;
+    border-radius: 2px;
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+(function() {
+  const chartId = "{{ .Get "id" }}";
+  const container = document.getElementById(`chart-${chartId}`);
+
+  // Get the data safely
+  let data;
+  try {
+    data = JSON.parse(`{{ .Inner }}`);
+  } catch (e) {
+    console.error("Error parsing chart data:", e);
+    data = [];
+  }
+
+  // Configurable labels for dropdowns and axes
+  const categoryLabel = "{{ .Get "category_label" | default "Categories" }}";
+  const nameLabel = "{{ .Get "name_label" | default "Names" }}";
+  const xLabel = "{{ .Get "x_label" | default "X Axis" }}";
+  const yLabel = "{{ .Get "y_label" | default "Y Axis" }}";
+
+  // Default selections (semicolon-separated values)
+  const defaultCategoriesRaw = "{{ .Get "default_categories" | default "" }}";
+  const defaultNamesRaw = "{{ .Get "default_names" | default "" }}";
+
+  // Parse default values into arrays
+  const parseDefaults = (raw) => {
+    if (!raw || raw.trim() === "") return null;
+    return raw.split(";").map(s => s.trim()).filter(s => s.length > 0);
+  };
+
+  const defaultCategories = parseDefaults(defaultCategoriesRaw);
+  const defaultNames = parseDefaults(defaultNamesRaw);
+
+  // Automatically infer names and categories from data
+  const allNames = Array.from(new Set(data.map(d => d.name)));
+  const allCategories = Array.from(new Set(data.map(d => d.category)));
+
+  // Get highlight name (the one to make purple) or default to first name
+  const highlightName = "{{ .Get "highlight" }}";
+  const nameToHighlight = highlightName || allNames[0];
+
+  // Whether axes are percentages
+  const yaxisPercentage = {{ if eq (.Get "yaxis_percentage" | default "false") "true" }}true{{ else }}false{{ end }};
+  const xaxisPercentage = {{ if eq (.Get "xaxis_percentage" | default "false") "true" }}true{{ else }}false{{ end }};
+
+  // Chart dimensions
+  const baseWidth = {{ .Get "width" | default 800 }};
+  const baseHeight = {{ .Get "height" | default 500 }};
+
+  // State for selected categories and names (use defaults if provided, otherwise select all)
+  let selectedCategories = defaultCategories
+    ? defaultCategories.filter(c => allCategories.includes(c))
+    : [...allCategories];
+  let selectedNames = defaultNames
+    ? defaultNames.filter(n => allNames.includes(n))
+    : [...allNames];
+
+  // Create controls container
+  const controlsDiv = document.createElement('div');
+  controlsDiv.className = 'dline-controls';
+  container.appendChild(controlsDiv);
+
+  // Helper function to create a dropdown
+  function createDropdown(label, items, selectedItems, chipClass, onUpdate) {
+    const controlGroup = document.createElement('div');
+    controlGroup.className = 'dline-control-group';
+
+    const labelEl = document.createElement('label');
+    labelEl.textContent = label;
+    controlGroup.appendChild(labelEl);
+
+    const dropdownDiv = document.createElement('div');
+    dropdownDiv.className = 'dline-dropdown';
+    controlGroup.appendChild(dropdownDiv);
+
+    const dropdownButton = document.createElement('button');
+    dropdownButton.className = 'dline-dropdown-button';
+    dropdownButton.type = 'button';
+    dropdownDiv.appendChild(dropdownButton);
+
+    function updateButtonText() {
+      const count = selectedItems.length;
+      dropdownButton.innerHTML = `
+        <span>${count} of ${items.length} selected</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+    }
+    updateButtonText();
+
+    const dropdownMenu = document.createElement('div');
+    dropdownMenu.className = 'dline-dropdown-menu';
+    dropdownDiv.appendChild(dropdownMenu);
+
+    // Add select all/none actions
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'dline-select-actions';
+    dropdownMenu.appendChild(actionsDiv);
+
+    const selectAllBtn = document.createElement('button');
+    selectAllBtn.type = 'button';
+    selectAllBtn.textContent = 'Select All';
+    selectAllBtn.onclick = (e) => {
+      e.stopPropagation();
+      selectedItems.length = 0;
+      selectedItems.push(...items);
+      updateCheckboxes();
+      updateButtonText();
+      onUpdate();
+    };
+    actionsDiv.appendChild(selectAllBtn);
+
+    const selectNoneBtn = document.createElement('button');
+    selectNoneBtn.type = 'button';
+    selectNoneBtn.textContent = 'Clear All';
+    selectNoneBtn.onclick = (e) => {
+      e.stopPropagation();
+      selectedItems.length = 0;
+      updateCheckboxes();
+      updateButtonText();
+      onUpdate();
+    };
+    actionsDiv.appendChild(selectNoneBtn);
+
+    // Add items
+    const checkboxes = {};
+    items.forEach(item => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'dline-dropdown-item';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.id = `${chipClass}-${chartId}-${item.replace(/[^a-zA-Z0-9]/g, '_')}`;
+      checkbox.checked = selectedItems.includes(item);
+      checkboxes[item] = checkbox;
+
+      checkbox.onchange = () => {
+        if (checkbox.checked) {
+          if (!selectedItems.includes(item)) {
+            selectedItems.push(item);
+          }
+        } else {
+          const idx = selectedItems.indexOf(item);
+          if (idx > -1) selectedItems.splice(idx, 1);
+        }
+        updateButtonText();
+        onUpdate();
+      };
+
+      const labelEl = document.createElement('label');
+      labelEl.htmlFor = checkbox.id;
+      labelEl.textContent = item;
+
+      itemDiv.appendChild(checkbox);
+      itemDiv.appendChild(labelEl);
+      dropdownMenu.appendChild(itemDiv);
+    });
+
+    function updateCheckboxes() {
+      items.forEach(item => {
+        if (checkboxes[item]) {
+          checkboxes[item].checked = selectedItems.includes(item);
+        }
+      });
+    }
+
+    // Toggle dropdown
+    dropdownButton.onclick = (e) => {
+      e.stopPropagation();
+      // Close other dropdowns
+      document.querySelectorAll('.dline-dropdown-menu.open').forEach(menu => {
+        if (menu !== dropdownMenu) menu.classList.remove('open');
+      });
+      dropdownMenu.classList.toggle('open');
+    };
+
+    return {
+      element: controlGroup,
+      updateButtonText,
+      updateCheckboxes,
+      getSelected: () => selectedItems
+    };
+  }
+
+  // Create chips section
+  const chipsSection = document.createElement('div');
+  chipsSection.className = 'dline-chips-section';
+
+  function updateAllChips() {
+    chipsSection.innerHTML = '';
+
+    // Categories chips
+    if (selectedCategories.length > 0 && selectedCategories.length < allCategories.length) {
+      const catLabel = document.createElement('div');
+      catLabel.className = 'dline-chips-label';
+      catLabel.textContent = categoryLabel;
+      chipsSection.appendChild(catLabel);
+
+      const catChips = document.createElement('div');
+      catChips.className = 'dline-chip-container';
+      selectedCategories.forEach(category => {
+        const chip = document.createElement('span');
+        chip.className = 'dline-chip';
+        chip.innerHTML = `${category}<span class="dline-chip-remove">×</span>`;
+        chip.querySelector('.dline-chip-remove').onclick = () => {
+          const idx = selectedCategories.indexOf(category);
+          if (idx > -1) selectedCategories.splice(idx, 1);
+          categoryDropdown.updateCheckboxes();
+          categoryDropdown.updateButtonText();
+          updateAllChips();
+          renderChart();
+        };
+        catChips.appendChild(chip);
+      });
+      chipsSection.appendChild(catChips);
+    }
+
+    // Names chips
+    if (selectedNames.length > 0 && selectedNames.length < allNames.length) {
+      const nmLabel = document.createElement('div');
+      nmLabel.className = 'dline-chips-label';
+      nmLabel.style.marginTop = selectedCategories.length > 0 && selectedCategories.length < allCategories.length ? '12px' : '0';
+      nmLabel.textContent = nameLabel;
+      chipsSection.appendChild(nmLabel);
+
+      const nameChips = document.createElement('div');
+      nameChips.className = 'dline-chip-container';
+      selectedNames.forEach(name => {
+        const chip = document.createElement('span');
+        chip.className = `dline-chip name-chip${name === nameToHighlight ? ' highlighted' : ''}`;
+        chip.innerHTML = `${name}<span class="dline-chip-remove">×</span>`;
+        chip.querySelector('.dline-chip-remove').onclick = () => {
+          const idx = selectedNames.indexOf(name);
+          if (idx > -1) selectedNames.splice(idx, 1);
+          nameDropdown.updateCheckboxes();
+          nameDropdown.updateButtonText();
+          updateAllChips();
+          renderChart();
+        };
+        nameChips.appendChild(chip);
+      });
+      chipsSection.appendChild(nameChips);
+    }
+  }
+
+  // Create category dropdown
+  const categoryDropdown = createDropdown(
+    categoryLabel,
+    allCategories,
+    selectedCategories,
+    'cat',
+    () => {
+      updateAllChips();
+      renderChart();
+    }
+  );
+  controlsDiv.appendChild(categoryDropdown.element);
+
+  // Create name dropdown
+  const nameDropdown = createDropdown(
+    nameLabel,
+    allNames,
+    selectedNames,
+    'name',
+    () => {
+      updateAllChips();
+      renderChart();
+    }
+  );
+  controlsDiv.appendChild(nameDropdown.element);
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dline-dropdown')) {
+      document.querySelectorAll('.dline-dropdown-menu.open').forEach(menu => {
+        menu.classList.remove('open');
+      });
+    }
+  });
+
+  // Add chips section
+  container.appendChild(chipsSection);
+  updateAllChips();
+
+  // Create chart wrapper for centering
+  const chartWrapper = document.createElement('div');
+  chartWrapper.className = 'dline-chart-wrapper';
+  container.appendChild(chartWrapper);
+
+  // Create chart container
+  const chartContainer = document.createElement('div');
+  chartContainer.id = `chart-svg-${chartId}`;
+  chartWrapper.appendChild(chartContainer);
+
+  // Create legend container
+  const legendContainer = document.createElement('div');
+  legendContainer.id = `legend-${chartId}`;
+  legendContainer.className = 'dline-legend';
+  container.appendChild(legendContainer);
+
+  // Create tooltip
+  const tooltipId = `tooltip-${chartId}`;
+  if (!document.getElementById(tooltipId)) {
+    const tooltip = document.createElement('div');
+    tooltip.id = tooltipId;
+    tooltip.className = 'tooltip';
+    tooltip.style.cssText = `
+      position: absolute;
+      padding: 12px 14px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      font-family: inherit;
+      font-size: 14px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      z-index: 10000;
+    `;
+    document.body.appendChild(tooltip);
+  }
+  const tooltip = d3.select(`#${tooltipId}`);
+
+  // Color scale function
+  const colorScale = (name) => {
+    if (name === nameToHighlight) {
+      return "#a855f7";
+    } else {
+      const nameIndex = allNames.indexOf(name);
+      const totalNames = allNames.length;
+      const brightness = 140 - (nameIndex * 60 / (totalNames - 1 || 1));
+      return `rgb(${brightness}, ${brightness + 8}, ${brightness + 16})`;
+    }
+  };
+
+  const getHoverColor = (name) => {
+    if (name === nameToHighlight) {
+      return "#c084fc";
+    } else {
+      const nameIndex = allNames.indexOf(name);
+      const totalNames = allNames.length;
+      const brightness = 140 - (nameIndex * 60 / (totalNames - 1 || 1));
+      const lighterBrightness = Math.min(brightness + 30, 200);
+      return `rgb(${lighterBrightness}, ${lighterBrightness + 8}, ${lighterBrightness + 16})`;
+    }
+  };
+
+  function renderChart() {
+    // Clear previous chart and legend
+    d3.select(`#chart-svg-${chartId}`).selectAll("*").remove();
+    d3.select(`#legend-${chartId}`).selectAll("*").remove();
+
+    if (selectedCategories.length === 0 || selectedNames.length === 0) {
+      const emptyMsg = document.createElement('div');
+      emptyMsg.className = 'dline-empty-message';
+      emptyMsg.textContent = selectedCategories.length === 0
+        ? `Please select at least one ${categoryLabel.toLowerCase()} to display the chart.`
+        : `Please select at least one ${nameLabel.toLowerCase()} to display the chart.`;
+      document.getElementById(`chart-svg-${chartId}`).appendChild(emptyMsg);
+      return;
+    }
+
+    // Filter data based on selections
+    const filteredData = data.filter(d =>
+      selectedNames.includes(d.name) && selectedCategories.includes(d.category)
+    );
+
+    if (filteredData.length === 0) {
+      const emptyMsg = document.createElement('div');
+      emptyMsg.className = 'dline-empty-message';
+      emptyMsg.textContent = 'No data available for the selected filters.';
+      document.getElementById(`chart-svg-${chartId}`).appendChild(emptyMsg);
+      return;
+    }
+
+    // Group data by name, then average y values for each x across selected categories
+    const groupedByName = {};
+    selectedNames.forEach(name => {
+      const nameData = filteredData.filter(d => d.name === name);
+
+      // Group by x value and average y, collect tooltips
+      const xGroups = {};
+      nameData.forEach(d => {
+        if (!xGroups[d.x]) {
+          xGroups[d.x] = { yValues: [], tooltips: [] };
+        }
+        xGroups[d.x].yValues.push(d.y);
+        if (d.tooltip) {
+          xGroups[d.x].tooltips.push(d.tooltip);
+        }
+      });
+
+      // Create averaged points with tooltip
+      const points = Object.keys(xGroups).map(xVal => ({
+        x: parseFloat(xVal),
+        y: xGroups[xVal].yValues.reduce((a, b) => a + b, 0) / xGroups[xVal].yValues.length,
+        tooltip: xGroups[xVal].tooltips.length > 0 ? [...new Set(xGroups[xVal].tooltips)].join('; ') : null
+      })).sort((a, b) => a.x - b.x);
+
+      if (points.length > 0) {
+        groupedByName[name] = points;
+      }
+    });
+
+    const namesWithData = Object.keys(groupedByName);
+    if (namesWithData.length === 0) {
+      const emptyMsg = document.createElement('div');
+      emptyMsg.className = 'dline-empty-message';
+      emptyMsg.textContent = 'No data available for the selected filters.';
+      document.getElementById(`chart-svg-${chartId}`).appendChild(emptyMsg);
+      return;
+    }
+
+    // Chart dimensions
+    const margin = {top: 30, right: 30, bottom: 60, left: 70};
+    const width = baseWidth - margin.left - margin.right;
+    const height = baseHeight - margin.top - margin.bottom;
+
+    // Calculate axis bounds with padding
+    const allPoints = Object.values(groupedByName).flat();
+    const xValues = allPoints.map(d => d.x);
+    const yValues = allPoints.map(d => d.y);
+
+    // Check if all x values are integers - use ordinal scale if so
+    const allXAreIntegers = xValues.every(val => Number.isInteger(val));
+    const uniqueXValues = [...new Set(xValues)].sort((a, b) => a - b);
+
+    const yPadding = (Math.max(...yValues) - Math.min(...yValues)) * 0.1 || 10;
+    const ymin = Math.max(0, Math.min(...yValues) - yPadding);
+    const ymax = Math.max(...yValues) + yPadding;
+
+    // Create SVG
+    const svg = d3.select(`#chart-svg-${chartId}`)
+      .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // X scale - always linear, but use only data values as ticks if all integers
+    let x;
+    const xPadding = (Math.max(...xValues) - Math.min(...xValues)) * 0.05 || 1;
+    const xmin = Math.min(...xValues) - xPadding;
+    const xmax = Math.max(...xValues) + xPadding;
+    x = d3.scaleLinear()
+      .domain([xmin, xmax])
+      .range([0, width]);
+
+    // Y scale
+    const y = d3.scaleLinear()
+      .domain([ymin, ymax])
+      .range([height, 0]);
+
+    // Add gridlines
+    svg.append("g")
+      .attr("class", "grid")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(x)
+        .tickSize(-height)
+        .tickFormat("")
+        .tickValues(allXAreIntegers ? uniqueXValues : null)
+      )
+      .selectAll("line")
+        .style("stroke", "#f3f4f6")
+        .style("stroke-width", 1);
+
+    svg.append("g")
+      .attr("class", "grid")
+      .call(d3.axisLeft(y)
+        .tickSize(-width)
+        .tickFormat("")
+      )
+      .selectAll("line")
+        .style("stroke", "#f3f4f6")
+        .style("stroke-width", 1);
+
+    svg.selectAll(".grid").select(".domain").remove();
+
+    // Add X axis
+    svg.append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(x)
+        .tickValues(allXAreIntegers ? uniqueXValues : null)
+        .tickFormat(d => {
+          if (xaxisPercentage) {
+            return d + "%";
+          } else if (allXAreIntegers) {
+            return d;
+          } else {
+            return d3.format(".1f")(d);
+          }
+        }))
+      .selectAll("text")
+        .style("font-family", "inherit")
+        .style("fill", "#6b7280");
+
+    // Add Y axis
+    svg.append("g")
+      .call(d3.axisLeft(y).tickFormat(d => {
+        if (yaxisPercentage) {
+          return d3.format(".0f")(d) + "%";
+        } else {
+          return d3.format(".1f")(d);
+        }
+      }))
+      .selectAll("text")
+        .style("font-family", "inherit")
+        .style("fill", "#6b7280");
+
+    // Add X axis label
+    svg.append("text")
+      .attr("text-anchor", "middle")
+      .attr("x", width / 2)
+      .attr("y", height + margin.bottom - 15)
+      .text(xLabel)
+      .style("font-family", "inherit")
+      .style("font-size", "13px")
+      .style("fill", "#6b7280");
+
+    // Add Y axis label
+    svg.append("text")
+      .attr("text-anchor", "middle")
+      .attr("transform", "rotate(-90)")
+      .attr("x", -height / 2)
+      .attr("y", -margin.left + 20)
+      .text(yLabel)
+      .style("font-family", "inherit")
+      .style("font-size", "13px")
+      .style("fill", "#6b7280");
+
+    // Line generator
+    const line = d3.line()
+      .x(d => x(d.x))
+      .y(d => y(d.y))
+      .curve(d3.curveMonotoneX);
+
+    // Draw lines for each name
+    namesWithData.forEach(name => {
+      const points = groupedByName[name];
+      const color = colorScale(name);
+      const isHighlighted = name === nameToHighlight;
+
+      // Draw line
+      const path = svg.append("path")
+        .datum(points)
+        .attr("class", `line-${name.replace(/[^a-zA-Z0-9]/g, '_')}`)
+        .attr("fill", "none")
+        .attr("stroke", color)
+        .attr("stroke-width", isHighlighted ? 3 : 2)
+        .attr("d", line);
+
+      // Animate line drawing
+      const totalLength = path.node().getTotalLength();
+      path
+        .attr("stroke-dasharray", `${totalLength} ${totalLength}`)
+        .attr("stroke-dashoffset", totalLength)
+        .transition()
+        .duration(800)
+        .ease(d3.easeCubicOut)
+        .attr("stroke-dashoffset", 0);
+
+      // Draw points
+      svg.selectAll(`.point-${name.replace(/[^a-zA-Z0-9]/g, '_')}`)
+        .data(points)
+        .enter()
+        .append("circle")
+          .attr("class", `point-${name.replace(/[^a-zA-Z0-9]/g, '_')}`)
+          .attr("cx", d => x(d.x))
+          .attr("cy", d => y(d.y))
+          .attr("r", 0)
+          .attr("fill", color)
+          .attr("stroke", "#fff")
+          .attr("stroke-width", 2)
+          .style("cursor", "pointer")
+          .transition()
+          .delay(600)
+          .duration(300)
+          .attr("r", isHighlighted ? 6 : 5);
+
+      // Add hover interactions after animation
+      setTimeout(() => {
+        svg.selectAll(`.point-${name.replace(/[^a-zA-Z0-9]/g, '_')}`)
+          .on("mouseover", function(event, d) {
+            d3.select(this)
+              .transition()
+              .duration(150)
+              .attr("r", isHighlighted ? 8 : 7)
+              .attr("fill", getHoverColor(name));
+
+            const yValueStr = yaxisPercentage
+              ? `${d.y.toFixed(2)}%`
+              : d.y.toFixed(2);
+
+            const xValueStr = xaxisPercentage
+              ? `${d.x}%`
+              : (allXAreIntegers ? d.x : d.x.toFixed(2));
+
+            tooltip
+              .style("opacity", 1)
+              .html(`
+                <div style="font-weight: 600; font-size: 15px; margin-bottom: 6px; color: ${name === nameToHighlight ? '#7c3aed' : '#111827'};">${name}</div>
+                <div style="font-size: 13px; color: #374151;"><strong>${xLabel}:</strong> ${xValueStr}</div>
+                <div style="font-size: 13px; color: #374151;"><strong>${yLabel}:</strong> ${yValueStr}</div>
+                ${d.tooltip ? `<div style="font-size: 12px; color: #6b7280; margin-top: 6px; padding-top: 6px; border-top: 1px solid #e5e7eb;">${d.tooltip}</div>` : ''}
+                <div style="font-size: 11px; color: #9ca3af; margin-top: 6px;">Averaged over ${selectedCategories.length} ${categoryLabel.toLowerCase()}</div>
+              `)
+              .style("left", (event.pageX + 15) + "px")
+              .style("top", (event.pageY - 28) + "px");
+          })
+          .on("mousemove", function(event) {
+            tooltip
+              .style("left", (event.pageX + 15) + "px")
+              .style("top", (event.pageY - 28) + "px");
+          })
+          .on("mouseout", function(event, d) {
+            d3.select(this)
+              .transition()
+              .duration(150)
+              .attr("r", isHighlighted ? 6 : 5)
+              .attr("fill", color);
+
+            tooltip.style("opacity", 0);
+          });
+      }, 950);
+    });
+
+    // Create legend
+    const legendDiv = d3.select(`#legend-${chartId}`);
+
+    // Sort names with highlighted first
+    const sortedNames = [...namesWithData].sort((a, b) => {
+      if (a === nameToHighlight) return -1;
+      if (b === nameToHighlight) return 1;
+      return 0;
+    });
+
+    sortedNames.forEach(name => {
+      const color = colorScale(name);
+      const isHighlighted = name === nameToHighlight;
+
+      const legendItem = legendDiv.append("div")
+        .attr("class", "dline-legend-item")
+        .style("font-weight", isHighlighted ? "600" : "400")
+        .style("color", isHighlighted ? "#7c3aed" : "#374151");
+
+      legendItem.append("div")
+        .attr("class", "dline-legend-line")
+        .style("background-color", color);
+
+      legendItem.append("span")
+        .text(name);
+    });
+  }
+
+  // Initial render
+  renderChart();
+})();
+</script>
