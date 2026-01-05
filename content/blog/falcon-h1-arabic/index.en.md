@@ -1,6 +1,6 @@
 ---
 title: "Introducing Falcon-H1-Arabic: Pushing the Boundaries of Arabic Language AI with Hybrid Architecture"
-date: 2025-12-15T12:00:00Z
+date: 2026-01-05T01:00:00Z
 weight: 1
 # aliases: ["/first"]
 # tags: ["Research"]

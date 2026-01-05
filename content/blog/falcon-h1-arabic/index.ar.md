@@ -1,7 +1,7 @@
 ---
 # title: "Falcon-Arabic: قفزة نوعية في نماذج اللغة العربية"
-title: "Falcon-Arabic: نقلة نوعية في نماذج اللغة العربية"
-date: 2025-05-21T12:00:00Z
+title: "إطلاق Falcon-H1-Arabic: الارتقاء بحدود الذكاء الاصطناعي للغة العربية عبر بنية هجينة متقدمة"
+date: 2026-01-05T01:00:00Z
 weight: 1
 # aliases: ["/first"]
 # tags: ["Research"]
