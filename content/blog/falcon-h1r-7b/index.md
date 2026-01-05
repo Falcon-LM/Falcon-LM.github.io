@@ -1,6 +1,6 @@
 ---
 title: "Falcon-H1R: Pushing the Reasoning Frontiers with a Hybrid Model for Efficient Test-Time Scaling"
-date: 2025-12-07T12:00:00Z
+date: 2026-01-05T08:00:00Z
 weight: 1
 # aliases: ["/first"]
 # tags: ["Research"]
