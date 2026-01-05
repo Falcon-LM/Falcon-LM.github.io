@@ -392,6 +392,9 @@ In line with our mission to foster AI accessibility and collaboration, <span cla
 - Feel free to join [our discord server](https://discord.gg/Cbek57PrZE) if you have any questions or to interact with our researchers and developers.
 - Check out the [Falcon-LLM License link](https://falconllm.tii.ae/falcon-terms-and-conditions.html) for more details about the license.
 
+## Acknowledgments
+
+We would like to thank the following TII collegues for their valuable support during this project: Younes Belkada, Ilyas Chahed, Dhia Eddine Rhaiem, Maksim Velikanov and Jingwei Zuo.
 
 ## Citation
 
