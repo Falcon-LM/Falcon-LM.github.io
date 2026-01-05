@@ -10,22 +10,11 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 05 Jan 2026 01:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Introducing Falcon-H1-Arabic: Pushing the Boundaries of Arabic Language AI with Hybrid Architecture</title>
-      <link>https://falcon-lm.github.io/blog/falcon-h1-arabic/</link>
-      <pubDate>Mon, 05 Jan 2026 01:00:00 +0000</pubDate>
-      
-      <guid>https://falcon-lm.github.io/blog/falcon-h1-arabic/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;Check out the &lt;a href=&#34;https://falcon-lm.github.io/ar/blog/falcon-h1-arabic/&#34;&gt;Arabic version&lt;/a&gt; translated by &lt;strong&gt;Falcon-H1-Arabic&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;The journey of building world-class Arabic language models has been one of continuous learning and iteration. Today, we&amp;rsquo;re excited to announce &lt;strong&gt;Falcon-H1-Arabic&lt;/strong&gt;, our most advanced Arabic language model family to date, representing a significant leap forward in both architecture and capabilities. This release embodies months of research, community feedback, and technical innovation, culminating in &lt;strong&gt;three&lt;/strong&gt; powerful models that set new standards for Arabic natural language processing.&lt;/p&gt;</description>
-    </item>
-    
+    <lastBuildDate>Mon, 05 Jan 2026 08:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Falcon-H1R: Pushing the Reasoning Frontiers with a Hybrid Model for Efficient Test-Time Scaling</title>
       <link>https://falcon-lm.github.io/blog/falcon-h1r-7b/</link>
-      <pubDate>Sun, 07 Dec 2025 12:00:00 +0000</pubDate>
+      <pubDate>Mon, 05 Jan 2026 08:00:00 +0000</pubDate>
       
       <guid>https://falcon-lm.github.io/blog/falcon-h1r-7b/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://chat.falconllm.tii.ae&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Falcon CHAT&lt;/a&gt;
@@ -35,6 +24,17 @@
 &lt;h1 id=&#34;introducing-falcon-h1r-7b&#34;&gt;Introducing Falcon H1R 7B&lt;/h1&gt;
 &lt;p&gt;We’re excited to unveil &lt;span class=&#34;bold&#34;&gt;Falcon H1R 7B&lt;/span&gt;, a decoder-only large language model, developed by the &lt;a href=&#34;https://www.tii.ae/ai-and-digital-science&#34;&gt;Technology Innovation Institute (TII)&lt;/a&gt; in Abu Dhabi. Building upon the robust foundation of Falcon-H1 Base model, &lt;span class=&#34;bold&#34;&gt;Falcon H1R 7B&lt;/span&gt; takes a major leap forward in reasoning capabilities.&lt;/p&gt;
 &lt;p&gt;Despite its modest 7 billion‑parameter size, &lt;span class=&#34;bold&#34;&gt;Falcon H1R 7B&lt;/span&gt; matches or outperforms state‑of‑the‑art reasoning models that are 2–7× larger, proving its exceptional parameter efficiency and does so consistently across a wide range of reasoning‑intensive benchmarks.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Introducing Falcon-H1-Arabic: Pushing the Boundaries of Arabic Language AI with Hybrid Architecture</title>
+      <link>https://falcon-lm.github.io/blog/falcon-h1-arabic/</link>
+      <pubDate>Mon, 05 Jan 2026 01:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/blog/falcon-h1-arabic/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Check out the &lt;a href=&#34;https://falcon-lm.github.io/ar/blog/falcon-h1-arabic/&#34;&gt;Arabic version&lt;/a&gt; translated by &lt;strong&gt;Falcon-H1-Arabic&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;The journey of building world-class Arabic language models has been one of continuous learning and iteration. Today, we&amp;rsquo;re excited to announce &lt;strong&gt;Falcon-H1-Arabic&lt;/strong&gt;, our most advanced Arabic language model family to date, representing a significant leap forward in both architecture and capabilities. This release embodies months of research, community feedback, and technical innovation, culminating in &lt;strong&gt;three&lt;/strong&gt; powerful models that set new standards for Arabic natural language processing.&lt;/p&gt;</description>
     </item>
     
     <item>
