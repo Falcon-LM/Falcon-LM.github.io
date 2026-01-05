@@ -10,7 +10,22 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>ar</language>
-    <lastBuildDate>Wed, 21 May 2025 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/ar/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 05 Jan 2026 01:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/ar/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>إطلاق Falcon-H1-Arabic: الارتقاء بحدود الذكاء الاصطناعي للغة العربية عبر بنية هجينة متقدمة</title>
+      <link>https://falcon-lm.github.io/ar/blog/falcon-h1-arabic/</link>
+      <pubDate>Mon, 05 Jan 2026 01:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/ar/blog/falcon-h1-arabic/</guid>
+      <description>&lt;div dir=&#34;rtl&#34; class=&#34;translation-notice&#34;&gt;
+  &lt;p&gt;
+    تنبيه: تم ترجمة هذا المقال بواسطة &lt;span class=&#34;llm-name&#34;&gt;Falcon-H1-Arabic&lt;/span&gt; 🦅
+  &lt;/p&gt;
+&lt;/div&gt;
+&lt;div dir=&#34;rtl&#34;&gt;
+&lt;p&gt;كانت رحلة بناء نماذج لغوية عربية بمستوى رفيع رحلة من التعلم المستمر والتطوير المتكرر. واليوم، يسعدنا الإعلان عن &lt;strong&gt;Falcon-H1-Arabic&lt;/strong&gt;، أحدث وأقوى عائلة نماذج لغوية عربية لدينا حتى الآن، والتي تمثل قفزة نوعية كبيرة على مستوى البنية والقدرات. يجسد هذا الإصدار شهورًا من البحث، و الأخذ بعين الإعتبار لآراء المستخدمين، والابتكار التقني، التي تجسدت في &lt;strong&gt;ثلاثة&lt;/strong&gt; نماذج قوية تضع معايير جديدة لمعالجة اللغة العربية الطبيعية.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Falcon-Arabic: نقلة نوعية في نماذج اللغة العربية</title>
       <link>https://falcon-lm.github.io/ar/blog/falcon-arabic/</link>
