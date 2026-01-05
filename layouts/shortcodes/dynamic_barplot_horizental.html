@@ -1,0 +1,786 @@
+<!-- layouts/shortcodes/hbarplot.html -->
+<div id="chart-{{ .Get "id" }}" class="hbarplot-container"></div>
+<style>
+  .hbarplot-container {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .hbarplot-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .hbarplot-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .hbarplot-control-group > label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .hbarplot-dropdown {
+    position: relative;
+    min-width: 220px;
+  }
+  .hbarplot-dropdown-button {
+    width: 100%;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .hbarplot-dropdown-button:hover {
+    border-color: #9ca3af;
+  }
+  .hbarplot-dropdown-button:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  }
+  .hbarplot-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+  }
+  .hbarplot-dropdown-menu.open {
+    display: block;
+  }
+  .hbarplot-dropdown-item {
+    padding: 10px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    transition: background 0.15s;
+  }
+  .hbarplot-dropdown-item:hover {
+    background: #f3f4f6;
+  }
+  .hbarplot-dropdown-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #6366f1;
+    cursor: pointer;
+  }
+  .hbarplot-dropdown-item label {
+    cursor: pointer;
+    flex: 1;
+    font-size: 14px;
+    font-weight: normal;
+    color: inherit;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+  .hbarplot-select-actions {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f9fafb;
+    border-radius: 8px 8px 0 0;
+  }
+  .hbarplot-select-actions button {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .hbarplot-select-actions button:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+  }
+  .hbarplot-chips-section {
+    margin-bottom: 16px;
+  }
+  .hbarplot-chips-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .hbarplot-chip-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .hbarplot-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: #e0e7ff;
+    color: #4338ca;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background 0.15s;
+  }
+  .hbarplot-chip:hover {
+    background: #c7d2fe;
+  }
+  .hbarplot-chip.model-chip {
+    background: #fae8ff;
+    color: #a21caf;
+  }
+  .hbarplot-chip.model-chip:hover {
+    background: #f5d0fe;
+  }
+  .hbarplot-chip.model-chip.highlighted {
+    background: #d8b4fe;
+    color: #6b21a8;
+  }
+  .hbarplot-chip-remove {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.15s;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .hbarplot-chip-remove:hover {
+    opacity: 1;
+  }
+  .hbarplot-empty-message {
+    text-align: center;
+    padding: 40px;
+    color: #6b7280;
+    font-size: 14px;
+  }
+  .hbarplot-chart-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+(function() {
+  const chartId = "{{ .Get "id" }}";
+  const container = document.getElementById(`chart-${chartId}`);
+
+  // Get the data safely
+  let data;
+  try {
+    data = JSON.parse(`{{ .Inner }}`);
+  } catch (e) {
+    console.error("Error parsing chart data:", e);
+    data = [];
+  }
+
+  // Configurable labels for dropdowns
+  const groupbyLabel = "{{ .Get "groupby" | default "Categories" }}";
+  const yAxisLabel = "{{ .Get "y_axis_labels" | default "Models" }}";
+
+  // Default selections (semicolon-separated values)
+  const defaultGroupbyRaw = "{{ .Get "default_groupby" | default "" }}";
+  const defaultYLabelsRaw = "{{ .Get "default_y_labels" | default "" }}";
+
+  // Parse default values into arrays
+  const parseDefaults = (raw) => {
+    if (!raw || raw.trim() === "") return null;
+    return raw.split(";").map(s => s.trim()).filter(s => s.length > 0);
+  };
+
+  const defaultGroupby = parseDefaults(defaultGroupbyRaw);
+  const defaultYLabels = parseDefaults(defaultYLabelsRaw);
+
+  // Automatically infer model names and categories from data
+  const modelOrder = {{ .Get "models" | default "[]" | safeJS }};
+  const allModels = modelOrder.length > 0 ?
+                     modelOrder :
+                     Array.from(new Set(data.map(d => d.model)));
+
+  // Parse the categories passed from markdown or infer from data
+  const categoryOrder = {{ .Get "categories" | default "[]" | safeJS }};
+  const allCategories = categoryOrder.length > 0 ?
+                     categoryOrder :
+                     Array.from(new Set(data.map(d => d.category)));
+
+  // Get highlight model (the one to make purple) or default to first model
+  const highlightModel = "{{ .Get "highlight" }}";
+  const modelToHighlight = highlightModel || allModels[0];
+
+  // whether x label is % or not
+  const xaxisPercentage = {{ if eq (.Get "xaxis_percentage" | default "true") "false" }}false{{ else }}true{{ end }};
+
+  // Chart dimensions
+  const baseWidth = {{ .Get "width" | default 800 }};
+  const baseHeight = {{ .Get "height" | default 600 }};
+
+  // State for selected categories and models (use defaults if provided, otherwise select all)
+  let selectedCategories = defaultGroupby
+    ? defaultGroupby.filter(c => allCategories.includes(c))
+    : [...allCategories];
+  let selectedModels = defaultYLabels
+    ? defaultYLabels.filter(m => allModels.includes(m))
+    : [...allModels];
+
+  // Create controls container
+  const controlsDiv = document.createElement('div');
+  controlsDiv.className = 'hbarplot-controls';
+  container.appendChild(controlsDiv);
+
+  // Helper function to create a dropdown
+  function createDropdown(label, items, selectedItems, chipClass, onUpdate) {
+    const controlGroup = document.createElement('div');
+    controlGroup.className = 'hbarplot-control-group';
+
+    const labelEl = document.createElement('label');
+    labelEl.textContent = label;
+    controlGroup.appendChild(labelEl);
+
+    const dropdownDiv = document.createElement('div');
+    dropdownDiv.className = 'hbarplot-dropdown';
+    controlGroup.appendChild(dropdownDiv);
+
+    const dropdownButton = document.createElement('button');
+    dropdownButton.className = 'hbarplot-dropdown-button';
+    dropdownButton.type = 'button';
+    dropdownDiv.appendChild(dropdownButton);
+
+    function updateButtonText() {
+      const count = selectedItems.length;
+      dropdownButton.innerHTML = `
+        <span>${count} of ${items.length} selected</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+    }
+    updateButtonText();
+
+    const dropdownMenu = document.createElement('div');
+    dropdownMenu.className = 'hbarplot-dropdown-menu';
+    dropdownDiv.appendChild(dropdownMenu);
+
+    // Add select all/none actions
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'hbarplot-select-actions';
+    dropdownMenu.appendChild(actionsDiv);
+
+    const selectAllBtn = document.createElement('button');
+    selectAllBtn.type = 'button';
+    selectAllBtn.textContent = 'Select All';
+    selectAllBtn.onclick = (e) => {
+      e.stopPropagation();
+      selectedItems.length = 0;
+      selectedItems.push(...items);
+      updateCheckboxes();
+      updateButtonText();
+      onUpdate();
+    };
+    actionsDiv.appendChild(selectAllBtn);
+
+    const selectNoneBtn = document.createElement('button');
+    selectNoneBtn.type = 'button';
+    selectNoneBtn.textContent = 'Clear All';
+    selectNoneBtn.onclick = (e) => {
+      e.stopPropagation();
+      selectedItems.length = 0;
+      updateCheckboxes();
+      updateButtonText();
+      onUpdate();
+    };
+    actionsDiv.appendChild(selectNoneBtn);
+
+    // Add items
+    const checkboxes = {};
+    items.forEach(item => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'hbarplot-dropdown-item';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.id = `${chipClass}-${chartId}-${item.replace(/[^a-zA-Z0-9]/g, '_')}`;
+      checkbox.checked = selectedItems.includes(item);
+      checkboxes[item] = checkbox;
+
+      checkbox.onchange = () => {
+        if (checkbox.checked) {
+          if (!selectedItems.includes(item)) {
+            selectedItems.push(item);
+          }
+        } else {
+          const idx = selectedItems.indexOf(item);
+          if (idx > -1) selectedItems.splice(idx, 1);
+        }
+        updateButtonText();
+        onUpdate();
+      };
+
+      const labelEl = document.createElement('label');
+      labelEl.htmlFor = checkbox.id;
+      labelEl.textContent = item;
+
+      itemDiv.appendChild(checkbox);
+      itemDiv.appendChild(labelEl);
+      dropdownMenu.appendChild(itemDiv);
+    });
+
+    function updateCheckboxes() {
+      items.forEach(item => {
+        if (checkboxes[item]) {
+          checkboxes[item].checked = selectedItems.includes(item);
+        }
+      });
+    }
+
+    // Toggle dropdown
+    dropdownButton.onclick = (e) => {
+      e.stopPropagation();
+      // Close other dropdowns
+      document.querySelectorAll('.hbarplot-dropdown-menu.open').forEach(menu => {
+        if (menu !== dropdownMenu) menu.classList.remove('open');
+      });
+      dropdownMenu.classList.toggle('open');
+    };
+
+    return {
+      element: controlGroup,
+      updateButtonText,
+      updateCheckboxes,
+      getSelected: () => selectedItems
+    };
+  }
+
+  // Create chips section
+  const chipsSection = document.createElement('div');
+  chipsSection.className = 'hbarplot-chips-section';
+
+  function updateAllChips() {
+    chipsSection.innerHTML = '';
+
+    // Categories chips
+    if (selectedCategories.length > 0 && selectedCategories.length < allCategories.length) {
+      const catLabel = document.createElement('div');
+      catLabel.className = 'hbarplot-chips-label';
+      catLabel.textContent = groupbyLabel;
+      chipsSection.appendChild(catLabel);
+
+      const catChips = document.createElement('div');
+      catChips.className = 'hbarplot-chip-container';
+      selectedCategories.forEach(category => {
+        const chip = document.createElement('span');
+        chip.className = 'hbarplot-chip';
+        chip.innerHTML = `${category}<span class="hbarplot-chip-remove">×</span>`;
+        chip.querySelector('.hbarplot-chip-remove').onclick = () => {
+          const idx = selectedCategories.indexOf(category);
+          if (idx > -1) selectedCategories.splice(idx, 1);
+          categoryDropdown.updateCheckboxes();
+          categoryDropdown.updateButtonText();
+          updateAllChips();
+          renderChart();
+        };
+        catChips.appendChild(chip);
+      });
+      chipsSection.appendChild(catChips);
+    }
+
+    // Models chips
+    if (selectedModels.length > 0 && selectedModels.length < allModels.length) {
+      const modelLabel = document.createElement('div');
+      modelLabel.className = 'hbarplot-chips-label';
+      modelLabel.style.marginTop = selectedCategories.length > 0 && selectedCategories.length < allCategories.length ? '12px' : '0';
+      modelLabel.textContent = yAxisLabel;
+      chipsSection.appendChild(modelLabel);
+
+      const modelChips = document.createElement('div');
+      modelChips.className = 'hbarplot-chip-container';
+      selectedModels.forEach(model => {
+        const chip = document.createElement('span');
+        chip.className = `hbarplot-chip model-chip${model === modelToHighlight ? ' highlighted' : ''}`;
+        chip.innerHTML = `${model}<span class="hbarplot-chip-remove">×</span>`;
+        chip.querySelector('.hbarplot-chip-remove').onclick = () => {
+          const idx = selectedModels.indexOf(model);
+          if (idx > -1) selectedModels.splice(idx, 1);
+          modelDropdown.updateCheckboxes();
+          modelDropdown.updateButtonText();
+          updateAllChips();
+          renderChart();
+        };
+        modelChips.appendChild(chip);
+      });
+      chipsSection.appendChild(modelChips);
+    }
+  }
+
+  // Create category dropdown
+  const categoryDropdown = createDropdown(
+    groupbyLabel,
+    allCategories,
+    selectedCategories,
+    'cat',
+    () => {
+      updateAllChips();
+      renderChart();
+    }
+  );
+  controlsDiv.appendChild(categoryDropdown.element);
+
+  // Create model dropdown
+  const modelDropdown = createDropdown(
+    yAxisLabel,
+    allModels,
+    selectedModels,
+    'model',
+    () => {
+      updateAllChips();
+      renderChart();
+    }
+  );
+  controlsDiv.appendChild(modelDropdown.element);
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.hbarplot-dropdown')) {
+      document.querySelectorAll('.hbarplot-dropdown-menu.open').forEach(menu => {
+        menu.classList.remove('open');
+      });
+    }
+  });
+
+  // Add chips section
+  container.appendChild(chipsSection);
+  updateAllChips();
+
+  // Create chart wrapper for centering
+  const chartWrapper = document.createElement('div');
+  chartWrapper.className = 'hbarplot-chart-wrapper';
+  container.appendChild(chartWrapper);
+
+  // Create chart container
+  const chartContainer = document.createElement('div');
+  chartContainer.id = `chart-svg-${chartId}`;
+  chartWrapper.appendChild(chartContainer);
+
+  // Create tooltip
+  const tooltipId = `tooltip-${chartId}`;
+  if (!document.getElementById(tooltipId)) {
+    const tooltip = document.createElement('div');
+    tooltip.id = tooltipId;
+    tooltip.className = 'tooltip';
+    tooltip.style.cssText = `
+      position: absolute;
+      padding: 12px 14px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      font-family: inherit;
+      font-size: 14px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      z-index: 10000;
+    `;
+    document.body.appendChild(tooltip);
+  }
+  const tooltip = d3.select(`#${tooltipId}`);
+
+  // Color scale function - will be updated with value rankings
+  let valueRankings = {}; // model -> rank (0 = lowest value, n-1 = highest value)
+
+  const updateValueRankings = (avgData) => {
+    // Sort by value ascending (lowest first)
+    const sorted = [...avgData].sort((a, b) => a.value - b.value);
+    valueRankings = {};
+    sorted.forEach((d, idx) => {
+      valueRankings[d.model] = idx;
+    });
+  };
+
+  const colorScale = (model, totalSelected) => {
+    if (model === modelToHighlight) {
+      return "#a855f7";
+    } else {
+      // Use value ranking: lowest value = lightest (brightness 180), highest = darkest (brightness 80)
+      const rank = valueRankings[model] || 0;
+      const nonHighlightedCount = totalSelected - (selectedModels.includes(modelToHighlight) ? 1 : 0);
+      const maxRank = Math.max(nonHighlightedCount - 1, 1);
+      // Brightness range: 180 (lightest) to 80 (darkest)
+      const brightness = 180 - (rank * 100 / maxRank);
+      return `rgb(${brightness}, ${brightness + 8}, ${brightness + 16})`;
+    }
+  };
+
+  const getHoverColor = (model, totalSelected) => {
+    if (model === modelToHighlight) {
+      return "#c084fc";
+    } else {
+      const rank = valueRankings[model] || 0;
+      const nonHighlightedCount = totalSelected - (selectedModels.includes(modelToHighlight) ? 1 : 0);
+      const maxRank = Math.max(nonHighlightedCount - 1, 1);
+      const brightness = 180 - (rank * 100 / maxRank);
+      const lighterBrightness = Math.min(brightness + 30, 220);
+      return `rgb(${lighterBrightness}, ${lighterBrightness + 8}, ${lighterBrightness + 16})`;
+    }
+  };;
+
+  function renderChart() {
+    // Clear previous chart
+    d3.select(`#chart-svg-${chartId}`).selectAll("*").remove();
+
+    if (selectedCategories.length === 0 || selectedModels.length === 0) {
+      const emptyMsg = document.createElement('div');
+      emptyMsg.className = 'hbarplot-empty-message';
+      emptyMsg.textContent = selectedCategories.length === 0
+        ? `Please select at least one ${groupbyLabel.toLowerCase()} to display the chart.`
+        : `Please select at least one ${yAxisLabel.toLowerCase()} to display the chart.`;
+      document.getElementById(`chart-svg-${chartId}`).appendChild(emptyMsg);
+      return;
+    }
+
+    // Calculate averaged data for selected models only
+    const avgData = selectedModels.map(model => {
+      const modelData = data.filter(d =>
+        d.model === model && selectedCategories.includes(d.category)
+      );
+      const avgValue = modelData.length > 0
+        ? modelData.reduce((sum, d) => sum + d.value, 0) / modelData.length
+        : 0;
+      return { model, value: avgValue, category: "Average" };
+    });
+
+    // Sort by value descending for better visualization
+    avgData.sort((a, b) => b.value - a.value);
+
+    // Update value rankings for color scale (excluding highlighted model from ranking)
+    const nonHighlightedData = avgData.filter(d => d.model !== modelToHighlight);
+    updateValueRankings(nonHighlightedData);
+
+    const totalSelected = selectedModels.length;
+
+    // Calculate dynamic x-axis bounds with epsilon
+    const allValues = avgData.map(d => d.value);
+    const epsilon = 0.02;
+    const xmin = Math.max(0, Math.min(...allValues) - epsilon);
+    const xmax = Math.max(...allValues) + epsilon;
+
+    // Adjust height based on number of bars (selected models) or use baseHeight
+    const margin = {top: 20, right: 80, bottom: 50, left: 180};
+    const width = baseWidth - margin.left - margin.right;
+
+    // Calculate available height and adapt bar thickness
+    const availableHeight = baseHeight - margin.top - margin.bottom;
+    const minBarHeight = 25;
+    const maxBarHeight = 60;
+    const numBars = selectedModels.length;
+
+    // Calculate optimal bar height based on available space
+    let barHeight = Math.floor(availableHeight / numBars * 0.85); // 0.85 accounts for padding
+    barHeight = Math.max(minBarHeight, Math.min(maxBarHeight, barHeight));
+
+    // Determine if we need to expand beyond baseHeight or use it
+    const calculatedHeight = numBars * barHeight / 0.85;
+    const height = Math.max(calculatedHeight, availableHeight);
+
+    // Create SVG
+    const svg = d3.select(`#chart-svg-${chartId}`)
+      .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // Y scale for models
+    const y = d3.scaleBand()
+      .domain(avgData.map(d => d.model))
+      .range([0, height])
+      .padding(0.15);
+
+    // X scale
+    const x = d3.scaleLinear()
+      .domain([xmin, xmax])
+      .range([0, width]);
+
+    // Add gridlines first (behind bars)
+    svg.append("g")
+      .attr("class", "grid")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(x)
+        .tickSize(-height)
+        .tickFormat("")
+      )
+      .selectAll("line")
+        .style("stroke", "#f3f4f6")
+        .style("stroke-width", 1);
+
+    svg.select(".grid").select(".domain").remove();
+
+    // Add Y axis with text wrapping for long model names
+    const yAxis = svg.append("g")
+      .call(d3.axisLeft(y).tickSize(0));
+
+    yAxis.select(".domain").remove();
+
+    // Replace text elements with foreignObject for wrapping
+    yAxis.selectAll(".tick").each(function(d) {
+      const tick = d3.select(this);
+      tick.select("text").remove();
+
+      const fo = tick.append("foreignObject")
+        .attr("x", -margin.left + 10)
+        .attr("y", -y.bandwidth() / 2)
+        .attr("width", margin.left - 15)
+        .attr("height", y.bandwidth());
+
+      fo.append("xhtml:div")
+        .style("width", "100%")
+        .style("height", "100%")
+        .style("display", "flex")
+        .style("align-items", "center")
+        .style("justify-content", "flex-end")
+        .style("text-align", "right")
+        .style("font-family", "inherit")
+        .style("font-size", "12px")
+        .style("line-height", "1.2")
+        .style("word-wrap", "break-word")
+        .style("overflow-wrap", "break-word")
+        .style("hyphens", "auto")
+        .style("padding-right", "8px")
+        .style("font-weight", d === modelToHighlight ? "600" : "400")
+        .style("color", d === modelToHighlight ? "#7c3aed" : "#374151")
+        .text(d);
+    });
+
+    // Add X axis
+    svg.append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(x).tickFormat(d => {
+        if (xaxisPercentage) {
+          return d3.format(".0%")(d);
+        } else {
+          return d3.format(".2f")(d);
+        }
+      }))
+      .selectAll("text")
+        .style("font-family", "inherit")
+        .style("fill", "#6b7280");
+
+    // Add bars with animation
+    svg.selectAll(".bar")
+      .data(avgData)
+      .enter()
+      .append("rect")
+        .attr("class", "bar")
+        .attr("x", 0)
+        .attr("y", d => y(d.model))
+        .attr("width", 0)
+        .attr("height", y.bandwidth())
+        .attr("fill", d => colorScale(d.model, totalSelected))
+        .attr("rx", 6)
+        .attr("ry", 6)
+        .style("cursor", "pointer")
+        .transition()
+        .duration(600)
+        .ease(d3.easeCubicOut)
+        .attr("width", d => x(d.value));
+
+    // Add hover interactions after transition
+    setTimeout(() => {
+      svg.selectAll(".bar")
+        .on("mouseover", function(event, d) {
+          d3.select(this)
+            .transition()
+            .duration(150)
+            .attr("fill", getHoverColor(d.model, totalSelected));
+
+          const valueStr = xaxisPercentage
+            ? `${(d.value * 100).toFixed(2)}%`
+            : d.value.toFixed(4);
+
+          tooltip
+            .style("opacity", 1)
+            .html(`
+              <div style="font-weight: 600; font-size: 15px; margin-bottom: 4px; color: ${d.model === modelToHighlight ? '#7c3aed' : '#111827'};">${d.model}</div>
+              <div style="font-size: 13px; color: #374151;">Average: <strong>${valueStr}</strong></div>
+              <div style="font-size: 11px; color: #9ca3af; margin-top: 4px;">Based on ${selectedCategories.length} ${groupbyLabel.toLowerCase()}</div>
+            `)
+            .style("left", (event.pageX + 15) + "px")
+            .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mousemove", function(event) {
+          tooltip
+            .style("left", (event.pageX + 15) + "px")
+            .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(event, d) {
+          d3.select(this)
+            .transition()
+            .duration(150)
+            .attr("fill", colorScale(d.model, totalSelected));
+
+          tooltip.style("opacity", 0);
+        });
+    }, 650);
+
+    // Add value labels on bars
+    svg.selectAll(".bar-label")
+      .data(avgData)
+      .enter()
+      .append("text")
+        .attr("class", "bar-label")
+        .attr("x", d => x(d.value) + 8)
+        .attr("y", d => y(d.model) + y.bandwidth() / 2)
+        .attr("dy", "0.35em")
+        .attr("text-anchor", "start")
+        .style("font-size", "12px")
+        .style("font-weight", "600")
+        .style("fill", d => d.model === modelToHighlight ? "#7c3aed" : "#374151")
+        .style("opacity", 0)
+        .text(d => {
+          if (xaxisPercentage) {
+            return `${(d.value * 100).toFixed(1)}%`;
+          } else {
+            return d.value.toFixed(3);
+          }
+        })
+        .transition()
+        .delay(400)
+        .duration(300)
+        .style("opacity", 1);
+
+    // Add X axis label if specified
+    {{ if .Get "ylabel" }}
+    svg.append("text")
+      .attr("text-anchor", "middle")
+      .attr("x", width / 2)
+      .attr("y", height + margin.bottom - 10)
+      .text({{ .Get "ylabel" }})
+      .style("font-family", "inherit")
+      .style("font-size", "13px")
+      .style("fill", "#6b7280");
+    {{ end }}
+  }
+
+  // Initial render
+  renderChart();
+})();
+</script>

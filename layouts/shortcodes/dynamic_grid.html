@@ -1,0 +1,1155 @@
+<!-- layouts/shortcodes/dynamic_grid.html -->
+<div id="chart-{{ .Get "id" }}" class="dgrid-container"></div>
+<style>
+  .dgrid-container {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .dgrid-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .dgrid-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .dgrid-control-group > label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .dgrid-dropdown {
+    position: relative;
+    min-width: 220px;
+  }
+  .dgrid-dropdown-button {
+    width: 100%;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .dgrid-dropdown-button:hover {
+    border-color: #9ca3af;
+  }
+  .dgrid-dropdown-button:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  }
+  .dgrid-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+  }
+  .dgrid-dropdown-menu.open {
+    display: block;
+  }
+  .dgrid-dropdown-item {
+    padding: 10px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    transition: background 0.15s;
+  }
+  .dgrid-dropdown-item:hover {
+    background: #f3f4f6;
+  }
+  .dgrid-dropdown-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #6366f1;
+    cursor: pointer;
+  }
+  .dgrid-dropdown-item label {
+    cursor: pointer;
+    flex: 1;
+    font-size: 14px;
+    font-weight: normal;
+    color: inherit;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+  .dgrid-select-actions {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f9fafb;
+    border-radius: 8px 8px 0 0;
+  }
+  .dgrid-select-actions button {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .dgrid-select-actions button:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+  }
+  .dgrid-chips-section {
+    margin-bottom: 16px;
+  }
+  .dgrid-chips-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .dgrid-chip-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .dgrid-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: #e0e7ff;
+    color: #4338ca;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background 0.15s;
+  }
+  .dgrid-chip:hover {
+    background: #c7d2fe;
+  }
+  .dgrid-chip.name-chip {
+    background: #fae8ff;
+    color: #a21caf;
+  }
+  .dgrid-chip.name-chip:hover {
+    background: #f5d0fe;
+  }
+  .dgrid-chip.name-chip.highlighted {
+    background: #d8b4fe;
+    color: #6b21a8;
+  }
+  .dgrid-chip-remove {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.15s;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .dgrid-chip-remove:hover {
+    opacity: 1;
+  }
+  .dgrid-empty-message {
+    text-align: center;
+    padding: 40px;
+    color: #6b7280;
+    font-size: 14px;
+  }
+  .dgrid-chart-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+(function() {
+  const chartId = "{{ .Get "id" }}";
+  const container = document.getElementById(`chart-${chartId}`);
+
+  // Get the data safely
+  let data;
+  try {
+    data = JSON.parse(`{{ .Inner }}`);
+  } catch (e) {
+    console.error("Error parsing chart data:", e);
+    data = [];
+  }
+
+  // Configurable labels for dropdowns and axes
+  const categoryLabel = "{{ .Get "category_label" | default "Categories" }}";
+  const nameLabel = "{{ .Get "name_label" | default "Names" }}";
+  const xLabel = "{{ .Get "x_label" | default "X Axis" }}";
+  const yLabel = "{{ .Get "y_label" | default "Y Axis" }}";
+  const sizeLabel = "{{ .Get "size_label" | default "Size" }}";
+
+  // Default selections (semicolon-separated values)
+  const defaultCategoriesRaw = "{{ .Get "default_categories" | default "" }}";
+  const defaultNamesRaw = "{{ .Get "default_names" | default "" }}";
+
+  // Parse default values into arrays
+  const parseDefaults = (raw) => {
+    if (!raw || raw.trim() === "") return null;
+    return raw.split(";").map(s => s.trim()).filter(s => s.length > 0);
+  };
+
+  const defaultCategories = parseDefaults(defaultCategoriesRaw);
+  const defaultNames = parseDefaults(defaultNamesRaw);
+
+  // Automatically infer names and categories from data
+  const allNames = Array.from(new Set(data.map(d => d.name)));
+  const allCategories = Array.from(new Set(data.map(d => d.category)));
+
+  // Get highlight name (the one to make purple) or default to first name
+  const highlightName = "{{ .Get "highlight" }}";
+  const nameToHighlight = highlightName || allNames[0];
+
+  // Whether y axis is percentage
+  const yaxisPercentage = {{ if eq (.Get "yaxis_percentage" | default "false") "true" }}true{{ else }}false{{ end }};
+
+  // Whether x axis is percentage
+  const xaxisPercentage = {{ if eq (.Get "xaxis_percentage" | default "false") "true" }}true{{ else }}false{{ end }};
+
+  // Whether higher is better for each axis (determines Pareto corner)
+  const xHigherBetter = {{ if eq (.Get "x_higher_better" | default "true") "false" }}false{{ else }}true{{ end }};
+  const yHigherBetter = {{ if eq (.Get "y_higher_better" | default "true") "false" }}false{{ else }}true{{ end }};
+
+  // Text label for the Pareto triangle
+  const paretoText = "{{ .Get "pareto_text" | default "" }}";
+
+  // Chart dimensions
+  const baseWidth = {{ .Get "width" | default 800 }};
+  const baseHeight = {{ .Get "height" | default 500 }};
+
+  // State for selected categories and names (use defaults if provided, otherwise select all)
+  let selectedCategories = defaultCategories
+    ? defaultCategories.filter(c => allCategories.includes(c))
+    : [...allCategories];
+  let selectedNames = defaultNames
+    ? defaultNames.filter(n => allNames.includes(n))
+    : [...allNames];
+
+  // Create controls container
+  const controlsDiv = document.createElement('div');
+  controlsDiv.className = 'dgrid-controls';
+  container.appendChild(controlsDiv);
+
+  // Helper function to create a dropdown
+  function createDropdown(label, items, selectedItems, chipClass, onUpdate) {
+    const controlGroup = document.createElement('div');
+    controlGroup.className = 'dgrid-control-group';
+
+    const labelEl = document.createElement('label');
+    labelEl.textContent = label;
+    controlGroup.appendChild(labelEl);
+
+    const dropdownDiv = document.createElement('div');
+    dropdownDiv.className = 'dgrid-dropdown';
+    controlGroup.appendChild(dropdownDiv);
+
+    const dropdownButton = document.createElement('button');
+    dropdownButton.className = 'dgrid-dropdown-button';
+    dropdownButton.type = 'button';
+    dropdownDiv.appendChild(dropdownButton);
+
+    function updateButtonText() {
+      const count = selectedItems.length;
+      dropdownButton.innerHTML = `
+        <span>${count} of ${items.length} selected</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+    }
+    updateButtonText();
+
+    const dropdownMenu = document.createElement('div');
+    dropdownMenu.className = 'dgrid-dropdown-menu';
+    dropdownDiv.appendChild(dropdownMenu);
+
+    // Add select all/none actions
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'dgrid-select-actions';
+    dropdownMenu.appendChild(actionsDiv);
+
+    const selectAllBtn = document.createElement('button');
+    selectAllBtn.type = 'button';
+    selectAllBtn.textContent = 'Select All';
+    selectAllBtn.onclick = (e) => {
+      e.stopPropagation();
+      selectedItems.length = 0;
+      selectedItems.push(...items);
+      updateCheckboxes();
+      updateButtonText();
+      onUpdate();
+    };
+    actionsDiv.appendChild(selectAllBtn);
+
+    const selectNoneBtn = document.createElement('button');
+    selectNoneBtn.type = 'button';
+    selectNoneBtn.textContent = 'Clear All';
+    selectNoneBtn.onclick = (e) => {
+      e.stopPropagation();
+      selectedItems.length = 0;
+      updateCheckboxes();
+      updateButtonText();
+      onUpdate();
+    };
+    actionsDiv.appendChild(selectNoneBtn);
+
+    // Add items
+    const checkboxes = {};
+    items.forEach(item => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'dgrid-dropdown-item';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.id = `${chipClass}-${chartId}-${item.replace(/[^a-zA-Z0-9]/g, '_')}`;
+      checkbox.checked = selectedItems.includes(item);
+      checkboxes[item] = checkbox;
+
+      checkbox.onchange = () => {
+        if (checkbox.checked) {
+          if (!selectedItems.includes(item)) {
+            selectedItems.push(item);
+          }
+        } else {
+          const idx = selectedItems.indexOf(item);
+          if (idx > -1) selectedItems.splice(idx, 1);
+        }
+        updateButtonText();
+        onUpdate();
+      };
+
+      const labelEl = document.createElement('label');
+      labelEl.htmlFor = checkbox.id;
+      labelEl.textContent = item;
+
+      itemDiv.appendChild(checkbox);
+      itemDiv.appendChild(labelEl);
+      dropdownMenu.appendChild(itemDiv);
+    });
+
+    function updateCheckboxes() {
+      items.forEach(item => {
+        if (checkboxes[item]) {
+          checkboxes[item].checked = selectedItems.includes(item);
+        }
+      });
+    }
+
+    // Toggle dropdown
+    dropdownButton.onclick = (e) => {
+      e.stopPropagation();
+      // Close other dropdowns
+      document.querySelectorAll('.dgrid-dropdown-menu.open').forEach(menu => {
+        if (menu !== dropdownMenu) menu.classList.remove('open');
+      });
+      dropdownMenu.classList.toggle('open');
+    };
+
+    return {
+      element: controlGroup,
+      updateButtonText,
+      updateCheckboxes,
+      getSelected: () => selectedItems
+    };
+  }
+
+  // Create chips section
+  const chipsSection = document.createElement('div');
+  chipsSection.className = 'dgrid-chips-section';
+
+  function updateAllChips() {
+    chipsSection.innerHTML = '';
+
+    // Categories chips
+    if (selectedCategories.length > 0 && selectedCategories.length < allCategories.length) {
+      const catLabel = document.createElement('div');
+      catLabel.className = 'dgrid-chips-label';
+      catLabel.textContent = categoryLabel;
+      chipsSection.appendChild(catLabel);
+
+      const catChips = document.createElement('div');
+      catChips.className = 'dgrid-chip-container';
+      selectedCategories.forEach(category => {
+        const chip = document.createElement('span');
+        chip.className = 'dgrid-chip';
+        chip.innerHTML = `${category}<span class="dgrid-chip-remove">×</span>`;
+        chip.querySelector('.dgrid-chip-remove').onclick = () => {
+          const idx = selectedCategories.indexOf(category);
+          if (idx > -1) selectedCategories.splice(idx, 1);
+          categoryDropdown.updateCheckboxes();
+          categoryDropdown.updateButtonText();
+          updateAllChips();
+          renderChart();
+        };
+        catChips.appendChild(chip);
+      });
+      chipsSection.appendChild(catChips);
+    }
+
+    // Names chips
+    if (selectedNames.length > 0 && selectedNames.length < allNames.length) {
+      const nmLabel = document.createElement('div');
+      nmLabel.className = 'dgrid-chips-label';
+      nmLabel.style.marginTop = selectedCategories.length > 0 && selectedCategories.length < allCategories.length ? '12px' : '0';
+      nmLabel.textContent = nameLabel;
+      chipsSection.appendChild(nmLabel);
+
+      const nameChips = document.createElement('div');
+      nameChips.className = 'dgrid-chip-container';
+      selectedNames.forEach(name => {
+        const chip = document.createElement('span');
+        chip.className = `dgrid-chip name-chip${name === nameToHighlight ? ' highlighted' : ''}`;
+        chip.innerHTML = `${name}<span class="dgrid-chip-remove">×</span>`;
+        chip.querySelector('.dgrid-chip-remove').onclick = () => {
+          const idx = selectedNames.indexOf(name);
+          if (idx > -1) selectedNames.splice(idx, 1);
+          nameDropdown.updateCheckboxes();
+          nameDropdown.updateButtonText();
+          updateAllChips();
+          renderChart();
+        };
+        nameChips.appendChild(chip);
+      });
+      chipsSection.appendChild(nameChips);
+    }
+  }
+
+  // Create category dropdown
+  const categoryDropdown = createDropdown(
+    categoryLabel,
+    allCategories,
+    selectedCategories,
+    'cat',
+    () => {
+      updateAllChips();
+      renderChart();
+    }
+  );
+  controlsDiv.appendChild(categoryDropdown.element);
+
+  // Create name dropdown
+  const nameDropdown = createDropdown(
+    nameLabel,
+    allNames,
+    selectedNames,
+    'name',
+    () => {
+      updateAllChips();
+      renderChart();
+    }
+  );
+  controlsDiv.appendChild(nameDropdown.element);
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dgrid-dropdown')) {
+      document.querySelectorAll('.dgrid-dropdown-menu.open').forEach(menu => {
+        menu.classList.remove('open');
+      });
+    }
+  });
+
+  // Add chips section
+  container.appendChild(chipsSection);
+  updateAllChips();
+
+  // Create chart wrapper for centering
+  const chartWrapper = document.createElement('div');
+  chartWrapper.className = 'dgrid-chart-wrapper';
+  container.appendChild(chartWrapper);
+
+  // Create chart container
+  const chartContainer = document.createElement('div');
+  chartContainer.id = `chart-svg-${chartId}`;
+  chartWrapper.appendChild(chartContainer);
+
+  // Create tooltip
+  const tooltipId = `tooltip-${chartId}`;
+  if (!document.getElementById(tooltipId)) {
+    const tooltip = document.createElement('div');
+    tooltip.id = tooltipId;
+    tooltip.className = 'tooltip';
+    tooltip.style.cssText = `
+      position: absolute;
+      padding: 12px 14px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      font-family: inherit;
+      font-size: 14px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      z-index: 10000;
+    `;
+    document.body.appendChild(tooltip);
+  }
+  const tooltip = d3.select(`#${tooltipId}`);
+
+  // Color scale function - matching Python style
+  const colorScale = (name) => {
+    if (name === nameToHighlight) {
+      return "#a855f7"; // Purple for highlighted
+    } else {
+      // Grayscale based on name index - matching Python formula
+      const nameIndex = allNames.indexOf(name);
+      const totalNames = allNames.length;
+      const brightness = 140 - (nameIndex * 60 / (totalNames - 1 || 1));
+      const r = Math.round(brightness);
+      const g = Math.round(brightness + 8);
+      const b = Math.round(brightness + 16);
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+  };
+
+  const getHoverColor = (name) => {
+    if (name === nameToHighlight) {
+      return "#c084fc";
+    } else {
+      const nameIndex = allNames.indexOf(name);
+      const totalNames = allNames.length;
+      const brightness = 140 - (nameIndex * 60 / (totalNames - 1 || 1));
+      const lighterBrightness = Math.min(brightness + 30, 200);
+      return `rgb(${lighterBrightness}, ${lighterBrightness + 8}, ${lighterBrightness + 16})`;
+    }
+  };
+
+  // Label offset calculations with collision avoidance
+  function calculateLabelOffsets(avgData, x, y, radiusScale, width, height) {
+    const offsets = {};
+    const placedLabels = []; // Track placed label bounding boxes
+
+    // Estimate label dimensions (will be refined later, but good enough for collision detection)
+    const estimateLabelSize = (name) => {
+      const charWidth = 6.5;
+      const padding = 12;
+      return {
+        width: name.length * charWidth + padding * 2,
+        height: 22
+      };
+    };
+
+    // Candidate positions to try (dx, dy offsets from point)
+    const getCandidatePositions = (d, radius) => {
+      const gap = 8; // Gap between bubble and label
+      const baseDistance = radius + gap;
+      return [
+        { dx: 0, dy: -baseDistance - 12, name: 'top' },
+        { dx: 0, dy: baseDistance + 12, name: 'bottom' },
+        { dx: baseDistance + 40, dy: 0, name: 'right' },
+        { dx: -baseDistance - 40, dy: 0, name: 'left' },
+        { dx: baseDistance + 30, dy: -baseDistance, name: 'top-right' },
+        { dx: -baseDistance - 30, dy: -baseDistance, name: 'top-left' },
+        { dx: baseDistance + 30, dy: baseDistance, name: 'bottom-right' },
+        { dx: -baseDistance - 30, dy: baseDistance, name: 'bottom-left' },
+        { dx: 0, dy: -baseDistance - 30, name: 'far-top' },
+        { dx: 0, dy: baseDistance + 30, name: 'far-bottom' },
+        { dx: baseDistance + 60, dy: 0, name: 'far-right' },
+        { dx: -baseDistance - 60, dy: 0, name: 'far-left' },
+      ];
+    };
+
+    // Check if a rectangle overlaps with a circle
+    const rectCircleOverlap = (rect, cx, cy, r) => {
+      const closestX = Math.max(rect.x, Math.min(cx, rect.x + rect.width));
+      const closestY = Math.max(rect.y, Math.min(cy, rect.y + rect.height));
+      const dx = cx - closestX;
+      const dy = cy - closestY;
+      return (dx * dx + dy * dy) < (r * r);
+    };
+
+    // Check if two rectangles overlap
+    const rectsOverlap = (r1, r2) => {
+      return !(r1.x + r1.width < r2.x ||
+               r2.x + r2.width < r1.x ||
+               r1.y + r1.height < r2.y ||
+               r2.y + r2.height < r1.y);
+    };
+
+    // Check if label position is valid (no overlaps)
+    const isValidPosition = (labelRect, currentPoint) => {
+      // Check overlap with all bubbles
+      for (const d of avgData) {
+        const cx = x(d.x);
+        const cy = y(d.y);
+        const r = radiusScale(d.size) + 2; // Small buffer
+        if (rectCircleOverlap(labelRect, cx, cy, r)) {
+          return false;
+        }
+      }
+
+      // Check overlap with already placed labels
+      for (const placed of placedLabels) {
+        if (rectsOverlap(labelRect, placed)) {
+          return false;
+        }
+      }
+
+      // Check if label is within chart bounds
+      if (labelRect.x < 0 || labelRect.x + labelRect.width > width ||
+          labelRect.y < 0 || labelRect.y + labelRect.height > height) {
+        return false;
+      }
+
+      return true;
+    };
+
+    // Score a position (lower is better) - used when no perfect position exists
+    const scorePosition = (labelRect, pointX, pointY) => {
+      let score = 0;
+
+      // Penalize bubble overlaps heavily
+      for (const d of avgData) {
+        const cx = x(d.x);
+        const cy = y(d.y);
+        const r = radiusScale(d.size);
+        if (rectCircleOverlap(labelRect, cx, cy, r + 5)) {
+          score += 1000;
+        }
+      }
+
+      // Penalize label overlaps
+      for (const placed of placedLabels) {
+        if (rectsOverlap(labelRect, placed)) {
+          score += 500;
+        }
+      }
+
+      // Penalize out of bounds
+      if (labelRect.x < 0) score += 100;
+      if (labelRect.x + labelRect.width > width) score += 100;
+      if (labelRect.y < 0) score += 100;
+      if (labelRect.y + labelRect.height > height) score += 100;
+
+      // Slight preference for closer labels
+      const dist = Math.sqrt(Math.pow(labelRect.x + labelRect.width/2 - pointX, 2) +
+                            Math.pow(labelRect.y + labelRect.height/2 - pointY, 2));
+      score += dist * 0.1;
+
+      return score;
+    };
+
+    // Sort data: place highlighted first, then by size (larger first, harder to place around)
+    const sortedData = [...avgData].sort((a, b) => {
+      if (a.name === nameToHighlight) return -1;
+      if (b.name === nameToHighlight) return 1;
+      return b.size - a.size;
+    });
+
+    sortedData.forEach((d) => {
+      const pointX = x(d.x);
+      const pointY = y(d.y);
+      const radius = radiusScale(d.size);
+      const labelSize = estimateLabelSize(d.name);
+      const candidates = getCandidatePositions(d, radius);
+
+      let bestPosition = candidates[0];
+      let bestScore = Infinity;
+
+      for (const candidate of candidates) {
+        const labelRect = {
+          x: pointX + candidate.dx - labelSize.width / 2,
+          y: pointY + candidate.dy - labelSize.height / 2,
+          width: labelSize.width,
+          height: labelSize.height
+        };
+
+        if (isValidPosition(labelRect, d)) {
+          // Found a valid position, use it
+          bestPosition = candidate;
+          bestScore = -1;
+          break;
+        }
+
+        // Score this position
+        const score = scorePosition(labelRect, pointX, pointY);
+        if (score < bestScore) {
+          bestScore = score;
+          bestPosition = candidate;
+        }
+      }
+
+      offsets[d.name] = { dx: bestPosition.dx, dy: bestPosition.dy };
+
+      // Record this label's position
+      placedLabels.push({
+        x: pointX + bestPosition.dx - labelSize.width / 2,
+        y: pointY + bestPosition.dy - labelSize.height / 2,
+        width: labelSize.width,
+        height: labelSize.height
+      });
+    });
+
+    return offsets;
+  }
+
+  function renderChart() {
+    // Clear previous chart
+    d3.select(`#chart-svg-${chartId}`).selectAll("*").remove();
+
+    if (selectedCategories.length === 0 || selectedNames.length === 0) {
+      const emptyMsg = document.createElement('div');
+      emptyMsg.className = 'dgrid-empty-message';
+      emptyMsg.textContent = selectedCategories.length === 0
+        ? `Please select at least one ${categoryLabel.toLowerCase()} to display the chart.`
+        : `Please select at least one ${nameLabel.toLowerCase()} to display the chart.`;
+      document.getElementById(`chart-svg-${chartId}`).appendChild(emptyMsg);
+      return;
+    }
+
+    // Calculate averaged data for selected names only
+    const avgData = selectedNames.map(name => {
+      const nameData = data.filter(d =>
+        d.name === name && selectedCategories.includes(d.category)
+      );
+      if (nameData.length === 0) {
+        return null;
+      }
+      const avgX = nameData.reduce((sum, d) => sum + d.x, 0) / nameData.length;
+      const avgY = nameData.reduce((sum, d) => sum + d.y, 0) / nameData.length;
+      const avgSize = nameData.reduce((sum, d) => sum + d.size, 0) / nameData.length;
+      return { name, x: avgX, y: avgY, size: avgSize };
+    }).filter(d => d !== null);
+
+    if (avgData.length === 0) {
+      const emptyMsg = document.createElement('div');
+      emptyMsg.className = 'dgrid-empty-message';
+      emptyMsg.textContent = 'No data available for the selected filters.';
+      document.getElementById(`chart-svg-${chartId}`).appendChild(emptyMsg);
+      return;
+    }
+
+    // Chart dimensions
+    const margin = {top: 30, right: 30, bottom: 60, left: 70};
+    const width = baseWidth - margin.left - margin.right;
+    const height = baseHeight - margin.top - margin.bottom;
+
+    // Calculate axis bounds with 15% padding - matching Python
+    const xValues = avgData.map(d => d.x);
+    const yValues = avgData.map(d => d.y);
+    const sizeValues = avgData.map(d => d.size);
+
+    const xPadding = (Math.max(...xValues) - Math.min(...xValues)) * 0.1 || 10;
+    const yPadding = (Math.max(...yValues) - Math.min(...yValues)) * 0.1 || 10;
+
+    const xmin = Math.min(...xValues) - xPadding;
+    const xmax = Math.max(...xValues) + xPadding;
+    const ymin = Math.min(...yValues) - yPadding;
+    const ymax = Math.max(...yValues) + yPadding;
+
+    // Size scale for bubbles - bigger radius
+    const sizeMin = Math.min(...sizeValues);
+    const sizeMax = Math.max(...sizeValues);
+    const radiusScale = d3.scaleLog()
+      .domain([Math.max(sizeMin, 0.1), sizeMax])
+      .range([20, 50]);
+
+    // Create SVG with white background
+    const svg = d3.select(`#chart-svg-${chartId}`)
+      .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .style("background-color", "#ffffff")
+      .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // X scale
+    const x = d3.scaleLinear()
+      .domain([xmin, xmax])
+      .range([0, width]);
+
+    // Y scale
+    const y = d3.scaleLinear()
+      .domain([ymin, ymax])
+      .range([height, 0]);
+
+    // Add gridlines
+    svg.append("g")
+      .attr("class", "grid")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(x)
+        .tickSize(-height)
+        .tickFormat("")
+      )
+      .selectAll("line")
+        .style("stroke", "#f3f4f6")
+        .style("stroke-width", 1);
+
+    svg.append("g")
+      .attr("class", "grid")
+      .call(d3.axisLeft(y)
+        .tickSize(-width)
+        .tickFormat("")
+      )
+      .selectAll("line")
+        .style("stroke", "#f3f4f6")
+        .style("stroke-width", 1);
+
+    svg.selectAll(".grid").select(".domain").remove();
+
+    // Add Pareto triangle
+    let bestPoint = null;
+    let bestParetoSize = Infinity;
+
+    for (const candidate of avgData) {
+      const px = x(candidate.x);
+      const py = y(candidate.y);
+
+      let dx, dy;
+      if (xHigherBetter && yHigherBetter) {
+        dx = width - px;
+        dy = py;
+      } else if (!xHigherBetter && yHigherBetter) {
+        dx = px;
+        dy = py;
+      } else if (xHigherBetter && !yHigherBetter) {
+        dx = width - px;
+        dy = height - py;
+      } else {
+        dx = px;
+        dy = height - py;
+      }
+
+      const candidateParetoSize = dx + dy + 100;
+
+      let otherPointInside = false;
+      for (const other of avgData) {
+        if (other.name === candidate.name) continue;
+
+        const otherPx = x(other.x);
+        const otherPy = y(other.y);
+
+        let otherDx, otherDy;
+        if (xHigherBetter && yHigherBetter) {
+          otherDx = width - otherPx;
+          otherDy = otherPy;
+        } else if (!xHigherBetter && yHigherBetter) {
+          otherDx = otherPx;
+          otherDy = otherPy;
+        } else if (xHigherBetter && !yHigherBetter) {
+          otherDx = width - otherPx;
+          otherDy = height - otherPy;
+        } else {
+          otherDx = otherPx;
+          otherDy = height - otherPy;
+        }
+
+        if (otherDx + otherDy <= candidateParetoSize) {
+          otherPointInside = true;
+          break;
+        }
+      }
+
+      if (!otherPointInside) {
+        if (candidateParetoSize < bestParetoSize) {
+          bestPoint = candidate;
+          bestParetoSize = candidateParetoSize;
+        }
+      }
+    }
+
+    if (bestPoint !== null) {
+      const paretoSize = Math.max(bestParetoSize, 50);
+
+      let trianglePoints;
+      if (xHigherBetter && yHigherBetter) {
+        trianglePoints = [[width, 0], [width, paretoSize], [width - paretoSize, 0]];
+      } else if (!xHigherBetter && yHigherBetter) {
+        trianglePoints = [[0, 0], [paretoSize, 0], [0, paretoSize]];
+      } else if (xHigherBetter && !yHigherBetter) {
+        trianglePoints = [[width, height], [width - paretoSize, height], [width, height - paretoSize]];
+      } else {
+        trianglePoints = [[0, height], [paretoSize, height], [0, height - paretoSize]];
+      }
+
+      const paretoPolygon = svg.append("polygon")
+        .attr("points", trianglePoints.map(p => p.join(",")).join(" "))
+        .attr("fill", "#bfdbfe")
+        .attr("fill-opacity", 0.6)
+        .attr("stroke", "#93c5fd")
+        .attr("stroke-width", 1);
+
+      if (paretoText) {
+        paretoPolygon
+          .style("cursor", "pointer")
+          .on("mouseover", function(event) {
+            tooltip
+              .style("opacity", 1)
+              .html(`<div style="font-size: 13px; color: #3b82f6; font-weight: 500;">${paretoText}</div>`)
+              .style("left", (event.pageX + 15) + "px")
+              .style("top", (event.pageY - 28) + "px");
+          })
+          .on("mousemove", function(event) {
+            tooltip
+              .style("left", (event.pageX + 15) + "px")
+              .style("top", (event.pageY - 28) + "px");
+          })
+          .on("mouseout", function() {
+            tooltip.style("opacity", 0);
+          });
+      }
+    }
+
+    // Add X axis
+    svg.append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(x).tickFormat(d => {
+        if (xaxisPercentage) {
+          return d3.format(".0f")(d) + "%";
+        } else {
+          return d3.format(".1f")(d);
+        }
+      }))
+      .selectAll("text")
+        .style("font-family", "inherit")
+        .style("fill", "#6b7280");
+
+    // Add Y axis
+    svg.append("g")
+      .call(d3.axisLeft(y).tickFormat(d => {
+        if (yaxisPercentage) {
+          return d3.format(".0f")(d) + "%";
+        } else {
+          return d3.format(".1f")(d);
+        }
+      }))
+      .selectAll("text")
+        .style("font-family", "inherit")
+        .style("fill", "#6b7280");
+
+    // Add X axis label
+    svg.append("text")
+      .attr("text-anchor", "middle")
+      .attr("x", width / 2)
+      .attr("y", height + margin.bottom - 15)
+      .text(xLabel)
+      .style("font-family", "inherit")
+      .style("font-size", "13px")
+      .style("fill", "#6b7280");
+
+    // Add Y axis label
+    svg.append("text")
+      .attr("text-anchor", "middle")
+      .attr("transform", "rotate(-90)")
+      .attr("x", -height / 2)
+      .attr("y", -margin.left + 20)
+      .text(yLabel)
+      .style("font-family", "inherit")
+      .style("font-size", "13px")
+      .style("fill", "#6b7280");
+
+    // Sort data: larger bubbles first (rendered at back), smaller on top
+    // Highlighted model always on top regardless of size
+    const sortedData = [...avgData].sort((a, b) => {
+      if (a.name === nameToHighlight) return 1;  // highlighted last (on top)
+      if (b.name === nameToHighlight) return -1;
+      return b.size - a.size;  // larger first (at back)
+    });
+
+    // Add bubbles with animation - matching Python style (white edge, alpha=0.9)
+    svg.selectAll(".bubble")
+      .data(sortedData)
+      .enter()
+      .append("circle")
+        .attr("class", "bubble")
+        .attr("cx", d => x(d.x))
+        .attr("cy", d => y(d.y))
+        .attr("r", 0)
+        .attr("fill", d => colorScale(d.name))
+        .attr("fill-opacity", 0.9)
+        .attr("stroke", "#ffffff")
+        .attr("stroke-width", d => d.name === nameToHighlight ? 2 : 1.5)
+        .style("cursor", "pointer")
+        .transition()
+        .duration(600)
+        .ease(d3.easeCubicOut)
+        .attr("r", d => radiusScale(d.size));
+
+    // Calculate label offsets to avoid overlaps
+    const labelOffsets = calculateLabelOffsets(avgData, x, y, radiusScale, width, height);
+
+    // Add connecting lines and labels - matching Python style
+    sortedData.forEach((d, i) => {
+      const offset = labelOffsets[d.name] || { dx: 0, dy: -30 };
+      const isHighlighted = d.name === nameToHighlight;
+
+      const pointX = x(d.x);
+      const pointY = y(d.y);
+      const labelX = pointX + offset.dx;
+      const labelY = pointY + offset.dy;
+
+      // Add connecting line - matching Python (#d1d5db, lw=1.0, alpha=0.8)
+      svg.append("line")
+        .attr("class", "label-connector")
+        .attr("x1", pointX)
+        .attr("y1", pointY)
+        .attr("x2", labelX)
+        .attr("y2", labelY)
+        .attr("stroke", "#d1d5db")
+        .attr("stroke-width", 1)
+        .attr("stroke-opacity", 0.8)
+        .style("opacity", 0)
+        .transition()
+        .delay(400)
+        .duration(300)
+        .style("opacity", 1);
+    });
+
+    // Add text labels with background boxes - matching Python style
+    sortedData.forEach((d, i) => {
+      const offset = labelOffsets[d.name] || { dx: 0, dy: -30 };
+      const isHighlighted = d.name === nameToHighlight;
+
+      const pointX = x(d.x);
+      const pointY = y(d.y);
+      const labelX = pointX + offset.dx;
+      const labelY = pointY + offset.dy;
+
+      // Create a group for the label
+      const labelGroup = svg.append("g")
+        .attr("class", "label-group")
+        .attr("transform", `translate(${labelX}, ${labelY})`)
+        .style("opacity", 0);
+
+      // Add background rectangle - matching Python (white face, #e5e7eb edge, rounded)
+      const textElement = labelGroup.append("text")
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "middle")
+        .text(d.name)
+        .style("font-family", "inherit")
+        .style("font-size", "11px")
+        .style("font-weight", isHighlighted ? "bold" : "normal")
+        .style("fill", isHighlighted ? "#7c3aed" : "#374151")
+        .style("visibility", "hidden");
+
+      // Get text dimensions
+      const bbox = textElement.node().getBBox();
+      const padding = 6;
+
+      // Add background rect
+      labelGroup.insert("rect", "text")
+        .attr("x", bbox.x - padding)
+        .attr("y", bbox.y - padding / 2)
+        .attr("width", bbox.width + padding * 2)
+        .attr("height", bbox.height + padding)
+        .attr("rx", 4)
+        .attr("ry", 4)
+        .attr("fill", "#ffffff")
+        .attr("fill-opacity", 0.95)
+        .attr("stroke", "#e5e7eb")
+        .attr("stroke-width", 0.8);
+
+      // Show text
+      textElement.style("visibility", "visible");
+
+      // Animate in
+      labelGroup.transition()
+        .delay(400)
+        .duration(300)
+        .style("opacity", 1);
+    });
+
+    // Add hover interactions after transition
+    setTimeout(() => {
+      // Store original DOM order for restoration (get actual DOM children order)
+      const bubbleParent = svg.selectAll(".bubble").node().parentNode;
+      const getOriginalOrder = () => {
+        return Array.from(bubbleParent.querySelectorAll(".bubble"));
+      };
+      const originalOrder = getOriginalOrder();
+
+      // Function to restore original z-order based on size (larger at back, smaller and highlighted on top)
+      const restoreOrder = () => {
+        // Sort: larger first, then smaller, highlighted always last (on top)
+        const sorted = [...originalOrder].sort((a, b) => {
+          const aData = d3.select(a).datum();
+          const bData = d3.select(b).datum();
+          if (aData.name === nameToHighlight) return 1;  // highlighted on top
+          if (bData.name === nameToHighlight) return -1;
+          return bData.size - aData.size;  // larger first (at back)
+        });
+        sorted.forEach(node => {
+          bubbleParent.appendChild(node);
+        });
+      };
+
+      svg.selectAll(".bubble")
+        .on("mouseover", function(event, d) {
+          // Bring this bubble to front
+          this.parentNode.appendChild(this);
+
+          d3.select(this)
+            .transition()
+            .duration(150)
+            .attr("fill", getHoverColor(d.name))
+            .attr("fill-opacity", 1)
+            .attr("stroke-width", d.name === nameToHighlight ? 3 : 2.5);
+
+          const yValueStr = yaxisPercentage
+            ? `${d.y.toFixed(2)}%`
+            : d.y.toFixed(2);
+
+          const xValueStr = xaxisPercentage
+            ? `${d.x.toFixed(2)}%`
+            : d.x.toFixed(2);
+
+          tooltip
+            .style("opacity", 1)
+            .html(`
+              <div style="font-weight: 600; font-size: 15px; margin-bottom: 6px; color: ${d.name === nameToHighlight ? '#7c3aed' : '#111827'};">${d.name}</div>
+              <div style="font-size: 13px; color: #374151;"><strong>${xLabel}:</strong> ${xValueStr}</div>
+              <div style="font-size: 13px; color: #374151;"><strong>${yLabel}:</strong> ${yValueStr}</div>
+              <div style="font-size: 13px; color: #374151;"><strong>${sizeLabel}:</strong> ${d.size.toFixed(1)}</div>
+              <div style="font-size: 11px; color: #9ca3af; margin-top: 6px;">Averaged over ${selectedCategories.length} ${categoryLabel.toLowerCase()}</div>
+            `)
+            .style("left", (event.pageX + 15) + "px")
+            .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mousemove", function(event) {
+          tooltip
+            .style("left", (event.pageX + 15) + "px")
+            .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(event, d) {
+          // Restore original z-order
+          restoreOrder();
+
+          d3.select(this)
+            .transition()
+            .duration(150)
+            .attr("fill", colorScale(d.name))
+            .attr("fill-opacity", 0.9)
+            .attr("stroke-width", d.name === nameToHighlight ? 2 : 1.5);
+
+          tooltip.style("opacity", 0);
+        });
+    }, 650);
+  }
+
+  // Initial render
+  renderChart();
+})();
+</script>
