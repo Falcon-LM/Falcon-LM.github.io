@@ -388,7 +388,7 @@ In line with our mission to foster AI accessibility and collaboration, <span cla
 ## Useful Links
 
 - Access to our models through [the Falcon H1R 7B HuggingFace collection](https://huggingface.co/collections/tiiuae/falcon-h1r).
-- View [our technical report](https://github.com/tiiuae/falcon-h1r/blob/main/tech_report.pdf)
+- View [our technical report](https://arxiv.org/abs/2601.02346).
 - Feel free to join [our discord server](https://discord.gg/Cbek57PrZE) if you have any questions or to interact with our researchers and developers.
 - Check out the [Falcon-LLM License link](https://falconllm.tii.ae/falcon-terms-and-conditions.html) for more details about the license.
 
@@ -399,11 +399,13 @@ We would like to thank the following TII collegues for their valuable support du
 ## Citation
 
 ```latex
-@article{falconh1r,
-    title = {Falcon-H1R: Pushing the Reasoning Frontiers with a Hybrid Model for Efficient Test-Time Scaling},
-    url = {https://github.com/tiiuae/falcon-h1r/blob/main/tech_report.pdf},
-    author = {Falcon Reasoning Team, Iheb Chaabane, Puneesh Khanna, Suhail Mohmad, Slim Frikha, Shi Hu, Abdalgader Abubaker, Reda Alami, Mikhail Lubinets, Mohamed El Amine Seddik, Hakim Hacid},
-    month = {December},
-    year = {2025}
+@misc{falcon-h1r,
+      title={Falcon-H1R: Pushing the Reasoning Frontiers with a Hybrid Model for Efficient Test-Time Scaling},
+      author={Falcon LLM Team and Iheb Chaabane and Puneesh Khanna and Suhail Mohmad and Slim Frikha and Shi Hu and Abdalgader Abubaker and Reda Alami and Mikhail Lubinets and Mohamed El Amine Seddik and Hakim Hacid},
+      year={2026},
+      eprint={2601.02346},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2601.02346},
 }
 ```
