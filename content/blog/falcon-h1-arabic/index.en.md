@@ -37,13 +37,21 @@ header:
 contributors:
     core:
         - name: Basma El Amel Boussaha
+          image: img/contributors/basma_boussaha.jpg
         - name: Mohammed Alyafeai
+          image: img/contributors/mohammed_alyafeai.jpg
         - name: Ahmed Alzubaidi
+          image: img/contributors/ahmed_adel_alzubaidi.jpg
         - name: Leen AlQadi
+          image: img/contributors/leen_al_qadi.jpg
         - name: Shaikha Alsuwaidi
+          image: img/contributors/shaikha_alsuwaidi.png
         - name: Omar Alkaabi
+          image: img/contributors/omar_alkaabi.jpg
         - name: Hamza Alobeidli
+          image: img/contributors/hamza_alobeidli.jpg
         - name: Hakim Hacid
+          image: img/contributors/hakim_hacid.png
 ---
 
 > Check out the [Arabic version](https://falcon-lm.github.io/ar/blog/falcon-h1-arabic/) translated by **Falcon-H1-Arabic**
@@ -208,12 +216,12 @@ This work stands on the shoulders of many. We extend our gratitude to the Arabic
 ## Citation
 
 ```bibtex
-@misc{Falcon-H1-Arabic-2025,
+@misc{Falcon-H1-Arabic-2026,
   title={Falcon-H1-Arabic: State-of-the-Art Arabic Language Models with Hybrid Mamba-Transformer Architecture},
   author={Basma El Amel Boussaha and Mohammed Alyafeai and Ahmed Alzubaidi and Leen AlQadi and Shaikha Alsuwaidi and Omar Alkaabi and Hamza Alobeidli and Hakim Hacid},
   url={https://huggingface.co/blog/tiiuae/falcon-h1-arabic},
-  month={December},
-  year={2025},
+  month={January},
+  year={2026},
   note={Available in 3B, 7B, and 34B parameter versions}
 }
 ```
