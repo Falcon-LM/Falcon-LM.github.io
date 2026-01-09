@@ -37,13 +37,13 @@ header:
 contributors:
     core:
         - name: Basma El Amel Boussaha
-          image: img/contributors/basma.jpg
+          image: img/contributors/basma_boussaha.jpg
         - name: Mohammed Alyafeai
-          image: img/contributors/alyafeai.jpg
+          image: img/contributors/mohammed_alyafeai.jpg
         - name: Ahmed Alzubaidi
           image: img/contributors/ahmed_adel_alzubaidi.jpg
         - name: Leen AlQadi
-          image: img/contributors/leen.png
+          image: img/contributors/leen_al_qadi.jpg
         - name: Younes Belkada
           image: img/contributors/younes_belkada.jpg
         - name: Mikhail Lubinets
