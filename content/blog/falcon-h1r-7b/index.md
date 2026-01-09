@@ -288,8 +288,18 @@ Below, the bar plot compares <span class="bold">Falcon H1R 7B</span>’s perform
 ]
 {{< /dynamic_barplot_horizental >}}
 
+### Artificial Analysis evaluation
+
+Following release, <span class="bold">Falcon H1R 7B</span> was independently evaluated by <span class="bold">Artificial Analysis</span> using their <span class="bold">Intelligence Index v4.0</span>, where it achieved a score of <span class="bold">16</span>, ranking it among the stronger sub-12B models and placing it well on the <span class="bold">intelligence–parameter Pareto frontier</span>. Artificial Analysis highlighted strong performance on <span class="bold">Humanity’s Last Exam</span>, <span class="bold">𝜏²-Bench Telecom</span>, and <span class="bold">IFBench</span>, in line with the evaluation numbers we report for these benchmarks. Full results are available on the [Artificial Analysis model page](https://artificialanalysis.ai/models/falcon-h1r-7b).
+
+These results should be viewed in the context of [<span class="bold">recent changes to the evaluation suite</span>](https://www.linkedin.com/posts/artificial-analysis_new-year-new-artificial-analysis-intelligence-activity-7414336901391790081-wadD), which place greater emphasis on <span class="bold">agentic and tool-use capabilities</span> while de-emphasizing math-centric and standard coding benchmarks. While Falcon H1R 7B excels in mathematical reasoning and structured problem solving, this shift naturally favors a different capability profile.
+
+Artificial Analysis also observed <span class="bold">higher output token usage</span>, reflecting that Falcon H1R 7B was not explicitly optimized for agentic workflows; when evaluated on more agentic tasks, the model tends to externalize its reasoning more fully.
+
+We anticipate that <span class="bold">future Falcon iterations will incorporate more targeted agentic training</span> to align with this evolving evaluation landscape and remain committed to advancing Falcon’s capabilities across all dimensions of intelligence.
 
 ## Inference
+
 Here we benchmark <span class="bold">Falcon H1R 7B</span>’s token throughput per GPU against Qwen3 8B under realistic test‑time scaling workloads.
 
 <span class="bold">Falcon H1R 7B</span> outperforms Qwen3 8B across the board, especially as batch size grows.  In the typical test‑time scaling case (512 → 32k), Falcon reaches roughly **1,000 tokens/s/GPU at batch 32** and **≈ 1,500 at batch 64**, nearly double Qwen3’s rates.  The advantage widens further for longer inputs (8k → 16k), where Falcon again delivers ≈ 1,800 tokens/s/GPU while Qwen3 stays below 900. The hybrid Transformer–Mamba backbone is the key to this superior scaling and memory efficiency.
