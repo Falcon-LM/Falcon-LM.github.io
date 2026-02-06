@@ -35,23 +35,24 @@ header:
     gradient: true
     blur: true
 contributors:
-    core:
-        - name: Basma El Amel Boussaha
-          image: img/contributors/basma_boussaha.jpg
-        - name: Mohammed Alyafeai
-          image: img/contributors/mohammed_alyafeai.jpg
-        - name: Ahmed Alzubaidi
-          image: img/contributors/ahmed_adel_alzubaidi.jpg
-        - name: Leen AlQadi
-          image: img/contributors/leen_al_qadi.jpg
-        - name: Shaikha Alsuwaidi
-          image: img/contributors/shaikha_alsuwaidi.png
-        - name: Omar Alkaabi
-          image: img/contributors/omar_alkaabi.jpg
-        - name: Hamza Alobeidli
-          image: img/contributors/hamza_alobeidli.jpg
-        - name: Hakim Hacid
-          image: img/contributors/hakim_hacid.png
+  - title: "Core Contributors"
+  - people:
+      - name: Basma El Amel Boussaha
+        image: img/contributors/basma_boussaha.jpg
+      - name: Mohammed Alyafeai
+        image: img/contributors/mohammed_alyafeai.jpg
+      - name: Ahmed Alzubaidi
+        image: img/contributors/ahmed_adel_alzubaidi.jpg
+      - name: Leen AlQadi
+        image: img/contributors/leen_al_qadi.jpg
+      - name: Shaikha Alsuwaidi
+        image: img/contributors/shaikha_alsuwaidi.png
+      - name: Omar Alkaabi
+        image: img/contributors/omar_alkaabi.jpg
+      - name: Hamza Alobeidli
+        image: img/contributors/hamza_alobeidli.jpg
+      - name: Hakim Hacid
+        image: img/contributors/hakim_hacid.png
 ---
 
 > Check out the [Arabic version](https://falcon-lm.github.io/ar/blog/falcon-h1-arabic/) translated by **Falcon-H1-Arabic**
@@ -65,11 +66,11 @@ When we launched [Falcon-Arabic](https://huggingface.co/blog/tiiuae/falcon-arabi
 
 We didn't just want to make incremental improvements, we wanted to fundamentally rethink our approach. The result is Falcon-H1-Arabic, a model family that addresses every piece of feedback we received while introducing architectural innovations that were previously unexplored in Arabic language modeling.
 
-<iframe 
-  src="https://visualize.graphy.app/view/342df454-c924-4230-b4e5-1e638f5a351e" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
+<iframe
+  src="https://visualize.graphy.app/view/342df454-c924-4230-b4e5-1e638f5a351e"
+  width="100%"
+  height="600"
+  frameborder="0"
   loading="lazy">
 </iframe>
 
@@ -142,39 +143,39 @@ Beyond benchmark-oriented optimization, our post-training process deliberately s
 
 Numbers tell an important part of the story. On the [Open Arabic LLM Leaderboard (OALL)](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard), a comprehensive benchmark evaluating Arabic language understanding across diverse tasks, Falcon-H1-Arabic achieves state-of-the-art results at every scale we tested. Note that our scores may vary slightly from those reported on the leaderboard, as we used vLLM as the backend instead of the leaderboard’s Accelerate-based implementation. These differences are typically under one point while offering significantly faster runtime.
 
-Beyond OALL, we also report results on the [3LM benchmark](https://aclanthology.org/2025.arabicnlp-main.4.pdf) for STEM-related tasks on both synthetic and native splits; [Arabculture](https://aclanthology.org/2025.loreslm-1.29.pdf) for Arabic culture assessment; and [AraDice](https://aclanthology.org/2025.coling-main.283.pdf) for Arabic dialect coverage across Levantine, and Egyptian varieties as well as Arabic culture across 6 countries. The reported AraDice score is the average of all the 3 scores. 
+Beyond OALL, we also report results on the [3LM benchmark](https://aclanthology.org/2025.arabicnlp-main.4.pdf) for STEM-related tasks on both synthetic and native splits; [Arabculture](https://aclanthology.org/2025.loreslm-1.29.pdf) for Arabic culture assessment; and [AraDice](https://aclanthology.org/2025.coling-main.283.pdf) for Arabic dialect coverage across Levantine, and Egyptian varieties as well as Arabic culture across 6 countries. The reported AraDice score is the average of all the 3 scores.
 
-<iframe 
-  src="https://visualize.graphy.app/view/f9b6bf39-6106-437d-aed7-21b3f7a17538" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
+<iframe
+  src="https://visualize.graphy.app/view/f9b6bf39-6106-437d-aed7-21b3f7a17538"
+  width="100%"
+  height="600"
+  frameborder="0"
   loading="lazy">
 </iframe>
 
-<iframe 
-  src="https://visualize.graphy.app/view/354bac1b-bc97-4e40-9daf-bd3d3d4c7313" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
+<iframe
+  src="https://visualize.graphy.app/view/354bac1b-bc97-4e40-9daf-bd3d3d4c7313"
+  width="100%"
+  height="600"
+  frameborder="0"
   loading="lazy">
 </iframe>
 
 Starting with the 3B model, the performance is exceptional. It reaches approximately 62% on OALL, outperforming all small-scale models, including Gemma-4B, Qwen3-4B, and Phi-4-mini by roughly ten points. On 3LM, the main Arabic STEM benchmark, it scores around 82% on the native split and 73% on the synthetic split. It also achieves about 62% on the ArabCulture benchmark and around 50% across AraDice dialect evaluation (Egyptian, Gulf, and Levantine). This makes Falcon-H1-Arabic-3B a high-quality, highly efficient model suitable for edge deployments, real-time applications, and agentic systems where latency and cost matter.
 
-<iframe 
-  src="https://visualize.graphy.app/view/db964eca-46eb-46a4-9ece-8ad7a30ee964" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
+<iframe
+  src="https://visualize.graphy.app/view/db964eca-46eb-46a4-9ece-8ad7a30ee964"
+  width="100%"
+  height="600"
+  frameborder="0"
   loading="lazy">
 </iframe>
 
-<iframe 
-  src="https://visualize.graphy.app/view/dcce6a9e-4e45-489f-85a9-5c962791a92d" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
+<iframe
+  src="https://visualize.graphy.app/view/dcce6a9e-4e45-489f-85a9-5c962791a92d"
+  width="100%"
+  height="600"
+  frameborder="0"
   loading="lazy">
 </iframe>
 
@@ -182,19 +183,19 @@ The 7B model continues this upward trajectory. With a score of 71.7% on OALL, it
 
 The 34B model represents our flagship system and establishes a new state of the art for Arabic language modeling. It reaches approximately 75% on OALL, outperforming not only models of similar size but even much larger systems such as Llama-3.3-70B and AceGPT2-32B. Its 3LM scores reach about 96% on the native split and 94% on the synthetic one. On ArabCulture it scores close to 80%, and on AraDice it reaches around 53 across dialects. The fact that a 34B hybrid model surpasses the performance of 70B-scale transformers demonstrates the effectiveness of the Falcon-H1 architecture, the quality of the data, and the strength of the post-training pipeline.
 
-<iframe 
-  src="https://visualize.graphy.app/view/9ffc3ac5-281f-49d0-8167-2d2b18cb3f46" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
+<iframe
+  src="https://visualize.graphy.app/view/9ffc3ac5-281f-49d0-8167-2d2b18cb3f46"
+  width="100%"
+  height="600"
+  frameborder="0"
   loading="lazy">
 </iframe>
 
-<iframe 
-  src="https://visualize.graphy.app/view/0fc43d92-6440-4347-97a7-f4503c4498e3" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
+<iframe
+  src="https://visualize.graphy.app/view/0fc43d92-6440-4347-97a7-f4503c4498e3"
+  width="100%"
+  height="600"
+  frameborder="0"
   loading="lazy">
 </iframe>
 

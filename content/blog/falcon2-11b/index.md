@@ -1,9 +1,10 @@
 ---
-title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages" 
+title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages"
 date: 2024-05-24T12:00:00Z
 contributors:
-    core:
-        - name: Falcon LLM team
+  - title: "Contributors"
+    people:
+      - name: Falcon LLM team
 ---
 
 # Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages
@@ -21,16 +22,24 @@ As with our previous work, the models offer support mainly in English but have g
 
 ## Table of Contents
 
-- [The Falcon 2 Models](#the-falcon-models)
-- Falcon 2 11B LLM
-    - [11B LLM Training Details](#falcon2-11b-llm)
-    - [11B LLM Evaluation](#falcon2-11b-evaluation)
-    - [11B LLM Using the Model](#using-falcon2-11b)
-- Falcon 2 11B VLM
-    - [11B VLM Training](#falcon2-11b-vlm)
-    - [11B VLM Evaluation](#falcon2-11b-vlm-evaluation)
-    - [11B VLM Using the Model](#using-falcon2-11b-falconvlm)
-- [Licensing information](#license-information)
+- [Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages](#falcon-2-an-11b-parameter-pretrained-language-model-and-vlm-trained-on-over-5000b-tokens-and-11-languages)
+  - [The Falcon 2 Models](#the-falcon-2-models)
+  - [Table of Contents](#table-of-contents)
+  - [Falcon2-11B LLM](#falcon2-11b-llm)
+    - [Training Data](#training-data)
+    - [Model Architecture](#model-architecture)
+    - [Training Procedure](#training-procedure)
+    - [Training Hyperparameters](#training-hyperparameters)
+  - [Falcon2-11B Evaluation](#falcon2-11b-evaluation)
+    - [English performance](#english-performance)
+    - [Multilingual capabilities](#multilingual-capabilities)
+    - [Code generation capabilities](#code-generation-capabilities)
+  - [Using Falcon2-11B](#using-falcon2-11b)
+  - [Falcon2-11B VLM](#falcon2-11b-vlm)
+    - [Training](#training)
+  - [Falcon2-11B VLM Evaluation](#falcon2-11b-vlm-evaluation)
+  - [Using Falcon2-11B-FalconVLM](#using-falcon2-11b-falconvlm)
+  - [License information](#license-information)
 
 <a name="falcon2-11b-llm"></a>
 ## Falcon2-11B LLM
@@ -42,12 +51,12 @@ Overall, the data sources included RefinedWeb-English, RefinedWeb-Europe (*cs*, 
 
 The training stages were as follows:
 
-| Stage   | Context Length   | GT   | 
+| Stage   | Context Length   | GT   |
 |---------|------------------|------|
 | Stage 1 | 2048             | 4500 |
-| Stage 2 | 4096             | 250  | 
-| Stage 3 | 8192             | 250  | 
-| Stage 4 | 8192             | 500  | 
+| Stage 2 | 4096             | 250  |
+| Stage 3 | 8192             | 250  |
+| Stage 4 | 8192             | 500  |
 
 The data was tokenized with [Falcon2-11B tokenizer](https://huggingface.co/tiiuae/falcon-11B/blob/main/tokenizer.json), the same tokenizer as for the previous Falcon models.
 
@@ -68,12 +77,12 @@ Falcon2-11B was trained on 1024 A100 40GB GPUs for the majority of the training,
 ### Training Hyperparameters
 | Hyperparameter | Value     |
 |----------------|-----------|
-| Precision      | bfloat16  | 
+| Precision      | bfloat16  |
 | Optimizer	     | AdamW     |
 | Max LR         | 3.7e-4    |
 | Min LR         | 1.89e-5   |
 | LR schedule    | Cos decay (stage 1) |
-| Context length | 8192 (stages 3 and 4) | 
+| Context length | 8192 (stages 3 and 4) |
 | Weight decay   | 1e-1      |
 | Z-loss         | 1e-4      |
 | Batch size     | Variable  |
@@ -100,7 +109,7 @@ Zero shot performance:
 |-------------|------|-----------|----------|------------|--------------|
 | Falcon2-11B | 5500 | 82.07    | 77.78   | 78.30     | 50.17       |
 | Falcon-40B  | 1000 | 82.82    | 81.86   | 76.4      | 54.69       |
-| Falcon-7B   | 1500 | 76.31    | 74.74   | 67.17     | 43.43       | 
+| Falcon-7B   | 1500 | 76.31    | 74.74   | 67.17     | 43.43       |
 
 The evaluation results show that the Falcon2-11B shows similar performance to Falcon-40B, at a four times smaller model size!
 
@@ -186,12 +195,12 @@ for seq in sequences:
 <a name="falcon2-11b-vlm"></a>
 ## Falcon2-11B VLM
 
-[Falcon2-11B VLM](https://huggingface.co/tiiuae/Falcon-11B-vlm) is a vision-language model (VLM) built on top of the LLM, that additionally handles image inputs and is capable of answering queries about the images. To achieve this, we integrate the pretrained CLIP ViT-L/14 vision encoder with our Falcon2-11B chat-finetuned model, and train with image-text data. 
+[Falcon2-11B VLM](https://huggingface.co/tiiuae/Falcon-11B-vlm) is a vision-language model (VLM) built on top of the LLM, that additionally handles image inputs and is capable of answering queries about the images. To achieve this, we integrate the pretrained CLIP ViT-L/14 vision encoder with our Falcon2-11B chat-finetuned model, and train with image-text data.
 
 To enhance the VLM's perception of fine-grained details w.r.t small objects in images, we employ a dynamic encoding mechanism at high-resolution for image inputs, similar to [LLaVA-Next](https://llava-vl.github.io/blog/2024-01-30-llava-next/).
 
-### Training 
-The training is done in two stages: pretraining and finetuning. In both stages, the visual encoder weights are kept frozen. In the pretraining stage, the LLM is kept frozen, and only the multimodal projector is trained on 558K image-caption pairs. 
+### Training
+The training is done in two stages: pretraining and finetuning. In both stages, the visual encoder weights are kept frozen. In the pretraining stage, the LLM is kept frozen, and only the multimodal projector is trained on 558K image-caption pairs.
 This enables the multimodal projector to learn a mapping from visual to text embedding space. During finetuning, both the projector and LLM weights are trained on a corpus of 1.2M image-text instruction data from public datasets, which also includes multi-round conversations.
 
 <a name="falcon2-11b-vlm-evaluation"></a>

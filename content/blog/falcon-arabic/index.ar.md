@@ -36,21 +36,22 @@ header:
     gradient: true
     blur: true
 contributors:
-    core:
-        - name: Basma El Amel Boussaha
-          image: img/contributors/basma_boussaha.jpg
-        - name: Mohammed Alyafeai
-          image: img/contributors/mohammed_alyafeai.jpg
-        - name: Ahmed Alzubaidi
-          image: img/contributors/ahmed_adel_alzubaidi.jpg
-        - name: Leen AlQadi
-          image: img/contributors/leen_al_qadi.jpg
-        - name: Younes Belkada
-          image: img/contributors/younes_belkada.jpg
-        - name: Mikhail Lubinets
-          image: img/contributors/mikhail_lubinets.jpg
-        - name: Hakim Hacid
-          image: img/contributors/hakim_hacid.png
+  - title: "Core Contributors"
+    people:
+      - name: Basma El Amel Boussaha
+        image: img/contributors/basma_boussaha.jpg
+      - name: Mohammed Alyafeai
+        image: img/contributors/mohammed_alyafeai.jpg
+      - name: Ahmed Alzubaidi
+        image: img/contributors/ahmed_adel_alzubaidi.jpg
+      - name: Leen AlQadi
+        image: img/contributors/leen_al_qadi.jpg
+      - name: Younes Belkada
+        image: img/contributors/younes_belkada.jpg
+      - name: Mikhail Lubinets
+        image: img/contributors/mikhail_lubinets.jpg
+      - name: Hakim Hacid
+        image: img/contributors/hakim_hacid.png
 ---
 <div dir="rtl" class="translation-notice">
   <p>
@@ -60,7 +61,7 @@ contributors:
 
 <div dir="rtl">
 
-نحن متحمسون للإعلان عن Falcon-Arabic، نموذج لغوي كبير يحتوي على 7 مليار معامل ويعد معيارًا جديدًا لمعالجة اللغة العربية طبيعيًا. مبني على بنية Falcon 3 المتعددة اللغات، يدعم Falcon-Arabic اللغة العربية واللغة الإنجليزية وعدد من اللغات الأخرى. يتفوق في المعرفة العامة والقواعد النحوية العربية والاستدلال الرياضي وحل المشاكل المعقدة وفهم تنوع اللهجات العربية. 
+نحن متحمسون للإعلان عن Falcon-Arabic، نموذج لغوي كبير يحتوي على 7 مليار معامل ويعد معيارًا جديدًا لمعالجة اللغة العربية طبيعيًا. مبني على بنية Falcon 3 المتعددة اللغات، يدعم Falcon-Arabic اللغة العربية واللغة الإنجليزية وعدد من اللغات الأخرى. يتفوق في المعرفة العامة والقواعد النحوية العربية والاستدلال الرياضي وحل المشاكل المعقدة وفهم تنوع اللهجات العربية.
 
 يدعم Falcon-Arabic  طول سياق بمقدار 32 ألف رمز  (token)، مما يمكنه من التعامل مع الوثائق الطويلة، وتمكين تطبيقات متقدمة مثل توليد المحتوى المدعوم بالاسترجاع (RAG)، وإنشاء محتوى عميق، والمهام المعرفية.
 
@@ -108,7 +109,7 @@ contributors:
 <!-- ## 📊 Falcon-Arabic: رفع معايير نماذج اللغة العربية -->
 ## 📊 Falcon-Arabic: الارتقاء بمعايير النماذج اللغوية العربية الكبيرة
 
-قمنا بتقييم **Falcon-Arabic** على **[OALL v2](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard)**، وهو المعيار الرائد لتقييم النماذج اللغوية العربية. يتضمن هذا المعيار ست مهام من نوع الاختيار من متعدد مثل Arabic MMLU (بالنسختين الأصلية والمترجمة)، وArabic Exams، وAlghafa، وMadinahQA، وAratrust، بالإضافة إلى معيار توليدي واحد هو Alrage.  
+قمنا بتقييم **Falcon-Arabic** على **[OALL v2](https://huggingface.co/spaces/OALL/Open-Arabic-LLM-Leaderboard)**، وهو المعيار الرائد لتقييم النماذج اللغوية العربية. يتضمن هذا المعيار ست مهام من نوع الاختيار من متعدد مثل Arabic MMLU (بالنسختين الأصلية والمترجمة)، وArabic Exams، وAlghafa، وMadinahQA، وAratrust، بالإضافة إلى معيار توليدي واحد هو Alrage.
 **يتفوق Falcon-Arabic على جميع النماذج العربية الموجودة ضمن نفس الفئة الحجمية، بل ويتجاوز أداء نماذج أكبر منه حتى بأربع مرات**. وقد تصدّر نتائج معايير رئيسية مثل Arabic MMLU، وExams، وMadinahQA، وAratrust، مما يضع معيارًا جديدًا للنماذج اللغوية المصممة خصيصًا للغة العربية.
 
 
@@ -176,7 +177,7 @@ contributors:
 | **Falcon-Arabic-7B-Base** | <u>62.57</u> | 67.17  | <u>64.85     | <u>52.89| 48.79    | <u>85.36   | 63.71 | <u>55.25     |
 {{< rawhtml >}}</div> {{< /rawhtml >}}
 
-> تفاصيل التقييم (log probabilities، التنبؤات ومعايير LLM كحكم) لـ **Falcon-Arabic-7B-Base**  متاحة على https://huggingface.co/datasets/tiiuae/Falcon-Arabic-7B-Base-details   
+> تفاصيل التقييم (log probabilities، التنبؤات ومعايير LLM كحكم) لـ **Falcon-Arabic-7B-Base**  متاحة على https://huggingface.co/datasets/tiiuae/Falcon-Arabic-7B-Base-details
 <!-- </details> -->
 
 ## 🗣️ من التدريب الأولي إلى الدردشة: تدريب Falcon-Arabic على المحادثات
@@ -268,7 +269,7 @@ contributors:
 {{< rawhtml >}}</div> {{< /rawhtml >}}
 <!-- </details> -->
 
-> تفاصيل التقييم (log probabilities، التنبؤات ومعايير LLM كحكم) لـ **Falcon-Arabic-7B-Instruct**  متاحة على https://huggingface.co/datasets/tiiuae/Falcon-Arabic-7B-Instruct-details   
+> تفاصيل التقييم (log probabilities، التنبؤات ومعايير LLM كحكم) لـ **Falcon-Arabic-7B-Instruct**  متاحة على https://huggingface.co/datasets/tiiuae/Falcon-Arabic-7B-Instruct-details
 
 <!-- ## 🔓 فتح إمكانات الذكاء الاصطناعي باللغة العربية -->
 ## 🔓 إطلاق العنان لإمكانات الذكاء الاصطناعي العربي

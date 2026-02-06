@@ -35,27 +35,28 @@ header:
     gradient: true
     blur: true
 contributors:
-    core:
-        - name: Iheb Chaabane
-          image: img/contributors/iheb_chaabane.jpg
-        - name: Puneesh Khanna
-          image: img/contributors/puneesh_khanna.jpg
-        - name: Suhail Mohmad
-          image: img/contributors/suhail_mohmad.jpg
-        - name: Slim Frikha
-          image: img/contributors/slim_frikha.jpg
-        - name: Shi Hu
-          image: img/contributors/shi_hu.jpg
-        - name: Abdalgader Abubaker
-          image: img/contributors/abdalgader_abubaker.jpg
-        - name: Reda Alami
-          image: img/contributors/reda_alami.png
-        - name: Mikhail Lubinets
-          image: img/contributors/mikhail_lubinets.jpg
-        - name: Mohamed El Amine Seddik
-          image: img/contributors/mohamed_seddik.png
-        - name: Hakim Hacid
-          image: img/contributors/hakim_hacid.png
+  - title: "Core Contributors"
+    people:
+      - name: Iheb Chaabane
+        image: img/contributors/iheb_chaabane.jpg
+      - name: Puneesh Khanna
+        image: img/contributors/puneesh_khanna.jpg
+      - name: Suhail Mohmad
+        image: img/contributors/suhail_mohmad.jpg
+      - name: Slim Frikha
+        image: img/contributors/slim_frikha.jpg
+      - name: Shi Hu
+        image: img/contributors/shi_hu.jpg
+      - name: Abdalgader Abubaker
+        image: img/contributors/abdalgader_abubaker.jpg
+      - name: Reda Alami
+        image: img/contributors/reda_alami.png
+      - name: Mikhail Lubinets
+        image: img/contributors/mikhail_lubinets.jpg
+      - name: Mohamed El Amine Seddik
+        image: img/contributors/mohamed_seddik.png
+      - name: Hakim Hacid
+        image: img/contributors/hakim_hacid.png
 ---
 
 {{< button href="https://chat.falconllm.tii.ae" label="Falcon CHAT" external=true >}}

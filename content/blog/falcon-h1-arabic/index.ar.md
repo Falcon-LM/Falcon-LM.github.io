@@ -36,23 +36,24 @@ header:
     gradient: true
     blur: true
 contributors:
-    core:
-        - name: Basma El Amel Boussaha
-          image: img/contributors/basma_boussaha.jpg
-        - name: Mohammed Alyafeai
-          image: img/contributors/mohammed_alyafeai.jpg
-        - name: Ahmed Alzubaidi
-          image: img/contributors/ahmed_adel_alzubaidi.jpg
-        - name: Leen AlQadi
-          image: img/contributors/leen_al_qadi.jpg
-        - name: Shaikha Alsuwaidi
-          image: img/contributors/shaikha_alsuwaidi.png
-        - name: Omar Alkaabi
-          image: img/contributors/omar_alkaabi.jpg
-        - name: Hamza Alobeidli
-          image: img/contributors/hamza_alobeidli.jpg
-        - name: Hakim Hacid
-          image: img/contributors/hakim_hacid.png
+  - title: "Core Contributors"
+    people:
+      - name: Basma El Amel Boussaha
+        image: img/contributors/basma_boussaha.jpg
+      - name: Mohammed Alyafeai
+        image: img/contributors/mohammed_alyafeai.jpg
+      - name: Ahmed Alzubaidi
+        image: img/contributors/ahmed_adel_alzubaidi.jpg
+      - name: Leen AlQadi
+        image: img/contributors/leen_al_qadi.jpg
+      - name: Shaikha Alsuwaidi
+        image: img/contributors/shaikha_alsuwaidi.png
+      - name: Omar Alkaabi
+        image: img/contributors/omar_alkaabi.jpg
+      - name: Hamza Alobeidli
+        image: img/contributors/hamza_alobeidli.jpg
+      - name: Hakim Hacid
+        image: img/contributors/hakim_hacid.png
 ---
 <div dir="rtl" class="translation-notice">
   <p>
@@ -151,19 +152,19 @@ loading="lazy">
 
 وبالإضافة إلى OALL، نعرض أيضًا نتائج على معيار [3LM](https://aclanthology.org/2025.arabicnlp-main.4.pdf) لمهام العلوم والتقنية والهندسة والرياضيات (STEM) على كل من التقسيمات الاصطناعية والأصلية؛ ومعيار [Arabculture](https://aclanthology.org/2025.loreslm-1.29.pdf) لتقييم الثقافة العربية؛ ومعيار [AraDice](https://aclanthology.org/2025.coling-main.283.pdf) لتغطية اللهجات العربية عبر اللهجتين الشامية والمصرية، إضافة إلى تقييم الثقافة العربية عبر 6 دول. وتمثل نتيجة AraDice المعلنة متوسط الدرجات الثلاث جميعها.
 
-<iframe 
-  src="https://visualize.graphy.app/view/f9b6bf39-6106-437d-aed7-21b3f7a17538" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
+<iframe
+  src="https://visualize.graphy.app/view/f9b6bf39-6106-437d-aed7-21b3f7a17538"
+  width="100%"
+  height="600"
+  frameborder="0"
   loading="lazy">
 </iframe>
 
-<iframe 
-  src="https://visualize.graphy.app/view/354bac1b-bc97-4e40-9daf-bd3d3d4c7313" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
+<iframe
+  src="https://visualize.graphy.app/view/354bac1b-bc97-4e40-9daf-bd3d3d4c7313"
+  width="100%"
+  height="600"
+  frameborder="0"
   loading="lazy">
 </iframe>
 
@@ -172,19 +173,19 @@ loading="lazy">
 
 
 
-<iframe 
-  src="https://visualize.graphy.app/view/db964eca-46eb-46a4-9ece-8ad7a30ee964" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
+<iframe
+  src="https://visualize.graphy.app/view/db964eca-46eb-46a4-9ece-8ad7a30ee964"
+  width="100%"
+  height="600"
+  frameborder="0"
   loading="lazy">
 </iframe>
 
-<iframe 
-  src="https://visualize.graphy.app/view/dcce6a9e-4e45-489f-85a9-5c962791a92d" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
+<iframe
+  src="https://visualize.graphy.app/view/dcce6a9e-4e45-489f-85a9-5c962791a92d"
+  width="100%"
+  height="600"
+  frameborder="0"
   loading="lazy">
 </iframe>
 
@@ -194,19 +195,19 @@ loading="lazy">
 
 
 
-<iframe 
-  src="https://visualize.graphy.app/view/9ffc3ac5-281f-49d0-8167-2d2b18cb3f46" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
+<iframe
+  src="https://visualize.graphy.app/view/9ffc3ac5-281f-49d0-8167-2d2b18cb3f46"
+  width="100%"
+  height="600"
+  frameborder="0"
   loading="lazy">
 </iframe>
 
-<iframe 
-  src="https://visualize.graphy.app/view/0fc43d92-6440-4347-97a7-f4503c4498e3" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
+<iframe
+  src="https://visualize.graphy.app/view/0fc43d92-6440-4347-97a7-f4503c4498e3"
+  width="100%"
+  height="600"
+  frameborder="0"
   loading="lazy">
 </iframe>
 
@@ -222,7 +223,7 @@ loading="lazy">
 
 
 ## شكر وتقدير
- نعرب عن امتناننا لمجتمع البحث في معالجة اللغة الطبيعية العربية، الذي يتيح التقدم في المجال من خلال مشاركته المفتوحة للمقاييس، والمجموعات البياناتية، والمنهجيات. شكر خاص لزملائناإلياس الشاهد, يونس بلقادة, ضياء الدين رحيم, بونيش ك انا, مايك لوبينتز , سليم الفريخة, جينجواي زو, ماكسيم فيلاكنوف, كاسبر بيركورسكي, سهيل محمد لدعمهم خلال المشروع.  
+ نعرب عن امتناننا لمجتمع البحث في معالجة اللغة الطبيعية العربية، الذي يتيح التقدم في المجال من خلال مشاركته المفتوحة للمقاييس، والمجموعات البياناتية، والمنهجيات. شكر خاص لزملائناإلياس الشاهد, يونس بلقادة, ضياء الدين رحيم, بونيش ك انا, مايك لوبينتز , سليم الفريخة, جينجواي زو, ماكسيم فيلاكنوف, كاسبر بيركورسكي, سهيل محمد لدعمهم خلال المشروع.
 
 ## الاستشهاد
 

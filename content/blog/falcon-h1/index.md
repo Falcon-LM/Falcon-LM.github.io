@@ -23,15 +23,17 @@ header:
     gradient: true
     blur: true
 contributors:
-    core:
-        - name: Jingwei Zuo
-        - name: Maksim Velikanov
-        - name: Ilyas Chahed
-        - name: Younes Belkada
-        - name: Dhia Eddine Rhayem
-        - name: Guillaume Kunsch
-    additional:
-        - name: Falcon LLM team
+  - title: "Core Contributors"
+    people:
+      - name: Jingwei Zuo
+      - name: Maksim Velikanov
+      - name: Ilyas Chahed
+      - name: Younes Belkada
+      - name: Dhia Eddine Rhayem
+      - name: Guillaume Kunsch
+  - title: "Additional Contributors"
+    people:
+      - name: Falcon LLM team
 ---
 
 <style>

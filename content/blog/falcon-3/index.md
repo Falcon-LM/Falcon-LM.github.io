@@ -35,8 +35,9 @@ header:
     gradient: true
     blur: true
 contributors:
-    core:
-        - name: Falcon LLM team
+  - title: "Contributors"
+    people:
+      - name: Falcon LLM team
 ---
 
 {{< button href="https://chat.falconllm.tii.ae" label="Falcon CHAT" external=true >}}
