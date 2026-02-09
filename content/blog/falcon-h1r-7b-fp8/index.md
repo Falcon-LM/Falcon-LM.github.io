@@ -52,10 +52,10 @@ contributors:
         image: img/contributors/hakim_hacid.png
   - title: "Contributors - NVIDIA"
     people:
-      - name: Mireille Fares
       - name: Sergio Perez
-      - name: Amit Kushwaha
+      - name: Mireille Fares
       - name: Liana Mikaelyan
+      - name: Amit Kushwaha
 ---
 
 {{< button href="https://chat.falconllm.tii.ae" label="Falcon CHAT" external=true >}}
