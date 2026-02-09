@@ -62,11 +62,20 @@ contributors:
 {{< button href="https://huggingface.co/collections/tiiuae/falcon-h1r" label="Hugging Face" external=true >}}
 {{< button href="https://discord.gg/Cbek57PrZE" label="DISCORD" external=true >}}
 
-Introducing <span class="bold">[Falcon H1R 7B FP8](https://huggingface.co/tiiuae/Falcon-H1R-7B-FP8)</span> .......
+Introducing <span class="bold">[Falcon H1R 7B FP8](https://huggingface.co/tiiuae/Falcon-H1R-7B-FP8)</span>, a fully quantized version of the Falcon H1R 7‑billion‑parameter model that packs both weights and activations into NVIDIA’s FP8 format. Using ModelOpt and a quantization‑aware distillation (QAD) workflow, the FP8 student preserves the original BF16 performance while delivering a 1.2×–1.3× throughput boost and halving the memory footprint on modern GPUs.
 
 ## Inference performance
 
+Below we evaluate Falcon H1R 7B FP8’s inference performance, covering both token‑generation throughput
+and memory consumption across typical workloads.
+
 ### Throughput
+
+The plot below shows that Falcon H1R 7B FP8 consistently outperforms its BF16 counterpart across all batch sizes.
+
+* For the Input = 512 / Output = 8k workload, FP8 yields a 20–22 % speed‑up (≈1.2×) over BF16, reaching 2682 tokens/s/GPU at a batch size of 32.
+* For the Input = 8k / Output = 8k workload, the improvement grows to 24–31 % (≈1.3×), achieving 2220 tokens/s/GPU at a batch size of 32.
+</br></br>
 
 {{< dynamic_line id="inference" highlight="FP8" category_label="I/O size"
 name_label="Models" x_label="Batch size" y_label="Tokens / s / GPU" >}}
@@ -94,6 +103,8 @@ name_label="Models" x_label="Batch size" y_label="Tokens / s / GPU" >}}
 
 ### Memory
 
+Falcon H1R 7B FP8 cuts the weight memory footprint from 14.2 GB (BF16) to just 7.9 GB, a reduction of roughly 44 % that enables deployment on GPUs with lower VRAM while preserving the model’s performance.
+
 {{< barplot_vertical id="memory" highlight="FP8" ymin="0" ymax="16" ylabel="Weights memory (Gb)" yaxis_percentage="false">}}
 [
     { "category": "", "model": "BF16", "value": 14.2 },
@@ -102,6 +113,8 @@ name_label="Models" x_label="Batch size" y_label="Tokens / s / GPU" >}}
 {{< /barplot_vertical >}}
 
 ## Evaluations
+
+The FP8 variant retains essentially the same accuracy as BF16 across all three tasks: AIME25 drops only 0.8 % (from 83.1 % to 82.3 %), LCB‑v6 falls by 1 % (68.6 % → 67.6 %), and GPQA‑D shows a negligible 0.1 % difference (61.3 % → 61.2 %). These results confirm that the QAD‑based FP8 quantization preserves benchmark performance while delivering substantial memory and throughput gains.
 
 {{< barplot_vertical id="benchs" highlight="FP8" ymin="0.5" ymax="0.9" ylabel="Performance %" xaxis_percentage="true">}}
 [
@@ -116,7 +129,9 @@ name_label="Models" x_label="Batch size" y_label="Tokens / s / GPU" >}}
 ]
 {{< /barplot_vertical >}}
 
-Explain TTS settings  (5 runs, n=128)
+</br>
+
+Under the DeepConf test‑time filtering regime (5 repetitions, 128 samples/traces per prompt), Falcon H1R 7B FP8 attains 89.3 % accuracy on AIME 2025 and 94.0 % on AIME 2024, compared to 91.3 % and 95.3 % for the BF16 baseline. The modest 1–2 % drop confirms that FP8 quantization preserves the model’s reasoning performance while still benefiting from DeepConf’s efficient trace pruning.
 
 {{< barplot_vertical id="tts" highlight="FP8" ymin="0.4" ymax="0.9" ylabel="Performance %" xaxis_percentage="true">}}
 [
