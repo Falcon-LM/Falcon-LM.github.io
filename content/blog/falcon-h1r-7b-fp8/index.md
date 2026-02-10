@@ -110,7 +110,7 @@ Falcon H1R 7B FP8 cuts the weight memory footprint from 14.2 GB (BF16) t
 
 Inference was benchmarked using offline [vLLM](https://github.com/vllm-project/vllm) on a single NVIDIA H100 GPU.
 
-## Throughput
+### Throughput
 
 The plot below shows that Falcon H1R 7B FP8 consistently outperforms its BF16 counterpart across all batch sizes.
 
