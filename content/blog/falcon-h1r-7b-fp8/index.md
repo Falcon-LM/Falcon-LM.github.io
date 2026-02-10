@@ -226,12 +226,82 @@ name_label="Model precision" x_label="Concurrency Level" y_label="Avg Time to Fi
 ]
 {{< /dynamic_line >}}
 
-# Quantization
+# FP8 Post-Training Quantization with NVIDIA Model Optimizer
 
-The FP8 model was quantized offline using NVIDIA's [ModelOpt](https://github.com/NVIDIA/TensorRT-Model-Optimizer) library ...
+This section details the optimization of Falcon-H1R-7B’s inference performance through FP8 Post-Training Quantization (PTQ). To achieve this, we utilized [NVIDIA Model Optimizer](https://github.com/NVIDIA/Model-Optimizer) (ModelOpt), an open-sourced unified library designed to accelerate AI inference by compressing models using state-of-the-art optimization techniques. ModelOpt is an essential toolkit for efficient downstream deployment on NVIDIA hardware compatible with frameworks such as vLLM, TensorRT-LLM, SGLang and Dynamo. 
 
-NVIDIA section here
-ModelOpt + nvidia fixes
+While ModelOpt supports various optimization strategies such as structured pruning and knowledge distillation, we focused specifically on PTQ, which offers the fastest path to model optimization by compressing weights from higher precisions (like FP16 or BF16) down to FP8 using a small calibration dataset. This conversion significantly reduces the model’s size and computational requirement, enabling higher inference throughput and reduced latency.
+
+
+## Per‑Tensor FP8 Post‑Training Quantization
+
+ModelOpt supports FP8 recipes with different granularities balancing inference performance and model accuracy preservation. For this specific implementation, we employed Per-Tensor FP8 quantization, a technique where a single scaling factor is calculated for an entire tensor to map high-precision values into the 8-bit format. To generate these scales, ModelOpt executes a calibration step using either a public dataset or a custom dataset. To quantize Falcon-H1R-7B, the team used the default calibration dataset comprising of cnn_dailymail and nemotron-post-training-dataset-v2. During this process, ModelOpt analyzes the dynamic range of activations and weights to determine the optimal static scaling factors that minimize accuracy degradation. The final output is a quantized checkpoint containing the FP8 weights and the scaling factors for weights and activations, ready to be built into an inference engine for efficient deployment.
+
+## Quantization Steps
+
+We started from our pre-trained checkpoint and applied per-tensor FP8 quantization using ModelOpt’s LLM quantization pipeline steps. In addition, we also quantize the KV cache to FP8 in order to save more memory footprint.
+
+### Environment Setup
+
+```
+# Start from a vLLM-enabled Docker image
+docker run --gpus all -it vllm/vllm-openai:latest
+
+# Clone NVIDIA Model Optimizer
+git clone https://github.com/NVIDIA/Model-Optimizer.git
+cd Model-Optimizer
+
+# Checkout a the most recent stable branch
+git checkout 0.39.0
+
+# Install Model Optimizer with development dependencies
+pip install -e .[dev]
+
+# Navigate to the LLM PTQ example directory
+cd examples/llm_ptq
+```
+
+### Applying FP8 Post-Training Quantization 
+
+We can directly apply FP8 quantization on Falcon-H1R-7B model using:
+
+```
+python3 hf_ptq.py \
+  --pyt_ckpt_path=/path/to/your/hf/checkpoint/ \
+  --export_path=/path/to/save/fp8_quantized_model/ \
+  --qformat=fp8 \
+  --kv_cache_qformat=fp8 \
+  --calib_size=512 \
+  --batch_size=0 \
+  --inference_tensor_parallel=1 \
+  --inference_pipeline_parallel=1 \
+  --export_fmt=hf \
+  --trust_remote_code
+```
+
+Key flags of the FP8 quantization process:
+
+```
+--qformat=fp8 applies per-tensor FP8 quantization to all model weights
+--kv_cache_qformat=fp8 quantizes the KV cache to FP8
+--calib_size=512 selects the samples to pass for the scales calibration, usually 512 are enough
+--batch_size=0 to automatically find the maximum batch size
+--inference_tensor_parallel & --inference_pipeline_parallel can be tuned if your model doesn’t fit in 1 GPU for the calibration process
+```
+
+## Online Inference Performance
+
+To evaluate the performance of the quantized model, we serve the FP8 checkpoint using vLLM, an open-source engine designed for high throughput LLM serving. This allows us to compare performance against the original FP16 checkpoint.
+
+We deploy the model using the following vLLM command:
+
+```
+vllm serve /path/to/save/fp8_quantized_model/ --served-model-name model_name
+```
+
+To conduct the performance analysis, we utilize [NVIDIA AIPerf](https://github.com/ai-dynamo/aiperf). AIPerf is a client-side generative AI benchmarking tool that supports any inference service conforming to the OpenAI API specification. It is designed to capture critical performance metrics including Time to First Token (TTFT), Inter-Token Latency (ITL), and overall throughput. 
+
+Inference was benchmarked using [vLLM](https://github.com/vllm-project/vllm) with 1K input tokens and 1K output tokens across various concurrency levels. All performance numbers are measured on a single NVIDIA H200 80GB GPU.
 
 ## Citation
 
