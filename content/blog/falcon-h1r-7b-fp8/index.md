@@ -60,11 +60,11 @@ contributors:
 {{< button href="https://huggingface.co/collections/tiiuae/falcon-h1r" label="Hugging Face" external=true >}}
 {{< button href="https://discord.gg/Cbek57PrZE" label="DISCORD" external=true >}}
 
-Introducing <span class="bold">[Falcon H1R 7B FP8](https://huggingface.co/tiiuae/Falcon-H1R-7B-FP8)</span>, a fully quantized version of the Falcon H1R 7‑billion‑parameter model that packs both weights and activations into NVIDIA’s FP8 format. Using ModelOpt and a quantization‑aware distillation (QAD) workflow, the FP8 student preserves the original BF16 performance while delivering a 1.2×–1.3× throughput boost and halving the memory footprint on modern GPUs.
+Introducing <span class="bold">[Falcon H1R 7B FP8](https://huggingface.co/tiiuae/Falcon-H1R-7B-FP8)</span>, a fully quantized version of the Falcon H1R 7‑billion‑parameter model that packs both weights and activations into NVIDIA’s FP8 format. Using [NVIDIA Model Optimizer](https://github.com/NVIDIA/Model-Optimizer) and post-training quantization (PTQ) workflow, the FP8 quantized model preserves the original BF16 quality performance while delivering a 1.2×–1.3× throughput boost and halving the memory footprint on Hopper GPUs.
 
 # Evaluations
 
-The FP8 variant retains essentially the same accuracy as BF16 across all three tasks: AIME25 drops only 0.8 % (from 83.1 % to 82.3 %), LCB‑v6 falls by 1 % (68.6 % → 67.6 %), and GPQA‑D shows a negligible 0.1 % difference (61.3 % → 61.2 %). These results confirm that the QAD‑based FP8 quantization preserves benchmark performance while delivering substantial memory and throughput gains.
+The FP8 variant retains essentially the same accuracy as BF16 across all three tasks: AIME25 drops only 0.8 % (from 83.1 % to 82.3 %), LCB‑v6 falls by 1 % (68.6 % → 67.6 %), and GPQA‑D shows a negligible 0.1 % difference (61.3 % → 61.2 %). These results confirm that the FP8 PTQ preserves benchmark performance while delivering substantial memory and throughput gains.
 
 {{< barplot_vertical id="benchs" highlight="FP8" ymin="0.5" ymax="0.9" ylabel="Performance %" xaxis_percentage="true">}}
 [
@@ -291,7 +291,7 @@ Key flags of the FP8 quantization process:
 
 ## Online Inference Performance
 
-To evaluate the performance of the quantized model, we serve the FP8 checkpoint using vLLM, an open-source engine designed for high throughput LLM serving. This allows us to compare performance against the original FP16 checkpoint.
+To evaluate the performance of the quantized model, we serve the FP8 checkpoint using [vLLM](https://github.com/vllm-project/vllm), an open-source engine designed for high throughput LLM serving. This allows us to compare performance against the original FP16 checkpoint.
 
 We deploy the model using the following vLLM command:
 
@@ -301,7 +301,7 @@ vllm serve /path/to/save/fp8_quantized_model/ --served-model-name model_name
 
 To conduct the performance analysis, we utilize [NVIDIA AIPerf](https://github.com/ai-dynamo/aiperf). AIPerf is a client-side generative AI benchmarking tool that supports any inference service conforming to the OpenAI API specification. It is designed to capture critical performance metrics including Time to First Token (TTFT), Inter-Token Latency (ITL), and overall throughput. 
 
-Inference was benchmarked using [vLLM](https://github.com/vllm-project/vllm) with 1K input tokens and 1K output tokens across various concurrency levels. All performance numbers are measured on a single NVIDIA H200 80GB GPU.
+Inference was benchmarked using vLLM with 1K input tokens and 1K output tokens across various concurrency levels. All performance numbers are measured on a single NVIDIA H200 80GB GPU.
 
 ## Citation
 
