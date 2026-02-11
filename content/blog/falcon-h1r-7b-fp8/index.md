@@ -1,5 +1,5 @@
 ---
-title: "Falcon H1R 7B FP8"
+title: "Falcon‑H1R-FP8: Accelerating Inference with Quantized Precision"
 date: 2026-02-04T08:00:00Z
 weight: 1
 # aliases: ["/first"]
@@ -46,6 +46,7 @@ contributors:
       - name: Mohamed El Amine Seddik
         image: img/contributors/mohamed_seddik.png
       - name: Saarah Abdulla
+        image: img/contributors/saarah_abdulla.png
       - name: Hakim Hacid
         image: img/contributors/hakim_hacid.png
   - title: "Contributors - NVIDIA"
@@ -60,11 +61,11 @@ contributors:
 {{< button href="https://huggingface.co/collections/tiiuae/falcon-h1r" label="Hugging Face" external=true >}}
 {{< button href="https://discord.gg/Cbek57PrZE" label="DISCORD" external=true >}}
 
-Introducing <span class="bold">[Falcon H1R 7B FP8](https://huggingface.co/tiiuae/Falcon-H1R-7B-FP8)</span>, a fully quantized version of the Falcon H1R 7‑billion‑parameter model that packs both weights and activations into NVIDIA’s FP8 format. Using [NVIDIA Model Optimizer](https://github.com/NVIDIA/Model-Optimizer) and post-training quantization (PTQ) workflow, the FP8 quantized model preserves the original BF16 quality performance while delivering a 1.2×–1.3× throughput boost and halving the memory footprint on Hopper GPUs.
+Introducing <span class="bold">[Falcon H1R 7B FP8](https://huggingface.co/tiiuae/Falcon-H1R-7B-FP8)</span>, a fully quantized version of the [Falcon H1R 7B](https://huggingface.co/tiiuae/Falcon-H1R-7B) model that packs both weights and activations into FP8 format. Using [NVIDIA Model Optimizer](https://github.com/NVIDIA/Model-Optimizer) and post-training quantization (PTQ) workflow, the FP8 quantized model preserves the original BF16 quality performance while delivering a 1.2×–1.5× throughput boost and halving GPU memory footprint.
 
 # Evaluations
 
-The FP8 variant retains essentially the same accuracy as BF16 across all three tasks: AIME25 drops only 0.8 % (from 83.1 % to 82.3 %), LCB‑v6 falls by 1 % (68.6 % → 67.6 %), and GPQA‑D shows a negligible 0.1 % difference (61.3 % → 61.2 %). These results confirm that the FP8 PTQ preserves benchmark performance while delivering substantial memory and throughput gains.
+The FP8 variant retains essentially the same accuracy as BF16 across all three major reasoning tasks: AIME25 drops only 0.8 % (from 83.1 % to 82.3 %), LCB‑v6 falls by 1 % (68.6 % → 67.6 %), and GPQA‑D shows a negligible 0.1 % difference (61.3 % → 61.2 %). These results confirm that the FP8 PTQ preserves benchmark performance while delivering substantial memory and throughput gains.
 
 {{< barplot_vertical id="benchs" highlight="FP8" ymin="0.5" ymax="0.9" ylabel="Performance %" xaxis_percentage="true">}}
 [
@@ -81,7 +82,7 @@ The FP8 variant retains essentially the same accuracy as BF16 across all three t
 
 </br>
 
-Under the DeepConf test‑time filtering regime (5 repetitions, 128 samples/traces per prompt), Falcon H1R 7B FP8 attains 89.3 % accuracy on AIME 2025 and 94.0 % on AIME 2024, compared to 91.3 % and 95.3 % for the BF16 baseline. The modest 1–2 % drop confirms that FP8 quantization preserves the model’s reasoning performance while still benefiting from DeepConf’s efficient trace pruning.
+Under the [DeepConf](https://github.com/facebookresearch/deepconf) test‑time filtering regime (5 repetitions, 128 rollouts per prompt), Falcon H1R 7B FP8 attains 89.3 % accuracy on AIME 2025 and 94.0 % on AIME 2024, compared to 91.3 % and 95.3 % for the BF16 baseline. The modest 1–2 % drop confirms that FP8 quantization preserves the model’s reasoning performance while still benefiting from DeepConf’s efficient trace pruning.
 
 {{< barplot_vertical id="tts" highlight="FP8" ymin="0.4" ymax="0.9" ylabel="Performance %" xaxis_percentage="true">}}
 [
@@ -97,7 +98,7 @@ Under the DeepConf test‑time filtering regime (5 repetitions, 128 samples/trac
 
 ## Memory
 
-Falcon H1R 7B FP8 cuts the weight memory footprint from 14.2 GB (BF16) to just 7.9 GB, a reduction of roughly 44 % that enables deployment on GPUs with lower VRAM while preserving the model’s performance.
+Falcon H1R 7B FP8 cuts the weight memory footprint from 14.2 GB to just 7.9 GB, a reduction of roughly 44 % that enables deployment on GPUs with lower VRAM while preserving the model’s performance.
 
 {{< barplot_vertical id="memory" highlight="FP8" ymin="0" ymax="16" ylabel="Weights memory (Gb)" yaxis_percentage="false">}}
 [
@@ -144,15 +145,17 @@ name_label="Model precision" x_label="Batch size" y_label="Tokens / s / GPU" >}}
 
 ## Online inference benchmarking
 
-Inference was benchmarked using online [vLLM](https://github.com/vllm-project/vllm) with 1K input tokens and 1K output tokens across various concurrency levels. All performance numbers are measured on a single NVIDIA H200 GPU.
+To conduct the online serving performance analysis, we utilize [NVIDIA AIPerf](https://github.com/ai-dynamo/aiperf). AIPerf is a client-side generative AI benchmarking tool that supports any inference service conforming to the OpenAI API specification. It is designed to capture critical performance metrics including Time to First Token (TTFT), Inter-Token Latency (ITL), and overall throughput.
+
+Models were served using online [vLLM](https://github.com/vllm-project/vllm) with 1k input tokens and 1k output tokens across various concurrency levels. All performance numbers are measured on a single NVIDIA H200 GPU.
 
 ### GPU Efficiency vs User Experience
 
 This chart illustrates the trade-off between total output throughput (tokens/sec) and per-user throughput (tokens/sec/user) across different concurrency levels. As concurrency increases, total throughput grows but per-user experience degrades. FP8 maintains higher throughput on both axes, demonstrating superior efficiency.
 
 **Key Performance Improvements:**
-- **Output Throughput**: FP8 achieves up to 12.7% higher output token throughput at concurrency 64 (4543.5 vs 4030.91 tokens/sec)
-- **Per-User Throughput**: FP8 delivers 20% better tokens/sec per user at low concurrency (188.74 vs 156.79 at concurrency 1)
+- **Output Throughput**: FP8 achieves up to 12.7% higher output token throughput at concurrency 64 (4543.5 vs 4030.9 tokens/sec)
+- **Per-User Throughput**: FP8 delivers 20% better tokens/sec per user at low concurrency (188.7 vs 156.7 at concurrency 1)
 </br></br>
 
 {{< dynamic_line id="gpu_efficiency" highlight="FP8" category_label="Metric"
@@ -178,7 +181,7 @@ name_label="Model precision" x_label="Tokens/sec per User" y_label="Output Token
 
 ### P50 Inter-Token Latency
 
-This chart shows the median (P50) time between consecutive tokens at different concurrency levels. Lower latency means faster token generation. FP8 maintains consistently lower P50 latency across all concurrency levels, with ~11% improvement at concurrency 64 (13.02ms vs 14.62ms)
+This chart shows the median (P50) time between consecutive tokens at different concurrency levels. Lower latency means faster token generation. FP8 maintains consistently lower P50 latency across all concurrency levels, with ~11% improvement at concurrency 64 (13ms vs 14.6ms)
 
 {{< dynamic_line id="p50_latency" highlight="FP8" category_label="Metric"
 name_label="Model precision" x_label="Concurrency Level" y_label="P50 Inter-Token Latency (ms)" xaxis_log="true" >}}
@@ -203,7 +206,7 @@ name_label="Model precision" x_label="Concurrency Level" y_label="P50 Inter-Toke
 
 ### Time to First Token (TTFT)
 
-This chart measures the average time until the first token is generated after receiving a request. Lower TTFT is critical for perceived responsiveness. FP8 reduces TTFT by up to 28% at high concurrency (686.2ms vs 954.33ms at concurrency 64), significantly improving user experience.
+This chart measures the average time until the first token is generated after receiving a request. Lower TTFT is critical for perceived responsiveness. FP8 reduces TTFT by up to 28% at high concurrency (686.2ms vs 954.3ms at concurrency 64), significantly improving user experience.
 
 {{< dynamic_line id="ttft" highlight="FP8" category_label="Metric"
 name_label="Model precision" x_label="Concurrency Level" y_label="Avg Time to First Token (ms)" xaxis_log="true" >}}
@@ -228,10 +231,9 @@ name_label="Model precision" x_label="Concurrency Level" y_label="Avg Time to Fi
 
 # FP8 Post-Training Quantization with NVIDIA Model Optimizer
 
-This section details the optimization of Falcon-H1R-7B’s inference performance through FP8 Post-Training Quantization (PTQ). To achieve this, we utilized [NVIDIA Model Optimizer](https://github.com/NVIDIA/Model-Optimizer) (ModelOpt), an open-sourced unified library designed to accelerate AI inference by compressing models using state-of-the-art optimization techniques. ModelOpt is an essential toolkit for efficient downstream deployment on NVIDIA hardware compatible with frameworks such as vLLM, TensorRT-LLM, SGLang and Dynamo. 
+This section details the optimization of Falcon-H1R-7B’s inference performance through FP8 Post-Training Quantization (PTQ). To achieve this, we utilized [NVIDIA Model Optimizer](https://github.com/NVIDIA/Model-Optimizer) (ModelOpt), an open-sourced unified library designed to accelerate AI inference by compressing models using state-of-the-art optimization techniques. ModelOpt is an essential toolkit for efficient downstream deployment on NVIDIA hardware compatible with frameworks such as vLLM, TensorRT-LLM, SGLang and Dynamo.
 
 While ModelOpt supports various optimization strategies such as structured pruning and knowledge distillation, we focused specifically on PTQ, which offers the fastest path to model optimization by compressing weights from higher precisions (like FP16 or BF16) down to FP8 using a small calibration dataset. This conversion significantly reduces the model’s size and computational requirement, enabling higher inference throughput and reduced latency.
-
 
 ## Per‑Tensor FP8 Post‑Training Quantization
 
@@ -243,7 +245,7 @@ We started from our pre-trained checkpoint and applied per-tensor FP8 quantizati
 
 ### Environment Setup
 
-```
+```bash
 # Start from a vLLM-enabled Docker image
 docker run --gpus all -it vllm/vllm-openai:latest
 
@@ -261,11 +263,11 @@ pip install -e .[dev]
 cd examples/llm_ptq
 ```
 
-### Applying FP8 Post-Training Quantization 
+### Applying FP8 Post-Training Quantization
 
 We can directly apply FP8 quantization on Falcon-H1R-7B model using:
 
-```
+```bash
 python3 hf_ptq.py \
   --pyt_ckpt_path=/path/to/your/hf/checkpoint/ \
   --export_path=/path/to/save/fp8_quantized_model/ \
@@ -281,27 +283,11 @@ python3 hf_ptq.py \
 
 Key flags of the FP8 quantization process:
 
-```
---qformat=fp8 applies per-tensor FP8 quantization to all model weights
---kv_cache_qformat=fp8 quantizes the KV cache to FP8
---calib_size=512 selects the samples to pass for the scales calibration, usually 512 are enough
---batch_size=0 to automatically find the maximum batch size
---inference_tensor_parallel & --inference_pipeline_parallel can be tuned if your model doesn’t fit in 1 GPU for the calibration process
-```
-
-## Online Inference Performance
-
-To evaluate the performance of the quantized model, we serve the FP8 checkpoint using [vLLM](https://github.com/vllm-project/vllm), an open-source engine designed for high throughput LLM serving. This allows us to compare performance against the original FP16 checkpoint.
-
-We deploy the model using the following vLLM command:
-
-```
-vllm serve /path/to/save/fp8_quantized_model/ --served-model-name model_name
-```
-
-To conduct the performance analysis, we utilize [NVIDIA AIPerf](https://github.com/ai-dynamo/aiperf). AIPerf is a client-side generative AI benchmarking tool that supports any inference service conforming to the OpenAI API specification. It is designed to capture critical performance metrics including Time to First Token (TTFT), Inter-Token Latency (ITL), and overall throughput. 
-
-Inference was benchmarked using vLLM with 1K input tokens and 1K output tokens across various concurrency levels. All performance numbers are measured on a single NVIDIA H200 80GB GPU.
+* `--qformat=fp8`: applies per-tensor FP8 quantization to all model weights
+* `--kv_cache_qformat=fp8`: quantizes the KV cache to FP8
+* `--calib_size=512`: selects the samples to pass for the scales calibration, usually 512 are enough
+* `--batch_size=0`: automatically find the maximum batch size
+* `--inference_tensor_parallel & --inference_pipeline_parallel`: can be tuned if your model doesn’t fit in 1 GPU for the calibration process
 
 ## Citation
 
