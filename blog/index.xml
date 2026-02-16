@@ -10,7 +10,21 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 05 Jan 2026 08:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 04 Feb 2026 08:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Falcon‑H1R-FP8: Accelerating Inference with Quantized Precision</title>
+      <link>https://falcon-lm.github.io/blog/falcon-h1r-7b-fp8/</link>
+      <pubDate>Wed, 04 Feb 2026 08:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/blog/falcon-h1r-7b-fp8/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://chat.falconllm.tii.ae&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Falcon CHAT&lt;/a&gt;
+&lt;a href=&#34;https://huggingface.co/collections/tiiuae/falcon-h1r&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;Hugging Face&lt;/a&gt;
+&lt;a href=&#34;https://discord.gg/Cbek57PrZE&#34; class=&#34;btn external&#34; target=&#34;_blank&#34;&gt;DISCORD&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Introducing &lt;span class=&#34;bold&#34;&gt;&lt;a href=&#34;https://huggingface.co/tiiuae/Falcon-H1R-7B-FP8&#34;&gt;Falcon H1R 7B FP8&lt;/a&gt;&lt;/span&gt;, a fully quantized version of the &lt;a href=&#34;https://huggingface.co/tiiuae/Falcon-H1R-7B&#34;&gt;Falcon H1R 7B&lt;/a&gt; model that packs both weights and activations into FP8 format. Using &lt;a href=&#34;https://github.com/NVIDIA/Model-Optimizer&#34;&gt;NVIDIA Model Optimizer&lt;/a&gt; and post-training quantization (PTQ) workflow, the FP8 quantized model preserves the original BF16 quality performance while delivering a 1.2×–1.5× throughput boost and halving GPU memory footprint.&lt;/p&gt;
+&lt;h1 id=&#34;evaluations&#34;&gt;Evaluations&lt;/h1&gt;
+&lt;p&gt;The FP8 variant retains essentially the same accuracy as BF16 across all three major reasoning tasks: AIME25 drops only 0.8 % (from 83.1 % to 82.3 %), LCB‑v6 falls by 1 % (68.6 % → 67.6 %), and GPQA‑D shows a negligible 0.1 % difference (61.3 % → 61.2 %). These results confirm that the FP8 PTQ preserves benchmark performance while delivering substantial memory and throughput gains.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Falcon-H1R: Pushing the Reasoning Frontiers with a Hybrid Model for Efficient Test-Time Scaling</title>
       <link>https://falcon-lm.github.io/blog/falcon-h1r-7b/</link>
