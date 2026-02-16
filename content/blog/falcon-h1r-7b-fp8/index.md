@@ -67,7 +67,7 @@ Introducing <span class="bold">[Falcon H1R 7B FP8](https://huggingface.co/tiiuae
 
 The FP8 variant retains essentially the same accuracy as BF16 across all three major reasoning tasks: AIME25 drops only 0.8 % (from 83.1 % to 82.3 %), LCB‑v6 falls by 1 % (68.6 % → 67.6 %), and GPQA‑D shows a negligible 0.1 % difference (61.3 % → 61.2 %). These results confirm that the FP8 PTQ preserves benchmark performance while delivering substantial memory and throughput gains.
 
-{{< barplot_vertical id="benchs" highlight="FP8" ymin="0.5" ymax="0.9" ylabel="Performance %" xaxis_percentage="true">}}
+{{< barplot_vertical id="benchs" highlight="FP8" ymin="0" ymax="0.9" ylabel="Performance %" xaxis_percentage="true">}}
 [
     { "category": "AIME25", "model": "BF16", "value": 0.831 },
     { "category": "AIME25", "model": "FP8", "value": 0.823 },
@@ -84,7 +84,7 @@ The FP8 variant retains essentially the same accuracy as BF16 across all three m
 
 Under the [DeepConf](https://github.com/facebookresearch/deepconf) test‑time filtering regime (5 repetitions, 128 rollouts per prompt), Falcon H1R 7B FP8 attains 89.3 % accuracy on AIME 2025 and 94.0 % on AIME 2024, compared to 91.3 % and 95.3 % for the BF16 baseline. The modest 1–2 % drop confirms that FP8 quantization preserves the model’s reasoning performance while still benefiting from DeepConf’s efficient trace pruning.
 
-{{< barplot_vertical id="tts" highlight="FP8" ymin="0.4" ymax="0.9" ylabel="Performance %" xaxis_percentage="true">}}
+{{< barplot_vertical id="tts" highlight="FP8" ymin="0" ymax="0.9" ylabel="Performance %" xaxis_percentage="true">}}
 [
     { "category": "AIME25", "model": "BF16", "value": 0.913 },
     { "category": "AIME25", "model": "FP8", "value": 0.893 },
@@ -145,7 +145,7 @@ name_label="Model precision" x_label="Batch size" y_label="Tokens / s / GPU" >}}
 
 ## Online inference benchmarking
 
-To conduct the online serving performance analysis, we utilize [NVIDIA AIPerf](https://github.com/ai-dynamo/aiperf). AIPerf is a client-side generative AI benchmarking tool that supports any inference service conforming to the OpenAI API specification. It is designed to capture critical performance metrics including Time to First Token (TTFT), Inter-Token Latency (ITL), and overall throughput.
+To conduct the online serving performance analysis, we utilized [NVIDIA AIPerf](https://github.com/ai-dynamo/aiperf). AIPerf is a client-side generative AI benchmarking tool that supports any inference service conforming to the OpenAI API specification. It is designed to capture critical performance metrics including Time to First Token (TTFT), Inter-Token Latency (ITL), and overall throughput.
 
 Models were served using online [vLLM](https://github.com/vllm-project/vllm) with 1k input tokens and 1k output tokens across various concurrency levels. All performance numbers are measured on a single NVIDIA H200 GPU.
 
@@ -229,7 +229,7 @@ name_label="Model precision" x_label="Concurrency Level" y_label="Avg Time to Fi
 ]
 {{< /dynamic_line >}}
 
-# FP8 Post-Training Quantization with NVIDIA Model Optimizer
+# FP8 Post-Training Quantization Process with NVIDIA Model Optimizer
 
 This section details the optimization of Falcon-H1R-7B’s inference performance through FP8 Post-Training Quantization (PTQ). To achieve this, we utilized [NVIDIA Model Optimizer](https://github.com/NVIDIA/Model-Optimizer) (ModelOpt), an open-sourced unified library designed to accelerate AI inference by compressing models using state-of-the-art optimization techniques. ModelOpt is an essential toolkit for efficient downstream deployment on NVIDIA hardware compatible with frameworks such as vLLM, TensorRT-LLM, SGLang and Dynamo.
 
@@ -237,7 +237,7 @@ While ModelOpt supports various optimization strategies such as structured pruni
 
 ## Per‑Tensor FP8 Post‑Training Quantization
 
-ModelOpt supports FP8 recipes with different granularities balancing inference performance and model accuracy preservation. For this specific implementation, we employed Per-Tensor FP8 quantization, a technique where a single scaling factor is calculated for an entire tensor to map high-precision values into the 8-bit format. To generate these scales, ModelOpt executes a calibration step using either a public dataset or a custom dataset. To quantize Falcon-H1R-7B, the team used the default calibration dataset comprising of cnn_dailymail and nemotron-post-training-dataset-v2. During this process, ModelOpt analyzes the dynamic range of activations and weights to determine the optimal static scaling factors that minimize accuracy degradation. The final output is a quantized checkpoint containing the FP8 weights and the scaling factors for weights and activations, ready to be built into an inference engine for efficient deployment.
+ModelOpt supports FP8 recipes with different granularities balancing inference performance and model accuracy preservation. For this specific implementation, we employed Per-Tensor FP8 quantization, a technique where a single scaling factor is calculated for an entire tensor to map high-precision values into the 8-bit format. To generate these scales, ModelOpt executes a calibration step using either a public dataset or a custom dataset. To quantize Falcon-H1R-7B, the team used the default calibration dataset comprising of cnn_dailymail and [nemotron-post-training-dataset-v2](https://huggingface.co/datasets/nvidia/Nemotron-Post-Training-Dataset-v2). During this process, ModelOpt analyzes the dynamic range of activations and weights to determine the optimal static scaling factors that minimize accuracy degradation. The final output is a quantized checkpoint containing the FP8 weights and the scaling factors for weights and activations, ready to be built into an inference engine for efficient deployment.
 
 ## Quantization Steps
 
@@ -253,7 +253,7 @@ docker run --gpus all -it vllm/vllm-openai:latest
 git clone https://github.com/NVIDIA/Model-Optimizer.git
 cd Model-Optimizer
 
-# Checkout a the most recent stable branch
+# Checkout to the most recent stable branch
 git checkout 0.39.0
 
 # Install Model Optimizer with development dependencies
@@ -289,7 +289,12 @@ Key flags of the FP8 quantization process:
 * `--batch_size=0`: automatically find the maximum batch size
 * `--inference_tensor_parallel & --inference_pipeline_parallel`: can be tuned if your model doesn’t fit in 1 GPU for the calibration process
 
-## Citation
+# Conclusion
+
+<span class="bold">Falcon H1R 7B FP8</span> preserves BF16 accuracy while cutting weight memory to 7.9 GB (≈44 %) and boosting throughput by ~20–30 % on H100/H200 GPUs.
+It therefore enables high‑scale, low‑VRAM inference without sacrificing performance.
+
+# Citation
 
 ```latex
 @article{falcon-h1r-fp8,
