@@ -1,6 +1,6 @@
 ---
 title: "Falcon‑H1R-FP8: Accelerating Inference with Quantized Precision"
-date: 2026-02-04T08:00:00Z
+date: 2026-02-16T08:00:00Z
 weight: 1
 # aliases: ["/first"]
 # tags: ["Research"]
