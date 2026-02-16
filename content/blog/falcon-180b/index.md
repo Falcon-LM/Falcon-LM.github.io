@@ -1,9 +1,10 @@
 ---
-title: "Spread Your Wings: Falcon 180B is here" 
+title: "Spread Your Wings: Falcon 180B is here"
 date: 2023-09-06T12:00:00Z
 contributors:
-    core:
-        - name: Falcon LLM team
+  - title: "Contributors"
+    people:
+      - name: Falcon LLM team
 ---
 
 # Spread Your Wings: Falcon 180B is here
@@ -11,7 +12,7 @@ contributors:
 
 ## Introduction
 
-**Today, we're excited to welcome [TII's](https://falconllm.tii.ae/) Falcon 180B to HuggingFace!** Falcon 180B sets a new state-of-the-art for open models. It is the largest openly available language model, with 180 billion parameters, and was trained on a massive 3.5 trillion tokens using TII's [RefinedWeb](https://huggingface.co/datasets/tiiuae/falcon-refinedweb) dataset. This represents the longest single-epoch pretraining for an open model. 
+**Today, we're excited to welcome [TII's](https://falconllm.tii.ae/) Falcon 180B to HuggingFace!** Falcon 180B sets a new state-of-the-art for open models. It is the largest openly available language model, with 180 billion parameters, and was trained on a massive 3.5 trillion tokens using TII's [RefinedWeb](https://huggingface.co/datasets/tiiuae/falcon-refinedweb) dataset. This represents the longest single-epoch pretraining for an open model.
 
 You can find the model on the Hugging Face Hub ([base](https://huggingface.co/tiiuae/falcon-180B) and [chat](https://huggingface.co/tiiuae/falcon-180B-chat) model) and interact with the model on the [Falcon Chat Demo Space](https://huggingface.co/spaces/tiiuae/falcon-180b-chat).
 
@@ -19,27 +20,33 @@ In terms of capabilities, Falcon 180B achieves state-of-the-art results across n
 
 In this blog post, we explore what makes Falcon 180B so good by looking at some evaluation results and show how you can use the model.
 
-* [What is Falcon-180B?](#what-is-falcon-180b)
-* [How good is Falcon 180B?](#how-good-is-falcon-180b)
-* [How to use Falcon 180B?](#how-to-use-falcon-180b)
-    * [Demo](#demo)
-    * [Hardware requirements](#hardware-requirements)
-    * [Prompt format](#prompt-format)
-    * [Transformers](#transformers)
-* [Additional Resources](#additional-resources)
+- [Spread Your Wings: Falcon 180B is here](#spread-your-wings-falcon-180b-is-here)
+  - [Introduction](#introduction)
+  - [What is Falcon-180B?](#what-is-falcon-180b)
+  - [How good is Falcon 180B?](#how-good-is-falcon-180b)
+  - [How to use Falcon 180B?](#how-to-use-falcon-180b)
+    - [Demo](#demo)
+    - [Hardware requirements](#hardware-requirements)
+    - [Prompt format](#prompt-format)
+    - [Transformers](#transformers)
+      - [bfloat16](#bfloat16)
+      - [8-bit and 4-bit with `bitsandbytes`](#8-bit-and-4-bit-with-bitsandbytes)
+      - [Chat Model](#chat-model)
+  - [Additional Resources](#additional-resources)
+  - [Acknowledgments](#acknowledgments)
 
 
 ## What is Falcon-180B?
 
 Falcon 180B is a model released by [TII](https://falconllm.tii.ae/) that follows previous releases in the Falcon family.
 
-Architecture-wise, Falcon 180B is a scaled-up version of [Falcon 40B](https://huggingface.co/tiiuae/falcon-40b) and builds on its innovations such as multiquery attention for improved scalability. We recommend reviewing the [initial blog post](https://huggingface.co/blog/falcon) introducing Falcon to dive into the architecture. Falcon 180B was trained on 3.5 trillion tokens on up to 4096 GPUs simultaneously, using Amazon SageMaker for a total of ~7,000,000 GPU hours. This means Falcon 180B is 2.5 times larger than Llama 2 and was trained with 4x more compute. 
+Architecture-wise, Falcon 180B is a scaled-up version of [Falcon 40B](https://huggingface.co/tiiuae/falcon-40b) and builds on its innovations such as multiquery attention for improved scalability. We recommend reviewing the [initial blog post](https://huggingface.co/blog/falcon) introducing Falcon to dive into the architecture. Falcon 180B was trained on 3.5 trillion tokens on up to 4096 GPUs simultaneously, using Amazon SageMaker for a total of ~7,000,000 GPU hours. This means Falcon 180B is 2.5 times larger than Llama 2 and was trained with 4x more compute.
 
 The dataset for Falcon 180B consists predominantly of web data from [RefinedWeb](https://arxiv.org/abs/2306.01116) (\~85%). In addition, it has been trained on a mix of curated data such as conversations, technical papers, and a small fraction of code (\~3%). This pretraining dataset is big enough that even 3.5 trillion tokens constitute less than an epoch.
 
 The released [chat model](https://huggingface.co/tiiuae/falcon-180B-chat) is fine-tuned on chat and instruction datasets with a mix of several large-scale conversational datasets.
 
-‼️ Commercial use: 
+‼️ Commercial use:
 Falcon 180b can be commercially used but under very restrictive conditions, excluding any "hosting use". We recommend to check the [license](https://huggingface.co/spaces/tiiuae/falcon-180b-license/blob/main/LICENSE.txt) and consult your legal team if you are interested in using it for commercial purposes.
 
 

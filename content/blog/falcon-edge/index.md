@@ -34,31 +34,33 @@ header:
     background_image: "cover.png"
     gradient: true
     blur: true
+
 contributors:
-    core:
-        - name: Younes Belkada
-          image: img/contributors/younes_belkada.jpg
-        - name: Qiyang Zhao
-          image: img/contributors/qiyang_zhao.jpg
-        - name: Hang Zou
-          image: img/contributors/hang_zou.png
-        - name: DhiaEddine Rhaiem
-          image: img/contributors/dhia_eddine_rhaiem.jpg
-        - name: Ilyas Chahed
-          image: img/contributors/ilyas_chahed.jpg
-        - name: Maksim Velikanov
-          image: img/contributors/maksim_velikanov.jpg
-        - name: Jingwei Zuo
-          image: img/contributors/jingwei_zuo.jpg
-        - name: Mikhail Lubinets
-          image: img/contributors/mikhail_lubinets.jpg
-        - name: Hakim Hacid
-          image: img/contributors/hakim_hacid.png
+  - title: "Core Contributors"
+    people:
+      - name: Younes Belkada
+        image: img/contributors/younes_belkada.jpg
+      - name: Qiyang Zhao
+        image: img/contributors/qiyang_zhao.jpg
+      - name: Hang Zou
+        image: img/contributors/hang_zou.png
+      - name: DhiaEddine Rhaiem
+        image: img/contributors/dhia_eddine_rhaiem.jpg
+      - name: Ilyas Chahed
+        image: img/contributors/ilyas_chahed.jpg
+      - name: Maksim Velikanov
+        image: img/contributors/maksim_velikanov.jpg
+      - name: Jingwei Zuo
+        image: img/contributors/jingwei_zuo.jpg
+      - name: Mikhail Lubinets
+        image: img/contributors/mikhail_lubinets.jpg
+      - name: Hakim Hacid
+        image: img/contributors/hakim_hacid.png
 ---
 
 In this blogpost, we present the key highlights and rationales about the *Falcon-Edge* series - a collection of *powerful*, *universal*, and *fine-tunable* language models available in ternary format, based on the BitNet architecture.
 
-Drawing from our experience with BitNet, **Falcon-Edge** introduces and validates an new pre-training paradigm that delivers a full-scope output from a single training process, simultaneously yielding both non-quantized and quantized model variants. This comprehensive approach produces a non-BitNet model in bfloat16 format, the native BitNet model, and a pre-quantized BitNet variant specifically engineered for effortless fine-tuning, enabling users and developers to precisely tailor these models to their specific applications and needs. 
+Drawing from our experience with BitNet, **Falcon-Edge** introduces and validates an new pre-training paradigm that delivers a full-scope output from a single training process, simultaneously yielding both non-quantized and quantized model variants. This comprehensive approach produces a non-BitNet model in bfloat16 format, the native BitNet model, and a pre-quantized BitNet variant specifically engineered for effortless fine-tuning, enabling users and developers to precisely tailor these models to their specific applications and needs.
 
 Available now in two sizes—1 Billion and 3 Billion parameters—each size comes in both base and instruction-tuned models. Discover the Falcon-Edge series on [our dedicated Hugging Face collection](https://huggingface.co/collections/tiiuae/falcon-edge-series-6804fd13344d6d8a8fa71130).
 
@@ -81,7 +83,7 @@ Available now in two sizes—1 Billion and 3 Billion parameters—each size come
 
 ## Introduction
 
-Large Language Models (LLMs), by design, are inherently large and resource-intensive. As demand grows to deploy these models efficiently on edge devices, research into model compression has accelerated. Recent efforts, such as those by DeepSeek and Llama 4, explore training with reduced precision formats—down to FP8—to improve deployment scalability. On the other hand, many state-of-the-art methods emphasize post-training quantization. In contrast to these approaches, BitNet introduces a fundamentally different paradigm: unlike reduced-precision training which still relies on floating-point formats, and post-training quantization which adjusts weights after full-precision training, BitNet operates with the lowest possible precision — ternary weights ({-1, 0, 1}) — directly during training, enabling an end-to-end ultra-efficient model design. 
+Large Language Models (LLMs), by design, are inherently large and resource-intensive. As demand grows to deploy these models efficiently on edge devices, research into model compression has accelerated. Recent efforts, such as those by DeepSeek and Llama 4, explore training with reduced precision formats—down to FP8—to improve deployment scalability. On the other hand, many state-of-the-art methods emphasize post-training quantization. In contrast to these approaches, BitNet introduces a fundamentally different paradigm: unlike reduced-precision training which still relies on floating-point formats, and post-training quantization which adjusts weights after full-precision training, BitNet operates with the lowest possible precision — ternary weights ({-1, 0, 1}) — directly during training, enabling an end-to-end ultra-efficient model design.
 
 These ternary weights are paving the way for a "matmul-free" LLM design that is notably faster and remarkably memory-efficient in practice. The primary challenge of this innovative approach is the necessity for pre-training BitNet models, which can be computationally demanding and costly for typical users.
 
@@ -179,7 +181,7 @@ We evaluate our models (base and instruct versions) on the former Hugging Face l
 {{< /barplot_vertical >}}
 
 {{< barplot_vertical id="memory-ply" highlight="Falcon-E-1B-Base" ymin="0" ymax="4" ylabel="Memory Footprint (GB)" yaxis_percentage="false" >}}
-[    
+[
     { "category": "Memory Footprint", "model": "Qwen2.5-0.5B", "value": 1.0 },
     { "category": "Memory Footprint", "model": "Qwen3-0.6B", "value": 1.5 },
     { "category": "Memory Footprint", "model": "SmolLM2-360M", "value": 0.720 },
@@ -243,7 +245,7 @@ We evaluate our models (base and instruct versions) on the former Hugging Face l
 
 
 {{< barplot_vertical id="memory-plt-3b" highlight="Falcon-E-3B-Base" ymin="0" ymax="7" ylabel="Memory Footprint (GB)" yaxis_percentage="false" >}}
-[    
+[
     { "category": "Memory Footprint", "model": "Qwen2.5-3B", "value": 6.46 },
     { "category": "Memory Footprint", "model": "Falcon-3-3B-Base", "value": 6.17 },
     { "category": "Memory Footprint", "model": "Falcon-E-3B-Base", "value": 0.999 }
@@ -410,11 +412,11 @@ Additional results (leaderboard v1) on comparing our instructed models with Micr
 | Falcon-E-1B-Instruct | 1.8B | 665MB | 36.60 | 54.74 | 50.19 | 48.33 | 42.09 | 46.39  |
 | Falcon-E-3B-Instruct | 3B | 999MB | 43.09 | 64.52 | 56.97 | 55.70 | 45.58 |  53.17|
 
-*Falcon-Edge* demonstrates on-par and better performances than models of comparable sizes on the leaderboard v2 tasks, demonstrating that it is possible to train powerful BitNet models on desired domains while being competitive enough on other tasks. 
+*Falcon-Edge* demonstrates on-par and better performances than models of comparable sizes on the leaderboard v2 tasks, demonstrating that it is possible to train powerful BitNet models on desired domains while being competitive enough on other tasks.
 
 ### *Falcon-Edge*, a series of universal models
 
-If we look closer at the formula of the BitNet linear layer for inference (in terms of Python code): 
+If we look closer at the formula of the BitNet linear layer for inference (in terms of Python code):
 
 ```python
 def activation_norm_quant(x):
@@ -423,7 +425,7 @@ def activation_norm_quant(x):
     return y, scale
 
 class BitLinear(nn.Linear):
-    
+
     def post_quant_process(self, input, input_scale, weight_scale):
         out = input / (input_scale * weight_scale)
         return out
@@ -492,7 +494,7 @@ model = AutoModelForCausalLM.from_pretrained(
 ```
 
 
-### *Falcon-Edge*, a series of fine-tunable Bitnet models 
+### *Falcon-Edge*, a series of fine-tunable Bitnet models
 
 To the best of our knowledge, [except from the most recent release from Microsoft](https://huggingface.co/collections/microsoft/bitnet-67fddfe39a03686367734550) previous BitNet releases only focus on releasing the final quantized model, making it usable only for inference. Similarly to the release from Microsoft, we propose to extend the accessibility of research and application of BitNet models by releasing their pre-quantized weights. That way, users can either perform fine-tuning on their target domain, or do continuous pre-training of the BitNet checkpoint as long as `nn.Linear` layers are replaced by `BitnetLinear` layers, and by making sure to quantize the model post training in BitNet format. Since the weights corresponds to the pre-quantized weights, performing text generation without replacing the `nn.Linear` layers with `BitnetLinear` layers will produce gibberish output.
 
@@ -589,28 +591,28 @@ If you find this work useful for your research and work, please consider citing 
 
 ```latex
 @misc{ma2025bitnetb1582b4ttechnical,
-      title={BitNet b1.58 2B4T Technical Report}, 
+      title={BitNet b1.58 2B4T Technical Report},
       author={Shuming Ma and Hongyu Wang and Shaohan Huang and Xingxing Zhang and Ying Hu and Ting Song and Yan Xia and Furu Wei},
       year={2025},
       eprint={2504.12285},
       archivePrefix={arXiv},
       primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2504.12285}, 
+      url={https://arxiv.org/abs/2504.12285},
 }
 @misc{wang2025bitnetcppefficientedgeinference,
-      title={Bitnet.cpp: Efficient Edge Inference for Ternary LLMs}, 
+      title={Bitnet.cpp: Efficient Edge Inference for Ternary LLMs},
       author={Jinheng Wang and Hansong Zhou and Ting Song and Shijie Cao and Yan Xia and Ting Cao and Jianyu Wei and Shuming Ma and Hongyu Wang and Furu Wei},
       year={2025},
       eprint={2502.11880},
       archivePrefix={arXiv},
       primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2502.11880}, 
+      url={https://arxiv.org/abs/2502.11880},
 }
 ```
 
 ```latex
 @misc{,
-      title={1.58-Bit LLM: A New Era of Extreme Quantization}, 
+      title={1.58-Bit LLM: A New Era of Extreme Quantization},
       author={Mohamed Mekkouri and Marc Sun and Leandro von Werra and Thomas Wolf},
       year={2024},
 }
@@ -618,25 +620,25 @@ If you find this work useful for your research and work, please consider citing 
 
 ```latex
 @misc{ma2024era1bitllmslarge,
-      title={The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits}, 
+      title={The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits},
       author={Shuming Ma and Hongyu Wang and Lingxiao Ma and Lei Wang and Wenhui Wang and Shaohan Huang and Li Dong and Ruiping Wang and Jilong Xue and Furu Wei},
       year={2024},
       eprint={2402.17764},
       archivePrefix={arXiv},
       primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2402.17764}, 
+      url={https://arxiv.org/abs/2402.17764},
 }
 ```
 
 ```latex
 @misc{wang2023bitnetscaling1bittransformers,
-      title={BitNet: Scaling 1-bit Transformers for Large Language Models}, 
+      title={BitNet: Scaling 1-bit Transformers for Large Language Models},
       author={Hongyu Wang and Shuming Ma and Li Dong and Shaohan Huang and Huaijie Wang and Lingxiao Ma and Fan Yang and Ruiping Wang and Yi Wu and Furu Wei},
       year={2023},
       eprint={2310.11453},
       archivePrefix={arXiv},
       primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2310.11453}, 
+      url={https://arxiv.org/abs/2310.11453},
 }
 ```
 </details>

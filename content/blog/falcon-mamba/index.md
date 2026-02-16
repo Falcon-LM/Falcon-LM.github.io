@@ -1,5 +1,5 @@
 ---
-title: "Welcome Falcon Mamba: The first strong attention-free 7B model" 
+title: "Welcome Falcon Mamba: The first strong attention-free 7B model"
 date: 2024-08-12T12:00:00Z
 weight: 1
 # aliases: ["/first"]
@@ -41,8 +41,9 @@ header:
     gradient: true
     blur: true
 contributors:
-    core:
-        - name: Falcon LLM team
+  - title: "Contributors"
+    people:
+      - name: Falcon LLM team
 ---
 
 
@@ -68,7 +69,7 @@ Falcon Mamba was trained with ~ 5500GT of data, mainly composed of RefinedWeb da
 We evaluate our model on all benchmarks of the new leaderboard's version using the `lm-evaluation-harness` package and then normalize the evaluation results with Hugging Face score normalization.
 
 
-| `model name`              |`IFEval`| `BBH` |`MATH LvL5`| `GPQA`| `MUSR`|`MMLU-PRO`|`Average`| 
+| `model name`              |`IFEval`| `BBH` |`MATH LvL5`| `GPQA`| `MUSR`|`MMLU-PRO`|`Average`|
 |:--------------------------|:------:|:-----:|:---------:|:-----:|:-----:|:--------:|:-------:|
 | ***Pure SSM models***     |        |       |           |       |       |          |         |
 | `Falcon Mamba-7B`          | 33.36  | 19.88 |    3.63   | 8.05  | 10.86 | 14.47    |**15.04**|
@@ -88,7 +89,7 @@ We evaluate our model on all benchmarks of the new leaderboard's version using t
 Also, we evaluate our model on the benchmarks of the first version of the LLM Leaderboard using `lighteval`.
 
 
-| `model name`                 |`ARC`|`HellaSwag`   |`MMLU` |`Winogrande`|`TruthfulQA`|`GSM8K`|`Average`         | 
+| `model name`                 |`ARC`|`HellaSwag`   |`MMLU` |`Winogrande`|`TruthfulQA`|`GSM8K`|`Average`         |
 |:-----------------------------|:------:|:---------:|:-----:|:----------:|:----------:|:-----:|:----------------:|
 | ***Pure SSM models***        |        |           |       |            |            |       |                  |
 | `Falcon Mamba-7B`<sup>*</sup>             |62.03   |   80.82   | 62.11 |   73.64    |   53.42    | 52.54 |  **64.09**       |
@@ -112,9 +113,9 @@ Following theoretical efficiency SSM models in processing large sequences, we pe
 
 Before going to the results, let's first discuss the difference between the prompt (prefill) and generated (decode) parts of the sequence. As we will see, the details of prefill are more important for state space models than for transformer models. When a transformer generates the next token, it needs to attend to the keys and values of all previous tokens in the context. This implies linear scaling of both memory requirements and generation time with context length. A state space model attends to and stores only its recurrent state and, therefore, doesn't need additional memory or time to generate large sequences. While this explains the claimed advantage of SSMs over transformers in the decode stage, the prefill stage requires additional effort to fully utilize SSM architecture.
 
-A standard approach for prefill is to process the whole prompt in parallel to fully utilize GPU. This approach is used in [optimum-benchmark](https://github.com/huggingface/optimum-benchmark) library and we will refer to it as parallel prefill. Parallel prefill needs to store in memory the hidden states of each token in the prompt. For transformers, this additional memory is dominated by the memory of stored KV caches. For SSM models, no caching is required, and the memory for storing hidden states becomes the only component proportional to the prompt length. As a result, the memory requirement will scale with prompt length, and SSM models will lose the ability to process arbitrary long sequences, similar to transformers. 
+A standard approach for prefill is to process the whole prompt in parallel to fully utilize GPU. This approach is used in [optimum-benchmark](https://github.com/huggingface/optimum-benchmark) library and we will refer to it as parallel prefill. Parallel prefill needs to store in memory the hidden states of each token in the prompt. For transformers, this additional memory is dominated by the memory of stored KV caches. For SSM models, no caching is required, and the memory for storing hidden states becomes the only component proportional to the prompt length. As a result, the memory requirement will scale with prompt length, and SSM models will lose the ability to process arbitrary long sequences, similar to transformers.
 
-An alternative to parallel prefill is to process the prompt token by token, which we will refer to as *sequential prefill*. Akin to sequence parallelism, it can also be done on larger chunks of the prompt instead of individual tokens for better GPU usage. While sequential prefill makes little sense for transformers, it brings back the possibility of processing arbitrary long prompts by SSM models. 
+An alternative to parallel prefill is to process the prompt token by token, which we will refer to as *sequential prefill*. Akin to sequence parallelism, it can also be done on larger chunks of the prompt instead of individual tokens for better GPU usage. While sequential prefill makes little sense for transformers, it brings back the possibility of processing arbitrary long prompts by SSM models.
 
 With these remarks in mind, we first test the largest sequence length that can fit on a single 24 GB A10 GPU, putting the results on the [figure](#max-length) below. The batch size is fixed at 1, and we are using float32 precision. Even for parallel prefill, Falcon Mamba can fit larger sequences than a transformer, while in sequential prefill, it unlocks its full potential and can process arbitrary long prompt
 
@@ -130,35 +131,35 @@ Next, we measure the generation throughput in a setting with a prompt of length 
 
 The Falcon Mamba architecture will be available in the next release of the Hugging Face transformers library (>4.45.0). To use the model, make sure to install the latest version of Hugging Face transformers or install the library from the source.
 
-Falcon Mamba is compatible with most of the APIs Hugging Face offers, which you are familiar with, such as `AutoModelForCausalLM` or `pipeline` : 
+Falcon Mamba is compatible with most of the APIs Hugging Face offers, which you are familiar with, such as `AutoModelForCausalLM` or `pipeline` :
 
 ```python
-from transformers import AutoModelForCausalLM, AutoTokenizer 
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
-model_id = "tiiuae/falcon-mamba-7b" 
-tokenizer = AutoTokenizer.from_pretrained(model_id) 
+model_id = "tiiuae/falcon-mamba-7b"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
 
-model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype="auto", device_map="auto") 
-inputs = tokenizer("Hello world, today", return_tensors="pt").to(0) 
+model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype="auto", device_map="auto")
+inputs = tokenizer("Hello world, today", return_tensors="pt").to(0)
 
-output = model.generate(**inputs, max_new_tokens=100, do_sample=True) 
-print(tokenizer.decode(Output[0], skip_special_tokens=True)) 
+output = model.generate(**inputs, max_new_tokens=100, do_sample=True)
+print(tokenizer.decode(Output[0], skip_special_tokens=True))
 ```
 
-As the model is large, it also supports features such as `bitsandbytes` quantization to run the model on smaller GPU memory constraints, e.g.: 
+As the model is large, it also supports features such as `bitsandbytes` quantization to run the model on smaller GPU memory constraints, e.g.:
 ```python
-from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig 
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
-model_id = "tiiuae/falcon-mamba-7b" 
-tokenizer = AutoTokenizer.from_pretrained(model_id) 
+model_id = "tiiuae/falcon-mamba-7b"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
 
-quantization_config = BitsAndBytesConfig(load_in_4bit=True) 
-model = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=quantization_config) 
+quantization_config = BitsAndBytesConfig(load_in_4bit=True)
+model = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=quantization_config)
 
-inputs = tokenizer("Hello world, today", return_tensors="pt").to(0) 
-output = model.generate(**inputs, max_new_tokens=100, do_sample=True) 
+inputs = tokenizer("Hello world, today", return_tensors="pt").to(0)
+output = model.generate(**inputs, max_new_tokens=100, do_sample=True)
 
-print(tokenizer.decode(output[0], skip_special_tokens=True)) 
+print(tokenizer.decode(output[0], skip_special_tokens=True))
 ```
 We are also pleased to introduce the instruction-tuned version of Falcon Mamba, which has been fine-tuned with an additional 5 billion tokens of supervised fine-tuning (SFT) data. This extended training enhances the model's ability to perform instructional tasks with better precision and effectiveness. You can experience the capabilities of the instruct model through our demo, available [here](https://huggingface.co/spaces/tiiuae/falcon-mamba-playground). For the chat template we use the following format:
 ```bash
@@ -169,7 +170,7 @@ prompt<|im_end|>
 
 You can also directly use the 4-bit converted version of both the [base model](https://huggingface.co/tiiuae/falcon-mamba-7b-4bit) and the [instruct model](https://huggingface.co/tiiuae/falcon-mamba-7b-instruct-4bit). Make sure to have access to a GPU that is compatible with `bitsandbytes` library to run the quantized model.
 
-You can also benefit from faster inference using `torch.compile`; simply call `model = torch.compile(model)` once you have loaded the model. 
+You can also benefit from faster inference using `torch.compile`; simply call `model = torch.compile(model)` once you have loaded the model.
 
 ## Acknowledgments
 
