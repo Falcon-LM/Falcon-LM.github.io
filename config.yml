@@ -154,6 +154,10 @@ menu:
       name: Publication
       url: /publication
       weight: 30
+    - identifier: tutorials
+      name: Tutorials
+      url: /tutorials/
+      weight: 20
     - identifier: about
       name: About
       url: /about
