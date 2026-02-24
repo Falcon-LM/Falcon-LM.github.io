@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tutorials on Falcon</title>
+    <link>https://falcon-lm.github.io/tutorials/</link>
+    <description>Recent content in Tutorials on Falcon</description>
+    <image>
+      <url>https://falcon-lm.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://falcon-lm.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 24 Feb 2025 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Falcon H1 Reasoning Models Local Deployment Guide: llama.cpp and OpenWebUI</title>
+      <link>https://falcon-lm.github.io/tutorials/falcon-h1r/</link>
+      <pubDate>Mon, 24 Feb 2025 12:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/tutorials/falcon-h1r/</guid>
+      <description>&lt;style&gt;
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: transparent; /* nền theo system/theme */
+  border-radius: 8px;
+  overflow: hidden;
+  color: inherit; /* chữ theo theme */
+}
+th, td {
+  padding: 12px 16px;
+  border: 1px solid; /* rõ ràng */
+  border-color: rgba(0,0,0,0.3); /* mặc định cho light */
+}
+@media (prefers-color-scheme: dark) {
+  th, td {
+    border-color: rgba(255,255,255,0.2); /* rõ hơn trong dark */
+  }
+  tr:nth-child(even) td {
+    background-color: rgba(255,255,255,0.05); /* xen kẽ màu dark */
+  }
+  tr:hover td {
+    background-color: rgba(255,255,255,0.1); /* hover rõ dark */
+  }
+}
+@media (prefers-color-scheme: light) {
+  tr:nth-child(even) td {
+    background-color: rgba(0,0,0,0.05); /* xen kẽ màu light */
+  }
+  tr:hover td {
+    background-color: rgba(0,0,0,0.1); /* hover rõ light */
+  }
+}
+th {
+  font-weight: bold;
+}
+
+blockquote {
+  border-left: 4px solid rgba(128,128,128,0.4);
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  background-color: transparent;
+  color: inherit;
+  font-family: -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, &#39;Helvetica Neue&#39;, Arial, sans-serif;
+  font-size: 0.9em;
+  font-style: italic;
+}
+blockquote p {
+  margin: 0;
+}
+blockquote p strong {
+  font-weight: bold;
+  font-style: italic;
+}
+blockquote p::before {
+  content: &#34;“&#34;;
+}
+blockquote p::after {
+  content: &#34;”&#34;;
+}
+
+ul + p strong:first-child,
+ul + p:has(strong:first-child) {
+  display: block;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+p strong:only-child {
+  display: inline-block;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+&lt;/style&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Not every task is about retrieving facts, sometimes you need the model to think, weigh options, and walk through a problem in multiple steps. That is where the new Falcon reasoning models come in. Built to deliver structured and logical outputs, they extend the capabilities of the Falcon family into domains like problem solving, mathematics, code logic, and multi stage decision making, while still being lightweight enough to run on laptops or compact devices. We have already gone through the series guiding you on how to work with the instruct model versions, including &lt;a href=&#34;http://localhost:1313/tutorials/falcon-h1/&#34;&gt;Falcon H1 Instruct&lt;/a&gt;  and &lt;a href=&#34;http://localhost:1313/tutorials/falcon-3/&#34;&gt;Falcon3 Instruct&lt;/a&gt; , and now it is time to start exploring reasoning models to see how they change the way we approach complex workloads.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Falcon-3 Local Deployment Guide: MLX, llama.cpp, and OpenWebUI</title>
+      <link>https://falcon-lm.github.io/tutorials/falcon-3/</link>
+      <pubDate>Mon, 24 Feb 2025 12:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/tutorials/falcon-3/</guid>
+      <description>&lt;style&gt;
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: transparent; /* nền theo system/theme */
+  border-radius: 8px;
+  overflow: hidden;
+  color: inherit; /* chữ theo theme */
+}
+th, td {
+  padding: 12px 16px;
+  border: 1px solid; /* rõ ràng */
+  border-color: rgba(0,0,0,0.3); /* mặc định cho light */
+}
+@media (prefers-color-scheme: dark) {
+  th, td {
+    border-color: rgba(255,255,255,0.2); /* rõ hơn trong dark */
+  }
+  tr:nth-child(even) td {
+    background-color: rgba(255,255,255,0.05); /* xen kẽ màu dark */
+  }
+  tr:hover td {
+    background-color: rgba(255,255,255,0.1); /* hover rõ dark */
+  }
+}
+@media (prefers-color-scheme: light) {
+  tr:nth-child(even) td {
+    background-color: rgba(0,0,0,0.05); /* xen kẽ màu light */
+  }
+  tr:hover td {
+    background-color: rgba(0,0,0,0.1); /* hover rõ light */
+  }
+}
+th {
+  font-weight: bold;
+}
+
+blockquote {
+  border-left: 4px solid rgba(128,128,128,0.4);
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  background-color: transparent;
+  color: inherit;
+  font-family: -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, &#39;Helvetica Neue&#39;, Arial, sans-serif;
+  font-size: 0.9em;
+  font-style: italic;
+}
+blockquote p {
+  margin: 0;
+}
+blockquote p strong {
+  font-weight: bold;
+  font-style: italic;
+}
+blockquote p::before {
+  content: &#34;“&#34;;
+}
+blockquote p::after {
+  content: &#34;”&#34;;
+}
+
+ul + p strong:first-child,
+ul + p:has(strong:first-child) {
+  display: block;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+p strong:only-child {
+  display: inline-block;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+&lt;/style&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;If you have ever wanted to run a powerful AI model directly on your laptop for quick experiments or personal projects, Falcon 3 makes it simple. You do not need expensive servers or constant internet access, just your device and the model running locally. It is built for speed, lightweight setup, and customization so you can focus on creating, not configuring.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Falcon-H1 Local Deployment Guide: MLX, llama.cpp, and OpenWebUI</title>
+      <link>https://falcon-lm.github.io/tutorials/falcon-h1/</link>
+      <pubDate>Mon, 24 Feb 2025 12:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/tutorials/falcon-h1/</guid>
+      <description>&lt;style&gt;
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: transparent; /* nền theo system/theme */
+  border-radius: 8px;
+  overflow: hidden;
+  color: inherit; /* chữ theo theme */
+}
+th, td {
+  padding: 12px 16px;
+  border: 1px solid; /* rõ ràng */
+  border-color: rgba(0,0,0,0.3); /* mặc định cho light */
+}
+@media (prefers-color-scheme: dark) {
+  th, td {
+    border-color: rgba(255,255,255,0.2); /* rõ hơn trong dark */
+  }
+  tr:nth-child(even) td {
+    background-color: rgba(255,255,255,0.05); /* xen kẽ màu dark */
+  }
+  tr:hover td {
+    background-color: rgba(255,255,255,0.1); /* hover rõ dark */
+  }
+}
+@media (prefers-color-scheme: light) {
+  tr:nth-child(even) td {
+    background-color: rgba(0,0,0,0.05); /* xen kẽ màu light */
+  }
+  tr:hover td {
+    background-color: rgba(0,0,0,0.1); /* hover rõ light */
+  }
+}
+th {
+  font-weight: bold;
+}
+
+blockquote {
+  border-left: 4px solid rgba(128,128,128,0.4);
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  background-color: transparent;
+  color: inherit;
+  font-family: -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, &#39;Helvetica Neue&#39;, Arial, sans-serif;
+  font-size: 0.9em;
+  font-style: italic;
+}
+blockquote p {
+  margin: 0;
+}
+blockquote p strong {
+  font-weight: bold;
+  font-style: italic;
+}
+blockquote p::before {
+  content: &#34;“&#34;;
+}
+blockquote p::after {
+  content: &#34;”&#34;;
+}
+
+ul + p strong:first-child,
+ul + p:has(strong:first-child) {
+  display: block;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+p strong:only-child {
+  display: inline-block;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+&lt;/style&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Sometimes your projects are about more than quick answers. You might need to read through hundreds of pages, keep a long conversation going, or work in multiple languages. Falcon H1 was designed for exactly that. By combining Transformer-based attention with State Space Models (SSM), it understands complex information while still running efficiently on everyday hardware.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
