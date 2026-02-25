@@ -30,11 +30,29 @@
     </item>
     
     <item>
+      <title>Adapting Falcon3-7B Language Model for Arabic: Methods, Challenges, and Outcomes</title>
+      <link>https://falcon-lm.github.io/publication/falcon3-arabic/</link>
+      <pubDate>Sat, 15 Nov 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/publication/falcon3-arabic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>3LM: Bridging Arabic, STEM, and Code through Benchmarking</title>
       <link>https://falcon-lm.github.io/publication/3lm/</link>
       <pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate>
       
       <guid>https://falcon-lm.github.io/publication/3lm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Evaluating Arabic Large Language Models: A Survey of Benchmarks, Methods, and Gaps</title>
+      <link>https://falcon-lm.github.io/publication/survey_arabic/</link>
+      <pubDate>Wed, 15 Oct 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://falcon-lm.github.io/publication/survey_arabic/</guid>
       <description></description>
     </item>
     
