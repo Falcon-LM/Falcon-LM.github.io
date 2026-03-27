@@ -20,9 +20,10 @@ header:
     gradient: true
     blur: true
 contributors:
-    core:
-        - name: Falcon LLM team
-          date: March 13, 2026
+  - title: "Contributors"
+    people:
+      - name: Falcon LLM team
+        image: img/contributors/FalconLLM.webp
 ---
 
 <style>
