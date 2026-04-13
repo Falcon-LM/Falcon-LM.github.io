@@ -5,6 +5,9 @@
     <loc>https://falcon-lm.github.io/blog/falcon-h1r-7b-fp8/</loc>
     <lastmod>2026-02-16T08:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://falcon-lm.github.io/tutorials/tool-calling-finetuning-guide/</loc>
+    <lastmod>2026-01-27T12:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://falcon-lm.github.io/blog/falcon-h1r-7b/</loc>
     <lastmod>2026-01-05T08:00:00+00:00</lastmod>
   </url><url>
@@ -49,9 +52,6 @@
     <loc>https://falcon-lm.github.io/tutorials/falcon-h1/</loc>
     <lastmod>2025-02-24T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://falcon-lm.github.io/tutorials/tool-calling-finetuning-guide/</loc>
-    <lastmod>2025-01-27T12:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://falcon-lm.github.io/blog/falcon-3/</loc>
     <lastmod>2024-12-17T12:00:00+00:00</lastmod>
   </url><url>
@@ -84,6 +84,9 @@
                 href="https://falcon-lm.github.io/"
                 />
   </url><url>
+    <loc>https://falcon-lm.github.io/tutorials/</loc>
+    <lastmod>2026-01-27T12:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://falcon-lm.github.io/publication/lmp/</loc>
     <lastmod>2026-01-08T00:00:00+00:00</lastmod>
   </url><url>
@@ -104,9 +107,6 @@
   </url><url>
     <loc>https://falcon-lm.github.io/publication/falcon-h1/</loc>
     <lastmod>2025-07-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://falcon-lm.github.io/tutorials/</loc>
-    <lastmod>2025-02-24T12:00:00+00:00</lastmod>
   </url><url>
     <loc>https://falcon-lm.github.io/publication/falcon-mamba/</loc>
     <lastmod>2024-10-07T00:00:00+00:00</lastmod>
