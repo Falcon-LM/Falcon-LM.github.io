@@ -1,6 +1,6 @@
 ---
 title: "Practical Guide to Finetuning Falcon H1 Tiny for Tool Calling Tasks"
-date: 2025-01-27T12:00:00Z
+date: 2026-01-27T12:00:00Z
 weight: 1
 math: true
 show_reading_time: true
