@@ -10,11 +10,11 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 27 Jan 2026 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 31 Mar 2026 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Practical Guide to Finetuning Falcon H1 Tiny for Tool Calling Tasks</title>
       <link>https://falcon-lm.github.io/tutorials/tool-calling-finetuning-guide/</link>
-      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <pubDate>Tue, 31 Mar 2026 12:00:00 +0000</pubDate>
       
       <guid>https://falcon-lm.github.io/tutorials/tool-calling-finetuning-guide/</guid>
       <description>&lt;style&gt;
@@ -97,7 +97,7 @@ p strong:only-child {
     <item>
       <title>Falcon H1 Reasoning Models Local Deployment Guide: llama.cpp and OpenWebUI</title>
       <link>https://falcon-lm.github.io/tutorials/falcon-h1r/</link>
-      <pubDate>Mon, 24 Feb 2025 12:00:00 +0000</pubDate>
+      <pubDate>Tue, 24 Feb 2026 12:00:00 +0000</pubDate>
       
       <guid>https://falcon-lm.github.io/tutorials/falcon-h1r/</guid>
       <description>&lt;style&gt;
@@ -180,7 +180,7 @@ p strong:only-child {
     <item>
       <title>Falcon-3 Local Deployment Guide: MLX, llama.cpp, and OpenWebUI</title>
       <link>https://falcon-lm.github.io/tutorials/falcon-3/</link>
-      <pubDate>Mon, 24 Feb 2025 12:00:00 +0000</pubDate>
+      <pubDate>Tue, 24 Feb 2026 12:00:00 +0000</pubDate>
       
       <guid>https://falcon-lm.github.io/tutorials/falcon-3/</guid>
       <description>&lt;style&gt;
@@ -263,7 +263,7 @@ p strong:only-child {
     <item>
       <title>Falcon-H1 Local Deployment Guide: MLX, llama.cpp, and OpenWebUI</title>
       <link>https://falcon-lm.github.io/tutorials/falcon-h1/</link>
-      <pubDate>Mon, 24 Feb 2025 12:00:00 +0000</pubDate>
+      <pubDate>Tue, 24 Feb 2026 12:00:00 +0000</pubDate>
       
       <guid>https://falcon-lm.github.io/tutorials/falcon-h1/</guid>
       <description>&lt;style&gt;

@@ -2,11 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://falcon-lm.github.io/tutorials/tool-calling-finetuning-guide/</loc>
+    <lastmod>2026-03-31T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://falcon-lm.github.io/tutorials/falcon-h1r/</loc>
+    <lastmod>2026-02-24T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://falcon-lm.github.io/tutorials/falcon-3/</loc>
+    <lastmod>2026-02-24T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://falcon-lm.github.io/tutorials/falcon-h1/</loc>
+    <lastmod>2026-02-24T12:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://falcon-lm.github.io/blog/falcon-h1r-7b-fp8/</loc>
     <lastmod>2026-02-16T08:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://falcon-lm.github.io/tutorials/tool-calling-finetuning-guide/</loc>
-    <lastmod>2026-01-27T12:00:00+00:00</lastmod>
   </url><url>
     <loc>https://falcon-lm.github.io/blog/falcon-h1r-7b/</loc>
     <lastmod>2026-01-05T08:00:00+00:00</lastmod>
@@ -43,20 +52,27 @@
     <loc>https://falcon-lm.github.io/blog/falcon-edge/</loc>
     <lastmod>2025-05-15T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://falcon-lm.github.io/tutorials/falcon-h1r/</loc>
-    <lastmod>2025-02-24T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://falcon-lm.github.io/tutorials/falcon-3/</loc>
-    <lastmod>2025-02-24T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://falcon-lm.github.io/tutorials/falcon-h1/</loc>
-    <lastmod>2025-02-24T12:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://falcon-lm.github.io/blog/falcon-3/</loc>
     <lastmod>2024-12-17T12:00:00+00:00</lastmod>
   </url><url>
     <loc>https://falcon-lm.github.io/blog/falcon-mamba/</loc>
     <lastmod>2024-08-12T12:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://falcon-lm.github.io/</loc>
+    <lastmod>2026-03-31T12:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ar"
+                href="https://falcon-lm.github.io/ar/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://falcon-lm.github.io/"
+                />
+  </url><url>
+    <loc>https://falcon-lm.github.io/tutorials/</loc>
+    <lastmod>2026-03-31T12:00:00+00:00</lastmod>
   </url><url>
     <loc>https://falcon-lm.github.io/blog/</loc>
     <lastmod>2026-02-16T08:00:00+00:00</lastmod>
@@ -70,22 +86,6 @@
                 hreflang="en"
                 href="https://falcon-lm.github.io/blog/"
                 />
-  </url><url>
-    <loc>https://falcon-lm.github.io/</loc>
-    <lastmod>2026-02-16T08:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="ar"
-                href="https://falcon-lm.github.io/ar/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://falcon-lm.github.io/"
-                />
-  </url><url>
-    <loc>https://falcon-lm.github.io/tutorials/</loc>
-    <lastmod>2026-01-27T12:00:00+00:00</lastmod>
   </url><url>
     <loc>https://falcon-lm.github.io/publication/lmp/</loc>
     <lastmod>2026-01-08T00:00:00+00:00</lastmod>
