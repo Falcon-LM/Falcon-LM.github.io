@@ -1,6 +1,6 @@
 ---
 title: "Falcon-H1 Local Deployment Guide: MLX, llama.cpp, and OpenWebUI"
-date: 2025-02-24T12:00:00Z
+date: 2026-02-24T12:00:00Z
 weight: 1
 math: true
 show_reading_time: true
