@@ -10,12 +10,100 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 07 May 2026 12:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 02 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bringing a Fine-Tuned LLM into Pi Coding Agent</title>
+      <link>https://falcon-lm.github.io/tutorials/harness-engineering-guide/</link>
+      <pubDate>Thu, 02 Jul 2026 00:00:00 +0000</pubDate>
+      <author>Falcon Team</author>
+      <guid>https://falcon-lm.github.io/tutorials/harness-engineering-guide/</guid>
+      <description>&lt;style&gt;
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  color: inherit;
+}
+th, td {
+  padding: 12px 16px;
+  border: 1px solid;
+  border-color: rgba(0,0,0,0.3);
+}
+@media (prefers-color-scheme: dark) {
+  th, td {
+    border-color: rgba(255,255,255,0.2);
+  }
+  tr:nth-child(even) td {
+    background-color: rgba(255,255,255,0.05);
+  }
+  tr:hover td {
+    background-color: rgba(255,255,255,0.1);
+  }
+}
+@media (prefers-color-scheme: light) {
+  tr:nth-child(even) td {
+    background-color: rgba(0,0,0,0.05);
+  }
+  tr:hover td {
+    background-color: rgba(0,0,0,0.1);
+  }
+}
+th {
+  font-weight: bold;
+}
+blockquote {
+  border-left: 4px solid rgba(128,128,128,0.4);
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  background-color: transparent;
+  color: inherit;
+  font-family: -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, &#39;Helvetica Neue&#39;, Arial, sans-serif;
+  font-size: 0.9em;
+  font-style: italic;
+}
+.screenshot {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 1.5em auto;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+.terminal-output {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: &#39;SF Mono&#39;, &#39;Fira Code&#39;, &#39;Cascadia Code&#39;, &#39;Menlo&#39;, &#39;Consolas&#39;, monospace;
+  font-size: 0.85em;
+  line-height: 1.5;
+  padding: 1em 1.2em;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  margin: 1.5em 0;
+  white-space: pre;
+}
+@media (prefers-color-scheme: light) {
+  .terminal-output {
+    background: #f5f5f5;
+    color: #1e1e1e;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  }
+}
+&lt;/style&gt;
+&lt;h2 id=&#34;what-this-tutorial-is-about&#34;&gt;What this tutorial is about&lt;/h2&gt;
+&lt;p&gt;What if you could take a small, open-weight language model, teach it how a coding agent works, and run the whole thing on your own machine? That is exactly what we will do here.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Learning to Count Everything with Falcon Perception</title>
       <link>https://falcon-lm.github.io/tutorials/learning-to-count-everything/</link>
       <pubDate>Thu, 07 May 2026 12:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/tutorials/learning-to-count-everything/</guid>
       <description>&lt;style&gt;
 table {
@@ -138,7 +226,7 @@ p strong:only-child {
       <title>Practical Guide to Finetuning Falcon H1 Tiny for Tool Calling Tasks</title>
       <link>https://falcon-lm.github.io/tutorials/tool-calling-finetuning-guide/</link>
       <pubDate>Tue, 31 Mar 2026 12:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/tutorials/tool-calling-finetuning-guide/</guid>
       <description>&lt;style&gt;
 table {
@@ -221,7 +309,7 @@ p strong:only-child {
       <title>Falcon H1 Reasoning Models Local Deployment Guide: llama.cpp and OpenWebUI</title>
       <link>https://falcon-lm.github.io/tutorials/falcon-h1r/</link>
       <pubDate>Tue, 24 Feb 2026 12:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/tutorials/falcon-h1r/</guid>
       <description>&lt;style&gt;
 table {
@@ -304,7 +392,7 @@ p strong:only-child {
       <title>Falcon-3 Local Deployment Guide: MLX, llama.cpp, and OpenWebUI</title>
       <link>https://falcon-lm.github.io/tutorials/falcon-3/</link>
       <pubDate>Tue, 24 Feb 2026 12:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/tutorials/falcon-3/</guid>
       <description>&lt;style&gt;
 table {
@@ -387,7 +475,7 @@ p strong:only-child {
       <title>Falcon-H1 Local Deployment Guide: MLX, llama.cpp, and OpenWebUI</title>
       <link>https://falcon-lm.github.io/tutorials/falcon-h1/</link>
       <pubDate>Tue, 24 Feb 2026 12:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/tutorials/falcon-h1/</guid>
       <description>&lt;style&gt;
 table {

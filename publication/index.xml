@@ -15,7 +15,7 @@
       <title>Learnable Multipliers: Freeing the Scale of Language Model Matrix Layers</title>
       <link>https://falcon-lm.github.io/publication/lmp/</link>
       <pubDate>Thu, 08 Jan 2026 00:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/publication/lmp/</guid>
       <description></description>
     </item>
@@ -24,7 +24,7 @@
       <title>Falcon-H1R: Pushing the Reasoning Frontiers with a Hybrid Model for Efficient Test-Time Scaling</title>
       <link>https://falcon-lm.github.io/publication/falcon-h1r/</link>
       <pubDate>Mon, 05 Jan 2026 00:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/publication/falcon-h1r/</guid>
       <description></description>
     </item>
@@ -33,7 +33,7 @@
       <title>Adapting Falcon3-7B Language Model for Arabic: Methods, Challenges, and Outcomes</title>
       <link>https://falcon-lm.github.io/publication/falcon3-arabic/</link>
       <pubDate>Sat, 15 Nov 2025 00:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/publication/falcon3-arabic/</guid>
       <description></description>
     </item>
@@ -42,7 +42,7 @@
       <title>3LM: Bridging Arabic, STEM, and Code through Benchmarking</title>
       <link>https://falcon-lm.github.io/publication/3lm/</link>
       <pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/publication/3lm/</guid>
       <description></description>
     </item>
@@ -51,7 +51,7 @@
       <title>Evaluating Arabic Large Language Models: A Survey of Benchmarks, Methods, and Gaps</title>
       <link>https://falcon-lm.github.io/publication/survey_arabic/</link>
       <pubDate>Wed, 15 Oct 2025 00:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/publication/survey_arabic/</guid>
       <description></description>
     </item>
@@ -60,7 +60,7 @@
       <title>Falcon-H1: A Family of Hybrid-Head Language Models Redefining Efficiency and Performance</title>
       <link>https://falcon-lm.github.io/publication/falcon-h1/</link>
       <pubDate>Wed, 30 Jul 2025 00:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/publication/falcon-h1/</guid>
       <description></description>
     </item>
@@ -69,7 +69,7 @@
       <title>Falcon Mamba: The First Competitive Attention-free 7B Language Model</title>
       <link>https://falcon-lm.github.io/publication/falcon-mamba/</link>
       <pubDate>Mon, 07 Oct 2024 00:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/publication/falcon-mamba/</guid>
       <description></description>
     </item>
@@ -78,7 +78,7 @@
       <title>Falcon2-11B Technical Report</title>
       <link>https://falcon-lm.github.io/publication/falcon2/</link>
       <pubDate>Sat, 20 Jul 2024 00:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/publication/falcon2/</guid>
       <description></description>
     </item>
@@ -87,7 +87,7 @@
       <title>The Falcon Series of Open Language Models</title>
       <link>https://falcon-lm.github.io/publication/falcon1/</link>
       <pubDate>Tue, 28 Nov 2023 00:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/publication/falcon1/</guid>
       <description></description>
     </item>
@@ -96,7 +96,7 @@
       <title>The RefinedWeb Dataset for Falcon LLM: Outperforming Curated Corpora with Web Data, and Web Data Only</title>
       <link>https://falcon-lm.github.io/publication/refinedweb/</link>
       <pubDate>Thu, 01 Jun 2023 00:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/publication/refinedweb/</guid>
       <description></description>
     </item>

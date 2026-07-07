@@ -15,7 +15,7 @@
       <title>Falcon‑H1R-FP8: Accelerating Inference with Quantized Precision</title>
       <link>https://falcon-lm.github.io/blog/falcon-h1r-7b-fp8/</link>
       <pubDate>Mon, 16 Feb 2026 08:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/blog/falcon-h1r-7b-fp8/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://chat.falconllm.tii.ae&#34; class=&#34;btn external&#34; target=&#34;_blank&#34; &gt;Falcon CHAT&lt;/a&gt;
 &lt;a href=&#34;https://huggingface.co/collections/tiiuae/falcon-h1r&#34; class=&#34;btn external&#34; target=&#34;_blank&#34; &gt;Hugging Face&lt;/a&gt;
@@ -29,7 +29,7 @@
       <title>Falcon-H1R: Pushing the Reasoning Frontiers with a Hybrid Model for Efficient Test-Time Scaling</title>
       <link>https://falcon-lm.github.io/blog/falcon-h1r-7b/</link>
       <pubDate>Mon, 05 Jan 2026 08:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/blog/falcon-h1r-7b/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://chat.falconllm.tii.ae&#34; class=&#34;btn external&#34; target=&#34;_blank&#34; &gt;Falcon CHAT&lt;/a&gt;
 &lt;a href=&#34;https://huggingface.co/collections/tiiuae/falcon-h1r&#34; class=&#34;btn external&#34; target=&#34;_blank&#34; &gt;Hugging Face&lt;/a&gt;
@@ -44,7 +44,7 @@
       <title>Introducing Falcon-H1-Arabic: Pushing the Boundaries of Arabic Language AI with Hybrid Architecture</title>
       <link>https://falcon-lm.github.io/blog/falcon-h1-arabic/</link>
       <pubDate>Mon, 05 Jan 2026 01:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/blog/falcon-h1-arabic/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Check out the &lt;a href=&#34;https://falcon-lm.github.io/ar/blog/falcon-h1-arabic/&#34;&gt;Arabic version&lt;/a&gt; translated by &lt;strong&gt;Falcon-H1-Arabic&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
@@ -55,7 +55,7 @@
       <title>Falcon-Arabic: A Breakthrough in Arabic Language Models</title>
       <link>https://falcon-lm.github.io/blog/falcon-arabic/</link>
       <pubDate>Wed, 21 May 2025 12:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/blog/falcon-arabic/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Check out the &lt;a href=&#34;https://falcon-lm.github.io/ar/blog/falcon-arabic/&#34;&gt;Arabic version&lt;/a&gt; translated by &lt;strong&gt;Falcon-Arabic&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
@@ -66,7 +66,7 @@
       <title>Falcon-H1: A Family of Hybrid-Head Language Models Redefining Efficiency and Performance</title>
       <link>https://falcon-lm.github.io/blog/falcon-h1/</link>
       <pubDate>Tue, 20 May 2025 12:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/blog/falcon-h1/</guid>
       <description>&lt;style&gt;
   html, body {
@@ -96,7 +96,7 @@
       <title>Falcon-Edge: A series of powerful, universal, fine-tunable 1.58bit language models.</title>
       <link>https://falcon-lm.github.io/blog/falcon-edge/</link>
       <pubDate>Thu, 15 May 2025 12:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/blog/falcon-edge/</guid>
       <description>&lt;p&gt;In this blogpost, we present the key highlights and rationales about the &lt;em&gt;Falcon-Edge&lt;/em&gt; series - a collection of &lt;em&gt;powerful&lt;/em&gt;, &lt;em&gt;universal&lt;/em&gt;, and &lt;em&gt;fine-tunable&lt;/em&gt; language models available in ternary format, based on the BitNet architecture.&lt;/p&gt;
 &lt;p&gt;Drawing from our experience with BitNet, &lt;strong&gt;Falcon-Edge&lt;/strong&gt; introduces and validates an new pre-training paradigm that delivers a full-scope output from a single training process, simultaneously yielding both non-quantized and quantized model variants. This comprehensive approach produces a non-BitNet model in bfloat16 format, the native BitNet model, and a pre-quantized BitNet variant specifically engineered for effortless fine-tuning, enabling users and developers to precisely tailor these models to their specific applications and needs.&lt;/p&gt;</description>
@@ -106,7 +106,7 @@
       <title>Welcome to the Falcon 3 Family of Open Models!</title>
       <link>https://falcon-lm.github.io/blog/falcon-3/</link>
       <pubDate>Tue, 17 Dec 2024 12:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/blog/falcon-3/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://chat.falconllm.tii.ae&#34; class=&#34;btn external&#34; target=&#34;_blank&#34; &gt;Falcon CHAT&lt;/a&gt;
 &lt;a href=&#34;https://huggingface.co/collections/tiiuae/falcon3-67605ae03578be86e4e87026&#34; class=&#34;btn external&#34; target=&#34;_blank&#34; &gt;Hugging Face&lt;/a&gt;
@@ -124,7 +124,7 @@ and accessible large foundation models.&lt;/p&gt;
       <title>Welcome Falcon Mamba: The first strong attention-free 7B model</title>
       <link>https://falcon-lm.github.io/blog/falcon-mamba/</link>
       <pubDate>Mon, 12 Aug 2024 12:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/blog/falcon-mamba/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://falconllm.tii.ae/tii-releases-first-sslm-with-falcon-mamba-7b.html&#34;&gt;Falcon Mamba&lt;/a&gt; is a new model by &lt;a href=&#34;https://www.tii.ae/ai-and-digital-science&#34;&gt;Technology Innovation Institute (TII)&lt;/a&gt; in Abu Dhabi released under the &lt;a href=&#34;https://falconllm.tii.ae/falcon-mamba-7b-terms-and-conditions.html&#34;&gt;TII Falcon Mamba 7B License 1.0&lt;/a&gt;. The model is open access and available within the Hugging Face ecosystem &lt;a href=&#34;https://huggingface.co/tiiuae/falcon-mamba-7b&#34;&gt;here&lt;/a&gt; for anyone to use for their research or application purposes.&lt;/p&gt;
 &lt;p&gt;In this blog, we will go through the design decisions behind the model, how the model is competitive with respect to other existing SoTA models, and how to use it within the Hugging Face ecosystem.&lt;/p&gt;</description>
@@ -134,7 +134,7 @@ and accessible large foundation models.&lt;/p&gt;
       <title>Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages</title>
       <link>https://falcon-lm.github.io/blog/falcon2-11b/</link>
       <pubDate>Fri, 24 May 2024 12:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/blog/falcon2-11b/</guid>
       <description>&lt;h1 id=&#34;falcon-2-an-11b-parameter-pretrained-language-model-and-vlm-trained-on-over-5000b-tokens-and-11-languages&#34;&gt;Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages&lt;/h1&gt;
 &lt;p&gt;&lt;a name=&#34;the-falcon-models&#34;&gt;&lt;/a&gt;&lt;/p&gt;
@@ -147,7 +147,7 @@ and accessible large foundation models.&lt;/p&gt;
       <title>Spread Your Wings: Falcon 180B is here</title>
       <link>https://falcon-lm.github.io/blog/falcon-180b/</link>
       <pubDate>Wed, 06 Sep 2023 12:00:00 +0000</pubDate>
-      
+      <author>Falcon Team</author>
       <guid>https://falcon-lm.github.io/blog/falcon-180b/</guid>
       <description>&lt;h1 id=&#34;spread-your-wings-falcon-180b-is-here&#34;&gt;Spread Your Wings: Falcon 180B is here&lt;/h1&gt;
 &lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
