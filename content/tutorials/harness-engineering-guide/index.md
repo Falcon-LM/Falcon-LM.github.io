@@ -20,10 +20,11 @@ header:
     gradient: true
     blur: true
 contributors:
-    core:
-        - name: Falcon LLM team
+  - title: "Contributors"
+    people:
+      - name: Falcon LLM team
+        image: img/contributors/FalconLLM.webp
 ---
-
 <style>
 table {
   border-collapse: collapse;
