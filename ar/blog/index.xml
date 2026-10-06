@@ -12,6 +12,21 @@
     <language>ar</language>
     <lastBuildDate>Tue, 06 Oct 2026 06:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/ar/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Falcon-Emirati: عندما يتعلّم نموذج اللغويات الكبير اللهجة والثقافة والدقة اللغوية</title>
+      <link>https://falcon-lm.github.io/ar/blog/falcon-emirati/</link>
+      <pubDate>Tue, 06 Oct 2026 06:00:00 +0000</pubDate>
+      <author>Falcon Team</author>
+      <guid>https://falcon-lm.github.io/ar/blog/falcon-emirati/</guid>
+      <description>&lt;div dir=&#34;rtl&#34; class=&#34;translation-notice&#34;&gt;
+  &lt;p&gt;
+    تنبيه: تم ترجمة هذا المقال بواسطة &lt;span class=&#34;llm-name&#34;&gt;Falcon-Arabic&lt;/span&gt; 🦅
+  &lt;/p&gt;
+&lt;/div&gt;
+&lt;div dir=&#34;rtl&#34;&gt;
+&lt;p&gt;تُعدّ اللغة العربية في الواقع عائلة من اللغات التي تعيش تحت اسم واحد. فاللغة العربية الفصحى المعاصرة هي ما تقرأه في الأخبار أو الكتب الدراسية، لكنها نادراً ما تكون الطريقة التي يتواصل بها الناس فعلياً فيما بينهم. في دولة الإمارات العربية المتحدة، تتم المحادثات اليومية، الفكاهة، التفاوض، وسرد القصص باللغة العربية الإماراتية—وهي لهجة خليجية لها مفرداتها الخاصة، وإيقاعها الفريد، وثقافتها المرتبطة بها ارتباطاً وثيقاً. إن الشعر الإماراتي—ولا سيما الشعر النبطي—إلى جانب الأمثال والحكايات القصيرة، لا تصمد معانيها أمام القراءة الحرفية كلمةً بكلمة. فقد يتمكن نموذج لا يعرف سوى العربية الفصحى من ترجمة كل كلمة في جملة إماراتية، ومع ذلك لا يدرك المعنى الحقيقي المقصود منها.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>إطلاق Falcon-H1-Arabic: الارتقاء بحدود الذكاء الاصطناعي للغة العربية عبر بنية هجينة متقدمة</title>
       <link>https://falcon-lm.github.io/ar/blog/falcon-h1-arabic/</link>
       <pubDate>Mon, 05 Jan 2026 01:00:00 +0000</pubDate>

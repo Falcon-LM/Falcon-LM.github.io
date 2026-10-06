@@ -12,6 +12,17 @@
     <language>en</language>
     <lastBuildDate>Tue, 06 Oct 2026 06:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Falcon-Emirati: When an LLM Learns the Dialect, the Culture, and the Nuance</title>
+      <link>https://falcon-lm.github.io/blog/falcon-emirati/</link>
+      <pubDate>Tue, 06 Oct 2026 06:00:00 +0000</pubDate>
+      <author>Falcon Team</author>
+      <guid>https://falcon-lm.github.io/blog/falcon-emirati/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Check out the &lt;a href=&#34;https://falcon-lm.github.io/ar/blog/falcon-emirati/&#34;&gt;Arabic version&lt;/a&gt; translated by &lt;strong&gt;Falcon-Arabic&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Arabic is really a family of languages living under one name. Modern Standard Arabic is what you read in the news or a textbook, but it&amp;rsquo;s rarely how people actually talk to each other. In the UAE, day-to-day conversation, humor, negotiation, and storytelling happen in Emirati Arabic, a Gulf dialect with its own vocabulary, its own rhythm, and a culture wrapped tightly around it. Emirati poetry, especially nabati poetry, along with proverbs and short anecdotes, carries meaning that doesn&amp;rsquo;t survive a literal, word-for-word reading. A model that only knows MSA can translate every word of an Emirati sentence and still miss what it actually means.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Falcon‑H1R-FP8: Accelerating Inference with Quantized Precision</title>
       <link>https://falcon-lm.github.io/blog/falcon-h1r-7b-fp8/</link>
       <pubDate>Mon, 16 Feb 2026 08:00:00 +0000</pubDate>
