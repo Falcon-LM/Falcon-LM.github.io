@@ -35,25 +35,26 @@ header:
     gradient: true
     blur: true
 contributors:
-    core:
-        - name: Shaikha Alsuwaidi
-          image: img/contributors/shaikha_alsuwaidi.png
-        - name: Omar Alkaabi
-          image: img/contributors/omar_alkaabi.jpg
-        - name: Maitha Alhammadi
-          image: img/contributors/maitha_alhammadi.jpg
-        - name: Hamza Alobeidli
-          image: img/contributors/hamza_alobeidli.jpg
-        - name: Ahmed Alzubaidi
-          image: img/contributors/ahmed_adel_alzubaidi.jpg
-        - name: Mohammed Alyafeai
-          image: img/contributors/mohammed_alyafeai.jpg
-        - name: Leen AlQadi
-          image: img/contributors/leen_al_qadi.jpg
-        - name: Basma El Amel Boussaha
-          image: img/contributors/basma_boussaha.jpg
-        - name: Hakim Hacid
-          image: img/contributors/hakim_hacid.png
+  - title: "Core Contributors"
+    people:
+      - name: Shaikha Alsuwaidi
+        image: img/contributors/shaikha_alsuwaidi.png
+      - name: Omar Alkaabi
+        image: img/contributors/omar_alkaabi.jpg
+      - name: Maitha Alhammadi
+        image: img/contributors/maitha_alhammadi.jpg
+      - name: Hamza Alobeidli
+        image: img/contributors/hamza_alobeidli.jpg
+      - name: Ahmed Alzubaidi
+        image: img/contributors/ahmed_adel_alzubaidi.jpg
+      - name: Mohammed Alyafeai
+        image: img/contributors/mohammed_alyafeai.jpg
+      - name: Leen AlQadi
+        image: img/contributors/leen_al_qadi.jpg
+      - name: Basma El Amel Boussaha
+        image: img/contributors/basma_boussaha.jpg
+      - name: Hakim Hacid
+        image: img/contributors/hakim_hacid.png
 ---
 
 > Check out the [Arabic version](https://falcon-lm.github.io/ar/blog/falcon-emirati/) translated by **Falcon-Arabic**
@@ -116,7 +117,7 @@ For quantitative tracking, we used [**Alyah**](https://huggingface.co/datasets/t
 
 Falcon-Emirati-7B scores **84.83%** on Alyah, ahead of every other Arabic and multilingual model we compared it against, including several models many times its size. The chart below shows where it lands next to a representative set of leading instruction-tuned models on the Alyah leaderboard.
 
-![Falcon-Emirati-7B vs. leading Arabic and multilingual models on Alyah](https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/UL3Uy6LFKWEj5fALZ0Sg4.png)
+![Falcon-Emirati-7B vs. leading Arabic and multilingual models on Alyah](alyah_results.png)
 
 *Alyah accuracy (%), instruction-tuned models. Falcon-H1-Arabic family models are excluded from this comparison since Falcon-Emirati-7B is built on top of them.*
 
@@ -132,11 +133,11 @@ Multiple-choice accuracy tells you whether a model can recognize the right answe
 
 The judge scored each answer on two separate dimensions: whether the content was correct, and, independently, whether the answer actually came back in Emirati dialect rather than MSA. We report both a partial-credit score (the judge's graded assessment) and a stricter pass/fail version, plus how often each model abstained instead of answering.
 
-![LLM-judged correctness on open-ended Emirati questions](https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/uc4Lj0T23SxjZVaV1w5bU.png)
+![LLM-judged correctness on open-ended Emirati questions](judge_correctness.png)
 
 *LLM-judged correctness on the 1,173 Alyah questions, open-ended generation, Gemini 3.7 as judge.*
 
-![LLM-judged dialect fidelity](https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/Q1ArWubn7hwUco5ldt7Xo.png)
+![LLM-judged dialect fidelity](judge_dialect.png)
 
 *LLM-judged dialect fidelity on the same questions: does the answer actually come back in Emirati, or does the model default to MSA?*
 
@@ -144,7 +145,7 @@ Falcon-Emirati-7B leads on correctness, but the real gap is in the second chart.
 
 Fanar-2-27B-Instruct stands out for a second reason too: it abstains far more than any other model, declining to answer 26.2% of the time, versus under 5% for every other model in the comparison. Combined with its correctness score of 0.27 (partial credit), the lowest of the five, it suggests a model that is both less willing and less able to engage with Emirati-specific content, rather than one that's just answering in the wrong register.
 
-![Dialect fidelity by category](https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/sklbQUT3s8CXmcse-BPln.png)
+![Dialect fidelity by category](dialect_by_category.png)
 
 *Dialect fidelity by Alyah category, partial credit. Falcon-Emirati-7B is the only model that consistently switches into Emirati; the others stay in MSA across nearly every category.*
 
@@ -154,7 +155,7 @@ Breaking dialect fidelity down by category makes the pattern even clearer. It ho
 
 As a third lens on the same question, we ran head-to-head pairwise judging: for every Alyah question, the judge (Gemini 3.7 Flash) was shown Falcon-Emirati-7B's answer next to a competing model's answer, blind to which was which, and asked to pick the better one. The radar charts below show the resulting win rate by category against three competing models: Jais-2-8B-Chat, ALLaM-7B-Instruct-preview, and Fanar-2-27B-Instruct.
 
-![pairwise_combined](https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/ruWwB7xCdfiETIgD4wmyy.png)
+![pairwise_combined](pairwise_combined.png)
 
 *Pairwise win rate by category, Falcon-Emirati-7B vs. Jais-2-8B-Chat, ALLaM-7B-Instruct-preview and Fanar-2-27B-Instruct  judged head-to-head by Gemini 3.7.*
 
@@ -170,7 +171,7 @@ We tested all four models on the same **283 UAE scenarios**, in both Emirati Ara
 
 <!-- Upload task1_overall.png here and replace the image path below with its uploaded URL. -->
 
-![Cultural understanding accuracy: Falcon-Emirati-7B 85.57%, ALLaM 83.39%, Jais-2 73.79%, Fanar-2 71.50%.](https://cdn-uploads.huggingface.co/production/uploads/65b79f63d919aa79555d17e1/78dgJaRrFACpGTBJkSuTE.png)
+![Cultural understanding accuracy: Falcon-Emirati-7B 85.57%, ALLaM 83.39%, Jais-2 73.79%, Fanar-2 71.50%.](arabculture_overall.png)
 
 *Overall accuracy on the UAE multiple-choice task, averaged across both language varieties and all location settings. These are our evaluation results.*
 
