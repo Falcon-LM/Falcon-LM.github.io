@@ -12,6 +12,26 @@
     <language>en</language>
     <lastBuildDate>Tue, 06 Oct 2026 06:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Falcon OCR Arabic: 270M Parameters State-of-the-Art Arabic OCR</title>
+      <link>https://falcon-lm.github.io/blog/falcon-ocr/</link>
+      <pubDate>Tue, 06 Oct 2026 06:00:00 +0000</pubDate>
+      <author>Falcon Team</author>
+      <guid>https://falcon-lm.github.io/blog/falcon-ocr/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Check out the &lt;a href=&#34;https://falcon-lm.github.io/ar/blog/falcon-ocr/&#34;&gt;Arabic version&lt;/a&gt; translated by &lt;strong&gt;Falcon-Arabic&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Falcon-OCR-Arabic&lt;/strong&gt; extends &lt;a href=&#34;https://huggingface.co/tiiuae/Falcon-OCR&#34;&gt;Falcon OCR&lt;/a&gt; to Arabic documents without changing its architecture. Falcon OCR is our 270M-parameter early-fusion OCR model, introduced in the &lt;a href=&#34;https://huggingface.co/blog/tiiuae/falcon-perception&#34;&gt;Falcon Perception blog post&lt;/a&gt;. We adapt it in two stages: supervised finetuning (SFT) on real and synthetic Arabic documents, then reinforcement learning (RL) on a curated set of high-quality samples.&lt;/p&gt;
+&lt;p&gt;On our Arabic document benchmark, Falcon-OCR-Arabic:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ranks &lt;strong&gt;#2 of 17 models&lt;/strong&gt; with &lt;strong&gt;81.9%&lt;/strong&gt; text accuracy, behind only Gemini 3.5 Flash (84.3%)&lt;/li&gt;
+&lt;li&gt;beats Claude Opus 5.5, Claude Fable 5, GPT Astra and Qwen 3.8 Max, and leads every dedicated OCR model in the comparison by more than 20 points&lt;/li&gt;
+&lt;li&gt;has the &lt;strong&gt;highest Table TEDS of all 17 models&lt;/strong&gt; (59.95%), 8.65 points ahead of the next best&lt;/li&gt;
+&lt;li&gt;ranks &lt;strong&gt;#1 on official documents, administrative forms, receipts and invoices&lt;/strong&gt;, and finishes in the top 4 in all 15 categories&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It does this with 270M parameters. &lt;a href=&#34;https://ocr.arabic.aidrc.tii.ae/&#34;&gt;Try it in the playground&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Falcon-Emirati: When an LLM Learns the Dialect, the Culture, and the Nuance</title>
       <link>https://falcon-lm.github.io/blog/falcon-emirati/</link>
       <pubDate>Tue, 06 Oct 2026 06:00:00 +0000</pubDate>

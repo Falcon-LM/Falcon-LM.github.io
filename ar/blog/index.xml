@@ -12,6 +12,23 @@
     <language>ar</language>
     <lastBuildDate>Tue, 06 Oct 2026 06:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/ar/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Falcon OCR Arabic: نموذج رائد للتعرّف الضوئي على النصوص العربية بحجم 270 مليون مُعلَمة</title>
+      <link>https://falcon-lm.github.io/ar/blog/falcon-ocr/</link>
+      <pubDate>Tue, 06 Oct 2026 06:00:00 +0000</pubDate>
+      <author>Falcon Team</author>
+      <guid>https://falcon-lm.github.io/ar/blog/falcon-ocr/</guid>
+      <description>&lt;div dir=&#34;rtl&#34; class=&#34;translation-notice&#34;&gt;
+  &lt;p&gt;
+    تنبيه: تم ترجمة هذا المقال بواسطة &lt;span class=&#34;llm-name&#34;&gt;Falcon-Arabic&lt;/span&gt; 🦅
+  &lt;/p&gt;
+&lt;/div&gt;
+&lt;div dir=&#34;rtl&#34;&gt;
+&lt;h2 id=&#34;ملخص-تنفيذي&#34;&gt;ملخص تنفيذي&lt;/h2&gt;
+&lt;p&gt;يوسّع نموذج &lt;strong&gt;Falcon-OCR-Arabic&lt;/strong&gt; نطاق نموذج &lt;a href=&#34;https://huggingface.co/tiiuae/Falcon-OCR&#34;&gt;Falcon OCR&lt;/a&gt; ليشمل المستندات العربية دون تغيير معماريته. يُعد Falcon OCR نموذجنا المكتمل مبكرًا (Early-fusion) للتعرف الضوئي على المحارف بحجم 270 مليون معلَمة، والذي تم تقديمه في &lt;a href=&#34;https://huggingface.co/blog/tiiuae/falcon-perception&#34;&gt;تدوينة Falcon Perception&lt;/a&gt;. وقد قمنا بتكييفه على مرحلتين: الضبط الدقيق الخاضع للإشراف (SFT) على مستندات عربية حقيقية واصطناعية، ثم التعلم المعزز (RL) على مجموعة منتقاة من العينات عالية الجودة.&lt;/p&gt;
+&lt;p&gt;على مقياس التقييم الخاص بنا للمستندات العربية، يحقق Falcon-OCR-Arabic ما يلي:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Falcon-Emirati: عندما يتعلّم نموذج اللغويات الكبير اللهجة والثقافة والدقة اللغوية</title>
       <link>https://falcon-lm.github.io/ar/blog/falcon-emirati/</link>
       <pubDate>Tue, 06 Oct 2026 06:00:00 +0000</pubDate>
