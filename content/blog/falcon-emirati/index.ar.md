@@ -35,25 +35,26 @@ header:
     gradient: true
     blur: true
 contributors:
-    core:
-        - name: Shaikha Alsuwaidi
-          image: img/contributors/shaikha_alsuwaidi.png
-        - name: Omar Alkaabi
-          image: img/contributors/omar_alkaabi.jpg
-        - name: Maitha Alhammadi
-          image: img/contributors/maitha_alhammadi.jpg
-        - name: Hamza Alobeidli
-          image: img/contributors/hamza_alobeidli.jpg
-        - name: Ahmed Alzubaidi
-          image: img/contributors/ahmed_adel_alzubaidi.jpg
-        - name: Mohammed Alyafeai
-          image: img/contributors/mohammed_alyafeai.jpg
-        - name: Leen AlQadi
-          image: img/contributors/leen_al_qadi.jpg
-        - name: Basma El Amel Boussaha
-          image: img/contributors/basma_boussaha.jpg
-        - name: Hakim Hacid
-          image: img/contributors/hakim_hacid.png
+  - title: "Core Contributors"
+    people:
+      - name: Shaikha Alsuwaidi
+        image: img/contributors/shaikha_alsuwaidi.png
+      - name: Omar Alkaabi
+        image: img/contributors/omar_alkaabi.jpg
+      - name: Maitha Alhammadi
+        image: img/contributors/maitha_alhammadi.jpg
+      - name: Hamza Alobeidli
+        image: img/contributors/hamza_alobeidli.jpg
+      - name: Ahmed Alzubaidi
+        image: img/contributors/ahmed_adel_alzubaidi.jpg
+      - name: Mohammed Alyafeai
+        image: img/contributors/mohammed_alyafeai.jpg
+      - name: Leen AlQadi
+        image: img/contributors/leen_al_qadi.jpg
+      - name: Basma El Amel Boussaha
+        image: img/contributors/basma_boussaha.jpg
+      - name: Hakim Hacid
+        image: img/contributors/hakim_hacid.png
 ---
 <div dir="rtl" class="translation-notice">
   <p>
@@ -121,7 +122,7 @@ contributors:
 
 سجل Falcon-Emirati-7B نسبة **84.83%** في معيار "الياه"، متفوقاً على كل النماذج العربية ومتعددة اللغات الأخرى التي قارنّاه بها، بما في ذلك نماذج تفوقه حجماً بأضعاف مضاعفة. يوضح الرسم البياني أدناه موقعه مقارنة بمجموعة ممثلة من النماذج الرائدة الموجهة للتعليمات على لوحة صدارة "الياه".
 
-![Falcon-Emirati-7B مقارنةً بالنماذج العربية ومتعددة اللغات الرائدة على معيار الياه](https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/UL3Uy6LFKWEj5fALZ0Sg4.png)
+![Falcon-Emirati-7B مقارنةً بالنماذج العربية ومتعددة اللغات الرائدة على معيار الياه](/blog/falcon-emirati/alyah_results.png)
 
 *دقة معيار الياه (%)، نماذج موجهة للتعليمات. تم استبعاد نماذج عائلة Falcon-H1-Arabic من هذه المقارنة لأن Falcon-Emirati-7B مبني أساساً عليها.*
 
@@ -137,11 +138,11 @@ contributors:
 
 قيم الحَكَم كل إجابة بناءً على بُعدين منفصلين: ما إذا كان المحتوى صحيحاً، وبشكل مستقل، ما إذا كانت الإجابة قد جاءت بالفعل باللغة الإماراتية بدلاً من الفصحى. ونقدم هنا كلاً من درجة الائتمان الجزئي (تقييم الحَكَم المترجم لدرجات) ونسخة أكثر صرامة (نجاح/فشل)، بالإضافة إلى نسبة امتناع كل نموذج عن الإجابة.
 
-![صحة الإجابات وفق تقييم النموذج الحكم على الأسئلة الإماراتية المفتوحة](https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/uc4Lj0T23SxjZVaV1w5bU.png)
+![صحة الإجابات وفق تقييم النموذج الحكم على الأسئلة الإماراتية المفتوحة](/blog/falcon-emirati/judge_correctness.png)
 
 *صحة الإجابات وفق تقييم النموذج الحكم على أسئلة الياه الـ 1,173، توليد مفتوح، Gemini 3.7 كحكم.*
 
-![مدى الالتزام باللهجة وفق تقييم النموذج الحكم](https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/Q1ArWubn7hwUco5ldt7Xo.png)
+![مدى الالتزام باللهجة وفق تقييم النموذج الحكم](/blog/falcon-emirati/judge_dialect.png)
 
 *مدى الالتزام باللهجة وفق تقييم النموذج الحكم على الأسئلة نفسها: هل جاءت الإجابة بالفعل بالإماراتية، أم عاد النموذج تلقائياً إلى الفصحى؟*
 
@@ -149,7 +150,7 @@ contributors:
 
 كما برز Fanar-2-27B-Instruct لسبب ثانٍ أيضاً: فقد امتنع عن الإجابة بنسبة أعلى بكثير من أي نموذج آخر، حيث رفض الإجابة في 26.2% من الحالات، مقابل أقل من 5% لجميع النماذج الأخرى في المقارنة. وبدمج ذلك مع درجة صحة المحتوى البالغة 0.27 (ائتمان جزئي)، وهي الأدنى بين الخمسة، يتبين أنه نموذج أقل رغبة وأقل قدرة على التعامل مع المحتوى الإماراتي المتخصص، بدلاً من كونه مجرد نموذج يجيب بالسجل اللغوي الخاطئ.
 
-![الالتزام باللهجة حسب الفئة](https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/sklbQUT3s8CXmcse-BPln.png)
+![الالتزام باللهجة حسب الفئة](/blog/falcon-emirati/dialect_by_category.png)
 
 *الالتزام باللهجة حسب فئة الياه، ائتمان جزئي. Falcon-Emirati-7B هو النموذج الوحيد الذي يتحول بثبات إلى الإماراتية؛ بينما تلتزم النماذج الأخرى بالفصحى عبر جميع الفئات تقريباً.*
 
@@ -159,7 +160,7 @@ contributors:
 
 كزاوية تقييم ثالثة للمسألة ذاتها، أجرينا تحكيماً زوجياً وجهاً لوجه: ففي كل سؤال من أسئلة "الياه"، عُرضت على الحكم (Gemini 3.7 Flash) إجابة Falcon-Emirati-7B إلى جانب إجابة نموذج منافس، دون معرفة أي الإجابتين للنموذج، وطُلِب منه اختيار الإجابة الأفضل. وتظهر المخططات الرادارية أدناه معدل الفوز الناتج حسب الفئة مقابل ثلاثة نماذج منافسة: Jais-2-8B-Chat، وALLaM-7B-Instruct-preview، وFanar-2-27B-Instruct.
 
-![المقارنة الزوجية](https://cdn-uploads.huggingface.co/production/uploads/659bc8a7b0f43ed69f0b2300/ruWwB7xCdfiETIgD4wmyy.png)
+![المقارنة الزوجية](/blog/falcon-emirati/pairwise_combined.png)
 
 *معدل الفوز الزوجي حسب الفئة، Falcon-Emirati-7B مقابل Jais-2-8B-Chat، وALLaM-7B-Instruct-preview، وFanar-2-27B-Instruct وفق تقييم وجهاً لوجه بواسطة Gemini 3.7.*
 
@@ -173,7 +174,7 @@ contributors:
 
 اختبرنا النماذج الأربعة على **283 سيناريو إماراتياً** نفسها، باللغتين العربية الإماراتية والعربية الفصحى المعاصرة، مع معالم ومعلومات مكانية متغيرة.
 
-![دقة الفهم الثقافي: Falcon-Emirati-7B بنسبة 85.57%، وALLaM بنسبة 83.39%، وJais-2 بنسبة 73.79%، وFanar-2 بنسبة 71.50%.](https://cdn-uploads.huggingface.co/production/uploads/65b79f63d919aa79555d17e1/78dgJaRrFACpGTBJkSuTE.png)
+![دقة الفهم الثقافي: Falcon-Emirati-7B بنسبة 85.57%، وALLaM بنسبة 83.39%، وJais-2 بنسبة 73.79%، وFanar-2 بنسبة 71.50%.](/blog/falcon-emirati/arabculture_overall.png)
 
 *الدقة الإجمالية في مهمة الخيارات المتعددة الخاصة بالإمارات، كمعدل متوسط عبر كلا الصنفين اللغويين وجميع إعدادات الموقع. هذه هي نتائج تقييمنا.*
 
