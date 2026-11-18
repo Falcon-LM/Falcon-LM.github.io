@@ -10,7 +10,7 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 02 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://falcon-lm.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Nov 2026 00:00:00 +0400</lastBuildDate><atom:link href="https://falcon-lm.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bringing a Fine-Tuned LLM into Pi Coding Agent</title>
       <link>https://falcon-lm.github.io/tutorials/harness-engineering-guide/</link>
