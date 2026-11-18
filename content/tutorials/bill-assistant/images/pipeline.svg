@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 960 376" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="bill-pipeline-title bill-pipeline-desc" id="bill-pipeline-root">
+      <title id="bill-pipeline-title">Bill assistant pipeline</title>
+      <desc id="bill-pipeline-desc">Falcon-ASR turns the spoken question into a transcript and Falcon-OCR-Arabic turns the bill into text, in parallel; Falcon-Emirati reads both texts and writes the answer in Emirati Arabic. Without the Falcon-OCR-Arabic URL and key, Falcon-OCR on the public gateway reads the bill.</desc>
+      <defs>
+      <style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;family=Noto+Serif:ital@0;1&amp;family=Noto+Sans+KR:wght@400;500;600&amp;family=Noto+Serif+KR:wght@400&amp;family=Noto+Sans+TC:wght@400;500;600&amp;family=Noto+Serif+TC:wght@400&amp;display=swap');
+      #bill-pipeline-root { --color-paper:   #f5f5f5;
+      --color-ink:     #2d3142;
+      --color-muted:   #4f5d75;
+      --color-accent:  #615ced;
+      --font-sans:     'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-serif:    'Instrument Serif', serif;
+      --font-mono:     'Geist Mono', ui-monospace, Menlo, monospace; }
+      #bill-pipeline-root { font-family: var(--font-sans); color: var(--color-ink); }
+      #bill-pipeline-root .scroll { overflow-x: auto; }</style>
+        <pattern id="bill-pipeline-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+          <circle cx="1" cy="1" r="0.9" fill="#2d3142" fill-opacity="0.10"/>
+        </pattern>
+        <marker id="bill-pipeline-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+      </defs>
+
+      <rect width="100%" height="100%" fill="#f5f5f5"/>
+      <rect width="100%" height="100%" fill="url(#bill-pipeline-dots)" opacity="0.55"/>
+
+      <!-- Arrows (behind nodes) -->
+      <line x1="248" y1="80" x2="342" y2="80" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#bill-pipeline-arrow)"/>
+      <line x1="248" y1="220" x2="342" y2="220" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#bill-pipeline-arrow)"/>
+      <path d="M584 80 L632 80 Q640 80 640 88 L640 128 Q640 136 648 136 L698 136" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#bill-pipeline-arrow)"/>
+      <path d="M584 220 L632 220 Q640 220 640 212 L640 172 Q640 164 648 164 L698 164" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#bill-pipeline-arrow)"/>
+
+      <!-- Arrow labels -->
+      <rect x="272" y="58" width="48" height="14" rx="2" fill="#f5f5f5"/>
+      <text x="296" y="68" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, Menlo, monospace" text-anchor="middle" letter-spacing="0.08em">AUDIO</text>
+      <rect x="260" y="198" width="72" height="14" rx="2" fill="#f5f5f5"/>
+      <text x="296" y="208" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, Menlo, monospace" text-anchor="middle" letter-spacing="0.08em">PHOTO / PDF</text>
+      <rect x="648" y="92" width="72" height="14" rx="2" fill="#f5f5f5"/>
+      <text x="652" y="102" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, Menlo, monospace" letter-spacing="0.08em">TRANSCRIPT</text>
+      <rect x="648" y="194" width="64" height="14" rx="2" fill="#f5f5f5"/>
+      <text x="652" y="204" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, Menlo, monospace" letter-spacing="0.08em">BILL TEXT</text>
+
+      <!-- Node: voice question (input) -->
+      <rect x="48" y="40" width="200" height="80" rx="6" fill="#f5f5f5"/>
+      <rect x="48" y="40" width="200" height="80" rx="6" fill="#2d3142" fill-opacity="0.03" stroke="#2d3142" stroke-opacity="0.30" stroke-width="1"/>
+      <rect x="60" y="52" width="44" height="14" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.30" stroke-width="0.8"/>
+      <text x="82" y="62" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, Menlo, monospace" text-anchor="middle" letter-spacing="0.12em">INPUT</text>
+      <text x="60" y="90" fill="#2d3142" font-size="15" font-weight="600" font-family="'Geist', system-ui, -apple-system, sans-serif">Spoken question</text>
+      <text x="60" y="108" fill="#7a8399" font-size="10" font-family="'Geist Mono', ui-monospace, Menlo, monospace">mic or upload · max 60 s</text>
+
+      <!-- Node: bill (input) -->
+      <rect x="48" y="180" width="200" height="80" rx="6" fill="#f5f5f5"/>
+      <rect x="48" y="180" width="200" height="80" rx="6" fill="#2d3142" fill-opacity="0.03" stroke="#2d3142" stroke-opacity="0.30" stroke-width="1"/>
+      <rect x="60" y="192" width="44" height="14" rx="2" fill="none" stroke="#2d3142" stroke-opacity="0.30" stroke-width="0.8"/>
+      <text x="82" y="202" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, Menlo, monospace" text-anchor="middle" letter-spacing="0.12em">INPUT</text>
+      <text x="60" y="230" fill="#2d3142" font-size="15" font-weight="600" font-family="'Geist', system-ui, -apple-system, sans-serif">Bill</text>
+      <text x="60" y="248" fill="#7a8399" font-size="10" font-family="'Geist Mono', ui-monospace, Menlo, monospace">PNG, JPG or PDF · max 10 MB</text>
+
+      <!-- Node: Falcon-ASR -->
+      <rect x="344" y="40" width="240" height="80" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+      <rect x="356" y="52" width="76" height="14" rx="2" fill="none" stroke="#2e5aa8" stroke-width="0.8"/>
+      <text x="394" y="62" fill="#2e5aa8" font-size="8" font-family="'Geist Mono', ui-monospace, Menlo, monospace" text-anchor="middle" letter-spacing="0.12em">DEFAULT URL</text>
+      <text x="356" y="90" fill="#2d3142" font-size="15" font-weight="600" font-family="'Geist', system-ui, -apple-system, sans-serif">Falcon-ASR</text>
+      <text x="356" y="108" fill="#7a8399" font-size="10" font-family="'Geist Mono', ui-monospace, Menlo, monospace">1.6B · /api/transcription</text>
+
+      <!-- Node: Falcon-OCR-Arabic (Falcon-OCR on the public gateway without its URL and key) -->
+      <rect x="344" y="180" width="240" height="80" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+      <rect x="356" y="192" width="76" height="14" rx="2" fill="none" stroke="#2e5aa8" stroke-width="0.8"/>
+      <text x="394" y="202" fill="#2e5aa8" font-size="8" font-family="'Geist Mono', ui-monospace, Menlo, monospace" text-anchor="middle" letter-spacing="0.12em">INVITE-ONLY</text>
+      <text x="356" y="230" fill="#2d3142" font-size="15" font-weight="600" font-family="'Geist', system-ui, -apple-system, sans-serif">Falcon-OCR-Arabic</text>
+      <text x="356" y="248" fill="#7a8399" font-size="10" font-family="'Geist Mono', ui-monospace, Menlo, monospace">270M · one request per page</text>
+
+      <!-- Node: Falcon-Emirati (focal) -->
+      <rect x="700" y="110" width="212" height="80" rx="6" fill="#f5f5f5"/>
+      <rect x="700" y="110" width="212" height="80" rx="6" fill="#615ced" fill-opacity="0.08" stroke="#615ced" stroke-width="1.2"/>
+      <rect x="712" y="122" width="56" height="14" rx="2" fill="none" stroke="#615ced" stroke-width="0.8"/>
+      <text x="740" y="132" fill="#615ced" font-size="8" font-family="'Geist Mono', ui-monospace, Menlo, monospace" text-anchor="middle" letter-spacing="0.12em">PROMPT</text>
+      <text x="712" y="160" fill="#2d3142" font-size="15" font-weight="600" font-family="'Geist', system-ui, -apple-system, sans-serif">Falcon-Emirati</text>
+      <text x="712" y="178" fill="#7a8399" font-size="10" font-family="'Geist Mono', ui-monospace, Menlo, monospace">7B · answer in Emirati</text>
+
+      <!-- Legend strip -->
+      <line x1="48" y1="292" x2="912" y2="292" stroke="#2d3142" stroke-opacity="0.10" stroke-width="0.8"/>
+      <text x="48" y="310" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, Menlo, monospace" letter-spacing="0.18em">LEGEND · ASR AND OCR RUN IN PARALLEL</text>
+      <rect x="48" y="324" width="24" height="14" rx="2" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+      <text x="80" y="335" fill="#4f5d75" font-size="10" font-family="'Geist', system-ui, -apple-system, sans-serif">Falcon-ASR, Falcon-OCR-Arabic and Falcon-Emirati</text>
+      <text x="48" y="358" fill="#4f5d75" font-size="10" font-family="'Geist', system-ui, -apple-system, sans-serif">use API keys. Without the Falcon-OCR-Arabic URL and key, Falcon-OCR on the public gateway reads the bill.</text>
+      <rect x="400" y="324" width="24" height="14" rx="2" fill="#615ced" fill-opacity="0.08" stroke="#615ced" stroke-width="1.2"/>
+      <text x="432" y="335" fill="#4f5d75" font-size="10" font-family="'Geist', system-ui, -apple-system, sans-serif">Dialect and grounding rules are set here</text>
+    </svg>
