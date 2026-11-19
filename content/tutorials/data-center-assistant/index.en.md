@@ -97,6 +97,8 @@ contributors:
 }
 </style>
 
+> Check out the [Arabic version](https://falcon-lm.github.io/ar/tutorials/data-center-assistant/)
+
 Field inspection photos can contain several documents at once. A checklist may record a fault while a maintenance report describes what a technician did about it. Reading the text is only part of the job: an assistant also needs to keep each finding tied to the sheet that supports it.
 
 This tutorial follows one such photo through an Arabic document assistant. We look at why the app separates the sheets before OCR and how it turns their contents into an action list.

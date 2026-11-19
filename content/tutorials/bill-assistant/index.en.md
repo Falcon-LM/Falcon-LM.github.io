@@ -106,6 +106,8 @@ contributors:
 }
 </style>
 
+> Check out the [Arabic version](https://falcon-lm.github.io/ar/tutorials/bill-assistant/)
+
 ## Introduction
 
 An invoice has several numbers that can answer different versions of the same question. “How much are the solar panels?” might mean the price of one panel or the cost of all twenty. A useful assistant has to find the right line, keep those two amounts separate, and give an answer the reader can check.
