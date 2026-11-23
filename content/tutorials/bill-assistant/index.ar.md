@@ -1,8 +1,6 @@
 ---
 title: "اسأل عن فاتورتك باللهجة الإماراتية باستخدام نماذج Falcon"
-date: 2026-11-18T00:00:00+04:00
-build:
-  list: never
+date: 2026-11-23T00:00:00+04:00
 weight: 1
 math: false
 show_reading_time: true
