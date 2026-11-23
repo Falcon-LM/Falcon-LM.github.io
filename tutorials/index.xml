@@ -10,7 +10,172 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 18 Nov 2026 00:00:00 +0400</lastBuildDate><atom:link href="https://falcon-lm.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 Nov 2026 00:00:00 +0400</lastBuildDate><atom:link href="https://falcon-lm.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ask Your Bill a Question in Emirati Arabic with Falcon Models</title>
+      <link>https://falcon-lm.github.io/tutorials/bill-assistant/</link>
+      <pubDate>Mon, 23 Nov 2026 00:00:00 +0400</pubDate>
+      <author>Falcon Team</author>
+      <guid>https://falcon-lm.github.io/tutorials/bill-assistant/</guid>
+      <description>&lt;style&gt;
+.screenshot {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin: 1.5em auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.caption {
+  text-align: center;
+  font-size: 0.85em;
+  opacity: 0.75;
+  margin: -0.8em auto 1.5em;
+  max-width: 100%;
+}
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) {
+  display: table;
+  width: 100% !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.9em;
+}
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) th {
+  font-size: 1em;
+  font-weight: 600;
+  text-align: left;
+  background: var(--code-bg);
+}
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) th,
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) td {
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+  border-right: 1px solid rgba(0, 0, 0, 0.18);
+}
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) th:last-child,
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) td:last-child {
+  border-right: 0;
+}
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) tbody tr:last-child td {
+  border-bottom: 0;
+}
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) tbody tr:nth-child(even) td {
+  background: rgba(0, 0, 0, 0.02);
+}
+@media (max-width: 600px) {
+  .post-content table:not(.highlighttable, .highlight table, .gist .highlight) {
+    display: block;
+    overflow-x: auto;
+  }
+}
+.excerpt {
+  font-size: 0.85em;
+  opacity: 0.85;
+  margin: 0.2em 0 0.4em;
+}
+.excerpt code {
+  font-size: 0.95em;
+}
+.rtl-block pre,
+.rtl-block code,
+.rtl-block .line {
+  unicode-bidi: plaintext;
+  text-align: start;
+}
+.rtl-block .line {
+  display: block;
+}
+&lt;/style&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Check out the &lt;a href=&#34;https://falcon-lm.github.io/ar/tutorials/bill-assistant/&#34;&gt;Arabic version&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Building an Arabic Data Center Inspection Assistant with Falcon Models</title>
+      <link>https://falcon-lm.github.io/tutorials/data-center-assistant/</link>
+      <pubDate>Mon, 23 Nov 2026 00:00:00 +0400</pubDate>
+      <author>Falcon Team</author>
+      <guid>https://falcon-lm.github.io/tutorials/data-center-assistant/</guid>
+      <description>&lt;style&gt;
+.screenshot {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin: 1.5em auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.caption {
+  text-align: center;
+  font-size: 0.85em;
+  opacity: 0.75;
+  margin: -0.8em auto 1.5em;
+  max-width: 100%;
+}
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) {
+  display: table;
+  width: 100% !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.9em;
+}
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) th {
+  font-size: 1em;
+  font-weight: 600;
+  text-align: left;
+  background: var(--code-bg);
+}
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) th,
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) td {
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+  border-right: 1px solid rgba(0, 0, 0, 0.18);
+}
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) th:last-child,
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) td:last-child {
+  border-right: 0;
+}
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) tbody tr:last-child td {
+  border-bottom: 0;
+}
+.post-content table:not(.highlighttable, .highlight table, .gist .highlight) tbody tr:nth-child(even) td {
+  background: rgba(0, 0, 0, 0.02);
+}
+@media (max-width: 600px) {
+  .post-content table:not(.highlighttable, .highlight table, .gist .highlight) {
+    display: block;
+    overflow-x: auto;
+  }
+}
+.excerpt {
+  font-size: 0.85em;
+  opacity: 0.85;
+  margin: 0.2em 0 0.4em;
+}
+.excerpt code {
+  font-size: 0.95em;
+}
+&lt;/style&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Check out the &lt;a href=&#34;https://falcon-lm.github.io/ar/tutorials/data-center-assistant/&#34;&gt;Arabic version&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Bringing a Fine-Tuned LLM into Pi Coding Agent</title>
       <link>https://falcon-lm.github.io/tutorials/harness-engineering-guide/</link>
